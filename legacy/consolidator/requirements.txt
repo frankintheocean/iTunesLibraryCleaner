@@ -1,0 +1,15 @@
+PyQt6==6.11.0
+# PyQt6's own QtMultimedia submodule (QMediaPlayer/QAudioOutput) is used
+# for in-app audio preview playback (ui/widgets.AudioPreviewPlayer) -- it
+# ships inside the PyQt6 wheel already required above, so this is not an
+# additional package. Imported defensively at runtime; audio preview
+# degrades to a disabled control (rest of the app is unaffected) on any
+# environment where a system audio backend isn't available to it.
+pyinstaller==6.10.0
+# Windows-only: enables live iTunes COM sync (core/itunes_com_sync.py) so
+# a consolidation can update an already-running iTunes directly, instead
+# of only writing the XML export. Optional at runtime -- the feature and
+# the rest of the app degrade safely (falls back to the existing XML
+# export/re-import flow) if this isn't installed or the platform isn't
+# Windows; only actually imported inside itunes_com_sync.py's functions.
+pywin32==311; sys_platform == "win32"
