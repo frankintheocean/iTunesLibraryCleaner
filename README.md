@@ -45,4 +45,4 @@ The installer is unsigned. Source-level live COM editing and undo that keeps lat
 
 ## Version 4.0.0
 
-Version 4.0.0 adds Current Library browsing and selection, sortable track columns, library statistics, a complete history and Field journal clear operation, playlist cover application attempts, and configurable playlist reordering controls. See docs/RELEASE_4_0_0.md for the live iTunes COM limitations and full asset list.
+Version 4.0.0 adds Current Library browsing and selection, sortable track columns, library statistics, a complete history and Field journal clear operation, configurable playlist reordering controls. See docs/RELEASE_4_0_0.md for the live iTunes COM limitations and full asset list.

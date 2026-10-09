@@ -319,10 +319,12 @@ def reorder_playlist(app, payload):
             raise RuntimeError("iTunes did not accept the requested order; original entries are untouched.")
     except Exception:
         try:
-            for entry in reversed(added_entries):
+            # Re-query playlist-entry objects; avoid ambiguous COM references from AddTrack.
+            current_entries = _playlist_tracks_in_order(app, playlist)
+            for entry in reversed(current_entries[len(original_entries):]):
                 entry.Delete()
         except Exception as rollback_error:
-            raise RuntimeError("Temporary playlist entries could not be removed. Check this playlist in iTunes before retrying.") from rollback_error
+            raise RuntimeError("iTunes could not add the new entries and could not clean up the temporary playlist entries. Check this playlist before retrying.") from rollback_error
         raise
     try:
         # These COM objects were read from the user playlist, not the master library.
