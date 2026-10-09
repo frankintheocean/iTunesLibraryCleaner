@@ -1,6 +1,6 @@
 # 🎛️ React interface
 
-This folder contains the React/TypeScript renderer and Vite configuration. Edit source files and rebuild rather than patching generated output.
+React and Vite power this interface. Edit source files and rebuild rather than patching generated output.
 
 - 🧭 `src/main.tsx` wires workspace tabs, views, and app state.
 - 🧩 `src/widgets.tsx` provides shared artwork and playlist-list components.
