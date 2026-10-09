@@ -31,3 +31,16 @@ def thumbnail(path):
         return _read(str(file), stat.st_mtime_ns, stat.st_size)
     except (OSError, ValueError):
         return None
+
+
+@lru_cache(maxsize=128)
+def _image_file(path, modified, size):
+    if size > 20 * 1024 * 1024: return None
+    return encode_thumbnail(Path(path).read_bytes())
+
+
+def image_file(path):
+    try:
+        file = Path(path); stat = file.stat()
+        return _image_file(str(file), stat.st_mtime_ns, stat.st_size)
+    except (OSError, ValueError): return None
