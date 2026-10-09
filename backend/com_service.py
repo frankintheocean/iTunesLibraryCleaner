@@ -159,6 +159,23 @@ def connect_itunes(client=None):
             time.sleep(.1 * (attempt + 1))
 
 
+def read_live_playlist_artwork(playlist):
+    """Read the playlist's own picture without touching any track artwork."""
+    import tempfile
+    try:
+        artwork = getattr(playlist, 'Artwork', None)
+        if artwork is None or not artwork.Count:
+            return None
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder) / 'playlist-cover.png'
+            artwork.Item(1).SaveArtworkToFile(str(target))
+            from .artwork import encode_thumbnail
+            return encode_thumbnail(target.read_bytes())
+    except Exception:
+        # Some iTunes COM versions expose no readable playlist artwork.
+        return None
+
+
 def scan_library(app, progress=None):
     """Read tracks and playlists through the documented IITPlaylist.Source member."""
     library_pid = pid_for(app, app.LibraryPlaylist)
@@ -206,7 +223,7 @@ def scan_library(app, progress=None):
             if identity is not None: items.append({'Track ID': identity})
             done += 1
             if progress and done % 200 == 0: progress(done, total, f'Reading playlist: {playlist.Name}')
-        result['playlists'].append({'Name': playlist.Name, 'Playlist Persistent ID': pid_for(app, playlist), 'Playlist Items': items})
+        result['playlists'].append({'Name': playlist.Name, 'Playlist Persistent ID': pid_for(app, playlist), 'Playlist Items': items, 'Playlist Artwork Data': read_live_playlist_artwork(playlist)})
     if pid_for(app, app.LibraryPlaylist) != library_pid or tracks.Count != count or len(result['tracks']) != count:
         raise ValueError('The open iTunes library changed during the scan. Its previous saved copy is safe; scan again.')
     return result
