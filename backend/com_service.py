@@ -224,6 +224,81 @@ def read_live_artwork(app, pid, name=None):
         return encode_thumbnail(target.read_bytes())
 
 
+
+def find_playlist(app, playlist_pid):
+    if not re.fullmatch(r'[0-9a-fA-F]{16}', playlist_pid or ''):
+        raise ValueError('Playlist edits require a valid 16-digit playlist persistent ID.')
+    source=app.LibraryPlaylist.Source
+    try: playlists=list(source.Playlists)
+    except TypeError: playlists=[source.Playlists.Item(i) for i in range(1,source.Playlists.Count+1)]
+    for playlist in playlists:
+        try:
+            if pid_for(app,playlist).upper()==playlist_pid.upper():return playlist
+        except Exception:continue
+    raise ValueError('That playlist is no longer in the currently open iTunes library. Rescan and retry.')
+
+
+def _require_library(app, expected_library):
+    if expected_library and pid_for(app,app.LibraryPlaylist).upper()!=expected_library.upper():
+        raise ValueError('iTunes is using a different library. Reopen the library used for this preview.')
+
+
+def _wait_add(status, deadline_seconds=180):
+    if status is None:raise RuntimeError('iTunes did not accept the requested file operation.')
+    deadline=time.monotonic()+deadline_seconds
+    while bool(getattr(status,'InProgress',False)):
+        if time.monotonic()>=deadline:raise TimeoutError('iTunes has not finished importing the file yet. Check iTunes before retrying.')
+        time.sleep(.25)
+    return True
+
+
+def perform_library_operation(app,payload):
+    operation=payload['operation'];_require_library(app,payload.get('library_pid'))
+    if operation=='delete_tracks':
+        results=[];cache={}
+        for item in payload.get('tracks',[]):
+            track=find_track(app,item['pid'],cache,item.get('name'));track.Delete()
+            results.append({'pid':item['pid'],'deleted_from_itunes':True})
+        return results
+    if operation=='add_file':
+        _wait_add(app.LibraryPlaylist.AddFile(payload['path']))
+        return {'added':payload['path']}
+    if operation=='playlist_cover':
+        playlist=find_playlist(app,payload['playlist_pid'])
+        setter=getattr(playlist,'AddArtworkFromFile',None)
+        if callable(setter):setter(payload['image']);return {'applied':True}
+        artwork=getattr(playlist,'Artwork',None)
+        add=getattr(artwork,'AddArtworkFromFile',None) if artwork is not None else None
+        if callable(add):add(payload['image']);return {'applied':True}
+        raise RuntimeError('This classic iTunes COM interface does not expose playlist artwork editing. The picture is saved in iTunes Manager; no song artwork was changed.')
+    if operation=='playlist_order':
+        playlist=find_playlist(app,payload['playlist_pid'])
+        if bool(getattr(playlist,'Smart',False)):raise ValueError('Smart playlists are managed by their rules and cannot be manually reordered.')
+        ordered=[str(v).upper() for v in payload.get('ids',[])]
+        original_tracks=list(playlist.Tracks)
+        original=[pid_for(app,t).upper() for t in original_tracks]
+        if len(set(original))!=len(original) or len(set(ordered))!=len(ordered):raise ValueError('This playlist has repeated tracks. iTunes COM cannot safely reorder repeated entries by persistent ID.')
+        if len(ordered)!=len(original) or sorted(ordered)!=sorted(original):raise ValueError('Playlist contents changed since review; rescan and reorder again.')
+        # Only use an explicit playlist-only move API if this iTunes build exposes one.
+        # IITTrack.Delete removes the track itself, so never delete/re-add tracks to simulate a reorder.
+        track_by_pid={pid:track for pid,track in zip(original,original_tracks)}
+        move_track=getattr(playlist,'MoveTrack',None)
+        move_to_order=getattr(playlist,'MoveTrackToPosition',None)
+        if callable(move_track) or callable(move_to_order):
+            try:
+                for position,pid in enumerate(ordered,1):
+                    track=track_by_pid[pid]
+                    if callable(move_track):move_track(track,position)
+                    else:move_to_order(track,position)
+                actual=[pid_for(app,t).upper() for t in list(playlist.Tracks)]
+                if actual!=ordered:raise RuntimeError('iTunes did not retain the requested order when it was read back.')
+                return {'reordered':len(ordered),'verified':True}
+            except Exception as exc:
+                raise RuntimeError(f'Live playlist reorder was not verified. No track objects were deleted: {exc}') from exc
+        raise RuntimeError('This version of classic iTunes does not expose a safe playlist-only reorder method through COM. No songs or playlist entries were deleted. Change the order in iTunes itself or use a version that exposes a move method.')
+    raise ValueError('Unsupported live-library operation.')
+
+
 def _perform(payload, database, job, pipe):
     try:
         import pythoncom
@@ -245,6 +320,8 @@ def _perform(payload, database, job, pipe):
                 result = {'image': read_live_artwork(app, payload['pid'], payload.get('name'))}
             elif operation == 'scan':
                 result = scan_library(app, lambda done,total,current: pipe.send({'progress': [done,total,current]}))
+            elif operation in ('playlist_cover','playlist_order','delete_tracks','add_file'):
+                result = perform_library_operation(app, payload)
             elif operation == 'edit':
                 expected_library = payload.get('library_pid')
                 if expected_library:

@@ -349,7 +349,7 @@ class LastFM:
             for _ in range(4):
                 with requests.get(
                     url, timeout=(5, 15), stream=True, allow_redirects=False,
-                    headers={'User-Agent': 'iTunesManager/3.1.1', 'Accept': 'image/*' if image else 'text/html'}
+                    headers={'User-Agent': 'iTunesManager/4.0.0', 'Accept': 'image/*' if image else 'text/html'}
                 ) as response:
                     if response.status_code in (301, 302, 303, 307, 308):
                         url = accepted(urljoin(url, response.headers.get('Location', '')))

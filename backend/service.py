@@ -253,32 +253,88 @@ class Service:
         after = {t.raw.get('Persistent ID', str(i)): t.raw for i, t in library.tracks.items()}
         return {'tracks': len(after), 'added': len(after.keys() - before.keys()), 'removed': len(before.keys() - after.keys()), 'modified': sum(before[k] != after[k] for k in before.keys() & after.keys())}
 
-    def tracks(self, identity, query='', offset=0, limit=100, missing=False):
+    def tracks(self, identity, query='', offset=0, limit=100, missing=False, sort='artist', direction='asc'):
         self.profile(identity)
-        where = 'profile=?'
-        args = [identity]
+        where = 'profile=?'; args = [identity]
         if len(query) >= 3:
             where += ' AND id IN (SELECT id FROM track_text WHERE track_text MATCH ? AND profile=?)'
-            args += ['"' + query.replace('"','""') + '"', identity]
+            args += ['"' + query.replace('"', '""') + '"', identity]
         elif query:
             where += ' AND (name LIKE ? OR artist LIKE ? OR album LIKE ? OR genre LIKE ?)'
             args += [f'%{query}%'] * 4
         if missing: where += ' AND missing=1'
         count = self.store.rows(f'SELECT count(*) AS n FROM tracks WHERE {where}', args)[0]['n']
-        rows = self.store.rows(f'SELECT * FROM tracks WHERE {where} ORDER BY artist,album,name LIMIT ? OFFSET ?', (*args, limit, offset))
-        for r in rows: r['raw'] = json.loads(r['raw'])
-        return {'total': count, 'items': rows}
+        order_fields = {'name':'name COLLATE NOCASE','artist':'artist COLLATE NOCASE','album':'album COLLATE NOCASE','genre':'genre COLLATE NOCASE','duration':"CAST(COALESCE(json_extract(raw, '$.\"Total Time\"'), 0) AS INTEGER)",'path':'path COLLATE NOCASE','id':'id'}
+        order_sql=order_fields.get(sort,order_fields['artist']); order_dir='DESC' if str(direction).lower()=='desc' else 'ASC'
+        rows=self.store.rows(f'SELECT * FROM tracks WHERE {where} ORDER BY {order_sql} {order_dir}, artist COLLATE NOCASE, name COLLATE NOCASE LIMIT ? OFFSET ?',(*args,limit,offset))
+        for row in rows: row['raw']=json.loads(row['raw'])
+        return {'total':count,'items':rows}
+
+    def track_ids(self, identity, query='', missing=False, sort='artist', direction='asc'):
+        self.profile(identity)
+        where='profile=?';args=[identity]
+        if len(query)>=3:
+            where+=' AND id IN (SELECT id FROM track_text WHERE track_text MATCH ? AND profile=?)';args+=['"'+query.replace('"','""')+'"',identity]
+        elif query:
+            where+=' AND (name LIKE ? OR artist LIKE ? OR album LIKE ? OR genre LIKE ?)';args += [f'%{query}%']*4
+        if missing:where+=' AND missing=1'
+        order_fields={'name':'name COLLATE NOCASE','artist':'artist COLLATE NOCASE','album':'album COLLATE NOCASE','genre':'genre COLLATE NOCASE','duration':"CAST(COALESCE(json_extract(raw, '$.\"Total Time\"'), 0) AS INTEGER)",'path':'path COLLATE NOCASE','id':'id'}
+        order_sql=order_fields.get(sort,order_fields['artist']);order_dir='DESC' if str(direction).lower()=='desc' else 'ASC'
+        return [r['id'] for r in self.store.rows(f'SELECT id FROM tracks WHERE {where} ORDER BY {order_sql} {order_dir}, artist COLLATE NOCASE, name COLLATE NOCASE',args)]
+
+    @staticmethod
+    def _release_year(raw):
+        import re
+        for key in ('Year','Release Date','Date Released','Original Release Date'):
+            value=raw.get(key)
+            if value:
+                match=re.search(r'(?<!\d)(18\d{2}|19\d{2}|20\d{2}|21\d{2})(?!\d)',str(value))
+                if match:
+                    year=int(match.group(1))
+                    if 1800<=year<=2100:return year
+        return None
+
+    @staticmethod
+    def _duration(raw):
+        try:return max(0,int(raw.get('Total Time',raw.get('total_time_ms',0)) or 0)//1000)
+        except (ValueError,TypeError):return 0
+
+    @staticmethod
+    def _duration_label(seconds):
+        seconds=max(0,int(seconds or 0));hours,remain=divmod(seconds,3600);minutes=remain//60
+        if hours:return f'{hours} hour'+('s' if hours!=1 else '')+f' and {minutes} minutes'
+        return f'{minutes} minutes'
 
     def overview(self, identity):
-        scanned = self.profile(identity)['scanned']; version = self._index_versions[identity]
-        cached = self._overviews.get(identity)
-        if cached and cached[0] == (scanned,version): return cached[1]
-        rows = self.store.rows('SELECT raw,path,missing FROM tracks WHERE profile=?', (identity,))
-        raw = [json.loads(r['raw']) for r in rows]
-        by_genre = Counter(t.get('Genre', 'Unspecified') or 'Unspecified' for t in raw)
-        formats = Counter(Path(r['path']).suffix.lower() or 'Cloud / other' for r in rows)
-        result = {'tracks': len(raw), 'artists': len({t.get('Artist') for t in raw if t.get('Artist')}), 'albums': len({(t.get('Artist'), t.get('Album')) for t in raw if t.get('Album')}), 'size': sum(int(t.get('Size', 0) or 0) for t in raw), 'unknown_sizes': sum(not t.get('Size') for t in raw), 'missing': sum(r['missing'] for r in rows), 'metadata_issues': sum(not t.get('Artist') or not t.get('Genre') or bool(t.get('_error')) for t in raw), 'genres': dict(by_genre.most_common(12)), 'formats': dict(formats), 'playlists': len(self.library(identity, mutable=False).playlists), 'last_scan': scanned}
-        if version == self._index_versions[identity]: self._overviews[identity] = ((scanned,version), result)
+        scanned=self.profile(identity)['scanned'];version=self._index_versions[identity];cached=self._overviews.get(identity)
+        if cached and cached[0]==(scanned,version):return cached[1]
+        rows=self.store.rows('SELECT raw,path,missing FROM tracks WHERE profile=?',(identity,))
+        raw_tracks=[json.loads(r['raw']) for r in rows];by_genre=Counter(t.get('Genre','Unspecified') or 'Unspecified' for t in raw_tracks);formats=Counter(Path(r['path']).suffix.lower() or 'Cloud / other' for r in rows)
+        albums={};songs=[];artist_albums=defaultdict(set);artist_tracks=Counter();artist_names={}
+        for row,raw in zip(rows,raw_tracks):
+            artist=str(raw.get('Artist') or '').strip();album_artist=str(raw.get('Album Artist') or raw.get('Album Artist Name') or artist).strip()
+            album=str(raw.get('Album') or '').strip();year=self._release_year(raw);duration=self._duration(raw);title=str(raw.get('Name') or 'Untitled').strip() or 'Untitled'
+            songs.append({'name':title,'artist':artist or 'Unknown artist','album':album or 'Unknown album','year':year,'duration_seconds':duration})
+            if album_artist:artist_names.setdefault(album_artist.casefold(),album_artist)
+            if album and album.casefold() not in {'unknown album','untitled','(unknown album)'}:
+                key=(album_artist.casefold(),album.casefold());entry=albums.setdefault(key,{'title':album,'artist':album_artist or artist or 'Unknown artist','year':year,'duration_seconds':0,'years':[],'tracks':0,'present_tracks':0})
+                entry['tracks']+=1;entry['duration_seconds']+=duration
+                if year:entry['years'].append(year)
+                if entry['year'] is None and year:entry['year']=year
+                path=str(row['path'] or '')
+                if path and not row['missing'] and Path(path).is_file():
+                    entry['present_tracks']+=1;credited=album_artist or artist
+                    if credited:artist_albums[credited.casefold()].add(key);artist_tracks[credited.casefold()]+=1
+        av=list(albums.values());top=[{'artist':artist_names.get(k,k),'albums':len(v),'tracks':artist_tracks[k]} for k,v in artist_albums.items() if v];top.sort(key=lambda x:(-x['albums'],-x['tracks'],x['artist'].casefold()))
+        ds=[x for x in songs if x['year']];old=[dict(a,year=min(a['years']) if a['years'] else a['year']) for a in av if a['years'] or a['year']];new=[dict(a,year=max(a['years']) if a['years'] else a['year']) for a in av if a['years'] or a['year']]
+        ls=sorted((x for x in songs if x['duration_seconds']>0),key=lambda x:(-x['duration_seconds'],x['name'].casefold()))[:5]
+        ss=sorted((x for x in songs if x['duration_seconds']>0),key=lambda x:(x['duration_seconds'],x['name'].casefold()))[:5]
+        la=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(-x['duration_seconds'],x['title'].casefold()))[:5]
+        sa=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(x['duration_seconds'],x['title'].casefold()))[:5]
+        for item in [*ls,*ss,*la,*sa]:item['duration']=self._duration_label(item['duration_seconds'])
+        stats={'top_artists':top[:10],'oldest_songs':sorted(ds,key=lambda x:(x['year'],x['name'].casefold()))[:5],'newest_songs':sorted(ds,key=lambda x:(-x['year'],x['name'].casefold()))[:5],'oldest_albums':sorted(old,key=lambda x:(x['year'],x['title'].casefold()))[:5],'newest_albums':sorted(new,key=lambda x:(-x['year'],x['title'].casefold()))[:5],'longest_songs':ls,'shortest_songs':ss,'longest_albums':la,'shortest_albums':sa}
+        result={'tracks':len(raw_tracks),'artists':len({t.get('Artist') for t in raw_tracks if t.get('Artist')}),'albums':len(albums),'size':sum(int(t.get('Size',0) or 0) for t in raw_tracks),'unknown_sizes':sum(not t.get('Size') for t in raw_tracks),'missing':sum(r['missing'] for r in rows),'metadata_issues':sum(not t.get('Artist') or not t.get('Genre') or bool(t.get('_error')) for t in raw_tracks),'genres':dict(by_genre.most_common(12)),'formats':dict(formats),'playlists':len(self.library(identity,mutable=False).playlists),'last_scan':scanned,'library_stats':stats}
+        if version==self._index_versions[identity]:self._overviews[identity]=((scanned,version),result)
         return result
 
     def save_preview(self, kind, identity, payload):
@@ -546,6 +602,40 @@ class Service:
                 metadata.write_artwork(path, payload.get('image'), payload.get('remove', False))
                 results.append({'id': item['id'], 'backup': str(backup)})
             return results
+        if kind == 'playlist_order':
+            result=run_com({'operation':'playlist_order','playlist_pid':payload.get('playlist_pid'),'ids':payload['ids'],'library_pid':payload.get('library_pid')},self.store.path,job,timeout=180)
+            return {'playlist':payload.get('name'),'reordered':len(payload['ids']),'result':result}
+        if kind == 'playlist_cover':
+            result=run_com({'operation':'playlist_cover','playlist_pid':payload.get('playlist_pid'),'image':payload.get('image'),'library_pid':payload.get('library_pid')},self.store.path,job,timeout=120)
+            return {'playlist':payload.get('name'),'image_saved':True,'live_applied':True,'result':result}
+        if kind == 'library_action':
+            action=payload['action'];results=[];items=payload['items']
+            if action=='delete':
+                for i,item in enumerate(items):
+                    progress(job,i,len(items),f"Preparing {item['name']}")
+                    path=checked_path(item['path'],True)
+                    if signature(path)!=item['signature']:raise ValueError(f"{item['name']} changed since review; no deletion was attempted for it.")
+                    backup=self.data_dir/'deleted-songs'/job/str(item['id'])/path.name
+                    backup.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(path,backup)
+                    if signature(backup)!=item['signature']:raise ValueError('Safety-copy verification failed; the original was not deleted.')
+                    run_com({'operation':'delete_tracks','tracks':[{'pid':item['pid'],'name':item['name']}],'library_pid':payload.get('library_pid')},self.store.path,job,timeout=120)
+                    if path.exists():
+                        if signature(path)!=item['signature']:raise ValueError(f"{item['name']} changed during delete; its safety copy is retained.")
+                        path.unlink()
+                    results.append({'id':item['id'],'name':item['name'],'backup':str(backup),'deleted':True});progress(job,i+1,len(items),f"Removed {item['name']}")
+            else:
+                for i,item in enumerate(items):
+                    progress(job,i,len(items),f"Copying {item['name']}")
+                    path=checked_path(item['path'],True)
+                    if signature(path)!=item['signature']:raise ValueError(f"{item['name']} changed since review.")
+                    candidate=path.with_name(f'{path.stem} (copy){path.suffix}');number=2
+                    while candidate.exists():candidate=path.with_name(f'{path.stem} (copy {number}){path.suffix}');number+=1
+                    shutil.copy2(path,candidate)
+                    if digest(candidate)!=item['signature']['sha256']:candidate.unlink(missing_ok=True);raise ValueError('Copied song did not pass SHA-256 verification.')
+                    run_com({'operation':'add_file','path':str(candidate),'library_pid':payload.get('library_pid')},self.store.path,job,timeout=180)
+                    results.append({'id':item['id'],'name':item['name'],'copy':str(candidate)});progress(job,i+1,len(items),f"Added copy of {item['name']}")
+            scanned=self.scan(identity,job,progress)
+            return {'action':action,'items':results,'scan':scanned}
         if kind == 'transfer':
             manifests = []; start = payload.get('resume_from', 0); library = self.library(identity) if identity else None
             # A crash after final creation but before checkpoint must be inspected, never guessed past.
@@ -618,7 +708,7 @@ class Service:
                         if path: image = image_file(path)
                     if image: break
             ids = playlist.track_ids()
-            result.append({'index':i,'name':playlist.name,'image':image,'ids':ids,'broken':[tid for tid in ids if tid not in library.tracks],'duplicates':len(ids)-len(set(ids)),'smart':playlist.is_smart,'tracks':[{'id':tid,'name':library.tracks[tid].name,'artist':library.tracks[tid].artist} for tid in ids if tid in library.tracks]})
+            result.append({'index':i,'pid':playlist.raw.get('Playlist Persistent ID', ''),'name':playlist.name,'image':image,'ids':ids,'broken':[tid for tid in ids if tid not in library.tracks],'duplicates':len(ids)-len(set(ids)),'smart':playlist.is_smart,'special':bool(getattr(playlist,'is_special',False)),'tracks':[{'id':tid,'name':library.tracks[tid].name,'artist':library.tracks[tid].artist} for tid in ids if tid in library.tracks]})
         return result
 
     def playlist_cover(self, identity, index, image):
@@ -633,6 +723,50 @@ class Service:
         else: covers.pop(key, None)
         self.store.execute('UPDATE profiles SET config=? WHERE id=?',(encode(profile['config']),identity))
         return {'saved':True}
+
+    def playlist_order_preview(self, identity, index, ids):
+        profile=self.profile(identity)
+        if profile['config'].get('kind')!='live':raise ValueError('Live playlist reordering requires the Current iTunes library profile.')
+        playlists=self.playlists(identity)
+        if not 0<=index<len(playlists):raise ValueError('Playlist not found.')
+        playlist=playlists[index]
+        if playlist.get('smart'):raise ValueError('Smart playlists are managed by their rules and cannot be manually reordered.')
+        library=self.library(identity,mutable=False)
+        if index>=len(library.playlists) or bool(getattr(library.playlists[index],'is_special',False)):raise ValueError('The main library and special iTunes playlists cannot be reordered.')
+        if len(ids)!=len(playlist['ids']) or Counter(ids)!=Counter(playlist['ids']):raise ValueError('Reordered tracks must contain every current playlist entry exactly once.')
+        if len(set(ids))!=len(ids):raise ValueError('This playlist contains repeated entries. iTunes COM cannot safely distinguish repeated copies of a track for reordering.')
+        pids=[]
+        for track_id in ids:
+            track=library.tracks.get(track_id);pid=str(track.raw.get('Persistent ID','') if track else '')
+            if not track or not pid:raise ValueError('A playlist track no longer has a valid persistent iTunes ID. Rescan and retry.')
+            split_pid(pid);pids.append(pid)
+        return self.save_preview('playlist_order',identity,{'index':index,'playlist_pid':playlist.get('pid'),'name':playlist['name'],'ids':pids,'track_ids':ids,'library_pid':profile['config'].get('library_pid'),'warning':'Reorder only proceeds if this iTunes COM version exposes a safe playlist-only move API. The app refuses unsupported interfaces rather than deleting tracks from the library.'})
+
+    def library_action_preview(self, identity, ids, action):
+        if action not in ('delete','duplicate'):raise ValueError('Choose delete or duplicate.')
+        profile=self.profile(identity)
+        if profile['config'].get('kind')!='live':raise ValueError('Delete and duplicate actions require the Current iTunes library profile.')
+        library=self.library(identity);items=[]
+        for tid in dict.fromkeys(ids):
+            track=library.tracks.get(tid)
+            if not track:raise ValueError(f'Track {tid} is no longer in this library. Rescan and retry.')
+            path=legacy.file_uri_to_path(track.location or '')
+            if not path or not path.is_file():raise ValueError(f'{track.name} has no available local media file.')
+            items.append({'id':tid,'pid':track.raw.get('Persistent ID',''),'name':track.name,'artist':track.artist,'path':str(path),'signature':signature(path)})
+        if not items:raise ValueError('Select at least one song.')
+        warning=('Selected songs will be removed from iTunes and their original files deleted after a verified safety copy is made.' if action=='delete' else 'A separate copy of each selected audio file will be created and added to the live iTunes library.')
+        return self.save_preview('library_action',identity,{'action':action,'items':items,'library_pid':profile['config'].get('library_pid'),'warning':warning})
+
+    def playlist_cover_job(self, identity, index, image):
+        from .artwork import image_file
+        profile=self.profile(identity)
+        if not 0<=index<len(self.library(identity,mutable=False).playlists):raise ValueError('Playlist not found.')
+        if image and not image_file(checked_path(image,True)):raise ValueError('Choose a readable image smaller than 20 MB.')
+        local=self.playlist_cover(identity,index,image)
+        if profile['config'].get('kind')!='live':return local
+        playlist=self.playlists(identity)[index]
+        job=self.jobs.enqueue('playlist_cover',{'profile':identity,'index':index,'playlist_pid':playlist.get('pid'),'name':playlist['name'],'image':image,'library_pid':profile['config'].get('library_pid')})
+        return {'saved':True,'job':job,'image_pending':True}
 
     def playlist_export(self, identity, index, output):
         library = self.library(identity); playlist = library.playlists[index]
