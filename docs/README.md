@@ -1,15 +1,23 @@
 # 📚 Documentation
 
-Start with these guides:
+Start with the guide that matches your task:
 
-- 🎵 `../README.md` — overview and quick start.
-- 📥 `../INSTALL.md` — install, repair, and uninstall.
-- 🛠️ `../BUILD.md` and `../TESTING.md` — developer checks.
-- 📚 `CURRENT_LIBRARY.md` — browse, select, copy, duplicate, and delete songs safely.
-- 🧭 `WORKSPACE_GUIDE.md` — everyday workflows.
-- 🚧 `LIMITATIONS.md` — known iTunes/COM limits.
-- ✅ `VALIDATION.md` — test evidence and remaining checks.
-- 🗂️ `REPOSITORY_LABELS.md` — short emoji labels for folders and files.
-- 📦 `RELEASE_1_0_0.md` — v1 release notes and asset names.
+- 🎵 [Main README](../README.md) — features, install options, and important limits.
+- 📥 [Install guide](../INSTALL.md) — install, repair, upgrade, and uninstall.
+- 🛠️ [Build guide](../BUILD.md) and [test guide](../TESTING.md) — build steps and checks.
+- 📚 [Current Library](CURRENT_LIBRARY.md) — browse, search, select, copy, duplicate, and delete safely.
+- 🧭 [Workspace guide](WORKSPACE_GUIDE.md) — everyday tasks and navigation.
+- 🚧 [Known limits](LIMITATIONS.md) and [feature coverage](FEATURE_PARITY.md) — what is and is not supported in the new interface.
+- ✅ [Validation evidence](VALIDATION.md) — recorded test results and remaining manual checks.
+- 🗂️ [Repository path guide](REPOSITORY_LABELS.md) — emoji-led descriptions for every tracked file and folder.
+- 📦 [Complete v1.0.0 release notes](RELEASE_1_0_0.md) — current fixes and features carried forward from all earlier pre-releases.
+- 🎧 [Last.fm guide](LASTFM.md) — optional API setup, charts, and picture behavior.
+- 🧩 [Release history](../CHANGELOG.md) — short version-by-version summary.
 
-Generated license inventories and original-tool source records are supporting files; do not edit generated hashes by hand.
+## 🏷️ Writing rules
+
+- 🧩 Use simple language and emoji-led headings or bullets.
+- 🎯 Keep descriptions specific to the file or feature; do not copy the same generic label across paths.
+- 🛡️ Put safety warnings and platform limits beside the feature they affect.
+- 🔄 Update related guides and the path index when features or tracked paths change.
+- 🧾 Treat generated dependency/license inventories and checksums as build outputs; regenerate them instead of hand-editing their contents.
