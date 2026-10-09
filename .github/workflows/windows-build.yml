@@ -74,12 +74,20 @@ jobs:
       - name: Create Windows package and source ZIPs
         shell: pwsh
         run: |
-          & ./.venv/Scripts/python.exe scripts/package-windows.py
-          if ($LASTEXITCODE -ne 0) { throw 'Windows package failed' }
-          & ./.venv/Scripts/python.exe scripts/package-source.py --output-dir dist/windows
-          if ($LASTEXITCODE -ne 0) { throw 'Source package failed' }
-          & ./.venv/Scripts/python.exe scripts/benchmark-library.py --report build/validation/library-speed.json
-          if ($LASTEXITCODE -ne 0) { throw 'Large-library check failed' }
+          try {
+            & ./.venv/Scripts/python.exe scripts/package-windows.py *>&1 | Tee-Object build/validation/windows-package.log
+            if ($LASTEXITCODE -ne 0) { throw 'Windows package failed' }
+            & ./.venv/Scripts/python.exe scripts/package-source.py --output-dir dist/windows *>&1 | Tee-Object -Append build/validation/windows-package.log
+            if ($LASTEXITCODE -ne 0) { throw 'Source package failed' }
+            & ./.venv/Scripts/python.exe scripts/benchmark-library.py --report build/validation/library-speed.json *>&1 | Tee-Object -Append build/validation/windows-package.log
+            if ($LASTEXITCODE -ne 0) { throw 'Large-library check failed' }
+          } catch {
+            $detail = ((Get-Content build/validation/windows-package.log -Tail 25) + ($_ | Out-String)) -join "`n"
+            if ($detail.Length -gt 3500) { $detail = $detail.Substring($detail.Length - 3500) }
+            $detail = $detail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows package diagnostics::$detail"
+            throw
+          }
       - name: Hash installer
         shell: pwsh
         run: |
