@@ -25,6 +25,7 @@ class Profile(Model):
     source: str = ''
     kind: Literal['xml', 'folder', 'live'] = 'xml'
     roots: list[str] = Field(default_factory=list)
+    library_pid: str = Field(default='', pattern=r'^([0-9A-Fa-f]{16})?$')
 
 
 class Selection(Model):
@@ -70,6 +71,10 @@ class Confirm(Model):
     confirmed: Literal[True]
 
 
+class ConfirmRemoval(Model):
+    confirmed: Literal[True]
+
+
 class Control(Model):
     action: Literal['pause', 'resume', 'cancel', 'retry', 'up', 'down']
 
@@ -93,6 +98,11 @@ class PlaylistImport(Model):
     profile: str
     source: str
     name: str = Field(min_length=1)
+
+
+class PlaylistCover(Model):
+    index: int = Field(ge=0)
+    image: str = ''
 
 
 class Relink(Model):
@@ -153,7 +163,7 @@ def create_app(data_dir, token, ready=None):
     def auth(authorization: str = Header(default='')):
         if not hmac.compare_digest(authorization, 'Bearer ' + token): raise HTTPException(401, 'Unauthorized')
 
-    app = FastAPI(title='iTunes Manager', version='2.0.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title='iTunes Manager', version='3.0.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.service = service
 
     @app.exception_handler(ValueError)
@@ -164,26 +174,40 @@ def create_app(data_dir, token, ready=None):
     async def os_error(request, exc):
         return Response(json.dumps({'detail': str(exc)}), status_code=400, media_type='application/json')
 
+    @app.exception_handler(RuntimeError)
+    async def runtime_error(request, exc):
+        return Response(json.dumps({'detail': str(exc)}), status_code=503, media_type='application/json')
+
     @app.get('/health')
-    def health(): return {'ready': True, 'version': '2.0.0'}
+    def health(): return {'ready': True, 'version': '3.0.0'}
 
     @app.get('/discovery')
     def discover():
         paths = legacy.default_library_xml_candidates()
+        default = service.store.setting('preferences', {}).get('default_xml_path', '').strip()
+        if default:
+            paths = [Path(default)] + [p for p in paths if str(p) != default]
         music = Path.home() / 'Music'
         return {'xml': [{'path': str(p), 'exists': p.exists()} for p in paths], 'databases': [{'path': str(music / 'iTunes' / 'iTunes Library.itl'), 'editable': False}], 'live_note': 'Classic iTunes on Windows only. Apple Music proprietary databases are read-only/unsupported; export XML or scan media.'}
 
     @app.get('/com/status')
     def com_status():
-        try: return run_com({'operation': 'status'}, service.store.path, timeout=5)
+        try: return run_com({'operation': 'status'}, service.store.path, timeout=15)
         except Exception as exc: return {'available': False, 'reason': str(exc)}
 
     @app.get('/profiles')
-    def profiles(): return [service.profile(row['id']) for row in service.store.rows('SELECT id FROM profiles ORDER BY name')]
+    def profiles(): return [p for row in service.store.rows('SELECT id FROM profiles ORDER BY name') if not (p := service.profile(row['id']))['config'].get('removed')]
+
+    @app.post('/profiles/{identity}/remove')
+    def remove_profile(identity: str, body: ConfirmRemoval):
+        return service.remove_profile(identity)
 
     @app.post('/profiles')
     def profile(body: Profile):
         identity = service.add_profile(body.name, body.source, body.kind, body.roots)
+        if body.kind == 'live' and body.library_pid:
+            conf = service.profile(identity)['config']; conf['library_pid'] = body.library_pid.upper()
+            service.store.execute('UPDATE profiles SET config=? WHERE id=?', (json.dumps(conf), identity))
         return {'id': identity, 'job': service.jobs.enqueue('scan', {'profile': identity})}
 
     @app.post('/profiles/{identity}/scan')
@@ -205,14 +229,14 @@ def create_app(data_dir, token, ready=None):
 
     @app.get('/profiles/{identity}/artwork/{track}')
     def track_artwork(identity: str, track: int):
-        rows = service.store.rows('SELECT path,pid FROM tracks WHERE profile=? AND id=?', (identity, track))
+        rows = service.store.rows('SELECT path,pid,name FROM tracks WHERE profile=? AND id=?', (identity, track))
         if not rows: raise ValueError('Track not found.')
         from .artwork import thumbnail
         row = rows[0]
         image = thumbnail(row['path'])
         if not image and service.profile(identity)['config']['kind'] == 'live':
             try:
-                image = run_com({'operation': 'artwork', 'pid': row['pid']}, service.store.path, timeout=5).get('image')
+                image = run_com({'operation': 'artwork', 'pid': row['pid'], 'name':row['name']}, service.store.path, timeout=5).get('image')
             except Exception:
                 pass  # A missing cover must not stop browsing or editing.
         return {'image': image}
@@ -225,6 +249,10 @@ def create_app(data_dir, token, ready=None):
 
     @app.get('/profiles/{identity}/playlists')
     def playlists(identity: str): return service.playlists(identity)
+
+    @app.post('/profiles/{identity}/playlist-cover')
+    def playlist_cover(identity: str, body: PlaylistCover):
+        return service.playlist_cover(identity, body.index, body.image)
 
     @app.post('/preview/metadata')
     def edit(body: Edit): return service.metadata_preview(body.profile, body.ids, body.fields, body.target)
@@ -300,7 +328,9 @@ def create_app(data_dir, token, ready=None):
     def jobs():
         rows = service.store.rows('SELECT * FROM jobs WHERE archived=0 ORDER BY created DESC LIMIT 200')
         for r in rows:
+            r['profile'] = json.loads(r['payload']).get('profile')
             r.pop('payload', None)
+            if r['status'] != 'complete': r['progress'] = min(99, r['progress'])
             now = time.time()
             r['sampled_at'] = now
             r['elapsed_seconds'] = r['elapsed'] + (max(0, now - r['active_since']) if r['active_since'] else 0)
@@ -315,9 +345,14 @@ def create_app(data_dir, token, ready=None):
 
     @app.get('/history')
     def history(q: str = ''):
-        rows = service.store.rows('SELECT * FROM history WHERE kind LIKE ? OR detail LIKE ? ORDER BY created DESC LIMIT 500', (f'%{q}%', f'%{q}%'))
+        rows = service.store.rows('SELECT * FROM history WHERE created>? AND (kind LIKE ? OR detail LIKE ?) ORDER BY created DESC LIMIT 500', (service.store.setting('history_hidden_before', 0), f'%{q}%', f'%{q}%'))
         for r in rows: r['detail'] = json.loads(r['detail'])
         return rows
+
+    @app.post('/history/clear')
+    def clear_history(body: ConfirmRemoval):
+        service.store.set_setting('history_hidden_before', time.time())
+        return {'cleared': True, 'note': 'The visible list is clear. Undo records, file restores and the audit log are kept.'}
 
     @app.get('/edits')
     def edits(): return service.store.rows('SELECT * FROM edits ORDER BY created DESC LIMIT 1000')
@@ -330,6 +365,9 @@ def create_app(data_dir, token, ready=None):
 
     @app.post('/settings')
     def save_settings(body: dict):
+        default = body.get('default_xml_path', '')
+        if not isinstance(default, str) or len(default) > 4096 or '\x00' in default:
+            raise ValueError('Choose a valid default XML path.')
         low, high = body.get('low_confidence', .80), body.get('high_confidence', .92)
         if not (0 < low <= high <= 1): raise ValueError('Duplicate thresholds must satisfy 0 < low <= high <= 1.')
         if any(any(s in k.lower() for s in ('password', 'token', 'secret', 'api_key')) for k in body): raise ValueError('Credentials are not accepted by the preferences endpoint.')
@@ -387,7 +425,7 @@ def create_app(data_dir, token, ready=None):
     def report(body: PathRequest):
         output = checked_path(body.path)
         with open(output, 'x', encoding='utf-8') as f:
-            json.dump({'version': '2.0.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
+            json.dump({'version': '3.0.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
         return {'output': str(output)}
 
     @app.get('/changelog')
