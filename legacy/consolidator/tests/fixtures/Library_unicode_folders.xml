@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Application Version</key>
+	<string>12.13.6.3</string>
+	<key>Date</key>
+	<date>2026-08-16T04:35:31Z</date>
+	<key>Library Persistent ID</key>
+	<string>SYNTHETICTESTLIB02</string>
+	<key>Major Version</key>
+	<integer>1</integer>
+	<key>Minor Version</key>
+	<integer>1</integer>
+	<key>Music Folder</key>
+	<string>file://localhost/Users/test/Music/</string>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Master</key>
+			<true/>
+			<key>Name</key>
+			<string>Library</string>
+			<key>Playlist ID</key>
+			<integer>100</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>3</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Music</key>
+			<true/>
+			<key>Name</key>
+			<string>Music</string>
+			<key>Playlist ID</key>
+			<integer>101</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>3</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Folder</key>
+			<true/>
+			<key>Name</key>
+			<string>📁 Road Trips</string>
+			<key>Playlist ID</key>
+			<integer>200</integer>
+			<key>Playlist Persistent ID</key>
+			<string>FOLDERROOT01</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>夏 2024</string>
+			<key>Parent Persistent ID</key>
+			<string>FOLDERROOT01</string>
+			<key>Playlist ID</key>
+			<integer>201</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>3</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Folder</key>
+			<true/>
+			<key>Name</key>
+			<string>Nested Folder 📁</string>
+			<key>Parent Persistent ID</key>
+			<string>FOLDERROOT01</string>
+			<key>Playlist ID</key>
+			<integer>202</integer>
+			<key>Playlist Persistent ID</key>
+			<string>FOLDERNEST01</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Café Sessions</string>
+			<key>Parent Persistent ID</key>
+			<string>FOLDERNEST01</string>
+			<key>Playlist ID</key>
+			<integer>203</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>2</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Favorites ❤️</string>
+			<key>Playlist ID</key>
+			<integer>300</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>3</integer>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>Tracks</key>
+	<dict>
+		<key>1</key>
+		<dict>
+			<key>Album</key>
+			<string>作品集</string>
+			<key>Artist</key>
+			<string>Café Müller</string>
+			<key>Bit Rate</key>
+			<integer>256</integer>
+			<key>Date Added</key>
+			<date>2021-01-01T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Café Müller/作品集/日本の歌 🎵.m4a</string>
+			<key>Name</key>
+			<string>日本の歌 🎵</string>
+			<key>Play Count</key>
+			<integer>5</integer>
+			<key>Rating</key>
+			<integer>80</integer>
+			<key>Total Time</key>
+			<integer>200000</integer>
+			<key>Track ID</key>
+			<integer>1</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>2</key>
+		<dict>
+			<key>Album</key>
+			<string>作品集</string>
+			<key>Artist</key>
+			<string>Cafe Muller</string>
+			<key>Bit Rate</key>
+			<integer>256</integer>
+			<key>Date Added</key>
+			<date>2022-06-01T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Cafe Muller/作品集/日本の歌 🎵 (Live).m4a</string>
+			<key>Name</key>
+			<string>日本の歌 🎵 (Live)</string>
+			<key>Play Count</key>
+			<integer>1</integer>
+			<key>Rating</key>
+			<integer>0</integer>
+			<key>Total Time</key>
+			<integer>205000</integer>
+			<key>Track ID</key>
+			<integer>2</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>3</key>
+		<dict>
+			<key>Album</key>
+			<string>Über Album</string>
+			<key>Artist</key>
+			<string>Zażółć Gęślą Jaźń</string>
+			<key>Bit Rate</key>
+			<integer>256</integer>
+			<key>Date Added</key>
+			<date>2020-03-03T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Zażółć Gęślą Jaźń/Über Album/Naïve.m4a</string>
+			<key>Name</key>
+			<string>Naïve</string>
+			<key>Play Count</key>
+			<integer>2</integer>
+			<key>Rating</key>
+			<integer>60</integer>
+			<key>Total Time</key>
+			<integer>180000</integer>
+			<key>Track ID</key>
+			<integer>3</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

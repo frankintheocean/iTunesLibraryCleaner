@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist [
+	<!ENTITY xxe "injected">
+]>
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Tracks</key>
+	<dict>
+		<key>1</key>
+		<dict>
+			<key>Track ID</key><integer>1</integer>
+			<key>Name</key><string>&xxe;</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

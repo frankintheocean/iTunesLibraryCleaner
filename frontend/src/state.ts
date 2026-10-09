@@ -1,0 +1,2 @@
+import {create} from 'zustand';
+export const useWorkspace=create<{section:string;profile:string;theme:string;setSection:(section:string)=>void;setProfile:(profile:string)=>void;setTheme:(theme:string)=>void}>(set=>({section:'Overview',profile:'',theme:localStorage.getItem('theme')||'Apple Light',setSection:section=>set({section}),setProfile:profile=>set({profile}),setTheme:theme=>{localStorage.setItem('theme',theme);set({theme});}}));

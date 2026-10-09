@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Application Version</key>
+	<string>12.13.6.3</string>
+	<key>Date</key>
+	<date>2026-08-16T04:35:31Z</date>
+	<key>Library Persistent ID</key>
+	<string>SYNTHETICTESTLIB01</string>
+	<key>Major Version</key>
+	<integer>1</integer>
+	<key>Minor Version</key>
+	<integer>1</integer>
+	<key>Music Folder</key>
+	<string>file://localhost/Users/test/Music/</string>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Master</key>
+			<true/>
+			<key>Name</key>
+			<string>Library</string>
+			<key>Playlist ID</key>
+			<integer>100</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>3</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>4</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>5</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>6</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>7</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>8</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>9</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>10</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Music</key>
+			<true/>
+			<key>Name</key>
+			<string>Music</string>
+			<key>Playlist ID</key>
+			<integer>101</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>3</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>4</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>5</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>6</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>7</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>8</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>9</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>10</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Late Night Drive</string>
+			<key>Playlist ID</key>
+			<integer>200</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>4</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>10</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Favorites</string>
+			<key>Playlist ID</key>
+			<integer>201</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>3</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>6</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>10</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Chill Mix</string>
+			<key>Playlist ID</key>
+			<integer>202</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>8</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>9</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>5</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Study Focus</string>
+			<key>Playlist ID</key>
+			<integer>203</integer>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key>
+					<integer>10</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>10</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>6</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key>
+					<integer>7</integer>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>Tracks</key>
+	<dict>
+		<key>1</key>
+		<dict>
+			<key>Album</key>
+			<string>Hurry Up, We're Dreaming</string>
+			<key>Artist</key>
+			<string>M83</string>
+			<key>Bit Rate</key>
+			<integer>256</integer>
+			<key>Date Added</key>
+			<date>2019-03-01T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/M83/Hurry Up, We're Dreaming/Midnight City.m4a</string>
+			<key>Name</key>
+			<string>Midnight City</string>
+			<key>Play Count</key>
+			<integer>12</integer>
+			<key>Rating</key>
+			<integer>80</integer>
+			<key>Total Time</key>
+			<integer>243000</integer>
+			<key>Track ID</key>
+			<integer>1</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>10</key>
+		<dict>
+			<key>Album</key>
+			<string>In Rainbows</string>
+			<key>Artist</key>
+			<string>Radiohead</string>
+			<key>Bit Rate</key>
+			<integer>256</integer>
+			<key>Date Added</key>
+			<date>2015-01-01T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Radiohead/In Rainbows/Weird Fishes/Arpeggi.m4a</string>
+			<key>Name</key>
+			<string>Weird Fishes/Arpeggi</string>
+			<key>Play Count</key>
+			<integer>20</integer>
+			<key>Rating</key>
+			<integer>100</integer>
+			<key>Total Time</key>
+			<integer>305000</integer>
+			<key>Track ID</key>
+			<integer>10</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>2</key>
+		<dict>
+			<key>Album</key>
+			<string>Hurry Up, We're Dreaming</string>
+			<key>Artist</key>
+			<string>M83</string>
+			<key>Bit Rate</key>
+			<integer>128</integer>
+			<key>Date Added</key>
+			<date>2021-07-15T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/M83/Hurry Up, We're Dreaming/Midnight City.m4a</string>
+			<key>Name</key>
+			<string>Midnight City</string>
+			<key>Play Count</key>
+			<integer>3</integer>
+			<key>Rating</key>
+			<integer>60</integer>
+			<key>Total Time</key>
+			<integer>243000</integer>
+			<key>Track ID</key>
+			<integer>2</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>3</key>
+		<dict>
+			<key>Album</key>
+			<string>After Hours</string>
+			<key>Artist</key>
+			<string>The Weeknd</string>
+			<key>Artwork Count</key>
+			<integer>1</integer>
+			<key>Bit Rate</key>
+			<integer>320</integer>
+			<key>Date Added</key>
+			<date>2020-01-01T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/The Weeknd/After Hours/Blinding Lights.m4a</string>
+			<key>Name</key>
+			<string>Blinding Lights</string>
+			<key>Play Count</key>
+			<integer>40</integer>
+			<key>Rating</key>
+			<integer>100</integer>
+			<key>Total Time</key>
+			<integer>200000</integer>
+			<key>Track ID</key>
+			<integer>3</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>4</key>
+		<dict>
+			<key>Album</key>
+			<string>After Hours (Remix)</string>
+			<key>Artist</key>
+			<string>The Weeknd</string>
+			<key>Bit Rate</key>
+			<integer>192</integer>
+			<key>Date Added</key>
+			<date>2020-06-01T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/The Weeknd/After Hours (Remix)/Blinding Lights (feat. Rosalia).m4a</string>
+			<key>Name</key>
+			<string>Blinding Lights (feat. Rosalia)</string>
+			<key>Play Count</key>
+			<integer>5</integer>
+			<key>Rating</key>
+			<integer>0</integer>
+			<key>Total Time</key>
+			<integer>201500</integer>
+			<key>Track ID</key>
+			<integer>4</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>5</key>
+		<dict>
+			<key>Album</key>
+			<string></string>
+			<key>Artist</key>
+			<string>Childish Gambino</string>
+			<key>Bit Rate</key>
+			<integer>192</integer>
+			<key>Date Added</key>
+			<date>2022-01-01T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Childish Gambino//Redbone.m4a</string>
+			<key>Name</key>
+			<string>Redbone</string>
+			<key>Play Count</key>
+			<integer>1</integer>
+			<key>Rating</key>
+			<integer>0</integer>
+			<key>Total Time</key>
+			<integer>326000</integer>
+			<key>Track ID</key>
+			<integer>5</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>6</key>
+		<dict>
+			<key>Album</key>
+			<string>Awaken, My Love!</string>
+			<key>Artist</key>
+			<string>Childish Gambino</string>
+			<key>Bit Rate</key>
+			<integer>256</integer>
+			<key>Date Added</key>
+			<date>2018-11-11T00:00:00Z</date>
+			<key>Genre</key>
+			<string>Funk</string>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Childish Gambino/Awaken, My Love!/Redbone.m4a</string>
+			<key>Name</key>
+			<string>Redbone</string>
+			<key>Play Count</key>
+			<integer>8</integer>
+			<key>Rating</key>
+			<integer>90</integer>
+			<key>Total Time</key>
+			<integer>326000</integer>
+			<key>Track ID</key>
+			<integer>6</integer>
+			<key>Track Type</key>
+			<string>File</string>
+			<key>Year</key>
+			<integer>2016</integer>
+		</dict>
+		<key>7</key>
+		<dict>
+			<key>Album</key>
+			<string>Awaken, My Love!</string>
+			<key>Artist</key>
+			<string>Childish Gambino</string>
+			<key>Bit Rate</key>
+			<integer>320</integer>
+			<key>Date Added</key>
+			<date>2023-02-02T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Childish Gambino/Awaken, My Love!/Redbone.m4a</string>
+			<key>Name</key>
+			<string>Redbone</string>
+			<key>Play Count</key>
+			<integer>2</integer>
+			<key>Rating</key>
+			<integer>0</integer>
+			<key>Total Time</key>
+			<integer>327200</integer>
+			<key>Track ID</key>
+			<integer>7</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>8</key>
+		<dict>
+			<key>Album</key>
+			<string>Up From Below</string>
+			<key>Artist</key>
+			<string>Edward Sharpe &amp; The Magnetic Zeros</string>
+			<key>Bit Rate</key>
+			<integer>256</integer>
+			<key>Date Added</key>
+			<date>2017-05-05T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Edward Sharpe &amp; The Magnetic Zeros/Up From Below/Home.m4a</string>
+			<key>Name</key>
+			<string>Home</string>
+			<key>Play Count</key>
+			<integer>6</integer>
+			<key>Rating</key>
+			<integer>0</integer>
+			<key>Total Time</key>
+			<integer>302000</integer>
+			<key>Track ID</key>
+			<integer>8</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+		<key>9</key>
+		<dict>
+			<key>Album</key>
+			<string>English Rain</string>
+			<key>Artist</key>
+			<string>Gabrielle Aplin</string>
+			<key>Bit Rate</key>
+			<integer>256</integer>
+			<key>Date Added</key>
+			<date>2019-09-09T00:00:00Z</date>
+			<key>Kind</key>
+			<string>AAC audio file</string>
+			<key>Location</key>
+			<string>file://localhost/Users/test/Music/Gabrielle Aplin/English Rain/Home.m4a</string>
+			<key>Name</key>
+			<string>Home</string>
+			<key>Play Count</key>
+			<integer>1</integer>
+			<key>Rating</key>
+			<integer>0</integer>
+			<key>Total Time</key>
+			<integer>222000</integer>
+			<key>Track ID</key>
+			<integer>9</integer>
+			<key>Track Type</key>
+			<string>File</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
