@@ -64,3 +64,7 @@ These are maintenance fixes to the existing 1.0.0 release; the version number in
 **Notes:** Missing Tracks relies on track-number and track-count metadata from the loaded library; it cannot infer tracks absent from the source metadata. Playlist-image synchronization, customizable tab ordering/visibility, artist-photo sourcing, and the refreshed Apple-style application icon still require additional implementation and validation before they can be claimed as delivered.
 
 - 🧭 Add Settings controls to hide/show and reorder workspace tabs; the selected navigation preferences are saved with app settings.
+
+- 🖼️ Display the picture saved on a live iTunes playlist when the active iTunes COM interface exposes it; app-saved playlist covers remain a fallback.
+- 🎨 Add album/song artwork thumbnails to Library Stats and artist portraits from Last.fm when a Last.fm connection is configured.
+- 🎵 Add a new scalable vector app-icon source and use it in the workspace branding. The packaged Windows `.ico` asset still needs to be regenerated from the design before the native installer icon can be considered replaced.
