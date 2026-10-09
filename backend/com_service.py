@@ -268,7 +268,7 @@ def _perform(payload, database, job, pipe):
         pipe.close()
 
 
-def run_com(payload, database, job='', timeout=30, progress=None):
+def run_com(payload, database, job='', timeout=30, progress=None, max_timeout=6 * 60 * 60):
     if sys.platform != 'win32':
         raise RuntimeError('Live iTunes requires Windows, classic iTunes running, and pywin32. Apple Music for Windows does not expose this COM interface.')
     context = multiprocessing.get_context('spawn')
@@ -277,14 +277,44 @@ def run_com(payload, database, job='', timeout=30, progress=None):
     process.start()
     child.close()
     try:
-        deadline = time.monotonic() + timeout
+        scanning = payload.get('operation') == 'scan'
+        started = time.monotonic()
+        deadline = started + timeout
+        hard_deadline = started + (max_timeout if scanning else timeout)
+        last_done = -1
+        last_progress = (0, 1, 'Waiting for iTunes') if scanning else None
+        check_at = started + 2
         while True:
-            if not parent.poll(max(0, deadline - time.monotonic())):
-                raise TimeoutError('iTunes did not respond before the timeout. Any pending writes have an uncertain outcome; inspect field history before retrying.')
+            now = time.monotonic()
+            remaining = min(deadline, hard_deadline) - now
+            if remaining <= 0:
+                if scanning:
+                    raise TimeoutError('The read-only iTunes scan stopped responding or reached its time limit. No live metadata was changed. Your previous saved library is safe; check iTunes for an open dialog, then retry the scan.')
+                if payload.get('operation') == 'edit':
+                    raise TimeoutError('iTunes did not respond before the timeout. Any pending writes have an uncertain outcome; inspect field history before retrying.')
+                raise TimeoutError('iTunes did not respond in time. Check iTunes for an open dialog, then refresh the connection.')
+            if not parent.poll(min(.5, remaining)):
+                # Keep cancel, shutdown and pause controls responsive during slow reads.
+                if scanning and progress and last_progress and now >= check_at:
+                    before = time.monotonic()
+                    progress(*last_progress)
+                    deadline += time.monotonic() - before
+                    check_at = time.monotonic() + 2
+                continue
             try: response = parent.recv()
-            except EOFError as exc: raise RuntimeError('The iTunes worker stopped unexpectedly. Check field records before retrying a write.') from exc
+            except EOFError as exc:
+                if scanning:
+                    raise RuntimeError('The read-only iTunes scan stopped unexpectedly. No live metadata was changed; your previous saved library is safe.') from exc
+                raise RuntimeError('The iTunes worker stopped unexpectedly. Check field records before retrying a write.') from exc
             if 'progress' in response:
-                if progress: progress(*response['progress'])
+                values = response['progress']
+                if progress: progress(*values)
+                last_progress = values
+                # A large healthy scan can take longer than fifteen minutes.
+                # Only real forward progress extends the idle window.
+                if scanning and values[0] > last_done:
+                    last_done = values[0]
+                    deadline = time.monotonic() + timeout
                 continue
             if 'error' in response: raise RuntimeError(response['error'])
             return response['result']
