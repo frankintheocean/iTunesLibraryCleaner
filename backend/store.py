@@ -5,6 +5,7 @@ import threading
 import time
 import uuid
 from pathlib import Path
+from contextlib import contextmanager
 
 
 def encode(value):
@@ -42,12 +43,17 @@ class Store:
             db.execute("UPDATE jobs SET elapsed=elapsed+MAX(0,updated-active_since),active_since=NULL,finished=updated WHERE active_since IS NOT NULL AND status IN ('running','paused')")
             db.execute("UPDATE jobs SET status='interrupted', error='Process stopped. Inspect checkpoint before retrying.' WHERE status IN ('running','paused')")
 
+    @contextmanager
     def connect(self):
         db = sqlite3.connect(self.path, timeout=30)
-        db.row_factory = sqlite3.Row
-        db.execute('PRAGMA foreign_keys=ON')
-        db.execute('PRAGMA busy_timeout=30000')
-        return db
+        try:
+            db.row_factory = sqlite3.Row
+            db.execute('PRAGMA foreign_keys=ON')
+            db.execute('PRAGMA busy_timeout=30000')
+            with db:
+                yield db
+        finally:
+            db.close()
 
     def rows(self, sql, args=()):
         with self.connect() as db:
