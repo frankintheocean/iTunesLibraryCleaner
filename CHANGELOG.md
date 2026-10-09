@@ -1,6 +1,6 @@
 # 🗓️ iTunes Manager release history
 
-## 🎵 4.0.0 — Current Library and playlist controls
+## 🎵 1.0.0 — Current Library and playlist controls
 
 ### 🐛 Fixes
 - **Clear history clears Field journal entries too**, including metadata edits. Clearing the journal also removes those app-side undo references.
