@@ -102,3 +102,10 @@
 .stats-art-placeholder{display:inline-flex;align-items:center;justify-content:center;background:var(--surface-2);color:var(--muted)}
 .stats-list li>span:not(.stats-art-placeholder){min-width:0}
 .stats-list li b,.stats-list li small{overflow:hidden;text-overflow:ellipsis}
+
+/* 🖼️ Library stats artwork thumbnails. */
+.stats-list li{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:10px}
+.stats-art{width:38px;height:38px;object-fit:cover;border-radius:7px;flex:none}
+.stats-art-placeholder{display:inline-flex;align-items:center;justify-content:center;background:var(--surface-2);color:var(--muted)}
+.stats-list li>span:not(.stats-art-placeholder){min-width:0}
+.stats-list li b,.stats-list li small{overflow:hidden;text-overflow:ellipsis}
