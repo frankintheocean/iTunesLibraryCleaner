@@ -1,5 +1,25 @@
 # 🗓️ iTunes Manager release history
 
+## 🎵 3.1.0 — Last.fm and large live scans
+
+### 🐛 Fixes
+
+- Keep a live scan running while it makes progress, even beyond 15 minutes. Stop stalled reads and keep cancel controls responsive.
+- Explain read-only scan timeouts separately from uncertain metadata writes. Keep the write safeguards.
+- Show the GitHub button only in Settings.
+
+### 🎧 Listening
+
+- Connect Last.fm with your own API key and username. Show a large profile picture and total plays.
+- Browse recent songs and top songs, artists and albums. Choose all time, 7 days, 1 month, 3 months, 6 months or 1 year.
+- Show available covers and artist photos, browse more results and refresh charts.
+- Keep the API key out of UI responses and general preferences. Disconnect to remove it locally.
+
+### 📍 Libraries
+
+- Remove discovered locations from the suggestions without deleting files or unloading libraries.
+- Restore hidden suggestions when needed.
+
 ## 🎵 3.0.0 — Faster libraries, safer live edits
 
 ### 🐛 Fixes
