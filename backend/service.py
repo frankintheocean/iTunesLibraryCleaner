@@ -314,10 +314,10 @@ class Service:
         for row,raw in zip(rows,raw_tracks):
             artist=str(raw.get('Artist') or '').strip();album_artist=str(raw.get('Album Artist') or raw.get('Album Artist Name') or artist).strip()
             album=str(raw.get('Album') or '').strip();year=self._release_year(raw);duration=self._duration(raw);title=str(raw.get('Name') or 'Untitled').strip() or 'Untitled'
-            songs.append({'name':title,'artist':artist or 'Unknown artist','album':album or 'Unknown album','year':year,'duration_seconds':duration})
+            songs.append({'name':title,'artist':artist or 'Unknown artist','album':album or 'Unknown album','year':year,'duration_seconds':duration,'_path':str(row['path'] or '')})
             if album_artist:artist_names.setdefault(album_artist.casefold(),album_artist)
             if album and album.casefold() not in {'unknown album','untitled','(unknown album)'}:
-                key=(album_artist.casefold(),album.casefold());entry=albums.setdefault(key,{'title':album,'artist':album_artist or artist or 'Unknown artist','year':year,'duration_seconds':0,'years':[],'tracks':0,'present_tracks':0})
+                key=(album_artist.casefold(),album.casefold());entry=albums.setdefault(key,{'title':album,'artist':album_artist or artist or 'Unknown artist','year':year,'duration_seconds':0,'years':[],'tracks':0,'present_tracks':0,'_path':str(row['path'] or '')})
                 entry['tracks']+=1;entry['duration_seconds']+=duration
                 if year:entry['years'].append(year)
                 if entry['year'] is None and year:entry['year']=year
@@ -333,6 +333,12 @@ class Service:
         sa=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(x['duration_seconds'],x['title'].casefold()))[:5]
         for item in [*ls,*ss,*la,*sa]:item['duration']=self._duration_label(item['duration_seconds'])
         stats={'top_artists':top[:10],'oldest_songs':sorted(ds,key=lambda x:(x['year'],x['name'].casefold()))[:5],'newest_songs':sorted(ds,key=lambda x:(-x['year'],x['name'].casefold()))[:5],'oldest_albums':sorted(old,key=lambda x:(x['year'],x['title'].casefold()))[:5],'newest_albums':sorted(new,key=lambda x:(-x['year'],x['title'].casefold()))[:5],'longest_songs':ls,'shortest_songs':ss,'longest_albums':la,'shortest_albums':sa}
+        from .artwork import thumbnail
+        for stat_name in ('oldest_songs','newest_songs','longest_songs','shortest_songs'):
+            for item in stats[stat_name]: item['image']=thumbnail(item.get('_path'))
+        for stat_name in ('oldest_albums','newest_albums','longest_albums','shortest_albums'):
+            for item in stats[stat_name]: item['image']=thumbnail(item.get('_path'))
+        for item in [*stats['oldest_songs'],*stats['newest_songs'],*stats['longest_songs'],*stats['shortest_songs'],*stats['oldest_albums'],*stats['newest_albums'],*stats['longest_albums'],*stats['shortest_albums']]: item.pop('_path',None)
         result={'tracks':len(raw_tracks),'artists':len({t.get('Artist') for t in raw_tracks if t.get('Artist')}),'albums':len(albums),'size':sum(int(t.get('Size',0) or 0) for t in raw_tracks),'unknown_sizes':sum(not t.get('Size') for t in raw_tracks),'missing':sum(r['missing'] for r in rows),'metadata_issues':sum(not t.get('Artist') or not t.get('Genre') or bool(t.get('_error')) for t in raw_tracks),'genres':dict(by_genre.most_common(12)),'formats':dict(formats),'playlists':len(self.library(identity,mutable=False).playlists),'last_scan':scanned,'library_stats':stats}
         if version==self._index_versions[identity]:self._overviews[identity]=((scanned,version),result)
         return result
