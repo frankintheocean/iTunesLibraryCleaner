@@ -31,9 +31,14 @@ class Store:
             CREATE TABLE IF NOT EXISTS transfers(id TEXT PRIMARY KEY, job TEXT, source TEXT, destination TEXT, hash TEXT, mode TEXT, status TEXT, created REAL);
             ''')
             columns = {row[1] for row in db.execute('PRAGMA table_info(jobs)')}
-            for name, definition in {'archived': 'INTEGER DEFAULT 0', 'started': 'REAL', 'finished': 'REAL', 'elapsed': 'REAL DEFAULT 0', 'active_since': 'REAL'}.items():
+            for name, definition in {'archived': 'INTEGER DEFAULT 0', 'started': 'REAL', 'finished': 'REAL', 'elapsed': 'REAL DEFAULT 0', 'active_since': 'REAL', 'eta_end': 'REAL'}.items():
                 if name not in columns: db.execute(f'ALTER TABLE jobs ADD COLUMN {name} {definition}')
             db.execute('INSERT OR IGNORE INTO migrations VALUES(2)')
+            db.execute('CREATE INDEX IF NOT EXISTS track_order ON tracks(profile,artist,album,name)')
+            db.execute('CREATE VIRTUAL TABLE IF NOT EXISTS track_text USING fts5(profile UNINDEXED,id UNINDEXED,name,artist,album,genre,tokenize="trigram")')
+            if not db.execute('SELECT 1 FROM migrations WHERE version=3').fetchone():
+                db.execute('INSERT INTO track_text(rowid,profile,id,name,artist,album,genre) SELECT rowid,profile,id,name,artist,album,genre FROM tracks')
+                db.execute('INSERT INTO migrations VALUES(3)')
             db.execute("UPDATE jobs SET elapsed=elapsed+MAX(0,updated-active_since),active_since=NULL,finished=updated WHERE active_since IS NOT NULL AND status IN ('running','paused')")
             db.execute("UPDATE jobs SET status='interrupted', error='Process stopped. Inspect checkpoint before retrying.' WHERE status IN ('running','paused')")
 
