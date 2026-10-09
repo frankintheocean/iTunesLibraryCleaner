@@ -30,6 +30,13 @@ class LastFMImage(Model):
     url: str = Field(max_length=2048)
 
 
+class LastFMPicture(Model):
+    kind: Literal['profile', 'track', 'album', 'artist']
+    name: str = Field(min_length=1, max_length=512)
+    artist: str = Field(default='', max_length=512)
+    url: str = Field(default='', max_length=2048)
+
+
 class LastFMTrackImage(Model):
     name: str = Field(min_length=1, max_length=512)
     artist: str = Field(min_length=1, max_length=512)
@@ -182,7 +189,7 @@ def create_app(data_dir, token, ready=None):
     def auth(authorization: str = Header(default='')):
         if not hmac.compare_digest(authorization, 'Bearer ' + token): raise HTTPException(401, 'Unauthorized')
 
-    app = FastAPI(title='iTunes Manager', version='3.1.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title='iTunes Manager', version='3.1.1', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.service = service
 
     @app.exception_handler(RequestValidationError)
@@ -205,7 +212,7 @@ def create_app(data_dir, token, ready=None):
         return Response(json.dumps({'detail': str(exc)}), status_code=503, media_type='application/json')
 
     @app.get('/health')
-    def health(): return {'ready': True, 'version': '3.1.0'}
+    def health(): return {'ready': True, 'version': '3.1.1'}
 
     @app.get('/discovery')
     def discover():
@@ -247,6 +254,9 @@ def create_app(data_dir, token, ready=None):
 
     @app.post('/lastfm/image')
     def lastfm_image(body: LastFMImage): return service.lastfm.image(body.url)
+
+    @app.post('/lastfm/picture')
+    def lastfm_picture(body: LastFMPicture): return service.lastfm.resolve_picture(body.kind, body.name, body.artist, body.url)
 
     @app.post('/lastfm/track-image')
     def lastfm_track_image(body: LastFMTrackImage): return service.lastfm.track_image(body.name, body.artist)
@@ -486,7 +496,7 @@ def create_app(data_dir, token, ready=None):
     def report(body: PathRequest):
         output = checked_path(body.path)
         with open(output, 'x', encoding='utf-8') as f:
-            json.dump({'version': '3.1.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
+            json.dump({'version': '3.1.1', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
         return {'output': str(output)}
 
     @app.get('/changelog')
