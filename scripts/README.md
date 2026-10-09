@@ -1,6 +1,6 @@
 # 🧰 Build and maintenance scripts
 
-Run scripts from the repository root so their relative paths and expected output folders resolve correctly. Use the locked dependency files and review generated outputs before publishing them.
+Run scripts from the repository root. Use the locked dependency files and review generated outputs before publishing them.
 
 - 🪟 `build-windows.ps1` installs locked dependencies, runs checks, bundles the backend, and builds the installer.
 - 📦 `package-windows.py` and `package-source.py` create the portable and source ZIPs.
