@@ -1,14 +1,19 @@
-# Unified iTunes Library Manager 1.0
+# 🎵 Unified iTunes Library Manager 1.0
 
-A Windows desktop music-library workspace combining LibraryCleaner and iTunes Library Consolidator, with a React interface and Python services. The Windows preview installer has automated Windows acceptance coverage; source-level live COM editing has also passed on classic iTunes 12.13.11.1. See the validation documentation for remaining acceptance limits.
+A Windows music-library workspace combining LibraryCleaner and iTunes Library Consolidator with an Apple-inspired interface.
 
-The **live iTunes** target writes directly through classic iTunes' Windows COM API. Genre cleanup, split-album merging and the metadata editor share one writer. Supported live fields: genre, song title, artist, album, album artist, year, track/disc numbers and counts, composer, comments, compilation and rating. COM uses genuine persistent IDs, signed 32-bit halves, an isolated initialized apartment, reconnects on rejected calls, per-field journals and readback. Editing an XML alone is never represented as editing live iTunes.
+## ✨ Key features
 
-The **file tags** target uses Mutagen and saves verified full-file backups before editing. Every mutation is previewed and explicitly confirmed. Duplicate consolidation writes a separate XML and repoints playlist entries using the original merge algorithm; it does not delete physical media. File consolidation uses hash-verified staging and exclusive atomic publication. Moving/quarantining files can break live references; a separate relink workflow/export is supplied.
+- Edit live iTunes genres, titles, artists, albums and other metadata through classic iTunes COM.
+- Clean genres, merge split albums, find duplicates and organize media.
+- Preview changes, retain backups and review queued jobs and undo history.
+- Launch preserved original tools for advanced workflows.
 
-## Running from source
+## 🚀 Quick start
 
-Requires Python 3.12+, Node 22.12+, and Windows 10/11 x64 for live iTunes. Open classic iTunes before connecting. Apple Music for Windows does not expose this COM interface.
+Download the Windows installer from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases). Requires Windows 10/11 x64; live editing requires **classic iTunes**, not Apple Music for Windows.
+
+To run from source, install Python 3.12+ and Node 22.12+, then run in the repository folder:
 
 ```powershell
 py -3.12 -m venv .venv
@@ -18,33 +23,14 @@ npm run build
 npm run desktop
 ```
 
-Linux development and domain/API tests are supported using `requirements-lock-linux.txt`; live COM and Windows packaging need Windows. Electron needs an available graphical display. See [BUILD.md](BUILD.md).
+Open classic iTunes before connecting. Linux development uses `requirements-lock-linux.txt`; live COM and Windows packaging require Windows. Electron needs a graphical display.
 
-## Workspace
+## 🛡️ Before editing
 
-Overview, Libraries, Library Cleaner, Consolidation, Duplicates, Metadata, Playlists, File Organizer, Queue, History and Settings are connected to backend operations. Track tables virtualize pages of 500 rows and allow navigation through the entire library. Search runs against SQLite. Profiles retain independent source and scan configuration. Folder scans reuse unchanged metadata; scheduled scans run only while the app is open. Jobs serialize mutations, pause/cancel between files/tracks, and expose interrupted checkpoints after restart. Metadata retries require a new preview if the previous result may be partial.
+Every unified mutation requires a preview and explicit confirmation. COM has no multi-field transaction; partial results are journaled, and undo applies only when values still match the previous write. Backups are retained. Moving files can break live references. Original tools retain their own potentially irreversible deletion and rebuild operations: use their confirmations and backups.
 
-Settings opens the **preserved original Cleaner and Consolidator** interfaces for original workflows not redesigned into React (detailed cleanup presets/cache/notifications, advanced duplicate exclusions, audio preview, named restore points, growth trends and rebuild/undo). Their code and exact original themes remain available in writable user-data mirrors. This retention does not claim every legacy screen has a React replacement.
+The installer is unsigned. Source-level live COM editing and conditional undo passed on iTunes 12.13.11.1; packaged live COM and additional Windows 10/11 manual acceptance remain outstanding. Read [known limitations](docs/LIMITATIONS.md) and [validation evidence](docs/VALIDATION.md). DRM and proprietary Apple databases are not modified. The application does not upload libraries or publish to GitHub.
 
-## Appearance
+## 📚 Guides
 
-The UI requests installed SF Pro Display/Text first, then system fallbacks including Segoe UI. Apple font files and proprietary Apple icons are not distributed. An original stacked-record icon is supplied as PNG and a seven-resolution Windows ICO. Generated source artwork is retained in `resources/icon-source.png`.
-
-## Safety and limitations
-
-Read [docs/FEATURE_PARITY.md](docs/FEATURE_PARITY.md), [docs/VALIDATION.md](docs/VALIDATION.md) and [docs/LIMITATIONS.md](docs/LIMITATIONS.md) before using live operations. COM has no multi-property transaction: partial outcomes are recorded, not hidden. Live and file-tag undo apply only when the value still matches the previous write. Backups are retained, never pruned automatically by the unified services. Filesystems without hard-link publication fail safely; cross-filesystem copies stage on the destination volume. Proprietary ITL/Apple Music databases are not directly edited. DRM files are not modified or bypassed.
-
-Original legacy tools retain their original potentially irreversible deletion/rebuild behavior. Use their confirmations and backups. No remote upload, Git push or publication is performed.
-
-## Development
-
-```sh
-.venv/bin/python -m pytest tests legacy/consolidator/tests -q
-npm test
-npm run build
-python3 scripts/package-source.py
-```
-
-See [ARCHITECTURE.md](ARCHITECTURE.md), [MIGRATION.md](MIGRATION.md), [TESTING.md](TESTING.md), [INSTALL.md](INSTALL.md) and [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
-
-Windows preview installer: [download the executable](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/download/v4.0.0-windows-preview/Unified-iTunes-Library-Manager-4.0.0-win-x64.exe). See the [release notes and checksum](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0-windows-preview). The real source COM test passed; packaged live COM and additional manual acceptance remain outstanding.
+[Install](INSTALL.md) · [Build](BUILD.md) · [Tests](TESTING.md) · [Workspace](docs/WORKSPACE_GUIDE.md) · [Feature parity](docs/FEATURE_PARITY.md) · [Architecture](ARCHITECTURE.md) · [Migration](MIGRATION.md) · [Licenses](THIRD_PARTY_LICENSES.md) · [File and folder labels](docs/REPOSITORY_LABELS.md)
