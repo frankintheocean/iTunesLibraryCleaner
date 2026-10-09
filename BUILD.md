@@ -2,7 +2,7 @@
 
 ## 🪟 Windows installer
 
-Use Windows 10/11 x64, Python 3.12 x64, and Node 22.12 or later. Run the command from a PowerShell session at the repository root:
+Use Windows 10/11 x64, Python 3.12 x64, and Node 22.12 or later. Open PowerShell at the repository root:
 
 ```powershell
 powershell -File scripts/build-windows.ps1
