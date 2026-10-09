@@ -7,6 +7,8 @@ let win,backend,backendPort,closing=false;
 const children=new Set();
 const token=randomBytes(32).toString('hex');
 const root=path.resolve(__dirname,'..');
+// app.asar is a virtual archive; child processes need a real working directory.
+const backendCwd=app.isPackaged?process.resourcesPath:root;
 const dev=!!process.env.LIBRARY_MANAGER_DEV;
 if(process.env.LIBRARY_MANAGER_DATA_DIR)app.setPath('userData',path.resolve(process.env.LIBRARY_MANAGER_DATA_DIR));
 function backendCommand(extra=[]){
@@ -16,7 +18,7 @@ function backendCommand(extra=[]){
 }
 async function startBackend(){
  const c=backendCommand();
- backend=spawn(c.exe,c.args,{cwd:root,env:{...process.env,LIBRARY_MANAGER_TOKEN:token},windowsHide:true,stdio:['ignore','pipe','pipe']});children.add(backend);
+ backend=spawn(c.exe,c.args,{cwd:backendCwd,env:{...process.env,LIBRARY_MANAGER_TOKEN:token},windowsHide:true,stdio:['ignore','pipe','pipe']});children.add(backend);
  let stderr='';backend.stderr.on('data',b=>{stderr=(stderr+b.toString()).slice(-8000);});
  return new Promise((resolve,reject)=>{
   let buffer='';const timer=setTimeout(()=>{backend.kill();reject(new Error('Backend startup timed out. '+stderr));},45000);
@@ -33,7 +35,7 @@ ipcMain.handle('library:request',async(event,{path:route,method,body})=>{
  try{const response=await fetch(`http://127.0.0.1:${backendPort}${endpoint}`,{method,headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),signal:controller.signal});const result=await response.json();if(!response.ok)throw new Error(typeof result.detail==='string'?result.detail:JSON.stringify(result.detail));return result;}finally{clearTimeout(timeout);}
 });
 ipcMain.handle('library:choose',async(event,kind)=>{assertSender(event);if(kind==='folder'){const r=await dialog.showOpenDialog(win,{properties:['openDirectory','dontAddToRecent']});return r.canceled?null:r.filePaths[0];}if(!filters[kind])throw new Error('Unsupported dialog');if(kind.startsWith('save-')){const r=await dialog.showSaveDialog(win,{filters:filters[kind],properties:['showOverwriteConfirmation','dontAddToRecent']});return r.canceled?null:r.filePath;}const r=await dialog.showOpenDialog(win,{filters:filters[kind],properties:['openFile','dontAddToRecent']});return r.canceled?null:r.filePaths[0];});
-ipcMain.handle('library:legacy',async(event,name)=>{assertSender(event);if(!['cleaner','consolidator'].includes(name))throw new Error('Unknown legacy tool');const c=backendCommand(['--legacy',name]);const child=spawn(c.exe,c.args,{cwd:root,windowsHide:true,stdio:['ignore','ignore','pipe'],env:{...process.env,LIBRARY_MANAGER_TOKEN:''}});children.add(child);let errors='';child.stderr.on('data',b=>errors=(errors+b).slice(-4000));child.on('exit',code=>{children.delete(child);if(code&&!closing)dialog.showErrorBox('Legacy tool could not start',errors||`Exit code ${code}`);});await new Promise((resolve,reject)=>{child.once('spawn',resolve);child.once('error',reject);});});
+ipcMain.handle('library:legacy',async(event,name)=>{assertSender(event);if(!['cleaner','consolidator'].includes(name))throw new Error('Unknown legacy tool');const c=backendCommand(['--legacy',name]);const child=spawn(c.exe,c.args,{cwd:backendCwd,windowsHide:true,stdio:['ignore','ignore','pipe'],env:{...process.env,LIBRARY_MANAGER_TOKEN:''}});children.add(child);let errors='';child.stderr.on('data',b=>errors=(errors+b).slice(-4000));child.on('exit',code=>{children.delete(child);if(code&&!closing)dialog.showErrorBox('Legacy tool could not start',errors||`Exit code ${code}`);});await new Promise((resolve,reject)=>{child.once('spawn',resolve);child.once('error',reject);});});
 ipcMain.handle('library:window',(event,action)=>{assertSender(event);if(action==='minimize')win.minimize();else if(action==='maximize')win.isMaximized()?win.unmaximize():win.maximize();else if(action==='close')win.close();else throw new Error('Unknown window action');});
 app.on('web-contents-created',(_,contents)=>{contents.setWindowOpenHandler(()=>({action:'deny'}));contents.on('will-attach-webview',e=>e.preventDefault());contents.session.setPermissionRequestHandler((_,__,callback)=>callback(false));});
 app.whenReady().then(async()=>{
