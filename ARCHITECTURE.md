@@ -1,13 +1,25 @@
-# Architecture
+# 🏗️ How the app works
 
-React + TypeScript + Vite provide navigation, virtualized track tables, themes, review dialogs and forms. Tailwind is available alongside custom design tokens; Lucide and Zustand handle icons and lightweight navigation state.
+## 🖥️ Desktop and interface
 
-Electron isolates the renderer (`sandbox`, `contextIsolation`, no Node integration). Preload exposes only allowlisted API routes, native file dialogs, named legacy tools and window controls. Main owns a random session token that is never exposed to React, launches the bundled backend, validates readiness, denies new windows/permissions and supervises child shutdown. FastAPI binds only 127.0.0.1, requires authenticated requests and validates inputs with Pydantic.
+React and TypeScript build the interface. Vite builds its files. Track tables load pages as you browse. Tailwind provides style tools, Lucide provides icons, and Zustand stores interface state.
 
-SQLite WAL stores profiles, searchable track rows, previews, jobs, field journals, transfer manifests and history; schema version 1 is recorded in migrations. XML snapshots preserve plist types and unknown fields. Original streaming parsing, exact/fuzzy matching, playlist-aware merge rules, genre automaton and album splitting are adapted through `backend/legacy.py`.
+Electron runs the desktop window. Its browser sandbox and context isolation stay enabled, and the interface cannot use Node directly. A small preload bridge allows approved requests, file dialogs, original-tool launches and window controls.
 
-One worker serializes mutations. Scans, file transfers and verification checkpoint between items; COM lives in a spawned subprocess/apartment with timeouts. No COM object crosses a thread or process boundary. The writer commits a pending journal before each property, verifies readback and labels uncertain failures. COM edits are not transactional. The service does not auto-retry an ambiguous outcome.
+The desktop host starts and stops the Python backend. It creates a random session token and keeps it out of the interface. FastAPI listens only on `127.0.0.1`, checks the token and validates request data with Pydantic. New browser windows and permission requests are blocked.
 
-Copies stage in the destination directory, verify SHA-256 and atomically publish using a hard link with exclusive destination semantics. Unsupported filesystems fail without deleting the source. Manifests are committed before transfer; files are removed only after verified copy. Interrupted copies with a published destination require inspection instead of being silently overwritten. Metadata preserves unrelated tags and saves a verified full-file backup.
+## 💾 Saved state
 
-Live iTunes and file-tag writes are separate targets. XML merge/relink/playlist imports create a new export rather than modifying ITL or representing XML export as a live sync. Advanced original routines remain in explicit legacy interfaces. No telemetry or external backend listening is configured; online genre/catalog lookup is opt-in.
+SQLite stores libraries, searchable tracks, change previews, jobs, change records, file-transfer records and history. It uses WAL mode and records schema version 1. XML imports keep unknown fields and their original data types. Original matching, playlist merging, genre rules and album detection are reused through `backend/legacy.py`.
+
+## ✍️ Editing
+
+One worker applies changes in order. Scans and transfers save progress between tracks or files. Live iTunes COM runs in its own process with a time limit; COM objects stay in that process and thread.
+
+Before changing each field, the app saves a pending record. It then reads the value back from iTunes. A failed edit can leave some fields changed. Uncertain results are recorded and are not retried automatically.
+
+## 📁 Files and exports
+
+Copies are staged in the destination folder and checked with SHA-256. A hard link publishes the verified copy without replacing an existing file. Unsupported filesystems fail safely. Sources are removed only after a verified copy. Interrupted transfers with an existing destination need review. Tag edits keep unrelated tags and save a verified full-file backup.
+
+Live iTunes edits and file-tag edits are separate choices. XML merging and relinking create a new export; they do not edit ITL databases or automatically update live iTunes. Advanced original tools remain available in Settings. Online lookups are optional. No telemetry or public network server is configured.
