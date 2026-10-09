@@ -74,3 +74,24 @@
 .settings-shortcuts{margin-bottom:16px}
 @media(max-width:1300px){.overview-grid-three{grid-template-columns:1fr}.stats-widget-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:750px){.current-library-toolbar{flex-direction:column}.current-library-toolbar .search{min-width:0;width:100%}.stats-widget-grid{grid-template-columns:1fr}}
+
+/* 🔎 Current Library alignment, search placement, and album completeness view. */
+.current-library-search{display:flex;justify-content:flex-start;padding:10px 12px;border-bottom:1px solid var(--line)}
+.current-library-search .search{width:min(460px,100%);min-width:260px}
+.current-library-head>button,.current-library-row>span,.current-library-row>button{justify-self:stretch;text-align:left}
+.current-library-song{justify-content:flex-start;text-align:left}
+.current-library-row>span:first-child{display:flex;align-items:center;justify-content:flex-start}
+.missing-tracks-card{display:flex;flex-direction:column;gap:10px}
+.missing-album{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.missing-album summary{display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none}
+.missing-album summary::-webkit-details-marker{display:none}
+.missing-album summary>span{display:flex;flex-direction:column;gap:4px;min-width:0}
+.missing-album summary b{font-size:15px}
+.missing-album summary small,.missing-track-list small{color:var(--muted)}
+.missing-album summary .album-art,.missing-album summary img{width:58px;height:58px;object-fit:cover;border-radius:7px}
+.missing-track-list{display:grid;gap:6px;margin:14px 0 2px 70px}
+.missing-track-list>div{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;padding:7px 10px;border-bottom:1px solid var(--line)}
+.missing-track-list img{width:30px;height:30px;object-fit:cover;border-radius:4px}
+.missing-track{background:color-mix(in srgb,#d97706 10%,transparent);border-radius:6px}
+.missing-track>span:first-child{font-variant-numeric:tabular-nums;font-weight:700}
+@media(max-width:1000px){.overview-grid-three{grid-template-columns:1fr}.stats-widget-grid{grid-template-columns:1fr}.current-library-search .search{width:100%}}
