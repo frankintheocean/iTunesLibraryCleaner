@@ -284,16 +284,12 @@ def perform_library_operation(app,payload):
         track_by_pid={pid:track for pid,track in zip(original,original_tracks)}
         move_track=getattr(playlist,'MoveTrack',None)
         move_to_order=getattr(playlist,'MoveTrackToPosition',None)
-        track_move_methods=('MoveToPlayOrder','MoveToPosition','Move')
-        if callable(move_track) or callable(move_to_order) or any(callable(getattr(track_by_pid[pid],method,None)) for pid in ordered for method in track_move_methods):
+        if callable(move_track) or callable(move_to_order):
             try:
                 for position,pid in enumerate(ordered,1):
                     track=track_by_pid[pid]
                     if callable(move_track):move_track(track,position)
-                    elif callable(move_to_order):move_to_order(track,position)
-                    else:
-                        method=next(getattr(track,method) for method in track_move_methods if callable(getattr(track,method,None)))
-                        method(position)
+                    else:move_to_order(track,position)
                 actual=[pid_for(app,t).upper() for t in list(playlist.Tracks)]
                 if actual!=ordered:raise RuntimeError('iTunes did not retain the requested order when it was read back.')
                 return {'reordered':len(ordered),'verified':True}

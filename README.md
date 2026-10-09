@@ -20,7 +20,7 @@ A Windows music-library workspace combining LibraryCleaner and iTunes Library Co
 
 ## 🚀 Quick start
 
-Get v3.1.1 from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0): **installer**, **Windows app ZIP** or **source ZIP**. Extract the whole app ZIP before opening `iTunes Manager.exe`; its settings still use AppData. Requires Windows 10/11 x64; live editing requires **classic iTunes**, not Apple Music for Windows.
+Get v4.0.0 from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0): **installer**, **Windows app ZIP** or **source ZIP**. Extract the whole app ZIP before opening `iTunes Manager.exe`; its settings still use AppData. Requires Windows 10/11 x64; live editing requires **classic iTunes**, not Apple Music for Windows.
 
 To run from source, install Python 3.12+ and Node 22.12+, then run in the repository folder:
 
