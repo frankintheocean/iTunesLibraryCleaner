@@ -31,3 +31,9 @@ The service keeps up to eight parsed libraries ready in memory. Code that change
 Each save writes and checks a fresh snapshot, then changes its SQLite reference. It does not replace a snapshot a Windows reader may still have open. XML scans copy the source to a private staging file and parse that exact copy once. The source must remain unchanged during copying. One previous snapshot is kept.
 
 Live scans read the actual iTunes COM collection and verify the library ID and track count. Runtime database IDs speed up playlist links. Live writes still require the exact persistent ID and matching preview values, with a durable field record and readback. Name and runtime-ID hints only help find a candidate; its persistent ID must match.
+
+## 🎧 Listening data
+
+`backend/lastfm.py` reads profile and chart data over HTTPS. Its API key is kept outside general preferences, never returned to the renderer, and removed on disconnect. Only approved Last.fm image hosts can be fetched; redirects are disabled and downloads are bounded. The renderer receives small data-URL pictures, so the existing content policy stays unchanged. Last.fm has no account-write or scrobbling methods.
+
+Live COM scans use a progress-aware stall deadline and a six-hour hard limit. Metadata writes retain a fixed deadline and field records. Slow scans check cancellation while waiting, including before the first progress message.
