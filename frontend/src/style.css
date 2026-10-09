@@ -38,7 +38,7 @@
 
 .lastfm-row>div,.lastfm-profile>div{min-width:0;overflow-wrap:anywhere}
 
-/* Version 4.0.0: Current Library, Library Stats, and safe playlist reorder UI. */
+/* Version 1.0.0: Current Library, Library Stats, and safe playlist reorder UI. */
 .overview-grid-three{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
 .stats-widget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .stats-list{min-width:0;border-top:1px solid var(--line);padding-top:7px}
