@@ -56,6 +56,8 @@ jobs:
       - name: Publish preview installer
         shell: bash
         run: |
+          trap 'detail=$(tail -c 3000 publish-error.log | tr "\n" " "); echo "::error title=Release publication diagnostics::$detail"' ERR
+          exec 2> >(tee publish-error.log >&2)
           gh release create "$RELEASE_TAG" \
             artifact/Unified-iTunes-Library-Manager-1.0-win-x64.exe \
             artifact/Unified-iTunes-Library-Manager-1.0-win-x64.exe.sha256 \
