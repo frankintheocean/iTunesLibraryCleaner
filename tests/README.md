@@ -1,6 +1,6 @@
 # 🧪 Automated test guide
 
-Use synthetic fixtures for routine tests. Never point destructive test flows at a personal music library.
+Use test fixtures, not a personal music library.
 
 - 🐍 Python tests cover API requests, scans, metadata edits, filesystem safety, history, playlists, and job handling.
 - 🖥️ `desktop.test.cjs` checks the renderer IPC allowlist.
