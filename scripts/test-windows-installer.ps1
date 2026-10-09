@@ -21,7 +21,7 @@ function Check-Native { param([scriptblock]$Command); & $Command; if ($LASTEXITC
 try {
     Install-App
     $Backend = Join-Path $InstallDir 'resources/backend/library-backend.exe'
-    $Desktop = Join-Path $InstallDir 'Unified iTunes Library Manager.exe'
+    $Desktop = Join-Path $InstallDir 'iTunes Manager.exe'
     if (-not (Test-Path $Backend) -or -not (Test-Path $Desktop)) { throw 'Installation omitted required executables.' }
     Check-Native { & $Python scripts/smoke-bundle.py $Backend }
     $env:LIBRARY_MANAGER_ELECTRON_EXECUTABLE = $Desktop
