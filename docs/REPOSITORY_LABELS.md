@@ -933,3 +933,15 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | `tests/test_v3.py` | 🐞 Library and queue fixes |
 | `docs/RELEASE_3_0_0.md` | 🚀 Version 3 download guide |
 | `.github/workflows/windows-diagnostics.yml` | 🩺 Windows build diagnostics |
+
+## 🎧 Listening and scan updates
+
+| Path | Purpose |
+| --- | --- |
+| `backend/lastfm.py` | 📻 Last.fm listening connection |
+| `frontend/src/LastFM.tsx` | 🎧 Listening charts |
+| `tests/test_lastfm.py` | 🔑 Last.fm connection checks |
+| `tests/test_com_timeout.py` | ⏱️ Live scan timing checks |
+| `docs/LASTFM.md` | 📖 Last.fm quick guide |
+| `docs/RELEASE_3_1_0.md` | 🎁 Version 3.1 downloads |
+| `docs/ui-lastfm-demo.png` | 🪄 Listening layout demo |
