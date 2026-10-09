@@ -1,6 +1,6 @@
 # 🗂️ Repository file and folder guide
 
-This index covers the tracked paths in the v1.0.0 repository. The documentation-only updates since the indexed source tree have not added, removed, or renamed any paths. Each path appears once, with a short emoji-led label in plain language. Descriptions are distinct; emojis are different wherever a sensible unused symbol is available.
+This index describes the tracked paths in the current repository tree. Each listed path has a short, emoji-led description based on its role. Third-party license entries name the dependency when it can be identified from the path; generated inventories and build outputs should be refreshed from their source rather than edited by hand.
 
 ## 📁 All tracked folders (425)
 
@@ -611,346 +611,346 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 | `resources/icon-source.png` | 🟰 Application or interface artwork: Icon Source |
 | `resources/licenses/manifest.json` | ➕ Third-party license notice for Manifest |
 | `resources/licenses/npm/@alloc/quick-lru/license` | ➖ Third-party license notice for License |
-| `resources/licenses/npm/@electron/asar/LICENSE.md` | ➗ Third-party license notice for LICENSE |
-| `resources/licenses/npm/@electron/fuses/LICENSE` | ✖️ Third-party license notice for LICENSE — for resources/licenses/npm/@electron/fuses/LICENSE |
-| `resources/licenses/npm/@electron/get/LICENSE` | ♾️ Third-party license notice for LICENSE — for resources/licenses/npm/@electron/get/LICENSE |
-| `resources/licenses/npm/@electron/notarize/LICENSE` | ‼️ Third-party license notice for LICENSE — for resources/licenses/npm/@electron/notarize/LICENSE |
-| `resources/licenses/npm/@electron/osx-sign/LICENSE` | ⁉️ Third-party license notice for LICENSE — for resources/licenses/npm/@electron/osx-sign/LICENSE |
-| `resources/licenses/npm/@electron/rebuild/LICENSE` | ❓ Third-party license notice for LICENSE — for resources/licenses/npm/@electron/rebuild/LICENSE |
-| `resources/licenses/npm/@electron/universal/LICENSE` | ❔ Third-party license notice for LICENSE — for resources/licenses/npm/@electron/universal/LICENSE |
-| `resources/licenses/npm/@electron/windows-sign/LICENSE` | ❕ Third-party license notice for LICENSE — for resources/licenses/npm/@electron/windows-sign/LICENSE |
-| `resources/licenses/npm/@isaacs/fs-minipass/LICENSE` | ❗ Third-party license notice for LICENSE — for resources/licenses/npm/@isaacs/fs-minipass/LICENSE |
-| `resources/licenses/npm/@jridgewell/gen-mapping/LICENSE` | 〰️ Third-party license notice for LICENSE — for resources/licenses/npm/@jridgewell/gen-mapping/LICENSE |
-| `resources/licenses/npm/@jridgewell/remapping/LICENSE` | 💯 Third-party license notice for LICENSE — for resources/licenses/npm/@jridgewell/remapping/LICENSE |
-| `resources/licenses/npm/@jridgewell/resolve-uri/LICENSE` | 🔱 Third-party license notice for LICENSE — for resources/licenses/npm/@jridgewell/resolve-uri/LICENSE |
-| `resources/licenses/npm/@jridgewell/sourcemap-codec/LICENSE` | ⚜️ Third-party license notice for LICENSE — for resources/licenses/npm/@jridgewell/sourcemap-codec/LICENSE |
-| `resources/licenses/npm/@jridgewell/trace-mapping/LICENSE` | 🔰 Third-party license notice for LICENSE — for resources/licenses/npm/@jridgewell/trace-mapping/LICENSE |
-| `resources/licenses/npm/@malept/cross-spawn-promise/LICENSE` | ♻️ Third-party license notice for LICENSE — for resources/licenses/npm/@malept/cross-spawn-promise/LICENSE |
-| `resources/licenses/npm/@malept/flatpak-bundler/LICENSE` | ✅ Third-party license notice for LICENSE — for resources/licenses/npm/@malept/flatpak-bundler/LICENSE |
-| `resources/licenses/npm/@noble/hashes/LICENSE` | ☑️ Third-party license notice for LICENSE — for resources/licenses/npm/@noble/hashes/LICENSE |
-| `resources/licenses/npm/@oxc-project/types/LICENSE` | ✔️ Third-party license notice for LICENSE — for resources/licenses/npm/@oxc-project/types/LICENSE |
-| `resources/licenses/npm/@peculiar/asn1-schema/LICENSE` | ❌ Third-party license notice for LICENSE — for resources/licenses/npm/@peculiar/asn1-schema/LICENSE |
-| `resources/licenses/npm/@peculiar/json-schema/LICENSE` | ❎ Third-party license notice for LICENSE — for resources/licenses/npm/@peculiar/json-schema/LICENSE |
-| `resources/licenses/npm/@peculiar/utils/LICENSE` | 🐍 Third-party license notice for LICENSE — for resources/licenses/npm/@peculiar/utils/LICENSE |
-| `resources/licenses/npm/@peculiar/webcrypto/LICENSE.md` | ⏲️ Third-party license notice for LICENSE — for resources/licenses/npm/@peculiar/webcrypto/LICENSE.md |
-| `resources/licenses/npm/@rolldown/pluginutils/LICENSE` | 🧑‍💻 Third-party license notice for LICENSE — for resources/licenses/npm/@rolldown/pluginutils/LICENSE |
+| `resources/licenses/npm/@electron/asar/LICENSE.md` | ➗ License terms for @electron/asar (npm dependency) |
+| `resources/licenses/npm/@electron/fuses/LICENSE` | ✖️ License terms for @electron/fuses (npm dependency) |
+| `resources/licenses/npm/@electron/get/LICENSE` | ♾️ License terms for @electron/get (npm dependency) |
+| `resources/licenses/npm/@electron/notarize/LICENSE` | ‼️ License terms for @electron/notarize (npm dependency) |
+| `resources/licenses/npm/@electron/osx-sign/LICENSE` | ⁉️ License terms for @electron/osx-sign (npm dependency) |
+| `resources/licenses/npm/@electron/rebuild/LICENSE` | ❓ License terms for @electron/rebuild (npm dependency) |
+| `resources/licenses/npm/@electron/universal/LICENSE` | ❔ License terms for @electron/universal (npm dependency) |
+| `resources/licenses/npm/@electron/windows-sign/LICENSE` | ❕ License terms for @electron/windows-sign (npm dependency) |
+| `resources/licenses/npm/@isaacs/fs-minipass/LICENSE` | ❗ License terms for @isaacs/fs-minipass (npm dependency) |
+| `resources/licenses/npm/@jridgewell/gen-mapping/LICENSE` | 〰️ License terms for @jridgewell/gen-mapping (npm dependency) |
+| `resources/licenses/npm/@jridgewell/remapping/LICENSE` | 💯 License terms for @jridgewell/remapping (npm dependency) |
+| `resources/licenses/npm/@jridgewell/resolve-uri/LICENSE` | 🔱 License terms for @jridgewell/resolve-uri (npm dependency) |
+| `resources/licenses/npm/@jridgewell/sourcemap-codec/LICENSE` | ⚜️ License terms for @jridgewell/sourcemap-codec (npm dependency) |
+| `resources/licenses/npm/@jridgewell/trace-mapping/LICENSE` | 🔰 License terms for @jridgewell/trace-mapping (npm dependency) |
+| `resources/licenses/npm/@malept/cross-spawn-promise/LICENSE` | ♻️ License terms for @malept/cross-spawn-promise (npm dependency) |
+| `resources/licenses/npm/@malept/flatpak-bundler/LICENSE` | ✅ License terms for @malept/flatpak-bundler (npm dependency) |
+| `resources/licenses/npm/@noble/hashes/LICENSE` | ☑️ License terms for @noble/hashes (npm dependency) |
+| `resources/licenses/npm/@oxc-project/types/LICENSE` | ✔️ License terms for @oxc-project/types (npm dependency) |
+| `resources/licenses/npm/@peculiar/asn1-schema/LICENSE` | ❌ License terms for @peculiar/asn1-schema (npm dependency) |
+| `resources/licenses/npm/@peculiar/json-schema/LICENSE` | ❎ License terms for @peculiar/json-schema (npm dependency) |
+| `resources/licenses/npm/@peculiar/utils/LICENSE` | 🐍 License terms for @peculiar/utils (npm dependency) |
+| `resources/licenses/npm/@peculiar/webcrypto/LICENSE.md` | ⏲️ License terms for @peculiar/webcrypto (npm dependency) |
+| `resources/licenses/npm/@rolldown/pluginutils/LICENSE` | 🧑‍💻 License terms for @rolldown/pluginutils (npm dependency) |
 | `resources/licenses/npm/@sindresorhus/is/license` | 🦾 Third-party license notice for License — for resources/licenses/npm/@sindresorhus/is/license |
-| `resources/licenses/npm/@szmarczak/http-timer/LICENSE` | 🦿 Third-party license notice for LICENSE — for resources/licenses/npm/@szmarczak/http-timer/LICENSE |
-| `resources/licenses/npm/@tailwindcss/node/LICENSE` | 🧠 Third-party license notice for LICENSE — for resources/licenses/npm/@tailwindcss/node/LICENSE |
-| `resources/licenses/npm/@tailwindcss/oxide-linux-x64-gnu/LICENSE` | 🫀 Third-party license notice for LICENSE — for resources/licenses/npm/@tailwindcss/oxide-linux-x64-gnu/LICENSE |
-| `resources/licenses/npm/@tailwindcss/oxide-linux-x64-musl/LICENSE` | 🫁 Third-party license notice for LICENSE — for resources/licenses/npm/@tailwindcss/oxide-linux-x64-musl/LICENSE |
-| `resources/licenses/npm/@tailwindcss/oxide/LICENSE` | 🧑‍🔬 Third-party license notice for LICENSE — for resources/licenses/npm/@tailwindcss/oxide/LICENSE |
-| `resources/licenses/npm/@tailwindcss/postcss/LICENSE` | 🧑‍🏫 Third-party license notice for LICENSE — for resources/licenses/npm/@tailwindcss/postcss/LICENSE |
-| `resources/licenses/npm/@tanstack/react-virtual/LICENSE` | 🧑‍💼 Third-party license notice for LICENSE — for resources/licenses/npm/@tanstack/react-virtual/LICENSE |
-| `resources/licenses/npm/@tanstack/virtual-core/LICENSE` | 🧑‍🎨 Third-party license notice for LICENSE — for resources/licenses/npm/@tanstack/virtual-core/LICENSE |
-| `resources/licenses/npm/@types/cacheable-request/LICENSE` | 🧑‍🔧 Third-party license notice for LICENSE — for resources/licenses/npm/@types/cacheable-request/LICENSE |
-| `resources/licenses/npm/@types/debug/LICENSE` | 🧑‍⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/@types/debug/LICENSE |
-| `resources/licenses/npm/@types/fs-extra/LICENSE` | 🧑‍🍳 Third-party license notice for LICENSE — for resources/licenses/npm/@types/fs-extra/LICENSE |
-| `resources/licenses/npm/@types/http-cache-semantics/LICENSE` | 🧑‍🎤 Third-party license notice for LICENSE — for resources/licenses/npm/@types/http-cache-semantics/LICENSE |
-| `resources/licenses/npm/@types/keyv/LICENSE` | 🧑‍🎓 Third-party license notice for LICENSE — for resources/licenses/npm/@types/keyv/LICENSE |
-| `resources/licenses/npm/@types/ms/LICENSE` | 🧑‍🌾 Third-party license notice for LICENSE — for resources/licenses/npm/@types/ms/LICENSE |
-| `resources/licenses/npm/@types/node/LICENSE` | 🧑‍✈️ Third-party license notice for LICENSE — for resources/licenses/npm/@types/node/LICENSE |
-| `resources/licenses/npm/@types/react-dom/LICENSE` | 🧑‍🚒 Third-party license notice for LICENSE — for resources/licenses/npm/@types/react-dom/LICENSE |
-| `resources/licenses/npm/@types/react/LICENSE` | 🧑‍⚕️ Third-party license notice for LICENSE — for resources/licenses/npm/@types/react/LICENSE |
-| `resources/licenses/npm/@types/responselike/LICENSE` | 🧑‍🎄 Third-party license notice for LICENSE — for resources/licenses/npm/@types/responselike/LICENSE |
-| `resources/licenses/npm/@vitejs/plugin-react/LICENSE` | 🪪 Third-party license notice for LICENSE — for resources/licenses/npm/@vitejs/plugin-react/LICENSE |
-| `resources/licenses/npm/@xmldom/xmldom/LICENSE` | 🪧 Third-party license notice for LICENSE — for resources/licenses/npm/@xmldom/xmldom/LICENSE |
-| `resources/licenses/npm/abbrev/LICENSE` | 🪞 Third-party license notice for LICENSE — for resources/licenses/npm/abbrev/LICENSE |
-| `resources/licenses/npm/agent-base/LICENSE` | 🪟 Third-party license notice for LICENSE — for resources/licenses/npm/agent-base/LICENSE |
-| `resources/licenses/npm/ajv/LICENSE` | 🫎 Third-party license notice for LICENSE — for resources/licenses/npm/ajv/LICENSE |
+| `resources/licenses/npm/@szmarczak/http-timer/LICENSE` | 🦿 License terms for @szmarczak/http-timer (npm dependency) |
+| `resources/licenses/npm/@tailwindcss/node/LICENSE` | 🧠 License terms for @tailwindcss/node (npm dependency) |
+| `resources/licenses/npm/@tailwindcss/oxide-linux-x64-gnu/LICENSE` | 🫀 License terms for @tailwindcss/oxide-linux-x64-gnu (npm dependency) |
+| `resources/licenses/npm/@tailwindcss/oxide-linux-x64-musl/LICENSE` | 🫁 License terms for @tailwindcss/oxide-linux-x64-musl (npm dependency) |
+| `resources/licenses/npm/@tailwindcss/oxide/LICENSE` | 🧑‍🔬 License terms for @tailwindcss/oxide (npm dependency) |
+| `resources/licenses/npm/@tailwindcss/postcss/LICENSE` | 🧑‍🏫 License terms for @tailwindcss/postcss (npm dependency) |
+| `resources/licenses/npm/@tanstack/react-virtual/LICENSE` | 🧑‍💼 License terms for @tanstack/react-virtual (npm dependency) |
+| `resources/licenses/npm/@tanstack/virtual-core/LICENSE` | 🧑‍🎨 License terms for @tanstack/virtual-core (npm dependency) |
+| `resources/licenses/npm/@types/cacheable-request/LICENSE` | 🧑‍🔧 License terms for @types/cacheable-request (npm dependency) |
+| `resources/licenses/npm/@types/debug/LICENSE` | 🧑‍⚖️ License terms for @types/debug (npm dependency) |
+| `resources/licenses/npm/@types/fs-extra/LICENSE` | 🧑‍🍳 License terms for @types/fs-extra (npm dependency) |
+| `resources/licenses/npm/@types/http-cache-semantics/LICENSE` | 🧑‍🎤 License terms for @types/http-cache-semantics (npm dependency) |
+| `resources/licenses/npm/@types/keyv/LICENSE` | 🧑‍🎓 License terms for @types/keyv (npm dependency) |
+| `resources/licenses/npm/@types/ms/LICENSE` | 🧑‍🌾 License terms for @types/ms (npm dependency) |
+| `resources/licenses/npm/@types/node/LICENSE` | 🧑‍✈️ License terms for @types/node (npm dependency) |
+| `resources/licenses/npm/@types/react-dom/LICENSE` | 🧑‍🚒 License terms for @types/react-dom (npm dependency) |
+| `resources/licenses/npm/@types/react/LICENSE` | 🧑‍⚕️ License terms for @types/react (npm dependency) |
+| `resources/licenses/npm/@types/responselike/LICENSE` | 🧑‍🎄 License terms for @types/responselike (npm dependency) |
+| `resources/licenses/npm/@vitejs/plugin-react/LICENSE` | 🪪 License terms for @vitejs/plugin-react (npm dependency) |
+| `resources/licenses/npm/@xmldom/xmldom/LICENSE` | 🪧 License terms for @xmldom/xmldom (npm dependency) |
+| `resources/licenses/npm/abbrev/LICENSE` | 🪞 License terms for abbrev (npm dependency) |
+| `resources/licenses/npm/agent-base/LICENSE` | 🪟 License terms for agent-base (npm dependency) |
+| `resources/licenses/npm/ajv/LICENSE` | 🫎 License terms for ajv (npm dependency) |
 | `resources/licenses/npm/ansi-regex/license` | 🫏 Third-party license notice for License — for resources/licenses/npm/ansi-regex/license |
 | `resources/licenses/npm/ansi-styles/license` | 🫐 Third-party license notice for License — for resources/licenses/npm/ansi-styles/license |
-| `resources/licenses/npm/argparse/LICENSE` | 🫒 Third-party license notice for LICENSE — for resources/licenses/npm/argparse/LICENSE |
-| `resources/licenses/npm/asn1js/LICENSE` | 🫓 Third-party license notice for LICENSE — for resources/licenses/npm/asn1js/LICENSE |
+| `resources/licenses/npm/argparse/LICENSE` | 🫒 License terms for argparse (npm dependency) |
+| `resources/licenses/npm/asn1js/LICENSE` | 🫓 License terms for asn1js (npm dependency) |
 | `resources/licenses/npm/async-exit-hook/license` | 🫔 Third-party license notice for License — for resources/licenses/npm/async-exit-hook/license |
-| `resources/licenses/npm/async/LICENSE` | 🫕 Third-party license notice for LICENSE — for resources/licenses/npm/async/LICENSE |
-| `resources/licenses/npm/asynckit/LICENSE` | 🫖 Third-party license notice for LICENSE — for resources/licenses/npm/asynckit/LICENSE |
-| `resources/licenses/npm/at-least-node/LICENSE` | 🫗 Third-party license notice for LICENSE — for resources/licenses/npm/at-least-node/LICENSE |
-| `resources/licenses/npm/autoprefixer/LICENSE` | 🫙 Third-party license notice for LICENSE — for resources/licenses/npm/autoprefixer/LICENSE |
-| `resources/licenses/npm/aws4/LICENSE` | 🫚 Third-party license notice for LICENSE — for resources/licenses/npm/aws4/LICENSE |
-| `resources/licenses/npm/balanced-match/LICENSE.md` | 🫛 Third-party license notice for LICENSE — for resources/licenses/npm/balanced-match/LICENSE.md |
-| `resources/licenses/npm/base64-js/LICENSE` | 🫜 Third-party license notice for LICENSE — for resources/licenses/npm/base64-js/LICENSE |
-| `resources/licenses/npm/baseline-browser-mapping/LICENSE.txt` | 🫠 Third-party license notice for LICENSE — for resources/licenses/npm/baseline-browser-mapping/LICENSE.txt |
-| `resources/licenses/npm/bluebird/LICENSE` | 🫡 Third-party license notice for LICENSE — for resources/licenses/npm/bluebird/LICENSE |
-| `resources/licenses/npm/brace-expansion/LICENSE` | 🫢 Third-party license notice for LICENSE — for resources/licenses/npm/brace-expansion/LICENSE |
-| `resources/licenses/npm/browserslist/LICENSE` | 🫣 Third-party license notice for LICENSE — for resources/licenses/npm/browserslist/LICENSE |
-| `resources/licenses/npm/buffer-from/LICENSE` | 🫤 Third-party license notice for LICENSE — for resources/licenses/npm/buffer-from/LICENSE |
-| `resources/licenses/npm/builder-util-runtime/LICENSE` | 🫥 Third-party license notice for LICENSE — for resources/licenses/npm/builder-util-runtime/LICENSE |
-| `resources/licenses/npm/builder-util/LICENSE` | 🫦 Third-party license notice for LICENSE — for resources/licenses/npm/builder-util/LICENSE |
-| `resources/licenses/npm/bytestreamjs/LICENSE` | 🫨 Third-party license notice for LICENSE — for resources/licenses/npm/bytestreamjs/LICENSE |
-| `resources/licenses/npm/cacheable-lookup/LICENSE` | 🫰 Third-party license notice for LICENSE — for resources/licenses/npm/cacheable-lookup/LICENSE |
-| `resources/licenses/npm/cacheable-request/LICENSE` | 🫱 Third-party license notice for LICENSE — for resources/licenses/npm/cacheable-request/LICENSE |
-| `resources/licenses/npm/call-bind-apply-helpers/LICENSE` | 🫲 Third-party license notice for LICENSE — for resources/licenses/npm/call-bind-apply-helpers/LICENSE |
-| `resources/licenses/npm/caniuse-lite/LICENSE` | 🫳 Third-party license notice for LICENSE — for resources/licenses/npm/caniuse-lite/LICENSE |
+| `resources/licenses/npm/async/LICENSE` | 🫕 License terms for async (npm dependency) |
+| `resources/licenses/npm/asynckit/LICENSE` | 🫖 License terms for asynckit (npm dependency) |
+| `resources/licenses/npm/at-least-node/LICENSE` | 🫗 License terms for at-least-node (npm dependency) |
+| `resources/licenses/npm/autoprefixer/LICENSE` | 🫙 License terms for autoprefixer (npm dependency) |
+| `resources/licenses/npm/aws4/LICENSE` | 🫚 License terms for aws4 (npm dependency) |
+| `resources/licenses/npm/balanced-match/LICENSE.md` | 🫛 License terms for balanced-match (npm dependency) |
+| `resources/licenses/npm/base64-js/LICENSE` | 🫜 License terms for base64-js (npm dependency) |
+| `resources/licenses/npm/baseline-browser-mapping/LICENSE.txt` | 🫠 License terms for baseline-browser-mapping (npm dependency) |
+| `resources/licenses/npm/bluebird/LICENSE` | 🫡 License terms for bluebird (npm dependency) |
+| `resources/licenses/npm/brace-expansion/LICENSE` | 🫢 License terms for brace-expansion (npm dependency) |
+| `resources/licenses/npm/browserslist/LICENSE` | 🫣 License terms for browserslist (npm dependency) |
+| `resources/licenses/npm/buffer-from/LICENSE` | 🫤 License terms for buffer-from (npm dependency) |
+| `resources/licenses/npm/builder-util-runtime/LICENSE` | 🫥 License terms for builder-util-runtime (npm dependency) |
+| `resources/licenses/npm/builder-util/LICENSE` | 🫦 License terms for builder-util (npm dependency) |
+| `resources/licenses/npm/bytestreamjs/LICENSE` | 🫨 License terms for bytestreamjs (npm dependency) |
+| `resources/licenses/npm/cacheable-lookup/LICENSE` | 🫰 License terms for cacheable-lookup (npm dependency) |
+| `resources/licenses/npm/cacheable-request/LICENSE` | 🫱 License terms for cacheable-request (npm dependency) |
+| `resources/licenses/npm/call-bind-apply-helpers/LICENSE` | 🫲 License terms for call-bind-apply-helpers (npm dependency) |
+| `resources/licenses/npm/caniuse-lite/LICENSE` | 🫳 License terms for caniuse-lite (npm dependency) |
 | `resources/licenses/npm/chalk/license` | 🫴 Third-party license notice for License — for resources/licenses/npm/chalk/license |
-| `resources/licenses/npm/chownr/LICENSE.md` | 🫵 Third-party license notice for LICENSE — for resources/licenses/npm/chownr/LICENSE.md |
-| `resources/licenses/npm/ci-info/LICENSE` | 🫶 Third-party license notice for LICENSE — for resources/licenses/npm/ci-info/LICENSE |
-| `resources/licenses/npm/cliui/LICENSE.txt` | 🫷 Third-party license notice for LICENSE — for resources/licenses/npm/cliui/LICENSE.txt |
-| `resources/licenses/npm/clone-response/LICENSE` | 🫸 Third-party license notice for LICENSE — for resources/licenses/npm/clone-response/LICENSE |
-| `resources/licenses/npm/color-convert/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/color-convert/LICENSE |
-| `resources/licenses/npm/color-name/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/color-name/LICENSE |
+| `resources/licenses/npm/chownr/LICENSE.md` | 🫵 License terms for chownr (npm dependency) |
+| `resources/licenses/npm/ci-info/LICENSE` | 🫶 License terms for ci-info (npm dependency) |
+| `resources/licenses/npm/cliui/LICENSE.txt` | 🫷 License terms for cliui (npm dependency) |
+| `resources/licenses/npm/clone-response/LICENSE` | 🫸 License terms for clone-response (npm dependency) |
+| `resources/licenses/npm/color-convert/LICENSE` | ⚖️ License terms for color-convert (npm dependency) |
+| `resources/licenses/npm/color-name/LICENSE` | ⚖️ License terms for color-name (npm dependency) |
 | `resources/licenses/npm/combined-stream/License` | ⚖️ Third-party license notice for License — for resources/licenses/npm/combined-stream/License |
-| `resources/licenses/npm/commander/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/commander/LICENSE |
-| `resources/licenses/npm/concat-map/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/concat-map/LICENSE |
-| `resources/licenses/npm/core-util-is/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/core-util-is/LICENSE |
-| `resources/licenses/npm/cross-spawn/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/cross-spawn/LICENSE |
-| `resources/licenses/npm/csstype/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/csstype/LICENSE |
-| `resources/licenses/npm/debug/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/debug/LICENSE |
+| `resources/licenses/npm/commander/LICENSE` | ⚖️ License terms for commander (npm dependency) |
+| `resources/licenses/npm/concat-map/LICENSE` | ⚖️ License terms for concat-map (npm dependency) |
+| `resources/licenses/npm/core-util-is/LICENSE` | ⚖️ License terms for core-util-is (npm dependency) |
+| `resources/licenses/npm/cross-spawn/LICENSE` | ⚖️ License terms for cross-spawn (npm dependency) |
+| `resources/licenses/npm/csstype/LICENSE` | ⚖️ License terms for csstype (npm dependency) |
+| `resources/licenses/npm/debug/LICENSE` | ⚖️ License terms for debug (npm dependency) |
 | `resources/licenses/npm/decompress-response/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/decompress-response/license |
-| `resources/licenses/npm/defer-to-connect/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/defer-to-connect/LICENSE |
+| `resources/licenses/npm/defer-to-connect/LICENSE` | ⚖️ License terms for defer-to-connect (npm dependency) |
 | `resources/licenses/npm/delayed-stream/License` | ⚖️ Third-party license notice for License — for resources/licenses/npm/delayed-stream/License |
-| `resources/licenses/npm/detect-libc/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/detect-libc/LICENSE |
-| `resources/licenses/npm/dir-compare/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/dir-compare/LICENSE |
-| `resources/licenses/npm/dotenv-expand/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/dotenv-expand/LICENSE |
-| `resources/licenses/npm/dotenv/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/dotenv/LICENSE |
-| `resources/licenses/npm/dunder-proto/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/dunder-proto/LICENSE |
-| `resources/licenses/npm/duplexer2/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/duplexer2/LICENSE.md |
-| `resources/licenses/npm/ejs/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/ejs/LICENSE |
-| `resources/licenses/npm/electron-builder-squirrel-windows/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/electron-builder-squirrel-windows/LICENSE |
-| `resources/licenses/npm/electron-builder/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/electron-builder/LICENSE |
-| `resources/licenses/npm/electron-publish/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/electron-publish/LICENSE |
-| `resources/licenses/npm/electron-to-chromium/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/electron-to-chromium/LICENSE |
-| `resources/licenses/npm/electron-winstaller/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/electron-winstaller/LICENSE |
-| `resources/licenses/npm/electron/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/electron/LICENSE |
-| `resources/licenses/npm/emoji-regex/LICENSE-MIT.txt` | ⚖️ Third-party license notice for LICENSE MIT |
-| `resources/licenses/npm/end-of-stream/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/end-of-stream/LICENSE |
-| `resources/licenses/npm/enhanced-resolve/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/enhanced-resolve/LICENSE |
+| `resources/licenses/npm/detect-libc/LICENSE` | ⚖️ License terms for detect-libc (npm dependency) |
+| `resources/licenses/npm/dir-compare/LICENSE` | ⚖️ License terms for dir-compare (npm dependency) |
+| `resources/licenses/npm/dotenv-expand/LICENSE` | ⚖️ License terms for dotenv-expand (npm dependency) |
+| `resources/licenses/npm/dotenv/LICENSE` | ⚖️ License terms for dotenv (npm dependency) |
+| `resources/licenses/npm/dunder-proto/LICENSE` | ⚖️ License terms for dunder-proto (npm dependency) |
+| `resources/licenses/npm/duplexer2/LICENSE.md` | ⚖️ License terms for duplexer2 (npm dependency) |
+| `resources/licenses/npm/ejs/LICENSE` | ⚖️ License terms for ejs (npm dependency) |
+| `resources/licenses/npm/electron-builder-squirrel-windows/LICENSE` | ⚖️ License terms for electron-builder-squirrel-windows (npm dependency) |
+| `resources/licenses/npm/electron-builder/LICENSE` | ⚖️ License terms for electron-builder (npm dependency) |
+| `resources/licenses/npm/electron-publish/LICENSE` | ⚖️ License terms for electron-publish (npm dependency) |
+| `resources/licenses/npm/electron-to-chromium/LICENSE` | ⚖️ License terms for electron-to-chromium (npm dependency) |
+| `resources/licenses/npm/electron-winstaller/LICENSE` | ⚖️ License terms for electron-winstaller (npm dependency) |
+| `resources/licenses/npm/electron/LICENSE` | ⚖️ License terms for electron (npm dependency) |
+| `resources/licenses/npm/emoji-regex/LICENSE-MIT.txt` | ⚖️ License terms for emoji-regex (npm dependency) |
+| `resources/licenses/npm/end-of-stream/LICENSE` | ⚖️ License terms for end-of-stream (npm dependency) |
+| `resources/licenses/npm/enhanced-resolve/LICENSE` | ⚖️ License terms for enhanced-resolve (npm dependency) |
 | `resources/licenses/npm/env-paths/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/env-paths/license |
-| `resources/licenses/npm/es-define-property/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/es-define-property/LICENSE |
-| `resources/licenses/npm/es-errors/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/es-errors/LICENSE |
-| `resources/licenses/npm/es-object-atoms/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/es-object-atoms/LICENSE |
-| `resources/licenses/npm/es-set-tostringtag/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/es-set-tostringtag/LICENSE |
+| `resources/licenses/npm/es-define-property/LICENSE` | ⚖️ License terms for es-define-property (npm dependency) |
+| `resources/licenses/npm/es-errors/LICENSE` | ⚖️ License terms for es-errors (npm dependency) |
+| `resources/licenses/npm/es-object-atoms/LICENSE` | ⚖️ License terms for es-object-atoms (npm dependency) |
+| `resources/licenses/npm/es-set-tostringtag/LICENSE` | ⚖️ License terms for es-set-tostringtag (npm dependency) |
 | `resources/licenses/npm/escalade/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/escalade/license |
-| `resources/licenses/npm/exponential-backoff/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/exponential-backoff/LICENSE |
-| `resources/licenses/npm/fast-deep-equal/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/fast-deep-equal/LICENSE |
-| `resources/licenses/npm/fast-uri/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/fast-uri/LICENSE |
+| `resources/licenses/npm/exponential-backoff/LICENSE` | ⚖️ License terms for exponential-backoff (npm dependency) |
+| `resources/licenses/npm/fast-deep-equal/LICENSE` | ⚖️ License terms for fast-deep-equal (npm dependency) |
+| `resources/licenses/npm/fast-uri/LICENSE` | ⚖️ License terms for fast-uri (npm dependency) |
 | `resources/licenses/npm/form-data/License` | ⚖️ Third-party license notice for License — for resources/licenses/npm/form-data/License |
-| `resources/licenses/npm/fraction.js/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/fraction.js/LICENSE |
-| `resources/licenses/npm/fs-extra/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/fs-extra/LICENSE |
-| `resources/licenses/npm/fs.realpath/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/fs.realpath/LICENSE |
-| `resources/licenses/npm/function-bind/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/function-bind/LICENSE |
-| `resources/licenses/npm/get-caller-file/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/get-caller-file/LICENSE.md |
-| `resources/licenses/npm/get-intrinsic/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/get-intrinsic/LICENSE |
-| `resources/licenses/npm/get-proto/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/get-proto/LICENSE |
+| `resources/licenses/npm/fraction.js/LICENSE` | ⚖️ License terms for fraction.js (npm dependency) |
+| `resources/licenses/npm/fs-extra/LICENSE` | ⚖️ License terms for fs-extra (npm dependency) |
+| `resources/licenses/npm/fs.realpath/LICENSE` | ⚖️ License terms for fs.realpath (npm dependency) |
+| `resources/licenses/npm/function-bind/LICENSE` | ⚖️ License terms for function-bind (npm dependency) |
+| `resources/licenses/npm/get-caller-file/LICENSE.md` | ⚖️ License terms for get-caller-file (npm dependency) |
+| `resources/licenses/npm/get-intrinsic/LICENSE` | ⚖️ License terms for get-intrinsic (npm dependency) |
+| `resources/licenses/npm/get-proto/LICENSE` | ⚖️ License terms for get-proto (npm dependency) |
 | `resources/licenses/npm/get-stream/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/get-stream/license |
-| `resources/licenses/npm/glob/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/glob/LICENSE |
-| `resources/licenses/npm/gopd/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/gopd/LICENSE |
+| `resources/licenses/npm/glob/LICENSE` | ⚖️ License terms for glob (npm dependency) |
+| `resources/licenses/npm/gopd/LICENSE` | ⚖️ License terms for gopd (npm dependency) |
 | `resources/licenses/npm/got/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/got/license |
-| `resources/licenses/npm/graceful-fs/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/graceful-fs/LICENSE |
+| `resources/licenses/npm/graceful-fs/LICENSE` | ⚖️ License terms for graceful-fs (npm dependency) |
 | `resources/licenses/npm/has-flag/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/has-flag/license |
-| `resources/licenses/npm/has-symbols/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/has-symbols/LICENSE |
-| `resources/licenses/npm/has-tostringtag/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/has-tostringtag/LICENSE |
-| `resources/licenses/npm/hasown/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/hasown/LICENSE |
-| `resources/licenses/npm/hosted-git-info/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/hosted-git-info/LICENSE |
-| `resources/licenses/npm/http-cache-semantics/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/http-cache-semantics/LICENSE |
-| `resources/licenses/npm/http-proxy-agent/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/http-proxy-agent/LICENSE |
-| `resources/licenses/npm/http2-wrapper/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/http2-wrapper/LICENSE |
-| `resources/licenses/npm/https-proxy-agent/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/https-proxy-agent/LICENSE |
-| `resources/licenses/npm/inflight/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/inflight/LICENSE |
-| `resources/licenses/npm/inherits/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/inherits/LICENSE |
+| `resources/licenses/npm/has-symbols/LICENSE` | ⚖️ License terms for has-symbols (npm dependency) |
+| `resources/licenses/npm/has-tostringtag/LICENSE` | ⚖️ License terms for has-tostringtag (npm dependency) |
+| `resources/licenses/npm/hasown/LICENSE` | ⚖️ License terms for hasown (npm dependency) |
+| `resources/licenses/npm/hosted-git-info/LICENSE` | ⚖️ License terms for hosted-git-info (npm dependency) |
+| `resources/licenses/npm/http-cache-semantics/LICENSE` | ⚖️ License terms for http-cache-semantics (npm dependency) |
+| `resources/licenses/npm/http-proxy-agent/LICENSE` | ⚖️ License terms for http-proxy-agent (npm dependency) |
+| `resources/licenses/npm/http2-wrapper/LICENSE` | ⚖️ License terms for http2-wrapper (npm dependency) |
+| `resources/licenses/npm/https-proxy-agent/LICENSE` | ⚖️ License terms for https-proxy-agent (npm dependency) |
+| `resources/licenses/npm/inflight/LICENSE` | ⚖️ License terms for inflight (npm dependency) |
+| `resources/licenses/npm/inherits/LICENSE` | ⚖️ License terms for inherits (npm dependency) |
 | `resources/licenses/npm/is-fullwidth-code-point/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/is-fullwidth-code-point/license |
-| `resources/licenses/npm/isbinaryfile/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/isbinaryfile/LICENSE.txt |
-| `resources/licenses/npm/isexe/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/isexe/LICENSE.md |
-| `resources/licenses/npm/jiti/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/jiti/LICENSE |
-| `resources/licenses/npm/js-yaml/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/js-yaml/LICENSE |
-| `resources/licenses/npm/json-buffer/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/json-buffer/LICENSE |
-| `resources/licenses/npm/json-schema-traverse/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/json-schema-traverse/LICENSE |
-| `resources/licenses/npm/json5/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/json5/LICENSE.md |
-| `resources/licenses/npm/jsonfile/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/jsonfile/LICENSE |
-| `resources/licenses/npm/lightningcss-linux-x64-gnu/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/lightningcss-linux-x64-gnu/LICENSE |
-| `resources/licenses/npm/lightningcss-linux-x64-musl/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/lightningcss-linux-x64-musl/LICENSE |
-| `resources/licenses/npm/lightningcss/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/lightningcss/LICENSE |
-| `resources/licenses/npm/lodash/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/lodash/LICENSE |
+| `resources/licenses/npm/isbinaryfile/LICENSE.txt` | ⚖️ License terms for isbinaryfile (npm dependency) |
+| `resources/licenses/npm/isexe/LICENSE.md` | ⚖️ License terms for isexe (npm dependency) |
+| `resources/licenses/npm/jiti/LICENSE` | ⚖️ License terms for jiti (npm dependency) |
+| `resources/licenses/npm/js-yaml/LICENSE` | ⚖️ License terms for js-yaml (npm dependency) |
+| `resources/licenses/npm/json-buffer/LICENSE` | ⚖️ License terms for json-buffer (npm dependency) |
+| `resources/licenses/npm/json-schema-traverse/LICENSE` | ⚖️ License terms for json-schema-traverse (npm dependency) |
+| `resources/licenses/npm/json5/LICENSE.md` | ⚖️ License terms for json5 (npm dependency) |
+| `resources/licenses/npm/jsonfile/LICENSE` | ⚖️ License terms for jsonfile (npm dependency) |
+| `resources/licenses/npm/lightningcss-linux-x64-gnu/LICENSE` | ⚖️ License terms for lightningcss-linux-x64-gnu (npm dependency) |
+| `resources/licenses/npm/lightningcss-linux-x64-musl/LICENSE` | ⚖️ License terms for lightningcss-linux-x64-musl (npm dependency) |
+| `resources/licenses/npm/lightningcss/LICENSE` | ⚖️ License terms for lightningcss (npm dependency) |
+| `resources/licenses/npm/lodash/LICENSE` | ⚖️ License terms for lodash (npm dependency) |
 | `resources/licenses/npm/lowercase-keys/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/lowercase-keys/license |
-| `resources/licenses/npm/lucide-react/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/lucide-react/LICENSE |
-| `resources/licenses/npm/magic-string/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/magic-string/LICENSE |
-| `resources/licenses/npm/math-intrinsics/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/math-intrinsics/LICENSE |
-| `resources/licenses/npm/mime-db/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/mime-db/LICENSE |
-| `resources/licenses/npm/mime-types/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/mime-types/LICENSE |
-| `resources/licenses/npm/mime/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/mime/LICENSE |
+| `resources/licenses/npm/lucide-react/LICENSE` | ⚖️ License terms for lucide-react (npm dependency) |
+| `resources/licenses/npm/magic-string/LICENSE` | ⚖️ License terms for magic-string (npm dependency) |
+| `resources/licenses/npm/math-intrinsics/LICENSE` | ⚖️ License terms for math-intrinsics (npm dependency) |
+| `resources/licenses/npm/mime-db/LICENSE` | ⚖️ License terms for mime-db (npm dependency) |
+| `resources/licenses/npm/mime-types/LICENSE` | ⚖️ License terms for mime-types (npm dependency) |
+| `resources/licenses/npm/mime/LICENSE` | ⚖️ License terms for mime (npm dependency) |
 | `resources/licenses/npm/mimic-response/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/mimic-response/license |
-| `resources/licenses/npm/minimatch/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/minimatch/LICENSE.md |
-| `resources/licenses/npm/minimist/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/minimist/LICENSE |
-| `resources/licenses/npm/minipass/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/minipass/LICENSE.md |
-| `resources/licenses/npm/minizlib/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/minizlib/LICENSE |
-| `resources/licenses/npm/mkdirp/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/mkdirp/LICENSE |
+| `resources/licenses/npm/minimatch/LICENSE.md` | ⚖️ License terms for minimatch (npm dependency) |
+| `resources/licenses/npm/minimist/LICENSE` | ⚖️ License terms for minimist (npm dependency) |
+| `resources/licenses/npm/minipass/LICENSE.md` | ⚖️ License terms for minipass (npm dependency) |
+| `resources/licenses/npm/minizlib/LICENSE` | ⚖️ License terms for minizlib (npm dependency) |
+| `resources/licenses/npm/mkdirp/LICENSE` | ⚖️ License terms for mkdirp (npm dependency) |
 | `resources/licenses/npm/ms/license.md` | ⚖️ Third-party license notice for License — for resources/licenses/npm/ms/license.md |
-| `resources/licenses/npm/nanoid/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/nanoid/LICENSE |
-| `resources/licenses/npm/node-abi/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/node-abi/LICENSE |
-| `resources/licenses/npm/node-gyp/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/node-gyp/LICENSE |
-| `resources/licenses/npm/node-int64/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/node-int64/LICENSE |
-| `resources/licenses/npm/node-releases/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/node-releases/LICENSE |
-| `resources/licenses/npm/nopt/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/nopt/LICENSE |
+| `resources/licenses/npm/nanoid/LICENSE` | ⚖️ License terms for nanoid (npm dependency) |
+| `resources/licenses/npm/node-abi/LICENSE` | ⚖️ License terms for node-abi (npm dependency) |
+| `resources/licenses/npm/node-gyp/LICENSE` | ⚖️ License terms for node-gyp (npm dependency) |
+| `resources/licenses/npm/node-int64/LICENSE` | ⚖️ License terms for node-int64 (npm dependency) |
+| `resources/licenses/npm/node-releases/LICENSE` | ⚖️ License terms for node-releases (npm dependency) |
+| `resources/licenses/npm/nopt/LICENSE` | ⚖️ License terms for nopt (npm dependency) |
 | `resources/licenses/npm/normalize-range/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/normalize-range/license |
 | `resources/licenses/npm/normalize-url/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/normalize-url/license |
-| `resources/licenses/npm/once/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/once/LICENSE |
+| `resources/licenses/npm/once/LICENSE` | ⚖️ License terms for once (npm dependency) |
 | `resources/licenses/npm/p-cancelable/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/p-cancelable/license |
 | `resources/licenses/npm/p-limit/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/p-limit/license |
 | `resources/licenses/npm/path-is-absolute/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/path-is-absolute/license |
 | `resources/licenses/npm/path-key/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/path-key/license |
-| `resources/licenses/npm/pe-library/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/pe-library/LICENSE |
-| `resources/licenses/npm/picocolors/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/picocolors/LICENSE |
-| `resources/licenses/npm/picomatch/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/picomatch/LICENSE |
-| `resources/licenses/npm/pkijs/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/pkijs/LICENSE |
-| `resources/licenses/npm/playwright-core/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/playwright-core/LICENSE |
+| `resources/licenses/npm/pe-library/LICENSE` | ⚖️ License terms for pe-library (npm dependency) |
+| `resources/licenses/npm/picocolors/LICENSE` | ⚖️ License terms for picocolors (npm dependency) |
+| `resources/licenses/npm/picomatch/LICENSE` | ⚖️ License terms for picomatch (npm dependency) |
+| `resources/licenses/npm/pkijs/LICENSE` | ⚖️ License terms for pkijs (npm dependency) |
+| `resources/licenses/npm/playwright-core/LICENSE` | ⚖️ License terms for playwright-core (npm dependency) |
 | `resources/licenses/npm/playwright-core/NOTICE` | ⚖️ Third-party license notice for NOTICE |
 | `resources/licenses/npm/playwright-core/ThirdPartyNotices.txt` | ⚖️ Third-party license notice for ThirdPartyNotices |
-| `resources/licenses/npm/plist/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/plist/LICENSE |
-| `resources/licenses/npm/postcss-value-parser/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/postcss-value-parser/LICENSE |
-| `resources/licenses/npm/postcss/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/postcss/LICENSE |
-| `resources/licenses/npm/postject/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/postject/LICENSE |
-| `resources/licenses/npm/proc-log/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/proc-log/LICENSE |
+| `resources/licenses/npm/plist/LICENSE` | ⚖️ License terms for plist (npm dependency) |
+| `resources/licenses/npm/postcss-value-parser/LICENSE` | ⚖️ License terms for postcss-value-parser (npm dependency) |
+| `resources/licenses/npm/postcss/LICENSE` | ⚖️ License terms for postcss (npm dependency) |
+| `resources/licenses/npm/postject/LICENSE` | ⚖️ License terms for postject (npm dependency) |
+| `resources/licenses/npm/proc-log/LICENSE` | ⚖️ License terms for proc-log (npm dependency) |
 | `resources/licenses/npm/process-nextick-args/license.md` | ⚖️ Third-party license notice for License — for resources/licenses/npm/process-nextick-args/license.md |
-| `resources/licenses/npm/progress/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/progress/LICENSE |
-| `resources/licenses/npm/promise-retry/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/promise-retry/LICENSE |
-| `resources/licenses/npm/proper-lockfile/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/proper-lockfile/LICENSE |
-| `resources/licenses/npm/pump/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/pump/LICENSE |
-| `resources/licenses/npm/pvtsutils/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/pvtsutils/LICENSE |
-| `resources/licenses/npm/pvutils/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/pvutils/LICENSE |
+| `resources/licenses/npm/progress/LICENSE` | ⚖️ License terms for progress (npm dependency) |
+| `resources/licenses/npm/promise-retry/LICENSE` | ⚖️ License terms for promise-retry (npm dependency) |
+| `resources/licenses/npm/proper-lockfile/LICENSE` | ⚖️ License terms for proper-lockfile (npm dependency) |
+| `resources/licenses/npm/pump/LICENSE` | ⚖️ License terms for pump (npm dependency) |
+| `resources/licenses/npm/pvtsutils/LICENSE` | ⚖️ License terms for pvtsutils (npm dependency) |
+| `resources/licenses/npm/pvutils/LICENSE` | ⚖️ License terms for pvutils (npm dependency) |
 | `resources/licenses/npm/quick-lru/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/quick-lru/license |
-| `resources/licenses/npm/react-dom/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/react-dom/LICENSE |
-| `resources/licenses/npm/react/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/react/LICENSE |
-| `resources/licenses/npm/readable-stream/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/readable-stream/LICENSE |
-| `resources/licenses/npm/require-directory/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/require-directory/LICENSE |
+| `resources/licenses/npm/react-dom/LICENSE` | ⚖️ License terms for react-dom (npm dependency) |
+| `resources/licenses/npm/react/LICENSE` | ⚖️ License terms for react (npm dependency) |
+| `resources/licenses/npm/readable-stream/LICENSE` | ⚖️ License terms for readable-stream (npm dependency) |
+| `resources/licenses/npm/require-directory/LICENSE` | ⚖️ License terms for require-directory (npm dependency) |
 | `resources/licenses/npm/require-from-string/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/require-from-string/license |
-| `resources/licenses/npm/resedit/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/resedit/LICENSE |
-| `resources/licenses/npm/resolve-alpn/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/resolve-alpn/LICENSE |
-| `resources/licenses/npm/responselike/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/responselike/LICENSE |
+| `resources/licenses/npm/resedit/LICENSE` | ⚖️ License terms for resedit (npm dependency) |
+| `resources/licenses/npm/resolve-alpn/LICENSE` | ⚖️ License terms for resolve-alpn (npm dependency) |
+| `resources/licenses/npm/responselike/LICENSE` | ⚖️ License terms for responselike (npm dependency) |
 | `resources/licenses/npm/retry/License` | ⚖️ Third-party license notice for License — for resources/licenses/npm/retry/License |
-| `resources/licenses/npm/rimraf/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/rimraf/LICENSE |
-| `resources/licenses/npm/rolldown/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/rolldown/LICENSE |
+| `resources/licenses/npm/rimraf/LICENSE` | ⚖️ License terms for rimraf (npm dependency) |
+| `resources/licenses/npm/rolldown/LICENSE` | ⚖️ License terms for rolldown (npm dependency) |
 | `resources/licenses/npm/rolldown/THIRD-PARTY-LICENSE` | ⚖️ Third-party license notice for THIRD PARTY LICENSE |
-| `resources/licenses/npm/safe-buffer/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/safe-buffer/LICENSE |
-| `resources/licenses/npm/sanitize-filename/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/sanitize-filename/LICENSE.md |
-| `resources/licenses/npm/sax/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/sax/LICENSE.md |
-| `resources/licenses/npm/scheduler/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/scheduler/LICENSE |
+| `resources/licenses/npm/safe-buffer/LICENSE` | ⚖️ License terms for safe-buffer (npm dependency) |
+| `resources/licenses/npm/sanitize-filename/LICENSE.md` | ⚖️ License terms for sanitize-filename (npm dependency) |
+| `resources/licenses/npm/sax/LICENSE.md` | ⚖️ License terms for sax (npm dependency) |
+| `resources/licenses/npm/scheduler/LICENSE` | ⚖️ License terms for scheduler (npm dependency) |
 | `resources/licenses/npm/shebang-command/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/shebang-command/license |
 | `resources/licenses/npm/shebang-regex/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/shebang-regex/license |
-| `resources/licenses/npm/signal-exit/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/signal-exit/LICENSE.txt |
-| `resources/licenses/npm/simple-update-notifier/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/simple-update-notifier/LICENSE |
-| `resources/licenses/npm/source-map-js/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/source-map-js/LICENSE |
-| `resources/licenses/npm/source-map-support/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/source-map-support/LICENSE.md |
-| `resources/licenses/npm/source-map/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/source-map/LICENSE |
-| `resources/licenses/npm/stat-mode/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/stat-mode/LICENSE |
-| `resources/licenses/npm/string_decoder/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/string_decoder/LICENSE |
+| `resources/licenses/npm/signal-exit/LICENSE.txt` | ⚖️ License terms for signal-exit (npm dependency) |
+| `resources/licenses/npm/simple-update-notifier/LICENSE` | ⚖️ License terms for simple-update-notifier (npm dependency) |
+| `resources/licenses/npm/source-map-js/LICENSE` | ⚖️ License terms for source-map-js (npm dependency) |
+| `resources/licenses/npm/source-map-support/LICENSE.md` | ⚖️ License terms for source-map-support (npm dependency) |
+| `resources/licenses/npm/source-map/LICENSE` | ⚖️ License terms for source-map (npm dependency) |
+| `resources/licenses/npm/stat-mode/LICENSE` | ⚖️ License terms for stat-mode (npm dependency) |
+| `resources/licenses/npm/string_decoder/LICENSE` | ⚖️ License terms for string_decoder (npm dependency) |
 | `resources/licenses/npm/string-width/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/string-width/license |
 | `resources/licenses/npm/strip-ansi/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/strip-ansi/license |
-| `resources/licenses/npm/sumchecker/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/sumchecker/LICENSE |
+| `resources/licenses/npm/sumchecker/LICENSE` | ⚖️ License terms for sumchecker (npm dependency) |
 | `resources/licenses/npm/supports-color/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/supports-color/license |
-| `resources/licenses/npm/tailwindcss/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/tailwindcss/LICENSE |
-| `resources/licenses/npm/tapable/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/tapable/LICENSE |
-| `resources/licenses/npm/tar/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/tar/LICENSE.md |
-| `resources/licenses/npm/temp/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/temp/LICENSE |
-| `resources/licenses/npm/tiny-async-pool/LICENSE-MIT` | ⚖️ Third-party license notice for LICENSE MIT — for resources/licenses/npm/tiny-async-pool/LICENSE-MIT |
-| `resources/licenses/npm/tinyglobby/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/tinyglobby/LICENSE |
-| `resources/licenses/npm/tmp/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/tmp/LICENSE |
+| `resources/licenses/npm/tailwindcss/LICENSE` | ⚖️ License terms for tailwindcss (npm dependency) |
+| `resources/licenses/npm/tapable/LICENSE` | ⚖️ License terms for tapable (npm dependency) |
+| `resources/licenses/npm/tar/LICENSE.md` | ⚖️ License terms for tar (npm dependency) |
+| `resources/licenses/npm/temp/LICENSE` | ⚖️ License terms for temp (npm dependency) |
+| `resources/licenses/npm/tiny-async-pool/LICENSE-MIT` | ⚖️ License terms for tiny-async-pool (npm dependency) |
+| `resources/licenses/npm/tinyglobby/LICENSE` | ⚖️ License terms for tinyglobby (npm dependency) |
+| `resources/licenses/npm/tmp/LICENSE` | ⚖️ License terms for tmp (npm dependency) |
 | `resources/licenses/npm/tslib/CopyrightNotice.txt` | ⚖️ Third-party license notice for CopyrightNotice |
-| `resources/licenses/npm/tslib/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/tslib/LICENSE.txt |
-| `resources/licenses/npm/typescript/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/typescript/LICENSE.txt |
+| `resources/licenses/npm/tslib/LICENSE.txt` | ⚖️ License terms for tslib (npm dependency) |
+| `resources/licenses/npm/typescript/LICENSE.txt` | ⚖️ License terms for typescript (npm dependency) |
 | `resources/licenses/npm/typescript/ThirdPartyNoticeText.txt` | ⚖️ Third-party license notice for ThirdPartyNoticeText |
-| `resources/licenses/npm/undici-types/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/undici-types/LICENSE |
-| `resources/licenses/npm/undici/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/undici/LICENSE |
-| `resources/licenses/npm/universalify/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/universalify/LICENSE |
-| `resources/licenses/npm/unzipper/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/unzipper/LICENSE |
-| `resources/licenses/npm/update-browserslist-db/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/update-browserslist-db/LICENSE |
-| `resources/licenses/npm/utf8-byte-length/LICENSE.MIT.txt` | ⚖️ Third-party license notice for LICENSE.MIT |
-| `resources/licenses/npm/utf8-byte-length/LICENSE.WTFPL.txt` | ⚖️ Third-party license notice for LICENSE.WTFPL |
-| `resources/licenses/npm/util-deprecate/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/util-deprecate/LICENSE |
-| `resources/licenses/npm/vite/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/vite/LICENSE.md |
-| `resources/licenses/npm/webcrypto-core/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/webcrypto-core/LICENSE |
-| `resources/licenses/npm/which/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/which/LICENSE |
+| `resources/licenses/npm/undici-types/LICENSE` | ⚖️ License terms for undici-types (npm dependency) |
+| `resources/licenses/npm/undici/LICENSE` | ⚖️ License terms for undici (npm dependency) |
+| `resources/licenses/npm/universalify/LICENSE` | ⚖️ License terms for universalify (npm dependency) |
+| `resources/licenses/npm/unzipper/LICENSE` | ⚖️ License terms for unzipper (npm dependency) |
+| `resources/licenses/npm/update-browserslist-db/LICENSE` | ⚖️ License terms for update-browserslist-db (npm dependency) |
+| `resources/licenses/npm/utf8-byte-length/LICENSE.MIT.txt` | ⚖️ License terms for utf8-byte-length (npm dependency) |
+| `resources/licenses/npm/utf8-byte-length/LICENSE.WTFPL.txt` | ⚖️ License terms for utf8-byte-length (npm dependency) |
+| `resources/licenses/npm/util-deprecate/LICENSE` | ⚖️ License terms for util-deprecate (npm dependency) |
+| `resources/licenses/npm/vite/LICENSE.md` | ⚖️ License terms for vite (npm dependency) |
+| `resources/licenses/npm/webcrypto-core/LICENSE` | ⚖️ License terms for webcrypto-core (npm dependency) |
+| `resources/licenses/npm/which/LICENSE` | ⚖️ License terms for which (npm dependency) |
 | `resources/licenses/npm/wrap-ansi/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/wrap-ansi/license |
-| `resources/licenses/npm/wrappy/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/wrappy/LICENSE |
-| `resources/licenses/npm/xmlbuilder/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/xmlbuilder/LICENSE |
-| `resources/licenses/npm/y18n/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/y18n/LICENSE |
-| `resources/licenses/npm/yargs-parser/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/yargs-parser/LICENSE.txt |
-| `resources/licenses/npm/yargs/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/yargs/LICENSE |
+| `resources/licenses/npm/wrappy/LICENSE` | ⚖️ License terms for wrappy (npm dependency) |
+| `resources/licenses/npm/xmlbuilder/LICENSE` | ⚖️ License terms for xmlbuilder (npm dependency) |
+| `resources/licenses/npm/y18n/LICENSE` | ⚖️ License terms for y18n (npm dependency) |
+| `resources/licenses/npm/yargs-parser/LICENSE.txt` | ⚖️ License terms for yargs-parser (npm dependency) |
+| `resources/licenses/npm/yargs/LICENSE` | ⚖️ License terms for yargs (npm dependency) |
 | `resources/licenses/npm/yocto-queue/license` | ⚖️ Third-party license notice for License — for resources/licenses/npm/yocto-queue/license |
-| `resources/licenses/npm/zustand/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/npm/zustand/LICENSE |
-| `resources/licenses/python/altgraph/altgraph-0.17.5.dist-info/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/altgraph/altgraph-0.17.5.dist-info/LICENSE |
-| `resources/licenses/python/annotated-doc/annotated_doc-0.0.5.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/annotated-doc/annotated_doc-0.0.5.dist-info/licenses/LICENSE |
-| `resources/licenses/python/annotated-types/annotated_types-0.8.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/annotated-types/annotated_types-0.8.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/anyio/anyio-4.15.1.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/anyio/anyio-4.15.1.dist-info/licenses/LICENSE |
-| `resources/licenses/python/certifi/certifi-2026.7.22.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/certifi/certifi-2026.7.22.dist-info/licenses/LICENSE |
-| `resources/licenses/python/charset-normalizer/charset_normalizer-3.5.2.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/charset-normalizer/charset_normalizer-3.5.2.dist-info/licenses/LICENSE |
-| `resources/licenses/python/click/click-8.5.0.dist-info/licenses/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/click/click-8.5.0.dist-info/licenses/LICENSE.txt |
-| `resources/licenses/python/fastapi/fastapi-0.143.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/fastapi/fastapi-0.143.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/h11/h11-0.16.0.dist-info/licenses/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/h11/h11-0.16.0.dist-info/licenses/LICENSE.txt |
-| `resources/licenses/python/httpcore/httpcore-1.0.9.dist-info/licenses/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/httpcore/httpcore-1.0.9.dist-info/licenses/LICENSE.md |
-| `resources/licenses/python/httpx/httpx-0.28.1.dist-info/licenses/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/httpx/httpx-0.28.1.dist-info/licenses/LICENSE.md |
-| `resources/licenses/python/idna/idna-3.20.dist-info/licenses/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/idna/idna-3.20.dist-info/licenses/LICENSE.md |
-| `resources/licenses/python/iniconfig/iniconfig-2.3.1.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/iniconfig/iniconfig-2.3.1.dist-info/licenses/LICENSE |
+| `resources/licenses/npm/zustand/LICENSE` | ⚖️ License terms for zustand (npm dependency) |
+| `resources/licenses/python/altgraph/altgraph-0.17.5.dist-info/LICENSE` | ⚖️ License terms for altgraph (python dependency) |
+| `resources/licenses/python/annotated-doc/annotated_doc-0.0.5.dist-info/licenses/LICENSE` | ⚖️ License terms for annotated-doc (python dependency) |
+| `resources/licenses/python/annotated-types/annotated_types-0.8.0.dist-info/licenses/LICENSE` | ⚖️ License terms for annotated-types (python dependency) |
+| `resources/licenses/python/anyio/anyio-4.15.1.dist-info/licenses/LICENSE` | ⚖️ License terms for anyio (python dependency) |
+| `resources/licenses/python/certifi/certifi-2026.7.22.dist-info/licenses/LICENSE` | ⚖️ License terms for certifi (python dependency) |
+| `resources/licenses/python/charset-normalizer/charset_normalizer-3.5.2.dist-info/licenses/LICENSE` | ⚖️ License terms for charset-normalizer (python dependency) |
+| `resources/licenses/python/click/click-8.5.0.dist-info/licenses/LICENSE.txt` | ⚖️ License terms for click (python dependency) |
+| `resources/licenses/python/fastapi/fastapi-0.143.0.dist-info/licenses/LICENSE` | ⚖️ License terms for fastapi (python dependency) |
+| `resources/licenses/python/h11/h11-0.16.0.dist-info/licenses/LICENSE.txt` | ⚖️ License terms for h11 (python dependency) |
+| `resources/licenses/python/httpcore/httpcore-1.0.9.dist-info/licenses/LICENSE.md` | ⚖️ License terms for httpcore (python dependency) |
+| `resources/licenses/python/httpx/httpx-0.28.1.dist-info/licenses/LICENSE.md` | ⚖️ License terms for httpx (python dependency) |
+| `resources/licenses/python/idna/idna-3.20.dist-info/licenses/LICENSE.md` | ⚖️ License terms for idna (python dependency) |
+| `resources/licenses/python/iniconfig/iniconfig-2.3.1.dist-info/licenses/LICENSE` | ⚖️ License terms for iniconfig (python dependency) |
 | `resources/licenses/python/mutagen/mutagen-1.47.0.dist-info/COPYING` | ⚖️ Third-party license notice for COPYING |
-| `resources/licenses/python/opentelemetry-api/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/opentelemetry-api/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE |
-| `resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/LICENSE |
-| `resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/LICENSE.APACHE` | ⚖️ Third-party license notice for LICENSE.APACHE |
-| `resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/LICENSE.BSD` | ⚖️ Third-party license notice for LICENSE.BSD |
-| `resources/licenses/python/pillow/pillow-11.2.1.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pillow/pillow-11.2.1.dist-info/licenses/LICENSE |
-| `resources/licenses/python/pillow/pillow-12.3.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pillow/pillow-12.3.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/pip/pip-25.0.1.dist-info/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pip/pip-25.0.1.dist-info/LICENSE.txt |
-| `resources/licenses/python/pluggy/pluggy-1.6.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pluggy/pluggy-1.6.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/pydantic_core/pydantic_core-2.33.2.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pydantic_core/pydantic_core-2.33.2.dist-info/licenses/LICENSE |
-| `resources/licenses/python/pydantic/pydantic-2.11.5.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pydantic/pydantic-2.11.5.dist-info/licenses/LICENSE |
-| `resources/licenses/python/Pygments/pygments-2.21.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/Pygments/pygments-2.21.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/pyinstaller-hooks-contrib/pyinstaller_hooks_contrib-2026.8.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pyinstaller-hooks-contrib/pyinstaller_hooks_contrib-2026.8.dist-info/licenses/LICENSE |
+| `resources/licenses/python/opentelemetry-api/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE` | ⚖️ License terms for opentelemetry-api (python dependency) |
+| `resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/LICENSE` | ⚖️ License terms for packaging (python dependency) |
+| `resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/LICENSE.APACHE` | ⚖️ License terms for packaging (python dependency) |
+| `resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/LICENSE.BSD` | ⚖️ License terms for packaging (python dependency) |
+| `resources/licenses/python/pillow/pillow-11.2.1.dist-info/licenses/LICENSE` | ⚖️ License terms for pillow (python dependency) |
+| `resources/licenses/python/pillow/pillow-12.3.0.dist-info/licenses/LICENSE` | ⚖️ License terms for pillow (python dependency) |
+| `resources/licenses/python/pip/pip-25.0.1.dist-info/LICENSE.txt` | ⚖️ License terms for pip (python dependency) |
+| `resources/licenses/python/pluggy/pluggy-1.6.0.dist-info/licenses/LICENSE` | ⚖️ License terms for pluggy (python dependency) |
+| `resources/licenses/python/pydantic_core/pydantic_core-2.33.2.dist-info/licenses/LICENSE` | ⚖️ License terms for pydantic_core (python dependency) |
+| `resources/licenses/python/pydantic/pydantic-2.11.5.dist-info/licenses/LICENSE` | ⚖️ License terms for pydantic (python dependency) |
+| `resources/licenses/python/Pygments/pygments-2.21.0.dist-info/licenses/LICENSE` | ⚖️ License terms for Pygments (python dependency) |
+| `resources/licenses/python/pyinstaller-hooks-contrib/pyinstaller_hooks_contrib-2026.8.dist-info/licenses/LICENSE` | ⚖️ License terms for pyinstaller-hooks-contrib (python dependency) |
 | `resources/licenses/python/pyinstaller/pyinstaller-6.14.1.dist-info/COPYING.txt` | ⚖️ Third-party license notice for COPYING — for resources/licenses/python/pyinstaller/pyinstaller-6.14.1.dist-info/COPYING.txt |
-| `resources/licenses/python/PyQt6_sip/pyqt6_sip-13.13.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/PyQt6_sip/pyqt6_sip-13.13.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/PyQt6-Qt6/pyqt6_qt6-6.11.2.dist-info/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/PyQt6-Qt6/pyqt6_qt6-6.11.2.dist-info/LICENSE |
-| `resources/licenses/python/PyQt6/pyqt6-6.11.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/PyQt6/pyqt6-6.11.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/pytest/pytest-8.3.5.dist-info/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pytest/pytest-8.3.5.dist-info/LICENSE |
-| `resources/licenses/python/pytest/pytest-9.0.3.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/pytest/pytest-9.0.3.dist-info/licenses/LICENSE |
-| `resources/licenses/python/requests/requests-2.33.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/requests/requests-2.33.0.dist-info/licenses/LICENSE |
+| `resources/licenses/python/PyQt6_sip/pyqt6_sip-13.13.0.dist-info/licenses/LICENSE` | ⚖️ License terms for PyQt6_sip (python dependency) |
+| `resources/licenses/python/PyQt6-Qt6/pyqt6_qt6-6.11.2.dist-info/LICENSE` | ⚖️ License terms for PyQt6-Qt6 (python dependency) |
+| `resources/licenses/python/PyQt6/pyqt6-6.11.0.dist-info/licenses/LICENSE` | ⚖️ License terms for PyQt6 (python dependency) |
+| `resources/licenses/python/pytest/pytest-8.3.5.dist-info/LICENSE` | ⚖️ License terms for pytest (python dependency) |
+| `resources/licenses/python/pytest/pytest-9.0.3.dist-info/licenses/LICENSE` | ⚖️ License terms for pytest (python dependency) |
+| `resources/licenses/python/requests/requests-2.33.0.dist-info/licenses/LICENSE` | ⚖️ License terms for requests (python dependency) |
 | `resources/licenses/python/requests/requests-2.33.0.dist-info/licenses/NOTICE` | ⚖️ Third-party license notice for NOTICE — for resources/licenses/python/requests/requests-2.33.0.dist-info/licenses/NOTICE |
-| `resources/licenses/python/setuptools/setuptools-84.0.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools-84.0.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco.text-4.0.0.dist-info/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/jaraco.text-4.0.0.dist-info/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.APACHE` | ⚖️ Third-party license notice for LICENSE.APACHE — for resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.APACHE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.BSD` | ⚖️ Third-party license notice for LICENSE.BSD — for resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.BSD |
-| `resources/licenses/python/setuptools/setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/tomli-2.4.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/tomli-2.4.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/setuptools/setuptools/_vendor/wheel-0.46.3.dist-info/licenses/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/wheel-0.46.3.dist-info/licenses/LICENSE.txt |
-| `resources/licenses/python/setuptools/setuptools/_vendor/zipp-3.23.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/setuptools/setuptools/_vendor/zipp-3.23.0.dist-info/licenses/LICENSE |
+| `resources/licenses/python/setuptools/setuptools-84.0.0.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco.text-4.0.0.dist-info/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.APACHE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.BSD` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/tomli-2.4.0.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/wheel-0.46.3.dist-info/licenses/LICENSE.txt` | ⚖️ License terms for setuptools (python dependency) |
+| `resources/licenses/python/setuptools/setuptools/_vendor/zipp-3.23.0.dist-info/licenses/LICENSE` | ⚖️ License terms for setuptools (python dependency) |
 | `resources/licenses/python/setuptools/setuptools/config/_validate_pyproject/NOTICE` | ⚖️ Third-party license notice for NOTICE — for resources/licenses/python/setuptools/setuptools/config/_validate_pyproject/NOTICE |
 | `resources/licenses/python/setuptools/setuptools/config/NOTICE` | ⚖️ Third-party license notice for NOTICE — for resources/licenses/python/setuptools/setuptools/config/NOTICE |
-| `resources/licenses/python/starlette/starlette-1.3.1.dist-info/licenses/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/starlette/starlette-1.3.1.dist-info/licenses/LICENSE.md |
-| `resources/licenses/python/typing_extensions/typing_extensions-4.16.0.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/typing_extensions/typing_extensions-4.16.0.dist-info/licenses/LICENSE |
-| `resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/licenses/LICENSE |
-| `resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/licenses/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/licenses/LICENSE.txt |
-| `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses/LICENSE.md |
+| `resources/licenses/python/starlette/starlette-1.3.1.dist-info/licenses/LICENSE.md` | ⚖️ License terms for starlette (python dependency) |
+| `resources/licenses/python/typing_extensions/typing_extensions-4.16.0.dist-info/licenses/LICENSE` | ⚖️ License terms for typing_extensions (python dependency) |
+| `resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/licenses/LICENSE` | ⚖️ License terms for typing-inspection (python dependency) |
+| `resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/licenses/LICENSE.txt` | ⚖️ License terms for urllib3 (python dependency) |
+| `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses/LICENSE.md` | ⚖️ License terms for uvicorn (python dependency) |
 | `resources/README.md` | 🖼️ Guide to app icons and bundled license files |
-| `scripts/backend_entry.py` | 🐍 Build or maintenance utility: Backend Entry |
-| `scripts/backend.spec` | 📄 Build or maintenance utility: Backend.Spec |
+| `scripts/backend_entry.py` | 🐍 Starts the packaged Python backend |
+| `scripts/backend.spec` | 📄 Configures Python backend bundling |
 | `scripts/benchmark-library.py` | ⚡ Large-library speed checks |
-| `scripts/build-windows.ps1` | 🛠️ Build or maintenance utility: Build Windows |
-| `scripts/collect-licenses.py` | 🐍 Build or maintenance utility: Collect Licenses |
-| `scripts/generate-icon.py` | 🐍 Build or maintenance utility: Generate Icon |
-| `scripts/installer.nsh` | 📄 Build or maintenance utility: Installer.Nsh |
-| `scripts/package-source.py` | 🐍 Build or maintenance utility: Package Source |
+| `scripts/build-windows.ps1` | 🛠️ Builds and validates the Windows installer |
+| `scripts/collect-licenses.py` | 🐍 Collects third-party license notices |
+| `scripts/generate-icon.py` | 🐍 Generates app icon assets |
+| `scripts/installer.nsh` | 📄 Defines Windows installer options |
+| `scripts/package-source.py` | 🐍 Creates a clean source archive |
 | `scripts/package-windows.py` | 🎁 Windows app archive |
-| `scripts/README.md` | 📘 Build or maintenance utility: README |
-| `scripts/repair-windows.ps1` | 🛠️ Build or maintenance utility: Repair Windows |
-| `scripts/setup-cloud.sh` | 📄 Build or maintenance utility: Setup Cloud.Sh |
-| `scripts/smoke-bundle.py` | 🐍 Build or maintenance utility: Smoke Bundle |
-| `scripts/test-windows-installer.ps1` | 🛠️ Build or maintenance utility: Test Windows Installer |
-| `scripts/validate-live-com.ps1` | 🛠️ Build or maintenance utility: Validate Live Com |
-| `scripts/validate-live-com.py` | 🐍 Build or maintenance utility: Validate Live Com — for scripts/validate-live-com.py |
-| `scripts/verify-originals.py` | 🐍 Build or maintenance utility: Verify Originals |
+| `scripts/README.md` | 📘 Guide to build and maintenance scripts |
+| `scripts/repair-windows.ps1` | 🛠️ Opens the Windows app repair installer |
+| `scripts/setup-cloud.sh` | 📄 Prepares the cloud test environment |
+| `scripts/smoke-bundle.py` | 🐍 Checks the packaged app starts |
+| `scripts/test-windows-installer.ps1` | 🛠️ Tests install, repair, and uninstall |
+| `scripts/validate-live-com.ps1` | 🛠️ Runs the Windows live-COM checks |
+| `scripts/validate-live-com.py` | 🐍 Checks live classic-iTunes COM behavior |
+| `scripts/verify-originals.py` | 🐍 Verifies preserved legacy source files |
 | `TESTING.md` | 🧪 Run automated checks and manual safety tests |
-| `tests/desktop-integration.cjs` | 🧪 Regression checks for Desktop Integration |
-| `tests/desktop.test.cjs` | 🧪 Regression checks for Desktop.Test |
-| `tests/make_fixture.py` | 🧪 Regression checks for Make Fixture |
-| `tests/README.md` | 🧪 Regression checks for README |
+| `tests/desktop-integration.cjs` | 🧪 Exercises the desktop app with test data |
+| `tests/desktop.test.cjs` | 🧪 Checks desktop IPC permissions |
+| `tests/make_fixture.py` | 🧪 Builds synthetic library fixtures |
+| `tests/README.md` | 🧪 Guide to the automated test suite |
 | `tests/test_com_timeout.py` | ⏱️ Live scan timing checks |
 | `tests/test_lastfm.py` | 🔑 Last.fm connection checks |
-| `tests/test_manager.py` | 🧪 Regression checks for Test Manager |
+| `tests/test_manager.py` | 🧪 Tests library manager behavior |
 | `tests/test_scan_eta.py` | ⏲️ Scan estimate checks |
-| `tests/test_v2.py` | 🧪 Regression checks for Test V2 |
+| `tests/test_v2.py` | 🧪 Checks version-two regression cases |
 | `tests/test_v3.py` | 🐞 Library and queue fixes |
 | `THIRD_PARTY_LICENSES.md` | 📜 License notices for bundled third-party software |
 
