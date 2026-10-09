@@ -50,19 +50,49 @@ def optional_property(track, name):
     except Exception: return ''
 
 
+def find_track(app, pid, cache=None, name=None, object_ids=None):
+    """Never match by title. A collection lookup can miss a valid live track."""
+    high, low = split_pid(pid)
+    collection = app.LibraryPlaylist.Tracks
+    try: track = collection.ItemByPersistentID(high, low)
+    except Exception: track = None
+    if track is not None:
+        # Verify identity whenever the client exposes the iTunes ID reader.
+        if not hasattr(app, 'ITObjectPersistentIDHigh') or pid_for(app, track) == pid.upper():
+            return track
+    # Hints only narrow the read. Every candidate must have the exact stored ID.
+    if object_ids:
+        try:
+            candidate = app.GetITObjectByID(*object_ids)
+            if candidate is not None and pid_for(app, candidate) == pid.upper(): return candidate
+        except Exception: pass
+    if name:
+        try:
+            candidate = collection.ItemByName(name)
+            if candidate is not None and pid_for(app, candidate) == pid.upper(): return candidate
+        except Exception: pass
+    cache = cache if cache is not None else {}
+    if not cache.get('_loaded'):
+        try: iterator = iter(collection)
+        except TypeError: iterator = (collection.Item(i) for i in range(1, collection.Count + 1))
+        for track in iterator:
+            cache[pid_for(app, track)] = track
+        cache['_loaded'] = True
+    if pid.upper() in cache: return cache[pid.upper()]
+    raise ValueError('This track ID is not in the currently open iTunes library. Check that iTunes has the right library open, then rescan it.')
+
+
 def write_tracks(app_factory, changes, store, job):
     """Journal before each write. Do not pretend a batch of COM properties is atomic."""
     app = app_factory()
-    results = []
+    results = []; lookup = {}
     for change in changes:
         pid, fields = change['pid'], change['fields']
         validate_fields(fields)
         high, low = split_pid(pid)
         item = {'pid': pid, 'fields': {}, 'errors': []}
         try:
-            track = app.LibraryPlaylist.Tracks.ItemByPersistentID(high, low)
-            if track is None:
-                raise ValueError('Track no longer exists in live iTunes.')
+            track = find_track(app, pid, lookup, change.get('name'), change.get('object_ids'))
             kind = str(optional_property(track, 'KindAsString'))
             location = str(optional_property(track, 'Location'))
             if 'protected' in kind.lower() or location.lower().endswith('.m4p'):
@@ -87,7 +117,7 @@ def write_tracks(app_factory, changes, store, job):
                             raise
                         time.sleep(.3)
                         app = app_factory()
-                        track = app.LibraryPlaylist.Tracks.ItemByPersistentID(high, low)
+                        track = find_track(app, pid, name=change.get('name'), object_ids=change.get('object_ids'))
                         current = getattr(track, attr)
                         if current == old:
                             setattr(track, attr, value)
@@ -118,20 +148,33 @@ def connect_itunes(client=None):
     if client is None:
         import win32com.client
         client = win32com.client
-    try:
-        return client.GetActiveObject('iTunes.Application')
-    except Exception as exc:
-        if getattr(exc, 'hresult', None) != -2147221021:
-            raise
-        return client.Dispatch('iTunes.Application')
+    for attempt in range(3):
+        try:
+            try: return client.GetActiveObject('iTunes.Application')
+            except Exception as exc:
+                if getattr(exc, 'hresult', None) != -2147221021: raise
+                return client.Dispatch('iTunes.Application')
+        except Exception as exc:
+            if attempt == 2 or getattr(exc, 'hresult', None) not in (-2147418111, -2147417846, -2147417848, -2147023174): raise
+            time.sleep(.1 * (attempt + 1))
 
 
-def scan_library(app):
+def scan_library(app, progress=None):
     """Read tracks and playlists through the documented IITPlaylist.Source member."""
-    result = {'tracks': {}, 'playlists': []}
+    library_pid = pid_for(app, app.LibraryPlaylist)
+    result = {'tracks': {}, 'playlists': [], 'library_pid': library_pid}
     tracks = app.LibraryPlaylist.Tracks
-    for i in range(1, tracks.Count + 1):
-        track = tracks.Item(i)
+    count = tracks.Count
+    playlists = list(app.LibraryPlaylist.Source.Playlists)
+    def collection_count(collection):
+        try: return collection.Count
+        except AttributeError: return len(collection)
+    total = count + sum(collection_count(p.Tracks) for p in playlists) + 1
+    if progress: progress(0, total, 'Reading the open iTunes library')
+    database_ids = {}
+    try: iterator = iter(tracks)
+    except TypeError: iterator = (tracks.Item(i) for i in range(1, count + 1))
+    for i, track in enumerate(iterator, 1):
         raw = {'Track ID': i, 'Persistent ID': pid_for(app, track)}
         for _, (attr, xml) in FIELDS.items():
             try:
@@ -148,22 +191,32 @@ def scan_library(app):
             except Exception:
                 pass
         result['tracks'][str(i)] = raw
+        database_id = optional_property(track, 'TrackDatabaseID')
+        if isinstance(database_id, int) and database_id > 0: database_ids[database_id] = i
+        if progress and (i % 100 == 0 or i == count):
+            progress(i, total, f'Reading iTunes songs: {i:,} of {count:,}')
     pid_map = {v['Persistent ID']: v['Track ID'] for v in result['tracks'].values()}
-    for playlist in app.LibraryPlaylist.Source.Playlists:
+    done = count
+    for playlist in playlists:
         items = []
         for track in playlist.Tracks:
-            identity = pid_map.get(pid_for(app, track))
+            database_id = optional_property(track, 'TrackDatabaseID')
+            identity = database_ids.get(database_id)
+            if identity is None: identity = pid_map.get(pid_for(app, track))
             if identity is not None: items.append({'Track ID': identity})
-        result['playlists'].append({'Name': playlist.Name, 'Playlist Items': items})
+            done += 1
+            if progress and done % 200 == 0: progress(done, total, f'Reading playlist: {playlist.Name}')
+        result['playlists'].append({'Name': playlist.Name, 'Playlist Persistent ID': pid_for(app, playlist), 'Playlist Items': items})
+    if pid_for(app, app.LibraryPlaylist) != library_pid or tracks.Count != count or len(result['tracks']) != count:
+        raise ValueError('The open iTunes library changed during the scan. Its previous saved copy is safe; scan again.')
     return result
 
 
-def read_live_artwork(app, pid):
+def read_live_artwork(app, pid, name=None):
     """Read a cover in the owning COM apartment without editing its track."""
     import tempfile
     from .artwork import encode_thumbnail
-    high, low = split_pid(pid)
-    track = app.LibraryPlaylist.Tracks.ItemByPersistentID(high, low)
+    track = find_track(app, pid, name=name)
     if not track.Artwork.Count: return None
     with tempfile.TemporaryDirectory() as folder:
         target = Path(folder) / 'cover.png'
@@ -181,12 +234,25 @@ def _perform(payload, database, job, pipe):
             app = factory()
             operation = payload['operation']
             if operation == 'status':
-                result = {'available': True, 'version': app.Version, 'tracks': app.LibraryPlaylist.Tracks.Count, 'library_name': app.LibraryPlaylist.Name}
+                for attempt in range(3):
+                    try:
+                        result = {'available': True, 'version': app.Version, 'tracks': app.LibraryPlaylist.Tracks.Count, 'library_name': app.LibraryPlaylist.Name, 'library_pid': pid_for(app, app.LibraryPlaylist), 'xml_path': str(optional_property(app, 'LibraryXMLPath'))}
+                        break
+                    except Exception as exc:
+                        if attempt == 2 or getattr(exc, 'hresult', None) not in (-2147418111, -2147417846, -2147417848, -2147023174): raise
+                        time.sleep(.2 * (attempt + 1)); app = factory()
             elif operation == 'artwork':
-                result = {'image': read_live_artwork(app, payload['pid'])}
+                result = {'image': read_live_artwork(app, payload['pid'], payload.get('name'))}
             elif operation == 'scan':
-                result = scan_library(app)
+                result = scan_library(app, lambda done,total,current: pipe.send({'progress': [done,total,current]}))
             elif operation == 'edit':
+                expected_library = payload.get('library_pid')
+                if expected_library:
+                    def factory():
+                        current = connect_itunes(win32com.client)
+                        if pid_for(current, current.LibraryPlaylist) != expected_library:
+                            raise ValueError('iTunes is using a different library. Reopen the library used for this preview.')
+                        return current
                 # Store initializer must not reset running jobs in the isolated worker.
                 store = Store.__new__(Store)
                 store.path = Path(database)
@@ -202,7 +268,7 @@ def _perform(payload, database, job, pipe):
         pipe.close()
 
 
-def run_com(payload, database, job='', timeout=30):
+def run_com(payload, database, job='', timeout=30, progress=None):
     if sys.platform != 'win32':
         raise RuntimeError('Live iTunes requires Windows, classic iTunes running, and pywin32. Apple Music for Windows does not expose this COM interface.')
     context = multiprocessing.get_context('spawn')
@@ -211,11 +277,17 @@ def run_com(payload, database, job='', timeout=30):
     process.start()
     child.close()
     try:
-        if not parent.poll(timeout):
-            raise TimeoutError('iTunes did not respond before the timeout. Any pending writes have an uncertain outcome; inspect field history before retrying.')
-        response = parent.recv()
-        if 'error' in response: raise RuntimeError(response['error'])
-        return response['result']
+        deadline = time.monotonic() + timeout
+        while True:
+            if not parent.poll(max(0, deadline - time.monotonic())):
+                raise TimeoutError('iTunes did not respond before the timeout. Any pending writes have an uncertain outcome; inspect field history before retrying.')
+            try: response = parent.recv()
+            except EOFError as exc: raise RuntimeError('The iTunes worker stopped unexpectedly. Check field records before retrying a write.') from exc
+            if 'progress' in response:
+                if progress: progress(*response['progress'])
+                continue
+            if 'error' in response: raise RuntimeError(response['error'])
+            return response['result']
     finally:
         process.join(.5)
         if process.is_alive(): process.terminate()
