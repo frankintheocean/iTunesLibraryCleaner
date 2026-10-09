@@ -945,3 +945,10 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | `docs/LASTFM.md` | 📖 Last.fm quick guide |
 | `docs/RELEASE_3_1_0.md` | 🎁 Version 3.1 downloads |
 | `docs/ui-lastfm-demo.png` | 🪄 Listening layout demo |
+
+## 🖼️ Picture and timing fixes
+
+| Path | Purpose |
+| --- | --- |
+| `tests/test_scan_eta.py` | ⏲️ Scan estimate checks |
+| `docs/RELEASE_3_1_1.md` | 🛠️ Version 3.1.1 guide |
