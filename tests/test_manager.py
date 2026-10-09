@@ -303,3 +303,30 @@ def test_live_scan_uses_documented_playlist_source_and_persistent_ids():
  assert result['tracks']['1']['Persistent ID']=='FFFFFFFF80000000'
  assert result['tracks']['1']['Total Time']==1000
  assert result['playlists']==[{'Name':'Synthetic playlist','Playlist Items':[{'Track ID':2},{'Track ID':1}]}]
+
+
+def test_com_connection_activates_when_running_object_is_unavailable():
+ from backend.com_service import connect_itunes
+ class Unavailable(Exception):hresult=-2147221021
+ calls=[];app=object()
+ def running(name):
+  calls.append(('active',name));raise Unavailable('Operation unavailable')
+ def activate(name):
+  calls.append(('dispatch',name));return app
+ assert connect_itunes(SimpleNamespace(GetActiveObject=running,Dispatch=activate)) is app
+ assert calls==[('active','iTunes.Application'),('dispatch','iTunes.Application')]
+
+
+def test_com_connection_does_not_activate_after_other_com_errors():
+ from backend.com_service import connect_itunes
+ class Busy(Exception):hresult=-2147418111
+ def running(name):raise Busy('iTunes busy')
+ def activate(name):raise AssertionError('Must not activate on a busy or unrelated failure')
+ with pytest.raises(Busy):connect_itunes(SimpleNamespace(GetActiveObject=running,Dispatch=activate))
+
+
+def test_com_connection_reuses_available_running_object():
+ from backend.com_service import connect_itunes
+ app=object()
+ def activate(name):raise AssertionError('Already attached; do not activate')
+ assert connect_itunes(SimpleNamespace(GetActiveObject=lambda name:app,Dispatch=activate)) is app
