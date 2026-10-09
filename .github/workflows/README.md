@@ -1,8 +1,11 @@
-# 🚦 GitHub workflows
+# 🚦 GitHub workflow guide
 
-- 🪟 `windows-build.yml` builds and tests the Windows app, validates the installer, creates the portable/source ZIPs and SHA-256 files, and refreshes the published **v1.0.0** release assets when checks pass.
-- 📝 `release-notes.yml` syncs the stable v1.0.0 release body from `docs/RELEASE_1_0_0.md` and refreshes older pre-release notes from their versioned guides.
-- 🧪 `windows-diagnostics.yml` gathers extra Windows build diagnostics.
-- 👀 `publish-windows-preview.yml` handles preview-release artifacts.
+These workflows automate Windows packaging, release-note updates, and diagnostic collection. A green source-level test is not proof that the installed app works on every Windows/iTunes setup.
 
-Check the workflow run and logs before calling a build or release complete. A source-level COM test is not the same as testing through the installed app on the target Windows/iTunes setup.
+- 🪟 `windows-build.yml` runs on Windows, builds and tests the app, validates install/repair/uninstall, packages the portable and source ZIPs, and writes SHA-256 sidecars.
+- 📦 Release publishing is gated by the version in `package.json`. The workflow currently contains explicit **1.0.0** release logic and legacy **4.0.0** migration handling; do not describe it as a generic “publish latest version” job.
+- 📝 `release-notes.yml` updates only the release tags and note files listed in its script. Check that list before assuming a new release guide will be published automatically.
+- 🧪 `windows-diagnostics.yml` collects extra build diagnostics.
+- 👀 `publish-windows-preview.yml` handles preview artifacts.
+
+Before calling a release complete, inspect the workflow run, confirm the expected release tag and assets, and verify the uploaded checksums. Use a disposable library for live COM validation.
