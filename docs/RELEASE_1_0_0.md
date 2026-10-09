@@ -49,3 +49,16 @@ Requires Windows 10/11 x64 for the installer. Live iTunes editing requires class
 - Choose the active library in Overview and keep that selection across library tools.
 - Keep library removal available in Libraries. Hidden discovered locations can be restored without deleting files or unloading libraries.
 - Keep the GitHub link in Settings.
+
+
+## 🩹 1.0.0 hotfixes (same version)
+
+These are maintenance fixes to the existing 1.0.0 release; the version number intentionally remains **1.0.0**.
+
+- 🧭 Stabilize Current Library layout measurement to reduce recurring flicker.
+- 🔎 Move Current Library search below the row-action buttons and above the column headings, keep song artwork and song text left-aligned, and clear search state when switching tabs so separate screens do not inherit another tab's query.
+- ⌨️ Debounce search input slightly to avoid excessive rapid refreshes while typing.
+- 📊 Replace the all-at-once Library Stats wall with a stat selector, configurable Top 5 / 10 / 25 / 50 / 100 display, and pagination.
+- 🧩 Add a Missing Tracks workspace that groups indexed albums and highlights missing track numbers when track-count metadata is present.
+
+**Notes:** Missing Tracks relies on track-number and track-count metadata from the loaded library; it cannot infer tracks absent from the source metadata. Playlist-image synchronization, customizable tab ordering/visibility, artist-photo sourcing, and the refreshed Apple-style application icon still require additional implementation and validation before they can be claimed as delivered.
