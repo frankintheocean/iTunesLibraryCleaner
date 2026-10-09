@@ -40,6 +40,7 @@ For the Windows installer and full validation, use `scripts/build-windows.ps1` o
 - 🧩 Missing Tracks can infer gaps only when track numbers and track-count metadata are available. It cannot prove a track is missing when source metadata is incomplete.
 - 🎨 Playlist pictures are saved in iTunes Manager. Writing them into live iTunes depends on an artwork setter that the installed COM interface may not expose.
 - 🎧 Last.fm is optional and read-only. It needs your API key, username, and internet access; some pictures may be unavailable.
+- 🧰 Some advanced features are still only in the original Cleaner/Consolidator tools or are not yet in the new interface: audio matching that tolerates offsets, duplicate-art cleanup, empty-folder cleanup, disconnected-drive detection, Apple Music private-database import, full custom folder templates, playlist comparison/repair, full migration of old history/cache, managed app-state backup/restore, dependent jobs and Retry All, mid-file progress, transfer-speed metrics, translations, and update/notification settings. See [feature coverage](docs/FEATURE_PARITY.md).
 - 🧪 Automated build checks do not replace manual tests with the target Windows and classic iTunes versions. See [known limits](docs/LIMITATIONS.md) and [validation evidence](docs/VALIDATION.md).
 
 ## 🛡️ Safety notes
