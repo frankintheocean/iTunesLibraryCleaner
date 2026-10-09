@@ -1,12 +1,10 @@
 # Changelog
 
-## 4.0.1 — COM compatibility and flat icon
+## 1.0 — Unified workspace
 
 - Support Apple-distributed classic iTunes when the running-object lookup fails: use the original Cleaner’s Dispatch activation for MK_E_UNAVAILABLE. Other COM errors remain explicit.
 - Real iTunes 12.13.11.1 source validation reported PASS for all 14 live metadata fields, independent readback and conditional undo.
 - Replace the glossy disc icon with a flat dark-tile music symbol, mint geometry and an orange accent inspired by the supplied ScoutTool style.
-
-## 4.0.0 — Unified workspace
 
 - Added React/TypeScript/Electron desktop shell with Apple-inspired light/dark and color themes, virtualized track pages, native window controls and original icon assets.
 - Preserved both original applications, algorithms, settings paths and advanced legacy interfaces.
