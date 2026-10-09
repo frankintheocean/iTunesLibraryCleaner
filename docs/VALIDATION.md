@@ -51,6 +51,10 @@ The Windows archive check exposed database connections left open after transacti
 
 Linux source checks passed 263 Python tests, 5 IPC checks and the production interface build. Tests cover scan progress beyond the old deadline, stalled scans, unchanged write deadlines, cancellation, all 48,000 generated IDs, every Last.fm chart and period, rejected keys, profile pictures, safe picture hosts, bounded image downloads, track album covers, private-data errors and hidden discovery paths. Last.fm fixtures contain no real account or key.
 
-Fresh large-library COM and real-account Last.fm checks remain pending. Windows release publication requires an installer and package test run for the exact source commit.
+Fresh large-library COM and real-account Last.fm checks remain pending. Windows 3.1.0 passed 262 Python tests with one Linux-only skip, 5 IPC checks, bundle startup, the installed-app workflow, repair and uninstall/reinstall with saved data preserved. Both ZIPs and the generated 40,000-song loading/edit check passed. [Windows evidence](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37902074381).
+
+The published [3.1.0 downloads](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v3.1.0) were downloaded again. All three SHA-256 records matched; both ZIPs passed integrity and source-commit checks. Their report identifies source commit `40afc9d0f6d603398d8fee86975ba81ff2ce9f56`.
 
 The desktop check passed all 12 navigation sections, Settings-only GitHub access, hidden/restored suggestions, Last.fm connection errors, profile picture size, charts, paging and disconnect. Its Last.fm responses are demo fixtures; library scan/edit requests use the actual service.
+
+A separate generated 48,000-song XML check passed: loading took 1.54 seconds, indexed searches took 20–39 ms, and a real one-file title edit took 2.39 seconds on this Linux machine. These fixture results do not measure live COM or promise timings on other hardware.
