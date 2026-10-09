@@ -3,7 +3,8 @@ from __future__ import annotations
 import re
 import threading
 import time
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urljoin, urlunsplit, quote
+from html.parser import HTMLParser
 import requests
 from .artwork import encode_thumbnail
 
@@ -20,9 +21,9 @@ def image_url(value):
     if not isinstance(value, str) or len(value) > 2048: return ''
     try:
         url = urlsplit(value)
-        if url.scheme != 'https' or url.hostname not in IMAGE_HOSTS or url.port not in (None, 443) or url.username or url.password: return ''
+        if url.scheme not in ('http', 'https') or url.hostname not in IMAGE_HOSTS or url.port not in (None, 443) or url.username or url.password: return ''
         if any(p in value for p in PLACEHOLDERS): return ''
-        return value
+        return urlunsplit(('https', url.netloc, url.path, url.query, ''))
     except ValueError: return ''
 
 
@@ -35,7 +36,7 @@ def picture(raw):
 class LastFM:
     def __init__(self, store):
         self.store = store
-        self._cache = {}; self._images = {}; self._track_images = {}; self._lock = threading.RLock()
+        self._cache = {}; self._images = {}; self._track_images = {}; self._pictures = {}; self._lock = threading.RLock()
         self._rate_lock = threading.Lock(); self._next_request = 0
 
     def _request(self, method, key, username, **options):
@@ -82,7 +83,7 @@ class LastFM:
     def disconnect(self):
         with self._lock:
             self.store.set_setting('lastfm_connection', {})
-            self._cache.clear(); self._images.clear(); self._track_images.clear()
+            self._cache.clear(); self._images.clear(); self._track_images.clear(); self._pictures.clear()
         return {'connected': False, 'user': None}
 
     @staticmethod
@@ -142,22 +143,102 @@ class LastFM:
             if image: self._track_images[identity] = image
         return {'image': image}
 
-    def image(self, url):
+    def _download(self, url, image=True):
+        """Bound every redirect and byte count, including old CDN links."""
+        def accepted(value):
+            if image: return image_url(value)
+            try:
+                parsed = urlsplit(value)
+                if parsed.scheme == 'https' and parsed.hostname in ('www.last.fm', 'last.fm') and not parsed.username and not parsed.password and parsed.port in (None, 443):
+                    return value
+            except ValueError: pass
+            return ''
+        url = accepted(url)
+        if not url: return None
+        try:
+            for _ in range(4):
+                with requests.get(url, timeout=(5, 15), stream=True, allow_redirects=False,
+                                  headers={'User-Agent': 'iTunesManager/3.1.1', 'Accept': 'image/*' if image else 'text/html'}) as response:
+                    if response.status_code in (301, 302, 303, 307, 308):
+                        url = accepted(urljoin(url, response.headers.get('Location', '')))
+                        if not url: return None
+                        continue
+                    if response.status_code != 200: return None
+                    # Some image CDNs send valid image bytes as application/octet-stream.
+                    # The decoder, not a guessed MIME type, decides whether they are pictures.
+                    data = bytearray()
+                    for chunk in response.iter_content(65536):
+                        data.extend(chunk)
+                        if len(data) > 2 * 1024 * 1024: return None
+                    return bytes(data)
+        except requests.RequestException: pass
+        return None
+
+    def _page_picture(self, path):
+        data = self._download('https://www.last.fm/' + path, image=False)
+        if not data: return ''
+        class Pictures(HTMLParser):
+            def __init__(self): super().__init__(); self.urls = []
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if tag == 'meta' and (attrs.get('property') or attrs.get('name')) in ('og:image', 'twitter:image'):
+                    url = image_url(attrs.get('content'))
+                    if url: self.urls.append(url)
+        parser = Pictures()
+        parser.feed(data.decode('utf-8', errors='replace'))
+        return next(iter(parser.urls), '')
+
+    def resolve_picture(self, kind, name, artist='', url=''):
+        if kind not in ('profile', 'track', 'album', 'artist'): raise ValueError('Choose a supported picture type.')
+        conf = self.store.setting('lastfm_connection', {})
+        if not conf.get('api_key'): return {'image': None}
+        identity = (conf['username'], kind, name, artist, url)
+        with self._lock:
+            cached = self._pictures.get(identity)
+            if cached and time.monotonic() - cached[0] < 600: return {'image': cached[1]}
+        size = 256 if kind == 'profile' else 96
+        result = self.image(url, size)['image'] if image_url(url) else None
+        if not result:
+            candidate = ''; path = ''
+            try:
+                if kind == 'profile':
+                    raw = self._request('user.getInfo', conf['api_key'], conf['username']).get('user') or {}
+                    candidate = picture(raw); path = 'user/' + quote(conf['username'], safe='')
+                elif kind == 'artist':
+                    # Last.fm's artist API commonly returns a placeholder. The public
+                    # artist page still supplies its actual photo through Open Graph.
+                    path = 'music/' + quote(name, safe='')
+                elif kind == 'album' and artist:
+                    raw = self._request('album.getInfo', conf['api_key'], conf['username'], album=name, artist=artist).get('album') or {}
+                    candidate = picture(raw); path = 'music/' + quote(artist, safe='') + '/' + quote(name, safe='')
+                elif kind == 'track' and artist:
+                    raw = self._request('track.getInfo', conf['api_key'], conf['username'], track=name, artist=artist).get('track') or {}
+                    album = raw.get('album') or {}; candidate = picture(album)
+                    if not candidate and album.get('title'):
+                        info = self._request('album.getInfo', conf['api_key'], conf['username'], album=album['title'], artist=artist).get('album') or {}
+                        candidate = picture(info)
+                    path = 'music/' + quote(artist, safe='') + '/_/' + quote(name, safe='')
+            except RuntimeError:
+                if kind == 'profile': path = 'user/' + quote(conf['username'], safe='')
+                elif artist: path = 'music/' + quote(artist, safe='') + ('/_/' if kind == 'track' else '/') + quote(name, safe='')
+            if candidate: result = self.image(candidate, size)['image']
+            if not result and path:
+                candidate = self._page_picture(path)
+                if candidate: result = self.image(candidate, size)['image']
+        with self._lock:
+            if len(self._pictures) >= 256: self._pictures.pop(next(iter(self._pictures)))
+            if result: self._pictures[identity] = (time.monotonic(), result)
+        return {'image': result}
+
+    def image(self, url, size=96):
         url = image_url(url)
         if not url: return {'image': None}
+        identity = (url, size)
         with self._lock:
-            if url in self._images: return {'image': self._images[url]}
-        image = None
-        try:
-            with requests.get(url, timeout=(5, 10), stream=True, allow_redirects=False) as response:
-                if response.status_code != 200 or not response.headers.get('Content-Type', '').startswith('image/'): return {'image': None}
-                data = bytearray()
-                for chunk in response.iter_content(65536):
-                    data.extend(chunk)
-                    if len(data) > 2 * 1024 * 1024: return {'image': None}
-                image = encode_thumbnail(bytes(data))
-        except requests.RequestException: pass
+            if identity in self._images: return {'image': self._images[identity]}
+        data = self._download(url)
+        image = encode_thumbnail(data, size) if data else None
         with self._lock:
             if len(self._images) >= 256: self._images.pop(next(iter(self._images)))
-            if image: self._images[url] = image
+            if image: self._images[identity] = image
         return {'image': image}
