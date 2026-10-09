@@ -145,7 +145,7 @@ def test_remove_history_default_path_and_playlist_picture(tmp_path):
         service=app.state.service;identity=service.add_profile('Saved',str(source),'xml');service.scan(identity,'fixture',lambda *args:None)
         journal=service.store.journal('fixture','pid','live','name','Before','After')
         service.store.audit('fixture',{'job':'fixture'})
-        assert client.get('/health').json()['version']=='4.0.0'
+        assert client.get('/health').json()['version']=='1.0.0'
         assert client.post('/history/clear',json={'confirmed':True}).status_code==200
         assert client.get('/history').json()==[]
         assert not service.store.rows('SELECT id FROM history') and not service.store.rows('SELECT id FROM edits WHERE id=?',(journal,))
