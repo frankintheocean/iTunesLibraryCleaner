@@ -1,0 +1,87 @@
+name: One-time stale branch cleanup
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cleanup-stale-branches.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete only closed-PR or merged maintenance branches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json, os, subprocess, sys
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          owner, _ = repo.split("/", 1)
+          # Explicit allowlist from the reviewed repository branch list.
+          # Never delete main, a protected branch, or a branch used by an open PR.
+          stale = [
+              "codex/v4.0.0-current-library",
+              "docs/current-feature-limits",
+              "docs/deduplicate-repository-path-index",
+              "docs/sync-stable-release-notes",
+              "docs/version-reset-1.0.0",
+              "docs/1.0.0-release-and-repo-cleanup",
+              "feature/complete-1.0.0-polish",
+              "fix/lastfm-artwork-3.1.1",
+              "fix/top100-duration-stat-window",
+              "fix/version-label-consistency",
+              "hotfix/1.0.0-library-search-state",
+              "release/v4.0.0",
+          ]
+
+          def api(path):
+              return json.loads(subprocess.check_output(["gh", "api", path], text=True))
+
+          branch_pages = api(f"repos/{repo}/branches?per_page=100")
+          branches = {b["name"]: b for b in branch_pages}
+          open_prs = api(f"repos/{repo}/pulls?state=open&per_page=100")
+          open_heads = {p["head"]["ref"] for p in open_prs}
+          failures = []
+
+          for name in stale:
+              if name == "main":
+                  print("SKIP default branch")
+                  continue
+              if name not in branches:
+                  print(f"SKIP already absent: {name}")
+                  continue
+              if branches[name].get("protected"):
+                  failures.append(f"protected branch unexpectedly in allowlist: {name}")
+                  continue
+              if name in open_heads:
+                  failures.append(f"branch still has an open PR: {name}")
+                  continue
+              result = subprocess.run(
+                  ["gh", "api", "-X", "DELETE", f"repos/{repo}/git/refs/heads/{name}"],
+                  text=True,
+                  capture_output=True,
+              )
+              if result.returncode:
+                  failures.append(f"could not delete {name}: {result.stderr.strip()}")
+                  print(f"FAILED: {name}")
+              else:
+                  print(f"DELETED: {name}")
+
+          if failures:
+              print("\n".join(failures), file=sys.stderr)
+              sys.exit(1)
+
+          # Remove this temporary workflow after successful cleanup.
+          info = api(f"repos/{repo}/contents/.github/workflows/cleanup-stale-branches.yml?ref=main")
+          subprocess.run([
+              "gh", "api", "-X", "DELETE",
+              f"repos/{repo}/contents/.github/workflows/cleanup-stale-branches.yml",
+              "-f", "message=ci: remove one-time stale branch cleanup",
+              "-f", f"sha={info['sha']}",
+              "-f", "branch=main",
+          ], check=True)
+          print("Cleanup complete; temporary workflow removed.")
+          PY
