@@ -1,5 +1,6 @@
 from pathlib import Path
 import hashlib
+import json
 import zipfile
 root = Path(__file__).resolve().parents[1]
 out = root.parent / 'deliverables' / 'Unified-iTunes-Library-Manager-4.0.0.zip'
@@ -15,6 +16,12 @@ with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) a
 with zipfile.ZipFile(out) as archive:
  assert archive.testzip() is None
  assert {name.split('/')[0] for name in archive.namelist()}=={'Unified-iTunes-Library-Manager'}
+ for record in json.loads((root/'docs/source-inventory.json').read_text()):
+  parts=Path(record['path']).parts
+  relative=Path('legacy')/('cleaner' if parts[0]=='LibraryCleaner' else 'consolidator')/Path(*parts[2:])
+  stored=archive.read(str(Path('Unified-iTunes-Library-Manager')/relative))
+  assert hashlib.sha256(stored).hexdigest()==record.get('published_sha256',record['sha256']),str(relative)
+
 checksum=hashlib.sha256(out.read_bytes()).hexdigest()
 out.with_suffix('.zip.sha256').write_text(checksum+'  '+out.name+'\n')
 print(out)
