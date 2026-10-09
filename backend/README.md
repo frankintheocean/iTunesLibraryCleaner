@@ -1,6 +1,6 @@
 # 🔌 Python backend
 
-The backend is the local service layer: it reads library sources, indexes tracks, prepares edit previews, queues jobs, and delegates live classic-iTunes operations to a separate Windows COM process.
+The backend is the local service: it reads library sources, indexes tracks, prepares edit previews, queues jobs, and delegates live classic-iTunes operations to a separate Windows COM process.
 
 - 🌐 `api.py` defines authenticated loopback HTTP routes.
 - 📚 `service.py` scans XML, folders, and live libraries and builds overview statistics.
