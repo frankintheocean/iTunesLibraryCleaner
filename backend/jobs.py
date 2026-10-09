@@ -62,12 +62,15 @@ class Jobs:
             if state != 'paused': break
             self.stop.wait(.2)
         now = time.time()
-        row = self.store.rows('SELECT elapsed,active_since,eta_end,progress FROM jobs WHERE id=?', (job,))[0]
+        row = self.store.rows('SELECT elapsed,active_since,eta_end,progress,kind FROM jobs WHERE id=?', (job,))[0]
         elapsed = row['elapsed'] + (max(0, now - row['active_since']) if row['active_since'] else 0)
         # The deadline is measured in active seconds, so a pause freezes both clocks.
         estimate = elapsed * max(0, total - done) / done if done > 0 else None
         end = row['eta_end']
-        if estimate is not None and elapsed >= .5:
+        # Scans first measure real throughput; a short XML scan must not seed
+        # the estimate for a much larger live scan. Allow warm-up before timing.
+        sample_seconds = 5 if row['kind'] == 'scan' else .5
+        if estimate is not None and elapsed >= sample_seconds and not (row['kind'] == 'scan' and current == 'Saving and indexing the library'):
             candidate = elapsed + estimate
             end = min(end, candidate) if end is not None else candidate
         self.store.execute('UPDATE jobs SET checkpoint=?,progress=?,current=?,updated=?,eta_end=? WHERE id=?', (done, min(99, max(row['progress'], 0, done / max(total, 1) * 100)), current, now, end, job))
@@ -83,7 +86,9 @@ class Jobs:
                 continue
             try:
                 prior = self.store.rows("SELECT elapsed FROM jobs WHERE kind=? AND status='complete' AND elapsed>0 ORDER BY created DESC LIMIT 5", (job['kind'],))
-                if prior:
+                if job['kind'] == 'scan':
+                    estimate = None
+                elif prior:
                     estimate = sorted(r['elapsed'] for r in prior)[len(prior)//2]
                 else:
                     payload = json.loads(job['payload'])
