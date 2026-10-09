@@ -1,4 +1,4 @@
-# 🎵 iTunes Manager 2.0.0
+# 🎵 iTunes Manager 3.0.0
 
 A Windows music-library workspace combining LibraryCleaner and iTunes Library Consolidator with an Apple-inspired interface.
 
@@ -9,11 +9,13 @@ A Windows music-library workspace combining LibraryCleaner and iTunes Library Co
 - Preview changes, retain backups and review queued jobs and undo history.
 - Launch preserved original tools for advanced workflows.
 - Browse album covers, choose OLED themes and fonts, and adjust text size.
-- Clear waiting queue tasks and see elapsed time and estimated time left.
+- Keep loaded libraries ready when switching tabs or collections. Search large libraries quickly.
+- Clear waiting tasks or the visible history, and see elapsed time with a countdown estimate.
+- Choose a default XML path and add playlist pictures. Remove library profiles without deleting music.
 
 ## 🚀 Quick start
 
-Download the Windows installer from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases). Requires Windows 10/11 x64; live editing requires **classic iTunes**, not Apple Music for Windows.
+Get v3.0.0 from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v3.0.0): **installer**, **Windows app ZIP** or **source ZIP**. Extract the whole app ZIP before opening `iTunes Manager.exe`; its settings still use AppData. Requires Windows 10/11 x64; live editing requires **classic iTunes**, not Apple Music for Windows.
 
 To run from source, install Python 3.12+ and Node 22.12+, then run in the repository folder:
 
