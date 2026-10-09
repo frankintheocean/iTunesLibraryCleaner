@@ -1,9 +1,9 @@
-# 🏛️ Preserved original tools
+# 🏛️ Original tools
 
-The original LibraryCleaner and iTunes Library Consolidator remain here for advanced workflows and older settings.
+The original LibraryCleaner and iTunes Library Consolidator are kept for older workflows and settings.
 
-- 🧹 `cleaner/` contains the original genre-cleanup tool.
-- 📦 `consolidator/` contains the original library/file consolidation tool.
-- 📚 Each original tool has its own README and usage instructions.
+- 🧹 `cleaner/` — genre cleanup.
+- 📦 `consolidator/` — library and file consolidation.
+- 📚 Each tool has its own setup and usage guide.
 
-Prefer the current app for new work. The original interfaces keep their own controls, confirmations, and backup behavior; review those prompts carefully. Avoid unrelated legacy edits because the build verifies preserved source files.
+Use the current app for new work where possible. The old tools have separate controls and backup behavior. Read each prompt carefully. Their source is checked during builds, so avoid unrelated changes.
