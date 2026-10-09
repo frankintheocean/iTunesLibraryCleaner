@@ -1,19 +1,32 @@
-# Testing
+# 🧪 Run checks
 
-Run `.venv/bin/python -m pytest tests legacy/consolidator/tests -q`, `npm test`, and `npm run build`. New tests use temporary synthetic XML, FLAC metadata headers and byte files; real COM objects are replaced with deterministic contract fakes for signed IDs, multi-field writes, concurrent changes, rejected-call reconnect and partial failures. Fake COM passing is not real iTunes validation.
+## ⚡ Development checks
 
-Filesystem tests cover staging hashes, quarantine restore, no-overwrite behavior, changed sources, collisions, Unicode/reserved names, traversal and symlink rejection. Integration tests cover streaming import, duplicate merge metadata/playcounts, playlist ordering, original-file preservation, authenticated API, explicit confirmation, custom rules, history/settings and interrupted checkpoints. Original suites retain their exact algorithms and fixtures including large-library tests.
+From the repository folder, run:
 
-Desktop integration: `npm run test:desktop` starts Electron against disposable generated fixtures. Linux CI needs an available X display. In this restricted container only, Chromium's SUID sandbox cannot be configured, so the tested command used `DISPLAY=:99 LIBRARY_MANAGER_TEST_NO_SANDBOX=1 npm run test:desktop`. That explicit flag belongs to the test harness, never the production app configuration. Real Windows sandbox acceptance remains required. Screenshots are under `docs/`.
+```sh
+.venv/bin/python -m pytest tests legacy/consolidator/tests -q
+npm test
+npm run build
+```
 
-## Required Windows acceptance before release
+Tests use temporary libraries and media. COM test doubles check IDs, multi-field edits, reconnects, concurrent changes and partial failures. They do not prove that real iTunes works.
 
-Use a disposable classic iTunes library with synthetic media, never the user's collection. Validate a real live scan, genre normalization, title/artist/album/album-artist edits, track/disc numbers, ratings, album merge and conditional undo. Exercise files that are read-only/locked, missing tracks, modal iTunes dialogs, stopped/restarted iTunes and high-bit persistent IDs. Confirm partial failures match journals and live readback.
+File tests check verified copies, restore, collisions, changed sources, Unicode and reserved names, path traversal and symlinks. API tests check imports, duplicate merges, playlist order, authentication, confirmations, rules, history and interrupted work. The original test suites remain available.
 
-Build and install on clean Windows 10 and 11 x64 without Python/Node. Verify backend startup, all native dialogs, icons in taskbar/Start Menu/shortcuts/Apps & Features, resize/drag/maximize/restore at multiple DPIs and monitors, keyboard focus, dark/high contrast themes and virtualized paging. Open both bundled legacy interfaces.
+## 🖥️ Desktop checks
 
-Remove a packaged file and shortcut, rerun the installer/maintenance launcher and verify repair. Uninstall/reinstall and verify settings, backups, exports and music remain. Test child-process shutdown with running/interrupted operations. Check source/destination overlap, insufficient disk space, locked/Unicode/long paths, case collisions, network shares/disconnected disks and filesystems without hard links. Such paths are not claimed validated on Linux.
+`npm run test:desktop` starts Electron with generated test data. Linux needs a display. This restricted cloud used `DISPLAY=:99 LIBRARY_MANAGER_TEST_NO_SANDBOX=1 npm run test:desktop` because it cannot configure Chromium's SUID sandbox helper. That flag is for this test harness only; production sandboxing stays enabled. Screenshots are in `docs/`.
 
-See docs/VALIDATION.md for actual outcomes, not an implied checklist pass.
+## 🪟 Checks still needed before a production release
 
-Executable acceptance entry points are documented in [Windows validation](docs/WINDOWS_VALIDATION.md): `scripts/test-windows-installer.ps1` and `scripts/validate-live-com.ps1`. Hosted builds do not run classic iTunes.
+Use a disposable classic iTunes library with generated media. Never use your personal collection.
+
+- Test live scans, genre cleanup, album merging, all supported metadata fields and conditional undo.
+- Test locked, read-only, missing and protected media, open iTunes dialogs, stopped/restarted iTunes and high-bit persistent IDs. Compare partial results with saved change records and live values.
+- Install on clean Windows 10 and 11 x64 without Python or Node. Check startup, file dialogs, both original tools, shortcuts, taskbar icons and the uninstall entry.
+- Check resize, dragging, maximize/restore, keyboard focus, dark/high-contrast themes and track paging at different display scales and on multiple monitors.
+- Remove a packaged file and shortcut, then test repair. Uninstall/reinstall and check that settings, backups, exports and music remain. Check shutdown during running and interrupted jobs.
+- Test overlapping folders, low disk space, locked files, Unicode and long paths, case collisions, network shares, disconnected drives and filesystems without hard links.
+
+[Windows procedures](docs/WINDOWS_VALIDATION.md) explain the installer and live COM scripts. Hosted builds do not run classic iTunes. See [actual results](docs/VALIDATION.md); this list is not a record of passed tests.
