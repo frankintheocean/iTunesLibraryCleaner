@@ -919,3 +919,7 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | [docs/EARLIER_PREVIEW_RELEASE.md](../docs/EARLIER_PREVIEW_RELEASE.md) | 🕰️ Earlier preview guidance |
 | [.github/RELEASE_TEMPLATE.md](../.github/RELEASE_TEMPLATE.md) | 🎉 Plain-language release outline |
 | [.github/workflows/release-notes.yml](../.github/workflows/release-notes.yml) | 📣 Published release wording |
+| [backend/artwork.py](../backend/artwork.py) | 🖼️ Album cover thumbnails |
+| [frontend/src/widgets.tsx](../frontend/src/widgets.tsx) | 🧰 Workspace display helpers |
+| [tests/test_v2.py](../tests/test_v2.py) | 🔍 Version 2 behavior checks |
+| [docs/RELEASE_2_0_0.md](../docs/RELEASE_2_0_0.md) | 🎵 Version 2 release guide |
