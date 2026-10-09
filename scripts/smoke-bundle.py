@@ -35,7 +35,7 @@ with tempfile.TemporaryDirectory(prefix='uilm-bundle-smoke-') as folder:
    payload=json.dumps(body).encode() if body is not None else None
    req=urllib.request.Request(base+path,data=payload,headers={'Authorization':'Bearer '+token,'Content-Type':'application/json'})
    with urllib.request.urlopen(req,timeout=15) as response:return json.load(response)
-  assert request('/health')['version']=='4.0.0'
+  assert request('/health')['version']=='4.0.1'
   if sys.platform=='win32':
    status=request('/com/status')
    reason=status.get('reason','')
