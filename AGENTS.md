@@ -1,4 +1,4 @@
-# Repository custom instructions
+# 🤖 Working rules
 
 These instructions apply to work in this repository and reflect the owner's Settings preferences.
 
@@ -11,7 +11,7 @@ These instructions apply to work in this repository and reflect the owner's Sett
 - Keep the GitHub About description concise and informative.
 - Preserve application behavior, licenses and file contents when making presentation changes. Ask before rewriting published Git history.
 
-## ✍️ Plain language and emojis
+## 🧭 ✍️ Plain language and emojis
 
 Use simple, familiar language throughout this repository, the app, guides, changelogs and current or future release notes. Keep sentences short. Explain technical terms when readers need them. Use helpful emojis in headings and key steps, without adding one to every sentence. Preserve commands, permissions, licenses, safety rules, known limits and the difference between passed and pending checks. Link detailed guides from the README. Update published release notes when their wording changes; keep historical test results accurate and do not change release binaries or tags just to edit wording.
 
