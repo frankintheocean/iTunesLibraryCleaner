@@ -722,6 +722,8 @@ class Service:
             key = playlist.raw.get('Playlist Persistent ID') or f'{i}:{playlist.name}'
             image = image_file(covers[key]) if covers.get(key) else None
             if image is None:
+                image = playlist.raw.get('Playlist Artwork Data')
+            if image is None:
                 for field in ('Playlist Image', 'Artwork', 'Image'):
                     value = playlist.raw.get(field)
                     if isinstance(value, bytes): image = encode_thumbnail(value)
