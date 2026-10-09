@@ -49,3 +49,11 @@ Requires Windows 10/11 x64 for the installer. Live iTunes editing requires class
 - Choose the active library in Overview and keep that selection across library tools.
 - Keep library removal available in Libraries. Hidden discovered locations can be restored without deleting files or unloading libraries.
 - Keep the GitHub link in Settings.
+
+
+## 🩹 1.0.0 hotfix follow-up
+
+- 🔎 Keep search text separate for each workspace tab so a query entered in one tab does not appear in another tab.
+- 📐 Place the Current Library search field directly below the selection/action controls and above the song column headings, with responsive sizing.
+
+These are 1.0.0 maintenance changes; the product version remains **1.0.0**. The wider requested Overview statistics selector/pagination, playlist image import, tab customization, Missing Tracks view, icon redesign, and the remaining focus/flicker fixes are not included in this hotfix commit and must not be considered shipped until implemented and validated.
