@@ -31,404 +31,404 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 | `legacy/consolidator/tests/fixtures/` | 🧫 Sample libraries used by tests |
 | `legacy/consolidator/tests/fixtures/malformed/` | 🚧 Broken XML samples for error tests |
 | `resources/` | 🎨 App icons and third-party license files |
-| `resources/licenses/` | 🧰 Third-party license notices generated for bundled dependencies |
-| `resources/licenses/npm/` | 📜 JavaScript package license records |
-| `resources/licenses/npm/@alloc/` | 🧹 @alloc |
-| `resources/licenses/npm/@alloc/quick-lru/` | ✍️ quick lru |
-| `resources/licenses/npm/@electron/` | 🛡️ @electron |
-| `resources/licenses/npm/@electron/asar/` | ⏱️ asar |
-| `resources/licenses/npm/@electron/fuses/` | 📈 fuses |
-| `resources/licenses/npm/@electron/get/` | 🧾 get |
-| `resources/licenses/npm/@electron/notarize/` | 🧱 notarize |
-| `resources/licenses/npm/@electron/osx-sign/` | 🧬 osx sign |
-| `resources/licenses/npm/@electron/rebuild/` | 🔐 rebuild |
-| `resources/licenses/npm/@electron/universal/` | 🧷 universal |
-| `resources/licenses/npm/@electron/windows-sign/` | 🧲 windows sign |
-| `resources/licenses/npm/@isaacs/` | 🪄 @isaacs |
-| `resources/licenses/npm/@isaacs/fs-minipass/` | 🪛 fs minipass |
-| `resources/licenses/npm/@jridgewell/` | 🧯 @jridgewell |
-| `resources/licenses/npm/@jridgewell/gen-mapping/` | 🧵 gen mapping |
-| `resources/licenses/npm/@jridgewell/remapping/` | 🪶 remapping |
-| `resources/licenses/npm/@jridgewell/resolve-uri/` | 🪴 resolve uri |
-| `resources/licenses/npm/@jridgewell/sourcemap-codec/` | 🌱 sourcemap codec |
-| `resources/licenses/npm/@jridgewell/trace-mapping/` | 🌿 trace mapping |
-| `resources/licenses/npm/@malept/` | 🍀 @malept |
-| `resources/licenses/npm/@malept/cross-spawn-promise/` | 🌲 cross spawn promise |
-| `resources/licenses/npm/@malept/flatpak-bundler/` | 🌳 flatpak bundler |
-| `resources/licenses/npm/@noble/` | 🌵 @noble |
-| `resources/licenses/npm/@noble/hashes/` | 🌴 hashes |
-| `resources/licenses/npm/@oxc-project/` | 🍄 @oxc project |
-| `resources/licenses/npm/@oxc-project/types/` | 🌷 types |
-| `resources/licenses/npm/@peculiar/` | 🌻 @peculiar |
-| `resources/licenses/npm/@peculiar/asn1-schema/` | 🌼 asn1 schema |
-| `resources/licenses/npm/@peculiar/json-schema/` | 🌸 json schema |
-| `resources/licenses/npm/@peculiar/utils/` | 💐 utils |
-| `resources/licenses/npm/@peculiar/webcrypto/` | 🪷 webcrypto |
-| `resources/licenses/npm/@rolldown/` | 🪻 @rolldown |
-| `resources/licenses/npm/@rolldown/pluginutils/` | 🍁 pluginutils |
-| `resources/licenses/npm/@sindresorhus/` | 🍂 @sindresorhus |
-| `resources/licenses/npm/@sindresorhus/is/` | 🍃 is |
-| `resources/licenses/npm/@szmarczak/` | 🪺 @szmarczak |
-| `resources/licenses/npm/@szmarczak/http-timer/` | 🪹 http timer |
-| `resources/licenses/npm/@tailwindcss/` | 🐚 @tailwindcss |
-| `resources/licenses/npm/@tailwindcss/node/` | 🪸 node |
-| `resources/licenses/npm/@tailwindcss/oxide/` | 🪼 oxide |
-| `resources/licenses/npm/@tailwindcss/oxide-linux-x64-gnu/` | 🐟 oxide linux x64 gnu |
-| `resources/licenses/npm/@tailwindcss/oxide-linux-x64-musl/` | 🐬 oxide linux x64 musl |
-| `resources/licenses/npm/@tailwindcss/postcss/` | 🦭 postcss |
-| `resources/licenses/npm/@tanstack/` | 🦉 @tanstack |
-| `resources/licenses/npm/@tanstack/react-virtual/` | 🦋 react virtual |
-| `resources/licenses/npm/@tanstack/virtual-core/` | 🐝 virtual core |
-| `resources/licenses/npm/@types/` | 🐞 @types |
-| `resources/licenses/npm/@types/cacheable-request/` | 🪲 cacheable request |
-| `resources/licenses/npm/@types/debug/` | 🪳 debug |
-| `resources/licenses/npm/@types/fs-extra/` | 🦎 fs extra |
-| `resources/licenses/npm/@types/http-cache-semantics/` | 🐢 http cache semantics |
-| `resources/licenses/npm/@types/keyv/` | 🦕 keyv |
-| `resources/licenses/npm/@types/ms/` | 🦖 ms |
-| `resources/licenses/npm/@types/node/` | 🐙 node — for resources/licenses/npm/@types/node |
-| `resources/licenses/npm/@types/react/` | 🦑 react |
-| `resources/licenses/npm/@types/react-dom/` | 🦀 react dom |
-| `resources/licenses/npm/@types/responselike/` | 🦞 responselike |
-| `resources/licenses/npm/@vitejs/` | 🦐 @vitejs |
-| `resources/licenses/npm/@vitejs/plugin-react/` | 🦪 plugin react |
-| `resources/licenses/npm/@xmldom/` | 🪿 @xmldom |
-| `resources/licenses/npm/@xmldom/xmldom/` | 🦆 xmldom |
-| `resources/licenses/npm/abbrev/` | 🐦 abbrev |
-| `resources/licenses/npm/agent-base/` | 🪽 agent base |
-| `resources/licenses/npm/ajv/` | 🦜 ajv |
-| `resources/licenses/npm/ansi-regex/` | 🦢 ansi regex |
-| `resources/licenses/npm/ansi-styles/` | 🦩 ansi styles |
-| `resources/licenses/npm/argparse/` | 🦚 argparse |
-| `resources/licenses/npm/asn1js/` | 🐾 asn1js |
-| `resources/licenses/npm/async/` | 🐈 async |
-| `resources/licenses/npm/async-exit-hook/` | 🐕 async exit hook |
-| `resources/licenses/npm/asynckit/` | 🦊 asynckit |
-| `resources/licenses/npm/at-least-node/` | 🐻 at least node |
-| `resources/licenses/npm/autoprefixer/` | 🐼 autoprefixer |
-| `resources/licenses/npm/aws4/` | 🐨 aws4 |
-| `resources/licenses/npm/balanced-match/` | 🦁 balanced match |
-| `resources/licenses/npm/base64-js/` | 🐯 base64 js |
-| `resources/licenses/npm/baseline-browser-mapping/` | 🐸 baseline browser mapping |
-| `resources/licenses/npm/bluebird/` | 🐵 bluebird |
-| `resources/licenses/npm/brace-expansion/` | 🙈 brace expansion |
-| `resources/licenses/npm/browserslist/` | 🙉 browserslist |
-| `resources/licenses/npm/buffer-from/` | 🙊 buffer from |
-| `resources/licenses/npm/builder-util/` | 🐧 builder util |
-| `resources/licenses/npm/builder-util-runtime/` | 🐤 builder util runtime |
-| `resources/licenses/npm/bytestreamjs/` | 🐣 bytestreamjs |
-| `resources/licenses/npm/cacheable-lookup/` | 🐥 cacheable lookup |
-| `resources/licenses/npm/cacheable-request/` | 🦇 cacheable request — for resources/licenses/npm/cacheable-request |
-| `resources/licenses/npm/call-bind-apply-helpers/` | 🐺 call bind apply helpers |
-| `resources/licenses/npm/caniuse-lite/` | 🦄 caniuse lite |
-| `resources/licenses/npm/chalk/` | 🐴 chalk |
-| `resources/licenses/npm/chownr/` | 🦓 chownr |
-| `resources/licenses/npm/ci-info/` | 🦒 ci info |
-| `resources/licenses/npm/cliui/` | 🦬 cliui |
-| `resources/licenses/npm/clone-response/` | 🐘 clone response |
-| `resources/licenses/npm/color-convert/` | 🦛 color convert |
-| `resources/licenses/npm/color-name/` | 🦏 color name |
-| `resources/licenses/npm/combined-stream/` | 🐪 combined stream |
-| `resources/licenses/npm/commander/` | 🐫 commander |
-| `resources/licenses/npm/concat-map/` | 🦘 concat map |
-| `resources/licenses/npm/core-util-is/` | 🦥 core util is |
-| `resources/licenses/npm/cross-spawn/` | 🦦 cross spawn |
-| `resources/licenses/npm/csstype/` | 🦨 csstype |
-| `resources/licenses/npm/debug/` | 🦡 debug — for resources/licenses/npm/debug |
-| `resources/licenses/npm/decompress-response/` | 🐿️ decompress response |
-| `resources/licenses/npm/defer-to-connect/` | 🦔 defer to connect |
-| `resources/licenses/npm/delayed-stream/` | 🐇 delayed stream |
-| `resources/licenses/npm/detect-libc/` | 🐁 detect libc |
-| `resources/licenses/npm/dir-compare/` | 🐀 dir compare |
-| `resources/licenses/npm/dotenv/` | 🐉 dotenv |
-| `resources/licenses/npm/dotenv-expand/` | 🐲 dotenv expand |
-| `resources/licenses/npm/dunder-proto/` | 🌎 dunder proto |
-| `resources/licenses/npm/duplexer2/` | 🌍 duplexer2 |
-| `resources/licenses/npm/ejs/` | 🌏 ejs |
-| `resources/licenses/npm/electron/` | 🌐 electron |
-| `resources/licenses/npm/electron-builder/` | 🪐 electron builder |
-| `resources/licenses/npm/electron-builder-squirrel-windows/` | 🌙 electron builder squirrel windows |
-| `resources/licenses/npm/electron-publish/` | ☀️ electron publish |
-| `resources/licenses/npm/electron-to-chromium/` | 🌤️ electron to chromium |
-| `resources/licenses/npm/electron-winstaller/` | ⛅ electron winstaller |
-| `resources/licenses/npm/emoji-regex/` | 🌦️ emoji regex |
-| `resources/licenses/npm/end-of-stream/` | 🌧️ end of stream |
-| `resources/licenses/npm/enhanced-resolve/` | ⛈️ enhanced resolve |
-| `resources/licenses/npm/env-paths/` | 🌩️ env paths |
-| `resources/licenses/npm/es-define-property/` | ❄️ es define property |
-| `resources/licenses/npm/es-errors/` | ☃️ es errors |
-| `resources/licenses/npm/es-object-atoms/` | 🔥 es object atoms |
-| `resources/licenses/npm/es-set-tostringtag/` | 💧 es set tostringtag |
-| `resources/licenses/npm/escalade/` | 🌊 escalade |
-| `resources/licenses/npm/exponential-backoff/` | 💨 exponential backoff |
-| `resources/licenses/npm/fast-deep-equal/` | ⭐ fast deep equal |
-| `resources/licenses/npm/fast-uri/` | 🌟 fast uri |
-| `resources/licenses/npm/form-data/` | ✨ form data |
-| `resources/licenses/npm/fraction.js/` | 💫 fraction.js |
-| `resources/licenses/npm/fs-extra/` | ☄️ fs extra — for resources/licenses/npm/fs-extra |
-| `resources/licenses/npm/fs.realpath/` | 🌈 fs.realpath |
-| `resources/licenses/npm/function-bind/` | ☁️ function bind |
-| `resources/licenses/npm/get-caller-file/` | 🌪️ get caller file |
-| `resources/licenses/npm/get-intrinsic/` | 🌫️ get intrinsic |
-| `resources/licenses/npm/get-proto/` | 🌬️ get proto |
-| `resources/licenses/npm/get-stream/` | ⚡ get stream |
-| `resources/licenses/npm/glob/` | ☂️ glob |
-| `resources/licenses/npm/gopd/` | ☔ gopd |
-| `resources/licenses/npm/got/` | ⛄ got |
-| `resources/licenses/npm/graceful-fs/` | 🌞 graceful fs |
-| `resources/licenses/npm/has-flag/` | 🌛 has flag |
-| `resources/licenses/npm/has-symbols/` | 🌜 has symbols |
-| `resources/licenses/npm/has-tostringtag/` | 🌚 has tostringtag |
-| `resources/licenses/npm/hasown/` | 🌝 hasown |
-| `resources/licenses/npm/hosted-git-info/` | 🌕 hosted git info |
-| `resources/licenses/npm/http-cache-semantics/` | 🌖 http cache semantics — for resources/licenses/npm/http-cache-semantics |
-| `resources/licenses/npm/http-proxy-agent/` | 🌗 http proxy agent |
-| `resources/licenses/npm/http2-wrapper/` | 🌘 http2 wrapper |
-| `resources/licenses/npm/https-proxy-agent/` | 🌑 https proxy agent |
-| `resources/licenses/npm/inflight/` | 🌒 inflight |
-| `resources/licenses/npm/inherits/` | 🌓 inherits |
-| `resources/licenses/npm/is-fullwidth-code-point/` | 🌔 is fullwidth code point |
-| `resources/licenses/npm/isbinaryfile/` | 🌠 isbinaryfile |
-| `resources/licenses/npm/isexe/` | 🎃 isexe |
-| `resources/licenses/npm/jiti/` | 🎄 jiti |
-| `resources/licenses/npm/js-yaml/` | 🎆 js yaml |
-| `resources/licenses/npm/json-buffer/` | 🎇 json buffer |
-| `resources/licenses/npm/json-schema-traverse/` | 🧨 json schema traverse |
-| `resources/licenses/npm/json5/` | 🎈 json5 |
-| `resources/licenses/npm/jsonfile/` | 🎉 jsonfile |
-| `resources/licenses/npm/lightningcss/` | 🎊 lightningcss |
-| `resources/licenses/npm/lightningcss-linux-x64-gnu/` | 🎋 lightningcss linux x64 gnu |
-| `resources/licenses/npm/lightningcss-linux-x64-musl/` | 🎍 lightningcss linux x64 musl |
-| `resources/licenses/npm/lodash/` | 🎎 lodash |
-| `resources/licenses/npm/lowercase-keys/` | 🎏 lowercase keys |
-| `resources/licenses/npm/lucide-react/` | 🎐 lucide react |
-| `resources/licenses/npm/magic-string/` | 🎑 magic string |
-| `resources/licenses/npm/math-intrinsics/` | 🪅 math intrinsics |
-| `resources/licenses/npm/mime/` | 🪩 mime |
-| `resources/licenses/npm/mime-db/` | 🎀 mime db |
-| `resources/licenses/npm/mime-types/` | 🎁 mime types |
-| `resources/licenses/npm/mimic-response/` | 🎗️ mimic response |
-| `resources/licenses/npm/minimatch/` | 🎟️ minimatch |
-| `resources/licenses/npm/minimist/` | 🎫 minimist |
-| `resources/licenses/npm/minipass/` | 🎖️ minipass |
-| `resources/licenses/npm/minizlib/` | 🏆 minizlib |
-| `resources/licenses/npm/mkdirp/` | 🥇 mkdirp |
-| `resources/licenses/npm/ms/` | 🥈 ms — for resources/licenses/npm/ms |
-| `resources/licenses/npm/nanoid/` | 🥉 nanoid |
-| `resources/licenses/npm/node-abi/` | ⚽ node abi |
-| `resources/licenses/npm/node-gyp/` | 🏀 node gyp |
-| `resources/licenses/npm/node-int64/` | 🏈 node int64 |
-| `resources/licenses/npm/node-releases/` | ⚾ node releases |
-| `resources/licenses/npm/nopt/` | 🥎 nopt |
-| `resources/licenses/npm/normalize-range/` | 🎾 normalize range |
-| `resources/licenses/npm/normalize-url/` | 🏐 normalize url |
-| `resources/licenses/npm/once/` | 🏉 once |
-| `resources/licenses/npm/p-cancelable/` | 🥏 p cancelable |
-| `resources/licenses/npm/p-limit/` | 🎱 p limit |
-| `resources/licenses/npm/path-is-absolute/` | 🪀 path is absolute |
-| `resources/licenses/npm/path-key/` | 🏓 path key |
-| `resources/licenses/npm/pe-library/` | 🏸 pe library |
-| `resources/licenses/npm/picocolors/` | 🏒 picocolors |
-| `resources/licenses/npm/picomatch/` | 🏑 picomatch |
-| `resources/licenses/npm/pkijs/` | 🥍 pkijs |
-| `resources/licenses/npm/playwright-core/` | 🏏 playwright core |
-| `resources/licenses/npm/plist/` | 🪃 plist |
-| `resources/licenses/npm/postcss/` | 🥅 postcss — for resources/licenses/npm/postcss |
-| `resources/licenses/npm/postcss-value-parser/` | ⛳ postcss value parser |
-| `resources/licenses/npm/postject/` | 🪁 postject |
-| `resources/licenses/npm/proc-log/` | 🛝 proc log |
-| `resources/licenses/npm/process-nextick-args/` | 🎣 process nextick args |
-| `resources/licenses/npm/progress/` | 🤿 progress |
-| `resources/licenses/npm/promise-retry/` | 🎽 promise retry |
-| `resources/licenses/npm/proper-lockfile/` | 🎿 proper lockfile |
-| `resources/licenses/npm/pump/` | 🛷 pump |
-| `resources/licenses/npm/pvtsutils/` | 🥌 pvtsutils |
-| `resources/licenses/npm/pvutils/` | 🎯 pvutils |
-| `resources/licenses/npm/quick-lru/` | 🪂 quick lru — for resources/licenses/npm/quick-lru |
-| `resources/licenses/npm/react/` | 🎮 react — for resources/licenses/npm/react |
-| `resources/licenses/npm/react-dom/` | 🕹️ react dom — for resources/licenses/npm/react-dom |
-| `resources/licenses/npm/readable-stream/` | 🎲 readable stream |
-| `resources/licenses/npm/require-directory/` | ♟️ require directory |
-| `resources/licenses/npm/require-from-string/` | 🎭 require from string |
-| `resources/licenses/npm/resedit/` | 🪡 resedit |
-| `resources/licenses/npm/resolve-alpn/` | 🧶 resolve alpn |
-| `resources/licenses/npm/responselike/` | 🪢 responselike — for resources/licenses/npm/responselike |
-| `resources/licenses/npm/retry/` | 🧿 retry |
-| `resources/licenses/npm/rimraf/` | 🪬 rimraf |
-| `resources/licenses/npm/rolldown/` | 💎 rolldown |
-| `resources/licenses/npm/safe-buffer/` | 🔮 safe buffer |
-| `resources/licenses/npm/sanitize-filename/` | 📿 sanitize filename |
-| `resources/licenses/npm/sax/` | 🧸 sax |
-| `resources/licenses/npm/scheduler/` | 🪆 scheduler |
-| `resources/licenses/npm/shebang-command/` | 🪇 shebang command |
-| `resources/licenses/npm/shebang-regex/` | 🎹 shebang regex |
-| `resources/licenses/npm/signal-exit/` | 🥁 signal exit |
-| `resources/licenses/npm/simple-update-notifier/` | 🪘 simple update notifier |
-| `resources/licenses/npm/source-map/` | 🎷 source map |
-| `resources/licenses/npm/source-map-js/` | 🎺 source map js |
-| `resources/licenses/npm/source-map-support/` | 🪗 source map support |
-| `resources/licenses/npm/stat-mode/` | 🎻 stat mode |
-| `resources/licenses/npm/string_decoder/` | 🪈 string decoder |
-| `resources/licenses/npm/string-width/` | 🎼 string width |
-| `resources/licenses/npm/strip-ansi/` | 🎤 strip ansi |
-| `resources/licenses/npm/sumchecker/` | 📢 sumchecker |
-| `resources/licenses/npm/supports-color/` | 🔔 supports color |
-| `resources/licenses/npm/tailwindcss/` | 🔕 tailwindcss |
-| `resources/licenses/npm/tapable/` | 🎙️ tapable |
-| `resources/licenses/npm/tar/` | 📡 tar |
-| `resources/licenses/npm/temp/` | 🔋 temp |
-| `resources/licenses/npm/tiny-async-pool/` | 🪫 tiny async pool |
-| `resources/licenses/npm/tinyglobby/` | 💻 tinyglobby |
-| `resources/licenses/npm/tmp/` | 🖨️ tmp |
-| `resources/licenses/npm/tslib/` | ⌨️ tslib |
-| `resources/licenses/npm/typescript/` | 🖱️ typescript |
-| `resources/licenses/npm/undici/` | 🖲️ undici |
-| `resources/licenses/npm/undici-types/` | 💽 undici types |
-| `resources/licenses/npm/universalify/` | 💾 universalify |
-| `resources/licenses/npm/unzipper/` | 💿 unzipper |
-| `resources/licenses/npm/update-browserslist-db/` | 📀 update browserslist db |
-| `resources/licenses/npm/utf8-byte-length/` | 🧮 utf8 byte length |
-| `resources/licenses/npm/util-deprecate/` | 🎥 util deprecate |
-| `resources/licenses/npm/vite/` | 🎞️ vite |
-| `resources/licenses/npm/webcrypto-core/` | 📽️ webcrypto core |
-| `resources/licenses/npm/which/` | 🎬 which |
-| `resources/licenses/npm/wrap-ansi/` | 📺 wrap ansi |
-| `resources/licenses/npm/wrappy/` | 📷 wrappy |
-| `resources/licenses/npm/xmlbuilder/` | 📸 xmlbuilder |
-| `resources/licenses/npm/y18n/` | 📹 y18n |
-| `resources/licenses/npm/yargs/` | 📼 yargs |
-| `resources/licenses/npm/yargs-parser/` | 🔍 yargs parser |
-| `resources/licenses/npm/yocto-queue/` | 🕯️ yocto queue |
-| `resources/licenses/npm/zustand/` | 💡 zustand |
-| `resources/licenses/python/` | 🔦 python |
-| `resources/licenses/python/altgraph/` | 🏮 altgraph |
-| `resources/licenses/python/altgraph/altgraph-0.17.5.dist-info/` | 🪔 altgraph 0.17.5.dist info |
-| `resources/licenses/python/annotated-doc/` | 📔 annotated doc |
-| `resources/licenses/python/annotated-doc/annotated_doc-0.0.5.dist-info/` | 📕 annotated doc 0.0.5.dist info |
-| `resources/licenses/python/annotated-doc/annotated_doc-0.0.5.dist-info/licenses/` | 📗 licenses |
-| `resources/licenses/python/annotated-types/` | 📘 annotated types |
-| `resources/licenses/python/annotated-types/annotated_types-0.8.0.dist-info/` | 📙 annotated types 0.8.0.dist info |
-| `resources/licenses/python/annotated-types/annotated_types-0.8.0.dist-info/licenses/` | 📓 licenses — for resources/licenses/python/annotated-types/annotated_types-0.8.0.dist-info/licenses |
-| `resources/licenses/python/anyio/` | 📒 anyio |
-| `resources/licenses/python/anyio/anyio-4.15.1.dist-info/` | 📃 anyio 4.15.1.dist info |
-| `resources/licenses/python/anyio/anyio-4.15.1.dist-info/licenses/` | 📜 licenses — for resources/licenses/python/anyio/anyio-4.15.1.dist-info/licenses |
-| `resources/licenses/python/certifi/` | 📰 certifi |
-| `resources/licenses/python/certifi/certifi-2026.7.22.dist-info/` | 🗞️ certifi 2026.7.22.dist info |
-| `resources/licenses/python/certifi/certifi-2026.7.22.dist-info/licenses/` | 📑 licenses — for resources/licenses/python/certifi/certifi-2026.7.22.dist-info/licenses |
-| `resources/licenses/python/charset-normalizer/` | 🔖 charset normalizer |
-| `resources/licenses/python/charset-normalizer/charset_normalizer-3.5.2.dist-info/` | 🏷️ charset normalizer 3.5.2.dist info |
-| `resources/licenses/python/charset-normalizer/charset_normalizer-3.5.2.dist-info/licenses/` | 💰 Licenses folder for resources/licenses/python/charset-normalizer/charset_normalizer-3.5.2.dist-info |
-| `resources/licenses/python/click/` | 🪙 click |
-| `resources/licenses/python/click/click-8.5.0.dist-info/` | 💴 click 8.5.0.dist info |
-| `resources/licenses/python/click/click-8.5.0.dist-info/licenses/` | 💵 licenses — for resources/licenses/python/click/click-8.5.0.dist-info/licenses |
-| `resources/licenses/python/fastapi/` | 💶 fastapi |
-| `resources/licenses/python/fastapi/fastapi-0.143.0.dist-info/` | 💷 fastapi 0.143.0.dist info |
-| `resources/licenses/python/fastapi/fastapi-0.143.0.dist-info/licenses/` | 💸 licenses — for resources/licenses/python/fastapi/fastapi-0.143.0.dist-info/licenses |
-| `resources/licenses/python/h11/` | 💳 h11 |
-| `resources/licenses/python/h11/h11-0.16.0.dist-info/` | ✉️ h11 0.16.0.dist info |
-| `resources/licenses/python/h11/h11-0.16.0.dist-info/licenses/` | 📧 licenses — for resources/licenses/python/h11/h11-0.16.0.dist-info/licenses |
-| `resources/licenses/python/httpcore/` | 📨 httpcore |
-| `resources/licenses/python/httpcore/httpcore-1.0.9.dist-info/` | 📩 httpcore 1.0.9.dist info |
-| `resources/licenses/python/httpcore/httpcore-1.0.9.dist-info/licenses/` | 📤 licenses — for resources/licenses/python/httpcore/httpcore-1.0.9.dist-info/licenses |
-| `resources/licenses/python/httpx/` | 📥 httpx |
-| `resources/licenses/python/httpx/httpx-0.28.1.dist-info/` | 📫 httpx 0.28.1.dist info |
-| `resources/licenses/python/httpx/httpx-0.28.1.dist-info/licenses/` | 📪 licenses — for resources/licenses/python/httpx/httpx-0.28.1.dist-info/licenses |
-| `resources/licenses/python/idna/` | 📬 idna |
-| `resources/licenses/python/idna/idna-3.20.dist-info/` | 📭 idna 3.20.dist info |
-| `resources/licenses/python/idna/idna-3.20.dist-info/licenses/` | 📮 licenses — for resources/licenses/python/idna/idna-3.20.dist-info/licenses |
-| `resources/licenses/python/iniconfig/` | 🗳️ iniconfig |
-| `resources/licenses/python/iniconfig/iniconfig-2.3.1.dist-info/` | ✏️ iniconfig 2.3.1.dist info |
-| `resources/licenses/python/iniconfig/iniconfig-2.3.1.dist-info/licenses/` | ✒️ licenses — for resources/licenses/python/iniconfig/iniconfig-2.3.1.dist-info/licenses |
-| `resources/licenses/python/mutagen/` | 🖋️ mutagen |
-| `resources/licenses/python/mutagen/mutagen-1.47.0.dist-info/` | 🖊️ mutagen 1.47.0.dist info |
-| `resources/licenses/python/opentelemetry-api/` | 🖌️ opentelemetry api |
-| `resources/licenses/python/opentelemetry-api/opentelemetry_api-1.45.1.dist-info/` | 🖍️ opentelemetry api 1.45.1.dist info |
-| `resources/licenses/python/opentelemetry-api/opentelemetry_api-1.45.1.dist-info/licenses/` | 📝 Licenses folder for resources/licenses/python/opentelemetry-api/opentelemetry_api-1.45.1.dist-info |
-| `resources/licenses/python/packaging/` | 💼 packaging |
-| `resources/licenses/python/packaging/packaging-26.3.dist-info/` | 📂 packaging 26.3.dist info |
-| `resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/` | 📅 licenses — for resources/licenses/python/packaging/packaging-26.3.dist-info/licenses |
-| `resources/licenses/python/pillow/` | 📆 pillow |
-| `resources/licenses/python/pillow/pillow-11.2.1.dist-info/` | 🗒️ pillow 11.2.1.dist info |
-| `resources/licenses/python/pillow/pillow-11.2.1.dist-info/licenses/` | 📇 licenses — for resources/licenses/python/pillow/pillow-11.2.1.dist-info/licenses |
-| `resources/licenses/python/pillow/pillow-12.3.0.dist-info/` | 📉 pillow 12.3.0.dist info |
-| `resources/licenses/python/pillow/pillow-12.3.0.dist-info/licenses/` | 📊 licenses — for resources/licenses/python/pillow/pillow-12.3.0.dist-info/licenses |
-| `resources/licenses/python/pip/` | 📋 pip |
-| `resources/licenses/python/pip/pip-25.0.1.dist-info/` | 📌 pip 25.0.1.dist info |
-| `resources/licenses/python/pluggy/` | 📍 pluggy |
-| `resources/licenses/python/pluggy/pluggy-1.6.0.dist-info/` | 📎 pluggy 1.6.0.dist info |
-| `resources/licenses/python/pluggy/pluggy-1.6.0.dist-info/licenses/` | 🖇️ licenses — for resources/licenses/python/pluggy/pluggy-1.6.0.dist-info/licenses |
-| `resources/licenses/python/pydantic/` | 📏 pydantic |
-| `resources/licenses/python/pydantic_core/` | 📐 pydantic core |
-| `resources/licenses/python/pydantic_core/pydantic_core-2.33.2.dist-info/` | ✂️ pydantic core 2.33.2.dist info |
-| `resources/licenses/python/pydantic_core/pydantic_core-2.33.2.dist-info/licenses/` | 🗃️ licenses — for resources/licenses/python/pydantic_core/pydantic_core-2.33.2.dist-info/licenses |
-| `resources/licenses/python/pydantic/pydantic-2.11.5.dist-info/` | 🗄️ pydantic 2.11.5.dist info |
-| `resources/licenses/python/pydantic/pydantic-2.11.5.dist-info/licenses/` | 🗑️ licenses — for resources/licenses/python/pydantic/pydantic-2.11.5.dist-info/licenses |
-| `resources/licenses/python/Pygments/` | 🔒 Pygments |
-| `resources/licenses/python/Pygments/pygments-2.21.0.dist-info/` | 🔓 pygments 2.21.0.dist info |
-| `resources/licenses/python/Pygments/pygments-2.21.0.dist-info/licenses/` | 🔏 licenses — for resources/licenses/python/Pygments/pygments-2.21.0.dist-info/licenses |
-| `resources/licenses/python/pyinstaller/` | 🔑 pyinstaller |
-| `resources/licenses/python/pyinstaller-hooks-contrib/` | 🗝️ pyinstaller hooks contrib |
-| `resources/licenses/python/pyinstaller-hooks-contrib/pyinstaller_hooks_contrib-2026.8.dist-info/` | 🔨 Pyinstaller Hooks Contrib 2026.8.Dist Info folder for resources/licenses/python/pyinstaller-hooks-contrib |
-| `resources/licenses/python/pyinstaller-hooks-contrib/pyinstaller_hooks_contrib-2026.8.dist-info/licenses/` | 🪓 Licenses folder for resources/licenses/python/pyinstaller-hooks-contrib/pyinstaller_hooks_contrib-2026.8.dist-info |
-| `resources/licenses/python/pyinstaller/pyinstaller-6.14.1.dist-info/` | ⛏️ pyinstaller 6.14.1.dist info |
-| `resources/licenses/python/PyQt6/` | ⚒️ PyQt6 |
-| `resources/licenses/python/PyQt6_sip/` | 🗡️ PyQt6 sip |
-| `resources/licenses/python/PyQt6_sip/pyqt6_sip-13.13.0.dist-info/` | ⚔️ pyqt6 sip 13.13.0.dist info |
-| `resources/licenses/python/PyQt6_sip/pyqt6_sip-13.13.0.dist-info/licenses/` | 💣 licenses — for resources/licenses/python/PyQt6_sip/pyqt6_sip-13.13.0.dist-info/licenses |
-| `resources/licenses/python/PyQt6-Qt6/` | 🏹 PyQt6 Qt6 |
-| `resources/licenses/python/PyQt6-Qt6/pyqt6_qt6-6.11.2.dist-info/` | 🔧 pyqt6 qt6 6.11.2.dist info |
-| `resources/licenses/python/PyQt6/pyqt6-6.11.0.dist-info/` | 🔩 pyqt6 6.11.0.dist info |
-| `resources/licenses/python/PyQt6/pyqt6-6.11.0.dist-info/licenses/` | 🗜️ licenses — for resources/licenses/python/PyQt6/pyqt6-6.11.0.dist-info/licenses |
-| `resources/licenses/python/pytest/` | 🦯 pytest |
-| `resources/licenses/python/pytest/pytest-8.3.5.dist-info/` | ⛓️ pytest 8.3.5.dist info |
-| `resources/licenses/python/pytest/pytest-9.0.3.dist-info/` | 🪝 pytest 9.0.3.dist info |
-| `resources/licenses/python/pytest/pytest-9.0.3.dist-info/licenses/` | 🪜 licenses — for resources/licenses/python/pytest/pytest-9.0.3.dist-info/licenses |
-| `resources/licenses/python/requests/` | ⚗️ requests |
-| `resources/licenses/python/requests/requests-2.33.0.dist-info/` | 🧫 requests 2.33.0.dist info |
-| `resources/licenses/python/requests/requests-2.33.0.dist-info/licenses/` | 🔬 licenses — for resources/licenses/python/requests/requests-2.33.0.dist-info/licenses |
-| `resources/licenses/python/setuptools/` | 🔭 setuptools |
-| `resources/licenses/python/setuptools/setuptools/` | 💉 setuptools — for resources/licenses/python/setuptools/setuptools |
-| `resources/licenses/python/setuptools/setuptools-84.0.0.dist-info/` | 🩸 setuptools 84.0.0.dist info |
-| `resources/licenses/python/setuptools/setuptools-84.0.0.dist-info/licenses/` | 🩹 licenses — for resources/licenses/python/setuptools/setuptools-84.0.0.dist-info/licenses |
-| `resources/licenses/python/setuptools/setuptools/_vendor/` | 🩻 vendor |
-| `resources/licenses/python/setuptools/setuptools/_vendor/autocommand-2.2.2.dist-info/` | 🚪 autocommand 2.2.2.dist info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/backports.tarfile-1.2.0.dist-info/` | 🛏️ Backports.Tarfile 1.2.0.Dist Info folder for resources/licenses/python/setuptools/setuptools/_vendor |
-| `resources/licenses/python/setuptools/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/` | 🛋️ Importlib Metadata 8.7.1.Dist Info folder for resources/licenses/python/setuptools/setuptools/_vendor |
-| `resources/licenses/python/setuptools/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/` | 🪑 Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/importlib_metadata-8.7.1.dist-info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_context-6.1.0.dist-info/` | 🚽 Jaraco Context 6.1.0.Dist Info folder for resources/licenses/python/setuptools/setuptools/_vendor |
-| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/` | 🪠 Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/jaraco_context-6.1.0.dist-info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_functools-4.4.0.dist-info/` | 🚿 Jaraco Functools 4.4.0.Dist Info folder for resources/licenses/python/setuptools/setuptools/_vendor |
-| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/` | 🛁 Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/jaraco_functools-4.4.0.dist-info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco.text-4.0.0.dist-info/` | 🪤 jaraco.text 4.0.0.dist info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/more_itertools-10.8.0.dist-info/` | 🪒 More Itertools 10.8.0.Dist Info folder for resources/licenses/python/setuptools/setuptools/_vendor |
-| `resources/licenses/python/setuptools/setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/` | 🧴 Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/more_itertools-10.8.0.dist-info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/` | 🧺 packaging 26.0.dist info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/` | 🧻 Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/platformdirs-4.4.0.dist-info/` | 🪣 platformdirs 4.4.0.dist info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/` | 🧼 Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/platformdirs-4.4.0.dist-info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/tomli-2.4.0.dist-info/` | 🫧 tomli 2.4.0.dist info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/tomli-2.4.0.dist-info/licenses/` | 🪥 Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/tomli-2.4.0.dist-info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/wheel-0.46.3.dist-info/` | 🧽 wheel 0.46.3.dist info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/wheel-0.46.3.dist-info/licenses/` | 🛒 Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/wheel-0.46.3.dist-info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/zipp-3.23.0.dist-info/` | 🚬 zipp 3.23.0.dist info |
-| `resources/licenses/python/setuptools/setuptools/_vendor/zipp-3.23.0.dist-info/licenses/` | ⚰️ Licenses folder for resources/licenses/python/setuptools/setuptools/_vendor/zipp-3.23.0.dist-info |
-| `resources/licenses/python/setuptools/setuptools/config/` | 🪦 config |
-| `resources/licenses/python/setuptools/setuptools/config/_validate_pyproject/` | ⚱️ validate pyproject |
-| `resources/licenses/python/starlette/` | 🛎️ starlette |
-| `resources/licenses/python/starlette/starlette-1.3.1.dist-info/` | 🧳 starlette 1.3.1.dist info |
-| `resources/licenses/python/starlette/starlette-1.3.1.dist-info/licenses/` | 🌡️ licenses — for resources/licenses/python/starlette/starlette-1.3.1.dist-info/licenses |
-| `resources/licenses/python/typing_extensions/` | 🪨 typing extensions |
-| `resources/licenses/python/typing_extensions/typing_extensions-4.16.0.dist-info/` | 🪵 typing extensions 4.16.0.dist info |
-| `resources/licenses/python/typing_extensions/typing_extensions-4.16.0.dist-info/licenses/` | 🛖 Licenses folder for resources/licenses/python/typing_extensions/typing_extensions-4.16.0.dist-info |
-| `resources/licenses/python/typing-inspection/` | 🏠 typing inspection |
-| `resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/` | 🏡 typing inspection 0.4.4.dist info |
-| `resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/licenses/` | 🏢 licenses — for resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/licenses |
-| `resources/licenses/python/urllib3/` | 🏣 urllib3 |
-| `resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/` | 🏤 urllib3 2.8.0.dist info |
-| `resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/licenses/` | 🏥 licenses — for resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/licenses |
-| `resources/licenses/python/uvicorn/` | 🏦 uvicorn |
-| `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/` | 🏨 uvicorn 0.34.2.dist info |
-| `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses/` | 🏩 licenses — for resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses |
+| `resources/licenses/` | 🧰 third-party license records for  |
+| `resources/licenses/npm/` | 📜 license records for npm package  |
+| `resources/licenses/npm/@alloc/` | 🧹 npm license records for the @alloc package group |
+| `resources/licenses/npm/@alloc/quick-lru/` | ✍️ license records for npm package quick-lru |
+| `resources/licenses/npm/@electron/` | 🛡️ npm license records for the @electron package group |
+| `resources/licenses/npm/@electron/asar/` | ⏱️ license records for npm package asar |
+| `resources/licenses/npm/@electron/fuses/` | 📈 license records for npm package fuses |
+| `resources/licenses/npm/@electron/get/` | 🧾 license records for npm package get |
+| `resources/licenses/npm/@electron/notarize/` | 🧱 license records for npm package notarize |
+| `resources/licenses/npm/@electron/osx-sign/` | 🧬 license records for npm package osx-sign |
+| `resources/licenses/npm/@electron/rebuild/` | 🔐 license records for npm package rebuild |
+| `resources/licenses/npm/@electron/universal/` | 🧷 license records for npm package universal |
+| `resources/licenses/npm/@electron/windows-sign/` | 🧲 license records for npm package windows-sign |
+| `resources/licenses/npm/@isaacs/` | 🪄 npm license records for the @isaacs package group |
+| `resources/licenses/npm/@isaacs/fs-minipass/` | 🪛 license records for npm package fs-minipass |
+| `resources/licenses/npm/@jridgewell/` | 🧯 npm license records for the @jridgewell package group |
+| `resources/licenses/npm/@jridgewell/gen-mapping/` | 🧵 license records for npm package gen-mapping |
+| `resources/licenses/npm/@jridgewell/remapping/` | 🪶 license records for npm package remapping |
+| `resources/licenses/npm/@jridgewell/resolve-uri/` | 🪴 license records for npm package resolve-uri |
+| `resources/licenses/npm/@jridgewell/sourcemap-codec/` | 🌱 license records for npm package sourcemap-codec |
+| `resources/licenses/npm/@jridgewell/trace-mapping/` | 🌿 license records for npm package trace-mapping |
+| `resources/licenses/npm/@malept/` | 🍀 npm license records for the @malept package group |
+| `resources/licenses/npm/@malept/cross-spawn-promise/` | 🌲 license records for npm package cross-spawn-promise |
+| `resources/licenses/npm/@malept/flatpak-bundler/` | 🌳 license records for npm package flatpak-bundler |
+| `resources/licenses/npm/@noble/` | 🌵 npm license records for the @noble package group |
+| `resources/licenses/npm/@noble/hashes/` | 🌴 license records for npm package hashes |
+| `resources/licenses/npm/@oxc-project/` | 🍄 npm license records for the @oxc-project package group |
+| `resources/licenses/npm/@oxc-project/types/` | 🌷 license records for npm package types |
+| `resources/licenses/npm/@peculiar/` | 🌻 npm license records for the @peculiar package group |
+| `resources/licenses/npm/@peculiar/asn1-schema/` | 🌼 license records for npm package asn1-schema |
+| `resources/licenses/npm/@peculiar/json-schema/` | 🌸 license records for npm package json-schema |
+| `resources/licenses/npm/@peculiar/utils/` | 💐 license records for npm package utils |
+| `resources/licenses/npm/@peculiar/webcrypto/` | 🪷 license records for npm package webcrypto |
+| `resources/licenses/npm/@rolldown/` | 🪻 npm license records for the @rolldown package group |
+| `resources/licenses/npm/@rolldown/pluginutils/` | 🍁 license records for npm package pluginutils |
+| `resources/licenses/npm/@sindresorhus/` | 🍂 npm license records for the @sindresorhus package group |
+| `resources/licenses/npm/@sindresorhus/is/` | 🍃 license records for npm package is |
+| `resources/licenses/npm/@szmarczak/` | 🪺 npm license records for the @szmarczak package group |
+| `resources/licenses/npm/@szmarczak/http-timer/` | 🪹 license records for npm package http-timer |
+| `resources/licenses/npm/@tailwindcss/` | 🐚 npm license records for the @tailwindcss package group |
+| `resources/licenses/npm/@tailwindcss/node/` | 🪸 license records for npm package node |
+| `resources/licenses/npm/@tailwindcss/oxide/` | 🪼 license records for npm package oxide |
+| `resources/licenses/npm/@tailwindcss/oxide-linux-x64-gnu/` | 🐟 license records for npm package oxide-linux-x64-gnu |
+| `resources/licenses/npm/@tailwindcss/oxide-linux-x64-musl/` | 🐬 license records for npm package oxide-linux-x64-musl |
+| `resources/licenses/npm/@tailwindcss/postcss/` | 🦭 license records for npm package postcss |
+| `resources/licenses/npm/@tanstack/` | 🦉 npm license records for the @tanstack package group |
+| `resources/licenses/npm/@tanstack/react-virtual/` | 🦋 license records for npm package react-virtual |
+| `resources/licenses/npm/@tanstack/virtual-core/` | 🐝 license records for npm package virtual-core |
+| `resources/licenses/npm/@types/` | 🐞 npm license records for the @types package group |
+| `resources/licenses/npm/@types/cacheable-request/` | 🪲 license records for npm package cacheable-request |
+| `resources/licenses/npm/@types/debug/` | 🪳 license records for npm package debug |
+| `resources/licenses/npm/@types/fs-extra/` | 🦎 license records for npm package fs-extra |
+| `resources/licenses/npm/@types/http-cache-semantics/` | 🐢 license records for npm package http-cache-semantics |
+| `resources/licenses/npm/@types/keyv/` | 🦕 license records for npm package keyv |
+| `resources/licenses/npm/@types/ms/` | 🦖 license records for npm package ms |
+| `resources/licenses/npm/@types/node/` | 🐙 license records for npm package node |
+| `resources/licenses/npm/@types/react/` | 🦑 license records for npm package react |
+| `resources/licenses/npm/@types/react-dom/` | 🦀 license records for npm package react-dom |
+| `resources/licenses/npm/@types/responselike/` | 🦞 license records for npm package responselike |
+| `resources/licenses/npm/@vitejs/` | 🦐 npm license records for the @vitejs package group |
+| `resources/licenses/npm/@vitejs/plugin-react/` | 🦪 license records for npm package plugin-react |
+| `resources/licenses/npm/@xmldom/` | 🪿 npm license records for the @xmldom package group |
+| `resources/licenses/npm/@xmldom/xmldom/` | 🦆 license records for npm package xmldom |
+| `resources/licenses/npm/abbrev/` | 🐦 license records for npm package abbrev |
+| `resources/licenses/npm/agent-base/` | 🪽 license records for npm package agent-base |
+| `resources/licenses/npm/ajv/` | 🦜 license records for npm package ajv |
+| `resources/licenses/npm/ansi-regex/` | 🦢 license records for npm package ansi-regex |
+| `resources/licenses/npm/ansi-styles/` | 🦩 license records for npm package ansi-styles |
+| `resources/licenses/npm/argparse/` | 🦚 license records for npm package argparse |
+| `resources/licenses/npm/asn1js/` | 🐾 license records for npm package asn1js |
+| `resources/licenses/npm/async/` | 🐈 license records for npm package async |
+| `resources/licenses/npm/async-exit-hook/` | 🐕 license records for npm package async-exit-hook |
+| `resources/licenses/npm/asynckit/` | 🦊 license records for npm package asynckit |
+| `resources/licenses/npm/at-least-node/` | 🐻 license records for npm package at-least-node |
+| `resources/licenses/npm/autoprefixer/` | 🐼 license records for npm package autoprefixer |
+| `resources/licenses/npm/aws4/` | 🐨 license records for npm package aws4 |
+| `resources/licenses/npm/balanced-match/` | 🦁 license records for npm package balanced-match |
+| `resources/licenses/npm/base64-js/` | 🐯 license records for npm package base64-js |
+| `resources/licenses/npm/baseline-browser-mapping/` | 🐸 license records for npm package baseline-browser-mapping |
+| `resources/licenses/npm/bluebird/` | 🐵 license records for npm package bluebird |
+| `resources/licenses/npm/brace-expansion/` | 🙈 license records for npm package brace-expansion |
+| `resources/licenses/npm/browserslist/` | 🙉 license records for npm package browserslist |
+| `resources/licenses/npm/buffer-from/` | 🙊 license records for npm package buffer-from |
+| `resources/licenses/npm/builder-util/` | 🐧 license records for npm package builder-util |
+| `resources/licenses/npm/builder-util-runtime/` | 🐤 license records for npm package builder-util-runtime |
+| `resources/licenses/npm/bytestreamjs/` | 🐣 license records for npm package bytestreamjs |
+| `resources/licenses/npm/cacheable-lookup/` | 🐥 license records for npm package cacheable-lookup |
+| `resources/licenses/npm/cacheable-request/` | 🦇 license records for npm package cacheable-request |
+| `resources/licenses/npm/call-bind-apply-helpers/` | 🐺 license records for npm package call-bind-apply-helpers |
+| `resources/licenses/npm/caniuse-lite/` | 🦄 license records for npm package caniuse-lite |
+| `resources/licenses/npm/chalk/` | 🐴 license records for npm package chalk |
+| `resources/licenses/npm/chownr/` | 🦓 license records for npm package chownr |
+| `resources/licenses/npm/ci-info/` | 🦒 license records for npm package ci-info |
+| `resources/licenses/npm/cliui/` | 🦬 license records for npm package cliui |
+| `resources/licenses/npm/clone-response/` | 🐘 license records for npm package clone-response |
+| `resources/licenses/npm/color-convert/` | 🦛 license records for npm package color-convert |
+| `resources/licenses/npm/color-name/` | 🦏 license records for npm package color-name |
+| `resources/licenses/npm/combined-stream/` | 🐪 license records for npm package combined-stream |
+| `resources/licenses/npm/commander/` | 🐫 license records for npm package commander |
+| `resources/licenses/npm/concat-map/` | 🦘 license records for npm package concat-map |
+| `resources/licenses/npm/core-util-is/` | 🦥 license records for npm package core-util-is |
+| `resources/licenses/npm/cross-spawn/` | 🦦 license records for npm package cross-spawn |
+| `resources/licenses/npm/csstype/` | 🦨 license records for npm package csstype |
+| `resources/licenses/npm/debug/` | 🦡 license records for npm package debug |
+| `resources/licenses/npm/decompress-response/` | 🐿️ license records for npm package decompress-response |
+| `resources/licenses/npm/defer-to-connect/` | 🦔 license records for npm package defer-to-connect |
+| `resources/licenses/npm/delayed-stream/` | 🐇 license records for npm package delayed-stream |
+| `resources/licenses/npm/detect-libc/` | 🐁 license records for npm package detect-libc |
+| `resources/licenses/npm/dir-compare/` | 🐀 license records for npm package dir-compare |
+| `resources/licenses/npm/dotenv/` | 🐉 license records for npm package dotenv |
+| `resources/licenses/npm/dotenv-expand/` | 🐲 license records for npm package dotenv-expand |
+| `resources/licenses/npm/dunder-proto/` | 🌎 license records for npm package dunder-proto |
+| `resources/licenses/npm/duplexer2/` | 🌍 license records for npm package duplexer2 |
+| `resources/licenses/npm/ejs/` | 🌏 license records for npm package ejs |
+| `resources/licenses/npm/electron/` | 🌐 license records for npm package electron |
+| `resources/licenses/npm/electron-builder/` | 🪐 license records for npm package electron-builder |
+| `resources/licenses/npm/electron-builder-squirrel-windows/` | 🌙 license records for npm package electron-builder-squirrel-windows |
+| `resources/licenses/npm/electron-publish/` | ☀️ license records for npm package electron-publish |
+| `resources/licenses/npm/electron-to-chromium/` | 🌤️ license records for npm package electron-to-chromium |
+| `resources/licenses/npm/electron-winstaller/` | ⛅ license records for npm package electron-winstaller |
+| `resources/licenses/npm/emoji-regex/` | 🌦️ license records for npm package emoji-regex |
+| `resources/licenses/npm/end-of-stream/` | 🌧️ license records for npm package end-of-stream |
+| `resources/licenses/npm/enhanced-resolve/` | ⛈️ license records for npm package enhanced-resolve |
+| `resources/licenses/npm/env-paths/` | 🌩️ license records for npm package env-paths |
+| `resources/licenses/npm/es-define-property/` | ❄️ license records for npm package es-define-property |
+| `resources/licenses/npm/es-errors/` | ☃️ license records for npm package es-errors |
+| `resources/licenses/npm/es-object-atoms/` | 🔥 license records for npm package es-object-atoms |
+| `resources/licenses/npm/es-set-tostringtag/` | 💧 license records for npm package es-set-tostringtag |
+| `resources/licenses/npm/escalade/` | 🌊 license records for npm package escalade |
+| `resources/licenses/npm/exponential-backoff/` | 💨 license records for npm package exponential-backoff |
+| `resources/licenses/npm/fast-deep-equal/` | ⭐ license records for npm package fast-deep-equal |
+| `resources/licenses/npm/fast-uri/` | 🌟 license records for npm package fast-uri |
+| `resources/licenses/npm/form-data/` | ✨ license records for npm package form-data |
+| `resources/licenses/npm/fraction.js/` | 💫 license records for npm package fraction.js |
+| `resources/licenses/npm/fs-extra/` | ☄️ license records for npm package fs-extra |
+| `resources/licenses/npm/fs.realpath/` | 🌈 license records for npm package fs.realpath |
+| `resources/licenses/npm/function-bind/` | ☁️ license records for npm package function-bind |
+| `resources/licenses/npm/get-caller-file/` | 🌪️ license records for npm package get-caller-file |
+| `resources/licenses/npm/get-intrinsic/` | 🌫️ license records for npm package get-intrinsic |
+| `resources/licenses/npm/get-proto/` | 🌬️ license records for npm package get-proto |
+| `resources/licenses/npm/get-stream/` | ⚡ license records for npm package get-stream |
+| `resources/licenses/npm/glob/` | ☂️ license records for npm package glob |
+| `resources/licenses/npm/gopd/` | ☔ license records for npm package gopd |
+| `resources/licenses/npm/got/` | ⛄ license records for npm package got |
+| `resources/licenses/npm/graceful-fs/` | 🌞 license records for npm package graceful-fs |
+| `resources/licenses/npm/has-flag/` | 🌛 license records for npm package has-flag |
+| `resources/licenses/npm/has-symbols/` | 🌜 license records for npm package has-symbols |
+| `resources/licenses/npm/has-tostringtag/` | 🌚 license records for npm package has-tostringtag |
+| `resources/licenses/npm/hasown/` | 🌝 license records for npm package hasown |
+| `resources/licenses/npm/hosted-git-info/` | 🌕 license records for npm package hosted-git-info |
+| `resources/licenses/npm/http-cache-semantics/` | 🌖 license records for npm package http-cache-semantics |
+| `resources/licenses/npm/http-proxy-agent/` | 🌗 license records for npm package http-proxy-agent |
+| `resources/licenses/npm/http2-wrapper/` | 🌘 license records for npm package http2-wrapper |
+| `resources/licenses/npm/https-proxy-agent/` | 🌑 license records for npm package https-proxy-agent |
+| `resources/licenses/npm/inflight/` | 🌒 license records for npm package inflight |
+| `resources/licenses/npm/inherits/` | 🌓 license records for npm package inherits |
+| `resources/licenses/npm/is-fullwidth-code-point/` | 🌔 license records for npm package is-fullwidth-code-point |
+| `resources/licenses/npm/isbinaryfile/` | 🌠 license records for npm package isbinaryfile |
+| `resources/licenses/npm/isexe/` | 🎃 license records for npm package isexe |
+| `resources/licenses/npm/jiti/` | 🎄 license records for npm package jiti |
+| `resources/licenses/npm/js-yaml/` | 🎆 license records for npm package js-yaml |
+| `resources/licenses/npm/json-buffer/` | 🎇 license records for npm package json-buffer |
+| `resources/licenses/npm/json-schema-traverse/` | 🧨 license records for npm package json-schema-traverse |
+| `resources/licenses/npm/json5/` | 🎈 license records for npm package json5 |
+| `resources/licenses/npm/jsonfile/` | 🎉 license records for npm package jsonfile |
+| `resources/licenses/npm/lightningcss/` | 🎊 license records for npm package lightningcss |
+| `resources/licenses/npm/lightningcss-linux-x64-gnu/` | 🎋 license records for npm package lightningcss-linux-x64-gnu |
+| `resources/licenses/npm/lightningcss-linux-x64-musl/` | 🎍 license records for npm package lightningcss-linux-x64-musl |
+| `resources/licenses/npm/lodash/` | 🎎 license records for npm package lodash |
+| `resources/licenses/npm/lowercase-keys/` | 🎏 license records for npm package lowercase-keys |
+| `resources/licenses/npm/lucide-react/` | 🎐 license records for npm package lucide-react |
+| `resources/licenses/npm/magic-string/` | 🎑 license records for npm package magic-string |
+| `resources/licenses/npm/math-intrinsics/` | 🪅 license records for npm package math-intrinsics |
+| `resources/licenses/npm/mime/` | 🪩 license records for npm package mime |
+| `resources/licenses/npm/mime-db/` | 🎀 license records for npm package mime-db |
+| `resources/licenses/npm/mime-types/` | 🎁 license records for npm package mime-types |
+| `resources/licenses/npm/mimic-response/` | 🎗️ license records for npm package mimic-response |
+| `resources/licenses/npm/minimatch/` | 🎟️ license records for npm package minimatch |
+| `resources/licenses/npm/minimist/` | 🎫 license records for npm package minimist |
+| `resources/licenses/npm/minipass/` | 🎖️ license records for npm package minipass |
+| `resources/licenses/npm/minizlib/` | 🏆 license records for npm package minizlib |
+| `resources/licenses/npm/mkdirp/` | 🥇 license records for npm package mkdirp |
+| `resources/licenses/npm/ms/` | 🥈 license records for npm package ms |
+| `resources/licenses/npm/nanoid/` | 🥉 license records for npm package nanoid |
+| `resources/licenses/npm/node-abi/` | ⚽ license records for npm package node-abi |
+| `resources/licenses/npm/node-gyp/` | 🏀 license records for npm package node-gyp |
+| `resources/licenses/npm/node-int64/` | 🏈 license records for npm package node-int64 |
+| `resources/licenses/npm/node-releases/` | ⚾ license records for npm package node-releases |
+| `resources/licenses/npm/nopt/` | 🥎 license records for npm package nopt |
+| `resources/licenses/npm/normalize-range/` | 🎾 license records for npm package normalize-range |
+| `resources/licenses/npm/normalize-url/` | 🏐 license records for npm package normalize-url |
+| `resources/licenses/npm/once/` | 🏉 license records for npm package once |
+| `resources/licenses/npm/p-cancelable/` | 🥏 license records for npm package p-cancelable |
+| `resources/licenses/npm/p-limit/` | 🎱 license records for npm package p-limit |
+| `resources/licenses/npm/path-is-absolute/` | 🪀 license records for npm package path-is-absolute |
+| `resources/licenses/npm/path-key/` | 🏓 license records for npm package path-key |
+| `resources/licenses/npm/pe-library/` | 🏸 license records for npm package pe-library |
+| `resources/licenses/npm/picocolors/` | 🏒 license records for npm package picocolors |
+| `resources/licenses/npm/picomatch/` | 🏑 license records for npm package picomatch |
+| `resources/licenses/npm/pkijs/` | 🥍 license records for npm package pkijs |
+| `resources/licenses/npm/playwright-core/` | 🏏 license records for npm package playwright-core |
+| `resources/licenses/npm/plist/` | 🪃 license records for npm package plist |
+| `resources/licenses/npm/postcss/` | 🥅 license records for npm package postcss |
+| `resources/licenses/npm/postcss-value-parser/` | ⛳ license records for npm package postcss-value-parser |
+| `resources/licenses/npm/postject/` | 🪁 license records for npm package postject |
+| `resources/licenses/npm/proc-log/` | 🛝 license records for npm package proc-log |
+| `resources/licenses/npm/process-nextick-args/` | 🎣 license records for npm package process-nextick-args |
+| `resources/licenses/npm/progress/` | 🤿 license records for npm package progress |
+| `resources/licenses/npm/promise-retry/` | 🎽 license records for npm package promise-retry |
+| `resources/licenses/npm/proper-lockfile/` | 🎿 license records for npm package proper-lockfile |
+| `resources/licenses/npm/pump/` | 🛷 license records for npm package pump |
+| `resources/licenses/npm/pvtsutils/` | 🥌 license records for npm package pvtsutils |
+| `resources/licenses/npm/pvutils/` | 🎯 license records for npm package pvutils |
+| `resources/licenses/npm/quick-lru/` | 🪂 license records for npm package quick-lru |
+| `resources/licenses/npm/react/` | 🎮 license records for npm package react |
+| `resources/licenses/npm/react-dom/` | 🕹️ license records for npm package react-dom |
+| `resources/licenses/npm/readable-stream/` | 🎲 license records for npm package readable-stream |
+| `resources/licenses/npm/require-directory/` | ♟️ license records for npm package require-directory |
+| `resources/licenses/npm/require-from-string/` | 🎭 license records for npm package require-from-string |
+| `resources/licenses/npm/resedit/` | 🪡 license records for npm package resedit |
+| `resources/licenses/npm/resolve-alpn/` | 🧶 license records for npm package resolve-alpn |
+| `resources/licenses/npm/responselike/` | 🪢 license records for npm package responselike |
+| `resources/licenses/npm/retry/` | 🧿 license records for npm package retry |
+| `resources/licenses/npm/rimraf/` | 🪬 license records for npm package rimraf |
+| `resources/licenses/npm/rolldown/` | 💎 license records for npm package rolldown |
+| `resources/licenses/npm/safe-buffer/` | 🔮 license records for npm package safe-buffer |
+| `resources/licenses/npm/sanitize-filename/` | 📿 license records for npm package sanitize-filename |
+| `resources/licenses/npm/sax/` | 🧸 license records for npm package sax |
+| `resources/licenses/npm/scheduler/` | 🪆 license records for npm package scheduler |
+| `resources/licenses/npm/shebang-command/` | 🪇 license records for npm package shebang-command |
+| `resources/licenses/npm/shebang-regex/` | 🎹 license records for npm package shebang-regex |
+| `resources/licenses/npm/signal-exit/` | 🥁 license records for npm package signal-exit |
+| `resources/licenses/npm/simple-update-notifier/` | 🪘 license records for npm package simple-update-notifier |
+| `resources/licenses/npm/source-map/` | 🎷 license records for npm package source-map |
+| `resources/licenses/npm/source-map-js/` | 🎺 license records for npm package source-map-js |
+| `resources/licenses/npm/source-map-support/` | 🪗 license records for npm package source-map-support |
+| `resources/licenses/npm/stat-mode/` | 🎻 license records for npm package stat-mode |
+| `resources/licenses/npm/string_decoder/` | 🪈 license records for npm package string_decoder |
+| `resources/licenses/npm/string-width/` | 🎼 license records for npm package string-width |
+| `resources/licenses/npm/strip-ansi/` | 🎤 license records for npm package strip-ansi |
+| `resources/licenses/npm/sumchecker/` | 📢 license records for npm package sumchecker |
+| `resources/licenses/npm/supports-color/` | 🔔 license records for npm package supports-color |
+| `resources/licenses/npm/tailwindcss/` | 🔕 license records for npm package tailwindcss |
+| `resources/licenses/npm/tapable/` | 🎙️ license records for npm package tapable |
+| `resources/licenses/npm/tar/` | 📡 license records for npm package tar |
+| `resources/licenses/npm/temp/` | 🔋 license records for npm package temp |
+| `resources/licenses/npm/tiny-async-pool/` | 🪫 license records for npm package tiny-async-pool |
+| `resources/licenses/npm/tinyglobby/` | 💻 license records for npm package tinyglobby |
+| `resources/licenses/npm/tmp/` | 🖨️ license records for npm package tmp |
+| `resources/licenses/npm/tslib/` | ⌨️ license records for npm package tslib |
+| `resources/licenses/npm/typescript/` | 🖱️ license records for npm package typescript |
+| `resources/licenses/npm/undici/` | 🖲️ license records for npm package undici |
+| `resources/licenses/npm/undici-types/` | 💽 license records for npm package undici-types |
+| `resources/licenses/npm/universalify/` | 💾 license records for npm package universalify |
+| `resources/licenses/npm/unzipper/` | 💿 license records for npm package unzipper |
+| `resources/licenses/npm/update-browserslist-db/` | 📀 license records for npm package update-browserslist-db |
+| `resources/licenses/npm/utf8-byte-length/` | 🧮 license records for npm package utf8-byte-length |
+| `resources/licenses/npm/util-deprecate/` | 🎥 license records for npm package util-deprecate |
+| `resources/licenses/npm/vite/` | 🎞️ license records for npm package vite |
+| `resources/licenses/npm/webcrypto-core/` | 📽️ license records for npm package webcrypto-core |
+| `resources/licenses/npm/which/` | 🎬 license records for npm package which |
+| `resources/licenses/npm/wrap-ansi/` | 📺 license records for npm package wrap-ansi |
+| `resources/licenses/npm/wrappy/` | 📷 license records for npm package wrappy |
+| `resources/licenses/npm/xmlbuilder/` | 📸 license records for npm package xmlbuilder |
+| `resources/licenses/npm/y18n/` | 📹 license records for npm package y18n |
+| `resources/licenses/npm/yargs/` | 📼 license records for npm package yargs |
+| `resources/licenses/npm/yargs-parser/` | 🔍 license records for npm package yargs-parser |
+| `resources/licenses/npm/yocto-queue/` | 🕯️ license records for npm package yocto-queue |
+| `resources/licenses/npm/zustand/` | 💡 license records for npm package zustand |
+| `resources/licenses/python/` | 🔦 license records for Python package  |
+| `resources/licenses/python/altgraph/` | 🏮 license records for Python package altgraph |
+| `resources/licenses/python/altgraph/altgraph-0.17.5.dist-info/` | 🪔 version and license metadata for Python package altgraph |
+| `resources/licenses/python/annotated-doc/` | 📔 license records for Python package annotated-doc |
+| `resources/licenses/python/annotated-doc/annotated_doc-0.0.5.dist-info/` | 📕 version and license metadata for Python package annotated-doc |
+| `resources/licenses/python/annotated-doc/annotated_doc-0.0.5.dist-info/licenses/` | 📗 license texts for Python package annotated-doc |
+| `resources/licenses/python/annotated-types/` | 📘 license records for Python package annotated-types |
+| `resources/licenses/python/annotated-types/annotated_types-0.8.0.dist-info/` | 📙 version and license metadata for Python package annotated-types |
+| `resources/licenses/python/annotated-types/annotated_types-0.8.0.dist-info/licenses/` | 📓 license texts for Python package annotated-types |
+| `resources/licenses/python/anyio/` | 📒 license records for Python package anyio |
+| `resources/licenses/python/anyio/anyio-4.15.1.dist-info/` | 📃 version and license metadata for Python package anyio |
+| `resources/licenses/python/anyio/anyio-4.15.1.dist-info/licenses/` | 📜 license texts for Python package anyio |
+| `resources/licenses/python/certifi/` | 📰 license records for Python package certifi |
+| `resources/licenses/python/certifi/certifi-2026.7.22.dist-info/` | 🗞️ version and license metadata for Python package certifi |
+| `resources/licenses/python/certifi/certifi-2026.7.22.dist-info/licenses/` | 📑 license texts for Python package certifi |
+| `resources/licenses/python/charset-normalizer/` | 🔖 license records for Python package charset-normalizer |
+| `resources/licenses/python/charset-normalizer/charset_normalizer-3.5.2.dist-info/` | 🏷️ version and license metadata for Python package charset-normalizer |
+| `resources/licenses/python/charset-normalizer/charset_normalizer-3.5.2.dist-info/licenses/` | 💰 license texts for Python package charset-normalizer |
+| `resources/licenses/python/click/` | 🪙 license records for Python package click |
+| `resources/licenses/python/click/click-8.5.0.dist-info/` | 💴 version and license metadata for Python package click |
+| `resources/licenses/python/click/click-8.5.0.dist-info/licenses/` | 💵 license texts for Python package click |
+| `resources/licenses/python/fastapi/` | 💶 license records for Python package fastapi |
+| `resources/licenses/python/fastapi/fastapi-0.143.0.dist-info/` | 💷 version and license metadata for Python package fastapi |
+| `resources/licenses/python/fastapi/fastapi-0.143.0.dist-info/licenses/` | 💸 license texts for Python package fastapi |
+| `resources/licenses/python/h11/` | 💳 license records for Python package h11 |
+| `resources/licenses/python/h11/h11-0.16.0.dist-info/` | ✉️ version and license metadata for Python package h |
+| `resources/licenses/python/h11/h11-0.16.0.dist-info/licenses/` | 📧 license texts for Python package h11 |
+| `resources/licenses/python/httpcore/` | 📨 license records for Python package httpcore |
+| `resources/licenses/python/httpcore/httpcore-1.0.9.dist-info/` | 📩 version and license metadata for Python package httpcore |
+| `resources/licenses/python/httpcore/httpcore-1.0.9.dist-info/licenses/` | 📤 license texts for Python package httpcore |
+| `resources/licenses/python/httpx/` | 📥 license records for Python package httpx |
+| `resources/licenses/python/httpx/httpx-0.28.1.dist-info/` | 📫 version and license metadata for Python package httpx |
+| `resources/licenses/python/httpx/httpx-0.28.1.dist-info/licenses/` | 📪 license texts for Python package httpx |
+| `resources/licenses/python/idna/` | 📬 license records for Python package idna |
+| `resources/licenses/python/idna/idna-3.20.dist-info/` | 📭 version and license metadata for Python package idna |
+| `resources/licenses/python/idna/idna-3.20.dist-info/licenses/` | 📮 license texts for Python package idna |
+| `resources/licenses/python/iniconfig/` | 🗳️ license records for Python package iniconfig |
+| `resources/licenses/python/iniconfig/iniconfig-2.3.1.dist-info/` | ✏️ version and license metadata for Python package iniconfig |
+| `resources/licenses/python/iniconfig/iniconfig-2.3.1.dist-info/licenses/` | ✒️ license texts for Python package iniconfig |
+| `resources/licenses/python/mutagen/` | 🖋️ license records for Python package mutagen |
+| `resources/licenses/python/mutagen/mutagen-1.47.0.dist-info/` | 🖊️ version and license metadata for Python package mutagen |
+| `resources/licenses/python/opentelemetry-api/` | 🖌️ license records for Python package opentelemetry-api |
+| `resources/licenses/python/opentelemetry-api/opentelemetry_api-1.45.1.dist-info/` | 🖍️ version and license metadata for Python package opentelemetry-api |
+| `resources/licenses/python/opentelemetry-api/opentelemetry_api-1.45.1.dist-info/licenses/` | 📝 license texts for Python package opentelemetry-api |
+| `resources/licenses/python/packaging/` | 💼 license records for Python package packaging |
+| `resources/licenses/python/packaging/packaging-26.3.dist-info/` | 📂 version and license metadata for Python package packaging |
+| `resources/licenses/python/packaging/packaging-26.3.dist-info/licenses/` | 📅 license texts for Python package packaging |
+| `resources/licenses/python/pillow/` | 📆 license records for Python package pillow |
+| `resources/licenses/python/pillow/pillow-11.2.1.dist-info/` | 🗒️ version and license metadata for Python package pillow |
+| `resources/licenses/python/pillow/pillow-11.2.1.dist-info/licenses/` | 📇 license texts for Python package pillow |
+| `resources/licenses/python/pillow/pillow-12.3.0.dist-info/` | 📉 version and license metadata for Python package pillow |
+| `resources/licenses/python/pillow/pillow-12.3.0.dist-info/licenses/` | 📊 license texts for Python package pillow |
+| `resources/licenses/python/pip/` | 📋 license records for Python package pip |
+| `resources/licenses/python/pip/pip-25.0.1.dist-info/` | 📌 version and license metadata for Python package pip |
+| `resources/licenses/python/pluggy/` | 📍 license records for Python package pluggy |
+| `resources/licenses/python/pluggy/pluggy-1.6.0.dist-info/` | 📎 version and license metadata for Python package pluggy |
+| `resources/licenses/python/pluggy/pluggy-1.6.0.dist-info/licenses/` | 🖇️ license texts for Python package pluggy |
+| `resources/licenses/python/pydantic/` | 📏 license records for Python package pydantic |
+| `resources/licenses/python/pydantic_core/` | 📐 license records for Python package pydantic_core |
+| `resources/licenses/python/pydantic_core/pydantic_core-2.33.2.dist-info/` | ✂️ version and license metadata for Python package pydantic-core |
+| `resources/licenses/python/pydantic_core/pydantic_core-2.33.2.dist-info/licenses/` | 🗃️ license texts for Python package pydantic_core |
+| `resources/licenses/python/pydantic/pydantic-2.11.5.dist-info/` | 🗄️ version and license metadata for Python package pydantic |
+| `resources/licenses/python/pydantic/pydantic-2.11.5.dist-info/licenses/` | 🗑️ license texts for Python package pydantic |
+| `resources/licenses/python/Pygments/` | 🔒 license records for Python package Pygments |
+| `resources/licenses/python/Pygments/pygments-2.21.0.dist-info/` | 🔓 version and license metadata for Python package pygments |
+| `resources/licenses/python/Pygments/pygments-2.21.0.dist-info/licenses/` | 🔏 license texts for Python package Pygments |
+| `resources/licenses/python/pyinstaller/` | 🔑 license records for Python package pyinstaller |
+| `resources/licenses/python/pyinstaller-hooks-contrib/` | 🗝️ license records for Python package pyinstaller-hooks-contrib |
+| `resources/licenses/python/pyinstaller-hooks-contrib/pyinstaller_hooks_contrib-2026.8.dist-info/` | 🔨 version and license metadata for Python package pyinstaller-hooks-contrib |
+| `resources/licenses/python/pyinstaller-hooks-contrib/pyinstaller_hooks_contrib-2026.8.dist-info/licenses/` | 🪓 license texts for Python package pyinstaller-hooks-contrib |
+| `resources/licenses/python/pyinstaller/pyinstaller-6.14.1.dist-info/` | ⛏️ version and license metadata for Python package pyinstaller |
+| `resources/licenses/python/PyQt6/` | ⚒️ license records for Python package PyQt6 |
+| `resources/licenses/python/PyQt6_sip/` | 🗡️ license records for Python package PyQt6_sip |
+| `resources/licenses/python/PyQt6_sip/pyqt6_sip-13.13.0.dist-info/` | ⚔️ version and license metadata for Python package pyqt |
+| `resources/licenses/python/PyQt6_sip/pyqt6_sip-13.13.0.dist-info/licenses/` | 💣 license texts for Python package PyQt6_sip |
+| `resources/licenses/python/PyQt6-Qt6/` | 🏹 license records for Python package PyQt6-Qt6 |
+| `resources/licenses/python/PyQt6-Qt6/pyqt6_qt6-6.11.2.dist-info/` | 🔧 version and license metadata for Python package pyqt |
+| `resources/licenses/python/PyQt6/pyqt6-6.11.0.dist-info/` | 🔩 version and license metadata for Python package pyqt |
+| `resources/licenses/python/PyQt6/pyqt6-6.11.0.dist-info/licenses/` | 🗜️ license texts for Python package PyQt6 |
+| `resources/licenses/python/pytest/` | 🦯 license records for Python package pytest |
+| `resources/licenses/python/pytest/pytest-8.3.5.dist-info/` | ⛓️ version and license metadata for Python package pytest |
+| `resources/licenses/python/pytest/pytest-9.0.3.dist-info/` | 🪝 version and license metadata for Python package pytest |
+| `resources/licenses/python/pytest/pytest-9.0.3.dist-info/licenses/` | 🪜 license texts for Python package pytest |
+| `resources/licenses/python/requests/` | ⚗️ license records for Python package requests |
+| `resources/licenses/python/requests/requests-2.33.0.dist-info/` | 🧫 version and license metadata for Python package requests |
+| `resources/licenses/python/requests/requests-2.33.0.dist-info/licenses/` | 🔬 license texts for Python package requests |
+| `resources/licenses/python/setuptools/` | 🔭 license records for Python package setuptools |
+| `resources/licenses/python/setuptools/setuptools/` | 💉 license records for Python package setuptools |
+| `resources/licenses/python/setuptools/setuptools-84.0.0.dist-info/` | 🩸 version and license metadata for Python package setuptools |
+| `resources/licenses/python/setuptools/setuptools-84.0.0.dist-info/licenses/` | 🩹 license texts for Python package setuptools |
+| `resources/licenses/python/setuptools/setuptools/_vendor/` | 🩻 bundled helper packages used by setuptools |
+| `resources/licenses/python/setuptools/setuptools/_vendor/autocommand-2.2.2.dist-info/` | 🚪 version and license metadata for Python package autocommand |
+| `resources/licenses/python/setuptools/setuptools/_vendor/backports.tarfile-1.2.0.dist-info/` | 🛏️ version and license metadata for Python package backports.tarfile |
+| `resources/licenses/python/setuptools/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/` | 🛋️ version and license metadata for Python package importlib-metadata |
+| `resources/licenses/python/setuptools/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/` | 🪑 license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_context-6.1.0.dist-info/` | 🚽 version and license metadata for Python package jaraco-context |
+| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/` | 🪠 license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_functools-4.4.0.dist-info/` | 🚿 version and license metadata for Python package jaraco-functools |
+| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/` | 🛁 license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/_vendor/jaraco.text-4.0.0.dist-info/` | 🪤 version and license metadata for Python package jaraco.text |
+| `resources/licenses/python/setuptools/setuptools/_vendor/more_itertools-10.8.0.dist-info/` | 🪒 version and license metadata for Python package more-itertools |
+| `resources/licenses/python/setuptools/setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/` | 🧴 license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/` | 🧺 version and license metadata for Python package packaging |
+| `resources/licenses/python/setuptools/setuptools/_vendor/packaging-26.0.dist-info/licenses/` | 🧻 license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/_vendor/platformdirs-4.4.0.dist-info/` | 🪣 version and license metadata for Python package platformdirs |
+| `resources/licenses/python/setuptools/setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/` | 🧼 license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/_vendor/tomli-2.4.0.dist-info/` | 🫧 version and license metadata for Python package tomli |
+| `resources/licenses/python/setuptools/setuptools/_vendor/tomli-2.4.0.dist-info/licenses/` | 🪥 license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/_vendor/wheel-0.46.3.dist-info/` | 🧽 version and license metadata for Python package wheel |
+| `resources/licenses/python/setuptools/setuptools/_vendor/wheel-0.46.3.dist-info/licenses/` | 🛒 license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/_vendor/zipp-3.23.0.dist-info/` | 🚬 version and license metadata for Python package zipp |
+| `resources/licenses/python/setuptools/setuptools/_vendor/zipp-3.23.0.dist-info/licenses/` | ⚰️ license texts for Python package _vendor |
+| `resources/licenses/python/setuptools/setuptools/config/` | 🪦 configuration helpers shipped with setuptools |
+| `resources/licenses/python/setuptools/setuptools/config/_validate_pyproject/` | ⚱️ checks for setuptools project settings |
+| `resources/licenses/python/starlette/` | 🛎️ license records for Python package starlette |
+| `resources/licenses/python/starlette/starlette-1.3.1.dist-info/` | 🧳 version and license metadata for Python package starlette |
+| `resources/licenses/python/starlette/starlette-1.3.1.dist-info/licenses/` | 🌡️ license texts for Python package starlette |
+| `resources/licenses/python/typing_extensions/` | 🪨 license records for Python package typing_extensions |
+| `resources/licenses/python/typing_extensions/typing_extensions-4.16.0.dist-info/` | 🪵 version and license metadata for Python package typing-extensions |
+| `resources/licenses/python/typing_extensions/typing_extensions-4.16.0.dist-info/licenses/` | 🛖 license texts for Python package typing_extensions |
+| `resources/licenses/python/typing-inspection/` | 🏠 license records for Python package typing-inspection |
+| `resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/` | 🏡 version and license metadata for Python package typing-inspection |
+| `resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/licenses/` | 🏢 license texts for Python package typing-inspection |
+| `resources/licenses/python/urllib3/` | 🏣 license records for Python package urllib3 |
+| `resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/` | 🏤 version and license metadata for Python package urllib |
+| `resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/licenses/` | 🏥 license texts for Python package urllib3 |
+| `resources/licenses/python/uvicorn/` | 🏦 license records for Python package uvicorn |
+| `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/` | 🏨 version and license metadata for Python package uvicorn |
+| `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses/` | 🏩 license texts for Python package uvicorn |
 | `scripts/` | 🛠️ Build, packaging, and validation tools |
 | `tests/` | 🧪 Automated checks for app behavior |
 
