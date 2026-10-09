@@ -1,0 +1,16 @@
+# Changelog
+
+## 4.0.0 — Unified workspace
+
+- Added React/TypeScript/Electron desktop shell with Apple-inspired light/dark and color themes, virtualized track pages, native window controls and original icon assets.
+- Preserved both original applications, algorithms, settings paths and advanced legacy interfaces.
+- Added shared live iTunes COM editing for genre, title, artist, album, album artist, year, track/disc numbering, composer, comments, compilation and rating.
+- Added field-level write journals, readback, conditional undo previews and explicit partial-failure reporting.
+- Added library profiles, streaming XML import, folder metadata caching, duplicate review and playlist-preserving XML merge exports.
+- Added verified file transfers, organization templates, quarantine/restore manifests, tag backups, playlist migration exports and persistent queue/history.
+- Added reproducible source packaging and Windows bundling/NSIS tooling. Windows release validation remains required.
+
+## Original release histories
+
+LibraryCleaner 3.0 history: `legacy/cleaner/CHANGELOG.md`.
+Consolidator 2.2 and earlier history: `legacy/consolidator/src/changelog.py` and its README.
