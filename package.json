@@ -1,6 +1,6 @@
 {
   "name": "itunes-manager",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Manage music libraries and edit live iTunes",
   "author": "iTunes Manager contributors",
   "license": "GPL-3.0-only",
@@ -79,7 +79,7 @@
       "include": "scripts/installer.nsh"
     },
     "npmRebuild": false,
-    "artifactName": "iTunes-Manager-2.0.0-win-${arch}.${ext}"
+    "artifactName": "iTunes-Manager-3.0.0-win-${arch}.${ext}"
   },
   "overrides": {
     "sprintf-js": "1.1.4"
