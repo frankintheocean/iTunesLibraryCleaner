@@ -1,6 +1,6 @@
 {
   "name": "itunes-manager",
-  "version": "4.0.0",
+  "version": "1.0.0",
   "description": "🎵 Local iTunes library manager, metadata editor, and collection browser",
   "author": "iTunes Manager contributors",
   "license": "GPL-3.0-only",
@@ -67,7 +67,7 @@
           ]
         }
       ],
-      "artifactName": "iTunes-Manager-4.0.0-win-${arch}.${ext}"
+      "artifactName": "iTunes-Manager-1.0.0-win-${arch}.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -80,7 +80,7 @@
       "include": "scripts/installer.nsh"
     },
     "npmRebuild": false,
-    "artifactName": "iTunes-Manager-4.0.0-win-${arch}.${ext}"
+    "artifactName": "iTunes-Manager-1.0.0-win-${arch}.${ext}"
   },
   "overrides": {
     "sprintf-js": "1.1.4"
