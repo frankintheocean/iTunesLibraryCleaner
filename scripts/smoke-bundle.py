@@ -51,7 +51,7 @@ with tempfile.TemporaryDirectory(prefix='uilm-bundle-smoke-') as folder:
   else:raise AssertionError('Bundle scan did not complete')
   assert request(f"/profiles/{result['id']}/overview")['tracks']==120
   assert request(f"/profiles/{result['id']}/playlists")[0]['name']=='Evening favorites'
-  assert request('/changelog')['text'].startswith('# Changelog')
+  assert request('/changelog')['text'] == (root / 'CHANGELOG.md').read_text(encoding='utf-8')
   print('PASS: bundled backend readiness, authenticated API, real 120-track XML scan, SQLite index, playlist and embedded changelog.')
  finally:
   process.terminate()
