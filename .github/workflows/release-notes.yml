@@ -1,0 +1,23 @@
+name: Refresh release notes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/release-notes.yml'
+      - 'docs/WINDOWS_PREVIEW_RELEASE.md'
+      - 'docs/EARLIER_PREVIEW_RELEASE.md'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update published wording
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          gh release edit v1.0 --repo "$GITHUB_REPOSITORY" --title '🎵 1.0 Windows preview' --notes-file docs/WINDOWS_PREVIEW_RELEASE.md
+          gh release edit v4.0.0-windows-preview --repo "$GITHUB_REPOSITORY" --title '🕰️ Earlier preview — replaced by 1.0' --notes-file docs/EARLIER_PREVIEW_RELEASE.md
