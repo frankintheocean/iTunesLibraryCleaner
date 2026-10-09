@@ -1,14 +1,20 @@
-# Build
+# 🔨 Build and run
 
-## Windows release
+## 🪟 Windows installer
 
-Use Windows 10/11 x64, Python 3.12 x64 and Node 22.12 or later. From the project root run `powershell -File scripts/build-windows.ps1`. The script installs pinned Python and npm dependencies, runs tests, builds React, bundles the backend and both legacy interfaces with PyInstaller, then packages Electron using an assisted NSIS installer. Output is `dist/windows/`. No end-user Python/Node dependency remains in a successfully bundled build.
+Use Windows 10/11 x64, Python 3.12 x64 and Node 22.12 or later. From the repository folder, run:
 
-`requirements-lock-windows.txt` pins the complete Python dependency set. Its wheel availability was checked for CPython 3.12 win_amd64 on Linux, including pywin32, Qt, PyInstaller, pefile and pywin32-ctypes. This does not establish successful Windows installation. `package-lock.json` pins npm package integrity. Packaging artifacts must still be built and tested on Windows; code signing is not configured because no signing identity was supplied.
+```powershell
+powershell -File scripts/build-windows.ps1
+```
 
-The Linux lock is for the development host. It must not be substituted for the Windows lock. Build caches and output directories are intentionally excluded from source packaging.
+The script installs locked dependencies, runs tests, builds the interface, bundles Python and the original tools, and creates an NSIS installer in `dist/windows/`. Users of the installer do not need Python or Node.
 
-## Linux development
+Use `requirements-lock-windows.txt` on Windows and `requirements-lock-linux.txt` on Linux. Do not swap them. `package-lock.json` fixes JavaScript dependency versions and integrity checks. Windows installers must be built and tested on Windows. Signing is not configured.
+
+GitHub Actions runs the Windows build and installer checks. See [Windows checks](docs/WINDOWS_VALIDATION.md) and [results](docs/VALIDATION.md).
+
+## 🐧 Linux development
 
 ```sh
 python3 -m venv .venv
@@ -18,12 +24,20 @@ npm run build
 npm run desktop
 ```
 
-Use a graphical session for Electron. For Vite live reload run `npm run dev` in one terminal and `LIBRARY_MANAGER_DEV=1 npm run desktop` in another. The renderer deliberately requires Electron's preload bridge; an ordinary browser alone cannot access libraries. Backend only: set a random `LIBRARY_MANAGER_TOKEN` (at least 32 characters) in the process environment and run `.venv/bin/python -m backend --data-dir /absolute/writable/app-data`. It binds to loopback on an ephemeral port and prints a non-secret readiness record. Requests require the token.
+Electron needs a graphical session. For live interface reloads, run `npm run dev` in one terminal and `LIBRARY_MANAGER_DEV=1 npm run desktop` in another. The interface needs Electron's preload bridge; a browser alone cannot access libraries.
 
-When the package manager must use the cloud HTTPS proxy, configure `ELECTRON_GET_USE_PROXY=1` and `GLOBAL_AGENT_HTTP_PROXY` from the supplied HTTPS proxy. Keep TLS/checksum verification enabled. Cache directories can be placed under `/tmp` or the writable workspace; do not change HOME or disable certificate verification.
+To run only the backend, set `LIBRARY_MANAGER_TOKEN` to a random value of at least 32 characters, then run:
 
-## Source deliverable
+```sh
+.venv/bin/python -m backend --data-dir /absolute/writable/app-data
+```
 
-Run `python3 scripts/package-source.py`. It creates a ZIP under the sibling `deliverables/` directory, verifies ZIP integrity and exactly one root folder, and writes SHA-256. The ZIP contains source, originals, tests, lockfiles, docs, icons and built frontend assets. It excludes credentials, runtime state, node_modules, Python environments and build caches. No Windows executable is included unless separately built and validated.
+It listens on a local, automatically chosen port and prints a readiness record without the token. Requests need that token.
 
-Automated Windows builds and installer acceptance are configured in `.github/workflows/windows-build.yml`. See [Windows validation](docs/WINDOWS_VALIDATION.md) for artifact retrieval and the live iTunes script.
+If the cloud package manager needs its supplied HTTPS proxy, set `ELECTRON_GET_USE_PROXY=1` and `GLOBAL_AGENT_HTTP_PROXY` to that proxy. Keep TLS and checksum checks enabled. Put caches in `/tmp` or the writable workspace; do not change HOME or disable certificate checks.
+
+## 🗜️ Source ZIP
+
+Run `python3 scripts/package-source.py`. It creates a ZIP and SHA-256 file in the sibling `deliverables/` folder. It checks the archive, its single root folder and the original-file checksums.
+
+The ZIP includes source, original tools, tests, locked dependencies, guides, icons and built interface files. It excludes credentials, user data, installed dependencies and build caches. Windows installers are separate downloads.
