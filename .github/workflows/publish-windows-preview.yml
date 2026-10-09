@@ -62,7 +62,7 @@ jobs:
             artifact/Unified-iTunes-Library-Manager-1.0-win-x64.exe \
             artifact/Unified-iTunes-Library-Manager-1.0-win-x64.exe.sha256 \
             artifact/installer-validation.json \
-            --repo "$GITHUB_REPOSITORY" --target "$VALIDATED_COMMIT" --prerelease \
+            --repo "$GITHUB_REPOSITORY" --verify-tag --prerelease \
             --title '1.0 Windows preview' --notes-file docs/WINDOWS_PREVIEW_RELEASE.md
       - name: Label the earlier preview as superseded
         shell: bash
