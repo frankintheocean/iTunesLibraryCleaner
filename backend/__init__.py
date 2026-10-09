@@ -1,1 +1,1 @@
-"""Unified iTunes Library Manager 1.0.0."""
+"""iTunes Manager 2.0.0."""
