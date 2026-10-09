@@ -153,7 +153,7 @@ def create_app(data_dir, token, ready=None):
     def auth(authorization: str = Header(default='')):
         if not hmac.compare_digest(authorization, 'Bearer ' + token): raise HTTPException(401, 'Unauthorized')
 
-    app = FastAPI(title='Unified iTunes Library Manager', version='1.0.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title='iTunes Manager', version='2.0.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.service = service
 
     @app.exception_handler(ValueError)
@@ -165,7 +165,7 @@ def create_app(data_dir, token, ready=None):
         return Response(json.dumps({'detail': str(exc)}), status_code=400, media_type='application/json')
 
     @app.get('/health')
-    def health(): return {'ready': True, 'version': '1.0.0'}
+    def health(): return {'ready': True, 'version': '2.0.0'}
 
     @app.get('/discovery')
     def discover():
@@ -202,6 +202,20 @@ def create_app(data_dir, token, ready=None):
     @app.get('/profiles/{identity}/tracks')
     def tracks(identity: str, q: str = '', offset: int = Query(0, ge=0), limit: int = Query(100, ge=1, le=1000), missing: bool = False):
         return service.tracks(identity, q, offset, limit, missing)
+
+    @app.get('/profiles/{identity}/artwork/{track}')
+    def track_artwork(identity: str, track: int):
+        rows = service.store.rows('SELECT path,pid FROM tracks WHERE profile=? AND id=?', (identity, track))
+        if not rows: raise ValueError('Track not found.')
+        from .artwork import thumbnail
+        row = rows[0]
+        image = thumbnail(row['path'])
+        if not image and service.profile(identity)['config']['kind'] == 'live':
+            try:
+                image = run_com({'operation': 'artwork', 'pid': row['pid']}, service.store.path, timeout=5).get('image')
+            except Exception:
+                pass  # A missing cover must not stop browsing or editing.
+        return {'image': image}
 
     @app.get('/profiles/{identity}/overview')
     def overview(identity: str): return service.overview(identity)
@@ -284,11 +298,17 @@ def create_app(data_dir, token, ready=None):
 
     @app.get('/jobs')
     def jobs():
-        rows = service.store.rows('SELECT * FROM jobs ORDER BY created DESC LIMIT 200')
+        rows = service.store.rows('SELECT * FROM jobs WHERE archived=0 ORDER BY created DESC LIMIT 200')
         for r in rows:
             r.pop('payload', None)
+            now = time.time()
+            r['sampled_at'] = now
+            r['elapsed_seconds'] = r['elapsed'] + (max(0, now - r['active_since']) if r['active_since'] else 0)
             if r['result']: r['result'] = json.loads(r['result'])
         return rows
+
+    @app.post('/jobs/clear')
+    def clear_queue(): return service.jobs.clear()
 
     @app.post('/jobs/{identity}/control')
     def control(identity: str, body: Control): return {'job': service.jobs.control(identity, body.action)}
@@ -313,6 +333,8 @@ def create_app(data_dir, token, ready=None):
         low, high = body.get('low_confidence', .80), body.get('high_confidence', .92)
         if not (0 < low <= high <= 1): raise ValueError('Duplicate thresholds must satisfy 0 < low <= high <= 1.')
         if any(any(s in k.lower() for s in ('password', 'token', 'secret', 'api_key')) for k in body): raise ValueError('Credentials are not accepted by the preferences endpoint.')
+        scale = body.get('text_scale', 100)
+        if not isinstance(scale, (int, float)) or not 25 <= scale <= 400: raise ValueError('Text size must be between 25% and 400%.')
         service.store.set_setting('preferences', body); return body
 
     @app.post('/settings/import')
@@ -365,7 +387,7 @@ def create_app(data_dir, token, ready=None):
     def report(body: PathRequest):
         output = checked_path(body.path)
         with open(output, 'x', encoding='utf-8') as f:
-            json.dump({'version': '1.0.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
+            json.dump({'version': '2.0.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
         return {'output': str(output)}
 
     @app.get('/changelog')
