@@ -1,7 +1,7 @@
 # 🖼️ App resources
 
-This folder stores the app icon and visual assets, plus bundled third-party licence texts collected during the build.
+This folder holds app icons, images, and bundled third-party license files.
 
-- 🎨 Icons and artwork are application assets, not user music.
-- ⚖️ License files preserve the terms supplied by each dependency.
-- 🔄 Use `scripts/collect-licenses.py` to refresh generated dependency notices instead of hand-editing their contents.
+- 🎨 Icons and images belong to the app, not your music library.
+- ⚖️ License files keep the terms supplied with third-party packages.
+- 🔄 Run `scripts/collect-licenses.py` to refresh generated license notices. Do not edit generated notices by hand.
