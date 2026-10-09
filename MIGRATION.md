@@ -1,11 +1,24 @@
-# Migration
+# 🧭 Move from the original tools
 
-Both original projects are preserved byte-for-byte under `legacy/` (see checksums in the source inventory). Unified settings, journals and profiles start independently in writable per-user app data. No old installation is scanned or modified automatically.
+The original tools remain under `legacy/`. Their code is unchanged except for the documented removal of a shared Last.fm key. Their guides now use simpler wording; the source inventory records these edits. New libraries, settings and change records start separately in your writable app-data folder. Old installations are not changed automatically.
 
-Settings offers explicit imports of Cleaner settings JSON and Consolidator SQLite settings. Unknown values are retained under `legacy_settings`; credential-bearing keys are excluded from Cleaner import. Source files are opened read-only. Imported old preferences are preserved, not assumed to map one-to-one to every new control. Custom genre rules can be imported using `pattern,target` CSV or entered/reordered in the editor.
+## 📥 Import settings
 
-For exact existing workflows/history, close the old program, open the named original tool once from Unified Settings, close it, and copy your old settings, custom rule JSON, processed cache/CSV, undo log and history into its writable user-data mirror. Consolidator keeps its original SQLite schema/settings/snapshot support. Back up before copying and never overwrite current state blindly. Reopen the tool and confirm its output folder and presets. Cleaner may retain an old output path; review it explicitly.
+In Settings, choose a Cleaner settings JSON file or a Consolidator SQLite settings file. Imports read the source without changing it. Unknown settings are saved under `legacy_settings`; Cleaner credentials are excluded. An imported preference may not have an equivalent new control.
 
-This release does not automatically convert all historical legacy cache, undo, snapshot and notification data into the unified SQLite schema. Those original records remain usable by the retained tools. Secrets stay local in the old program or its user-data mirror and are not included in source deliverables.
+Import custom genre rules as `pattern,target` CSV, or add and reorder them in the rule editor.
 
-A live scan reads real iTunes persistent IDs. A folder scan uses synthetic local IDs that cannot be sent to COM. XML exports with genuine IDs can be edited live when classic iTunes is running. Apple Music for Windows has no equivalent supported iTunes COM target.
+## 🏛️ Keep old history
+
+To keep the original workflow and records:
+
+1. Close the old program and make a backup.
+2. Open the matching original tool from the new app's Settings, then close it.
+3. Copy old settings, rule JSON, processed caches, undo logs and history into that tool's writable app-data folder. Do not overwrite newer data without reviewing it.
+4. Reopen the tool and check its output folder and presets. Cleaner may still use an old output path.
+
+Consolidator keeps its original database and snapshot support. Old caches, undo records, snapshots and notifications are not all converted into the new database. They remain usable in the original tools. Credentials stay local and are excluded from source downloads.
+
+## 🎵 Live iTunes
+
+Live scans read real iTunes persistent IDs. Folder scans create local IDs that cannot be used for live editing. XML tracks with genuine IDs can be edited live while classic iTunes runs. Apple Music for Windows does not offer this COM connection.
