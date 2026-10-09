@@ -607,6 +607,7 @@ class Service:
             if not result.get('verified'):
                 raise RuntimeError('iTunes did not verify the requested playlist order; the saved playlist was not changed.')
             # Keep the app-side XML snapshot in sync after the live COM order is read back.
+            # The revision poll refreshes the visible playlist after this job completes.
             # Reorder whole Playlist Items records so item-specific metadata is preserved.
             library=self.library(identity)
             index=int(payload['index'])
