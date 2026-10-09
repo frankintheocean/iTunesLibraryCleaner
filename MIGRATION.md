@@ -1,24 +1,26 @@
 # 🧭 Move from the original tools
 
-The original tools remain under `legacy/`. Their code is unchanged except for the documented removal of a shared Last.fm key. Their guides now use simpler wording; the source inventory records these edits. New libraries, settings and change records start separately in your writable app-data folder. Old installations are not changed automatically.
+The Cleaner and Consolidator remain under `legacy/`. New libraries, settings, and edit records use the current app-data folder. Old installations are not modified automatically.
 
 ## 📥 Import settings
 
-In Settings, choose a Cleaner settings JSON file or a Consolidator SQLite settings file. Imports read the source without changing it. Unknown settings are saved under `legacy_settings`; Cleaner credentials are excluded. An imported preference may not have an equivalent new control.
+In **Settings**, import a Cleaner settings JSON or Consolidator SQLite settings file. Imports read the source without changing it. Unknown settings are preserved; Cleaner credentials are excluded. Some old preferences have no new control.
 
-Import custom genre rules as `pattern,target` CSV, or add and reorder them in the rule editor.
+Custom genre rules can be imported as `pattern,target` CSV, then reviewed in Settings.
 
-## 🏛️ Keep old history
-
-To keep the original workflow and records:
+## 🏛️ Keep the original history
 
 1. Close the old program and make a backup.
-2. Open the matching original tool from the new app's Settings, then close it.
-3. Copy old settings, rule JSON, processed caches, undo logs and history into that tool's writable app-data folder. Do not overwrite newer data without reviewing it.
-4. Reopen the tool and check its output folder and presets. Cleaner may still use an old output path.
+2. Open the matching original tool from Settings, then close it.
+3. Copy its old settings, rules, caches, undo logs, and history into that tool's writable app-data folder.
+4. Reopen it and check its output paths and presets.
 
-Consolidator keeps its original database and snapshot support. Old caches, undo records, snapshots and notifications are not all converted into the new database. They remain usable in the original tools. Credentials stay local and are excluded from source downloads.
+Not every old history item converts to the new database. Use the original tool to review its older records; do not overwrite newer data without checking it.
 
 ## 🎵 Live iTunes
 
-Live scans read real iTunes persistent IDs. Folder scans create local IDs that cannot be used for live editing. XML tracks with genuine IDs can be edited live while classic iTunes runs. Apple Music for Windows does not offer this COM connection.
+Live profiles use the persistent IDs from the classic iTunes library that is currently open. Folder scans do not provide the IDs needed for live COM edits. Switching the library in iTunes requires a rescan or a separate profile.
+
+## 🗂️ Version 4.0.0
+
+**Libraries** and **History** now open from Settings. **Clear history** deletes both operation history and Field journal entries, so those cleared metadata edits can no longer be undone through the app. Saved safety copies and transfer manifests remain separate.

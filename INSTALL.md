@@ -1,37 +1,40 @@
-# 📥 Install, repair and remove
+# 📥 Install, repair, and remove
 
-## 🚀 Install
+## 🚀 Install on Windows
 
-Download the Windows installer from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases). The **Windows app ZIP** runs without installation: extract every file together, then open `iTunes Manager.exe`. Python and Node are not needed. Settings and backups still use AppData, so this is not a self-contained data folder. The **source ZIP** is for building and does not contain an installer. See [build steps](BUILD.md) and [test results](docs/VALIDATION.md).
+Download the installer or portable app ZIP from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0).
 
-The installer lets you choose a folder and create Start Menu and Desktop shortcuts. It adds an uninstall entry to Windows Apps & Features. The app, installer, uninstaller and shortcuts use the app icon.
+- **Installer:** choose a folder and create Start Menu/Desktop shortcuts.
+- **Portable ZIP:** extract every file into one writable folder, then open `iTunes Manager.exe`. Keep its folders together.
+- **Source ZIP:** contains source code, not a ready-to-run installer.
+
+The app does not need Python or Node after installation. The installer is unsigned. Live iTunes editing needs Windows and classic iTunes.
 
 ## 🔧 Repair
 
-Close the app and both original tools. Run the full installer for the same version again. This restores app files and shortcuts while keeping user data.
+Close iTunes Manager and both original tools, then run the installer for the same version again. App data stays in place.
 
-You can also run `scripts/repair-windows.ps1 -InstallerPath <path>`. This launches the installer; there is no separate Repair button or MSI repair feature.
+You can also run `scripts/repair-windows.ps1 -InstallerPath <path>`. This opens the installer; it is not a separate MSI repair function.
 
 ## 🗑️ Uninstall
 
-Uninstall removes app files, shortcuts and its Windows registration. It keeps user data, music, exports, backups and quarantined files.
+Windows removes the app, shortcuts, and registration. It keeps user data, music, exports, backups, and quarantined files.
 
-To remove settings or caches afterward, review the user-data folder first. It may also hold backups and records needed to restore files. There is no bulk-delete option.
+Review the app-data folder before deleting it manually—it may contain media safety copies and restore manifests.
 
-## 💾 Data locations
+## 💾 Data and upgrades
 
-By default, app data is in the existing per-user `Unified iTunes Library Manager` folder under Windows AppData. Set `LIBRARY_MANAGER_DATA_DIR` only when you need a separate development or test folder. Music stays in the folders you choose.
+By default, app data lives in the per-user **Unified iTunes Library Manager** folder under Windows AppData. The installer uses the same application ID and data location, so upgrading from v3.1.1 keeps saved libraries, settings, and backups. Close the old app before upgrading.
 
-The original tools run from writable `legacy/cleaner` and `legacy/consolidator` folders under app data, with their own interfaces and state.
+The portable ZIP also uses AppData for settings and backups; it is not a self-contained data directory. Set `LIBRARY_MANAGER_DATA_DIR` only when you need a separate development or test location.
 
-## 🔄 Upgrade to 4.0.0
+## ⚙️ Version 4.0.0 changes
 
-The app is now called **iTunes Manager**. Its application ID and data folder stay the same, so your libraries, settings, history and backups remain available. Close the old app before installing the new version.
-
-## 🗂️ Saved libraries
-
-Version 3 writes a new checked snapshot before changing its saved reference. This avoids replacing an XML file Windows has open. One previous snapshot is kept for recovery; locked older copies are left alone. If the app folder itself is not writable, saving still fails with a clear error. Do not delete saved copies or change permissions blindly.
+- **Libraries** and **History** now open from **Settings**.
+- **Current Library** lists all indexed songs. Destructive delete/duplicate actions show a warning and review step; delete verifies a safety copy before removing a local original.
+- **Clear history** also deletes Field journal entries. Once cleared, metadata edits can no longer be undone from those entries.
+- Playlist order and playlist-artwork changes depend on safe operations exposed by the installed classic iTunes COM interface. Unsupported operations report the limitation instead of modifying song artwork or deleting tracks.
 
 ## 🎧 Optional Last.fm
 
-Connect your own API key and username in the Last.fm tab. Internet access is needed. No shared secret is required. See the [connection guide](docs/LASTFM.md).
+Connect your own API key and username inside the Last.fm page. Internet access is required; the app does not send your library to Last.fm. See the [Last.fm guide](docs/LASTFM.md).

@@ -1,21 +1,21 @@
 # 🗂️ File and folder guide
 
-Short descriptions explain what each path is for. GitHub rows show commit messages; folders share the latest message from a file inside them. This guide does not rename files or change code or licenses.
+🗂️ Use this short emoji map to find the right code, guide, or build script. It labels repository paths only; it does not rename files, alter source, or change licences.
 
 ## Folders
 
 | Path | Label |
 | --- | --- |
 | `.github` | 🚦 GitHub automation |
-| `.github/workflows` | 🐙 workflows · .github |
-| `backend` | 🔌 Library services |
-| `desktop` | 🖥️ Desktop hosting |
-| `docs` | 📚 App guides |
-| `frontend` | 🎛️ Music-library interface |
+| `.github/workflows` | 🚦 Build, test, and release jobs |
+| `backend` | 🔌 Local API, scans, library services, and COM bridge |
+| `desktop` | 🖥️ Electron window, preload bridge, and request safety |
+| `docs` | 📚 Install, use, release, and validation guides |
+| `frontend` | 🎛️ React app and production interface |
 | `frontend/public` | 🎨 public · frontend |
 | `frontend/public/resources` | 🎨 resources · frontend / public |
-| `frontend/src` | 🎨 src · frontend |
-| `legacy` | 🏛️ Original tools |
+| `frontend/src` | 🧩 Workspace pages, shared widgets, and styles |
+| `legacy` | 🏛️ Preserved Cleaner and Consolidator source |
 | `legacy/cleaner` | 🏛️ cleaner · legacy |
 | `legacy/cleaner/build` | 🏛️ build · legacy / cleaner |
 | `legacy/consolidator` | 🏛️ consolidator · legacy |
@@ -29,7 +29,7 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | `legacy/consolidator/tests` | 🧪 tests · legacy / consolidator |
 | `legacy/consolidator/tests/fixtures` | 🏛️ fixtures · legacy / consolidator / tests |
 | `legacy/consolidator/tests/fixtures/malformed` | 🏛️ malformed · legacy / consolidator / tests / fixtures |
-| `resources` | 🖼️ Application assets |
+| `resources` | 🖼️ App icons and generated third-party license texts |
 | `resources/licenses` | ⚖️ licenses · resources |
 | `resources/licenses/npm` | ⚖️ npm · resources / licenses |
 | `resources/licenses/npm/@alloc` | ⚖️ @alloc · resources / licenses / npm |
@@ -428,8 +428,8 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | `resources/licenses/python/uvicorn` | ⚖️ uvicorn · resources / licenses / python |
 | `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info` | ⚖️ uvicorn 0.34.2.dist info · resources / licenses / python / uvicorn |
 | `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses` | ⚖️ licenses · resources / licenses / python / uvicorn / uvicorn-0.34.2.dist-info |
-| `scripts` | 🛠️ Build and maintenance tools |
-| `tests` | 🧪 App checks |
+| `scripts` | 🛠️ Build, package, verify, and maintain the app |
+| `tests` | 🧪 Backend, IPC, and real desktop test harnesses |
 
 ## Files
 
@@ -447,13 +447,13 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | [INSTALL.md](../INSTALL.md) | 📥 Installation guide |
 | [LICENSE](../LICENSE) | ⚖️ Project usage rights |
 | [MIGRATION.md](../MIGRATION.md) | 🧭 Migration guidance |
-| [README.md](../README.md) | 👋 Project introduction |
+| [README.md](../README.md) | 🎵 App overview and quick start |
 | [TESTING.md](../TESTING.md) | 🧫 Test execution guide |
 | [THIRD_PARTY_LICENSES.md](../THIRD_PARTY_LICENSES.md) | 📜 Dependency attribution |
 | [backend/__init__.py](../backend/__init__.py) | 🏷️ Backend version identity |
 | [backend/__main__.py](../backend/__main__.py) | 🚀 Backend startup |
-| [backend/api.py](../backend/api.py) | 🔌 Library operation endpoints |
-| [backend/com_service.py](../backend/com_service.py) | 🎵 Live iTunes metadata editing |
+| [backend/api.py](../backend/api.py) | 🌐 Authenticated local API routes |
+| [backend/com_service.py](../backend/com_service.py) | 🎵 Guarded live iTunes COM operations |
 | [backend/filesystem.py](../backend/filesystem.py) | 🗃️ Safe media transfers |
 | [backend/jobs.py](../backend/jobs.py) | ⏳ Persistent job scheduling |
 | [backend/legacy.py](../backend/legacy.py) | 🔗 Original tool integration |
@@ -479,7 +479,7 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | [frontend/postcss.config.cjs](../frontend/postcss.config.cjs) | 🧵 CSS processing setup |
 | [frontend/public/resources/app.png](../frontend/public/resources/app.png) | 🎼 Browser application identity |
 | [frontend/src/api.ts](../frontend/src/api.ts) | 📡 Backend request transport |
-| [frontend/src/main.tsx](../frontend/src/main.tsx) | 🎛️ Music-library workspace |
+| [frontend/src/main.tsx](../frontend/src/main.tsx) | 🎛️ Overview, Current Library, playlists, and Settings |
 | [frontend/src/state.ts](../frontend/src/state.ts) | 🧠 Interface state management |
 | [frontend/src/style.css](../frontend/src/style.css) | 🎨 Interface visual design |
 | [frontend/tailwind.config.cjs](../frontend/tailwind.config.cjs) | 🌈 Theme utility configuration |
@@ -912,7 +912,7 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | [scripts/validate-live-com.ps1](../scripts/validate-live-com.ps1) | 🔋 Live COM test preparation |
 | [scripts/validate-live-com.py](../scripts/validate-live-com.py) | 🎯 Real iTunes edit validation |
 | [scripts/verify-originals.py](../scripts/verify-originals.py) | 🔐 Original source verification |
-| [tests/desktop-integration.cjs](../tests/desktop-integration.cjs) | 🖱️ Packaged workspace verification |
+| [tests/desktop-integration.cjs](../tests/desktop-integration.cjs) | 🖱️ Real Electron workflow regression checks |
 | [tests/desktop.test.cjs](../tests/desktop.test.cjs) | 🚪 Renderer boundary verification |
 | [tests/make_fixture.py](../tests/make_fixture.py) | 🌱 Synthetic library generation |
 | [tests/test_manager.py](../tests/test_manager.py) | 🧪 Library behavior verification |
@@ -951,4 +951,24 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | Path | Purpose |
 | --- | --- |
 | `tests/test_scan_eta.py` | ⏲️ Scan estimate checks |
-| `docs/RELEASE_3_1_1.md` | 🛠️ Version 3.1.1 guide |
+| `docs/RELEASE_3_1_1.md` | 🛠️ Historical v3.1.1 release guide |
+
+
+## 🆕 Version 4.0.0 files and guides
+
+| Path | Purpose |
+| --- | --- |
+| `.github/README.md` | 🐙 GitHub automation overview |
+| `.github/workflows/README.md` | 🚦 Workflow guide |
+| `backend/README.md` | 🔌 Backend module map |
+| `desktop/README.md` | 🖥️ Desktop-shell map |
+| `docs/README.md` | 📚 Documentation index |
+| `docs/CURRENT_LIBRARY.md` | 📚 Sort, select, copy, duplicate, and delete songs |
+| `docs/RELEASE_4_0_0.md` | 📦 v4.0.0 release notes and download names |
+| `frontend/README.md` | 🎛️ Interface folder guide |
+| `frontend/src/README.md` | 🧩 Component/source guide |
+| `legacy/README.md` | 🏛️ Preserved original-tool guide |
+| `resources/README.md` | 🖼️ Asset and licence guide |
+| `scripts/README.md` | 🧰 Build and maintenance-script guide |
+| `tests/README.md` | 🧪 Test suite guide |
+| `docs/WORKSPACE_GUIDE.md` | 🧭 Everyday app workflow guide |

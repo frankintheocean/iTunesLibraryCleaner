@@ -1,71 +1,43 @@
 # 🧭 Use the workspace
 
-Choose a library, scan it, review proposed changes and confirm the ones you want. The workspace provides library cleanup, consolidation, duplicates, metadata, playlists and file organization, plus Queue, History and Settings.
+Choose a library, scan it, preview changes, then confirm. The app includes cleanup, consolidation, duplicates, metadata, playlists, file organization, Current Library, Queue, and Settings.
 
-## 🔎 Browse and scan
+## 📚 Browse and scan
 
-Track tables show pages of results, and search uses the saved database. Each library profile keeps its scan settings. Folder scans reuse unchanged tags. Scheduled scans run only while the app is open.
+Choose the active library in **Overview**. Track pages and searches use the saved SQLite index. **Current Library** shows every indexed song with art and sortable columns. Shift-click selects a range; Ctrl+A / ⌘A selects every match.
 
 ## ⏳ Manage work
 
-Changes run one at a time. Pause and cancel take effect between tracks or files. Interrupted jobs show their saved progress after restart. If an edit only partly succeeds, make a new preview before retrying.
+Jobs run one at a time. Queue shows progress, elapsed time, and an approximate time left. Pause/cancel apply between safe work units. Interrupted work is shown after restart; create a fresh preview before retrying a partially completed edit.
 
-## 🛡️ Review changes
+## 🛡️ Review edits
 
-Live iTunes edits save a record for each field and check the result by reading it back. File-tag edits save verified backups. Duplicate merging creates a separate XML without deleting media. File transfers are checked before completion; moving files may require relinking them in iTunes.
+Live iTunes changes use persistent IDs, field journal records, and read-back checks. File-tag changes keep verified backups. Moving files can require relinking. Duplicate merge exports create a separate XML and do not delete songs.
 
-## 🏛️ Use original tools
+## 📊 Overview
 
-Settings can open the original Cleaner and Consolidator for advanced workflows, including cleanup presets, audio preview, restore points and rebuild/undo. Some original screens have no equivalent in the new interface. Keep their own confirmations and backups in mind.
+Album counts group tracks by named album and album artist. **Library Stats** highlights top artists with available albums, oldest/newest dated songs and albums, and longest/shortest song and album durations. Dates or durations missing from the source tags are omitted from the corresponding lists.
 
-## 🎨 Appearance
+## 🎨 Appearance and accessibility
 
-The app uses installed SF Pro fonts when available, with system fonts as a fallback. Apple fonts are not included. The new geometric music-library icon uses ScoutTool’s mint, charcoal and amber style with a distinct symbol.
+Settings includes themes, fonts, text size, reduced motion, stronger keyboard focus, larger click targets, and link styling. SF Pro is used only if installed; system fonts are fallbacks. Apple fonts are not bundled.
 
-## 🎵 Album covers and the current library
+## 🗂️ Libraries and history
 
-Song lists, duplicate groups and playlist details show album art when available. Covers come from local media or the live iTunes artwork collection. Missing or unreadable art uses a music icon. Artwork loading does not change songs.
+Open **Settings → Manage libraries** to add, scan, configure, or remove profiles. Removing a profile does not delete its media files or saved backups.
 
-When connected, choose **Current iTunes library** in the top-right library menu. The app scans the library that classic iTunes currently has open. Confirm live edits only after reviewing their previews. The connection refreshes while the app is open. Each live profile remembers which iTunes library it scanned; switching iTunes to another library requires adding that current library separately. An imported XML can edit live songs only when their exact IDs are present in the open iTunes library.
+Open **Settings → History & Field journal** to review operation results and metadata-edit entries. **Clear history** permanently clears both operation history and Field journal entries. Metadata edits represented by cleared entries can no longer be undone through this app. Existing safety copies and transfer manifests remain separate.
 
-## ⏱️ Queue
+## 🖼️ Playlist pictures and order
 
-Tasks show elapsed time and an estimated time left. The estimate counts down without increasing alongside elapsed time. It uses previous task times and progress, so it remains approximate. If it runs out before the task ends, the app says the task is taking longer. Only a fully finished task shows 100%. Pausing freezes active elapsed time. **Clear queue** cancels waiting tasks and hides finished tasks; running or paused work, saved history and undo records stay.
+Playlist pictures save in iTunes Manager immediately. The app attempts live application if the installed classic iTunes COM interface exposes a playlist-art setter; otherwise the app keeps the picture locally and reports the limitation. Song artwork is not changed as a fallback.
 
-## ♿ Appearance and accessibility
+For a regular live iTunes playlist, choose **Up and down buttons** or **Drag and drop** in Settings. A live reorder is accepted only if COM exposes a playlist-only move method and the app can verify the resulting order. Smart playlists, special playlists, broken lists, and repeated entries are blocked. Unsupported versions report that nothing was changed.
 
-Choose an OLED theme for a true-black page background with matching colors. Pick a font, adjust text from 25% to 400%, reduce motion, strengthen keyboard focus, enlarge controls or underline links. Text settings persist across restarts. Missing fonts use a system fallback. The GitHub button beside the library menu opens the project in your browser.
+## 🎧 Last.fm and paths
 
-## 🗃️ Libraries and history
+Last.fm uses your own API key and username to show recent plays and top charts; it does not scrobble or edit the account. In Settings, set **Default library XML** to prioritize a library export. Hidden discovered locations can be restored without changing files.
 
-Loaded libraries stay ready when you change tabs or choose another saved collection. **Rescan** is an explicit refresh. Remove a library with the button beside the menu or **Remove** on its card. Finish or cancel its queued work first. Music, saved copies, backups and old change records stay; the profile is hidden and automatic scans stop.
+## ⚡ Large scans
 
-**Clear history** hides the visible list. Field records and file restores remain below it, including preview buttons for undo. A later edit is preserved by undo checks.
-
-## 🖼️ Playlist pictures
-
-Pictures supplied in supported imported data appear across from the playlist name. Classic iTunes COM and standard XML exports do not expose its custom playlist pictures. Use **Choose picture** to select the same image for iTunes Manager; it does not change iTunes. Song album covers are separate.
-
-## 📍 Default XML
-
-In Settings, choose or enter **Default XML path**, then save it. That location appears first under **Discovered locations**, including when it is on another drive. A missing drive is reported as not found; it does not replace a loaded library.
-
-## 🎧 Last.fm
-
-Connect an API key and username to browse recent plays and top songs, artists and albums. Pick a time period and refresh when needed. The profile picture appears when Last.fm provides it. See the [Last.fm guide](LASTFM.md).
-
-## 📍 Discovered locations
-
-In Libraries, **Remove** hides a discovered suggestion. It does not delete its file or remove a loaded library. **Restore suggestions** shows hidden paths again. To remove a loaded library, use its separate Remove button.
-
-## ⏳ Large live scans
-
-A live iTunes scan can continue beyond 15 minutes while songs or playlist links are being read. If no forward progress arrives for 15 minutes, or the scan reaches six hours, it stops and keeps the previous saved copy. Check iTunes for an open dialog before retrying. Reading does not change live metadata. Queue’s cancel control stops a slow read without publishing an incomplete scan.
-
-## 🧭 Choose once
-
-Choose the active library in **Overview**. The other library tools use that selection, so their headers do not repeat the picker. Adding or opening a library in Libraries still sets the active collection. Remove loaded libraries from their cards in Libraries.
-
-## ⏱️ Scan time left
-
-A scan first measures its actual speed. It then shows a countdown based on songs or playlist links read. It does not use a short default or the time from an unrelated small scan. During final saving, Queue shows **Saving library…** until work completes. Timings still depend on iTunes, the drive and the work.
+A live iTunes scan can take longer than 15 minutes. If forward progress stops for 15 minutes, or the scan reaches six hours, it stops and keeps the previous snapshot. Check iTunes for a modal dialog before retrying.

@@ -83,16 +83,18 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  const badgeColors=await page.locator('.mini-card b').evaluate(node=>({color:getComputedStyle(node).color,background:getComputedStyle(node.parentElement.parentElement).backgroundColor}));
  assert.notEqual(badgeColors.color,badgeColors.background);
  await page.screenshot({path:path.join(screenshots,'ui-overview-dark.png')});
- await page.getByRole('button',{name:'History',exact:true}).click();
+ await page.getByRole('button',{name:'Settings',exact:true}).click();
+ await page.getByRole('button',{name:'History & Field journal',exact:true}).click();
  await page.waitForSelector('.history-item');
  page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Clear history',exact:true}).click();
  await page.waitForFunction(()=>!document.querySelector('.history-item'));
- assert.ok((await page.evaluate(()=>window.libraryManager.request('/edits','GET'))).length>0);
+ assert.equal((await page.evaluate(()=>window.libraryManager.request('/edits','GET'))).length,0);
+ assert.equal((await page.evaluate(()=>window.libraryManager.request('/history','GET'))).length,0);
  await page.getByRole('button',{name:'Settings',exact:true}).click();
  await page.getByLabel('Default library XML path').fill(fixturePath);
  await page.getByRole('button',{name:'Save default path',exact:true}).click();
  await page.getByText('Default library path saved.',{exact:true}).waitFor();
- await page.getByRole('button',{name:'Libraries',exact:true}).click();
+ await page.getByRole('button',{name:'Manage libraries',exact:true}).click();
  const blankCard=page.locator('.profile-card').filter({has:page.getByRole('heading',{name:'A blank library',exact:true})});
  page.once('dialog',dialog=>dialog.accept());await blankCard.getByRole('button',{name:'Remove',exact:true}).click();
  await page.waitForFunction(async()=>!(await window.libraryManager.request('/profiles','GET')).some(p=>p.name==='A blank library'));
@@ -138,11 +140,26 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  await page.getByRole('button',{name:'Disconnect',exact:true}).click();await page.getByRole('heading',{name:'🎧 Connect Last.fm',exact:true}).waitFor();
  await page.getByRole('button',{name:'Metadata',exact:true}).click();
  await page.screenshot({path:path.join(screenshots,'ui-metadata-dark.png')});
- for(const section of ['Libraries','Library Cleaner','Consolidation','Duplicates','Playlists','File Organizer','Queue','History','Last.fm','Settings']){
+ for(const section of ['Current Library','Library Cleaner','Consolidation','Duplicates','Playlists','File Organizer','Queue','Last.fm','Settings']){
   await page.getByRole('button',{name:section,exact:true}).click();
   await page.waitForTimeout(150);
   const heading=await page.locator('h1').innerText();assert.equal(heading,section);assert.equal(await page.getByLabel('Active library').count(),0);
+  if(section==='Current Library'){
+   await page.waitForSelector('.current-library-row');
+   assert.ok((await page.locator('.current-library .table-footer').innerText()).includes('120 songs'));
+   await page.keyboard.press('Control+A');
+   await page.waitForFunction(()=>document.querySelector('.current-library .table-toolbar .muted')?.textContent.includes('120 selected'));
+   await page.getByRole('button',{name:'Clear selection',exact:true}).click();
+   await page.getByRole('button',{name:/Artist Name/}).click();
+   await page.waitForTimeout(150);
+  }
  }
+ await page.getByRole('button',{name:'Manage libraries',exact:true}).click();
+ assert.equal(await page.locator('h1').innerText(),'Libraries');
+ await page.getByRole('button',{name:'Settings',exact:true}).click();
+ await page.getByRole('button',{name:'History & Field journal',exact:true}).click();
+ assert.equal(await page.locator('h1').innerText(),'History');
+ await page.getByRole('button',{name:'Settings',exact:true}).click();
  await app.evaluate(({BrowserWindow})=>{const win=BrowserWindow.getAllWindows()[0];win.maximize();win.unmaximize();win.setSize(820,620);});
  await page.getByRole('button',{name:'Metadata',exact:true}).click();
  await page.getByRole('button',{name:'Settings',exact:true}).click();
