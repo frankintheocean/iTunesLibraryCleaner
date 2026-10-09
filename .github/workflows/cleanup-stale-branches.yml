@@ -35,6 +35,7 @@ jobs:
               "fix/version-label-consistency",
               "hotfix/1.0.0-library-search-state",
               "release/v4.0.0",
+              "ops/remove-stale-merged-branches",
           ]
 
           def api(path):
