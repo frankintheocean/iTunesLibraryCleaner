@@ -50,6 +50,6 @@ Version 3 reduces repeated parsing, search work and playlist ID calls. Real iTun
 
 ## 🎧 Last.fm and large scans
 
-Last.fm is an optional, read-only public-data connection. It needs your API key, username and internet access. Private-data authorization and scrobbling are not supported. Last.fm may not supply artist photos or some covers. The key is stored locally without database encryption; disconnect removes it. See the [Last.fm guide](LASTFM.md).
+Last.fm is an optional, read-only public-data connection. It needs your API key, username and internet access. Private-data authorization and scrobbling are not supported. Last.fm may not supply some pictures. When its API has no artist photo, the app tries the public Last.fm page; site access or page changes can still prevent a picture. The key is stored locally without database encryption; disconnect removes it. See the [Last.fm guide](LASTFM.md).
 
 The extended live-scan deadline is tested with simulated timing and 48,000 generated track IDs. A fresh large-library scan against real classic iTunes still needs Windows user validation. The scan stops after 15 minutes without forward progress or a six-hour total limit. Live metadata write deadlines and field records remain unchanged.
