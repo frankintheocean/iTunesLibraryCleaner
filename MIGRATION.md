@@ -21,6 +21,6 @@ Not every old history item converts to the new database. Use the original tool t
 
 Live profiles use the persistent IDs from the classic iTunes library that is currently open. Folder scans do not provide the IDs needed for live COM edits. Switching the library in iTunes requires a rescan or a separate profile.
 
-## 🗂️ Version 4.0.0
+## 🗂️ Version 1.0.0
 
 **Libraries** and **History** now open from Settings. **Clear history** deletes both operation history and Field journal entries, so those cleared metadata edits can no longer be undone through the app. Saved safety copies and transfer manifests remain separate.
