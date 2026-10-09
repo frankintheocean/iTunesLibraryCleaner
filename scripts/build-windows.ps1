@@ -6,6 +6,7 @@ Checked { py -3.12 -m venv .venv }
 $Python = Join-Path $PWD '.venv\Scripts\python.exe'
 Checked { & $Python -m pip install -r requirements-lock-windows.txt }
 Checked { npm ci }
+Checked { & $Python scripts/verify-originals.py }
 Checked { & $Python -m pytest tests legacy/consolidator/tests -q }
 Checked { npm test }
 Checked { npm run build }
@@ -13,6 +14,5 @@ Checked { & $Python scripts/collect-licenses.py }
 Checked { & $Python -m PyInstaller --noconfirm --clean --distpath build --workpath build/pyinstaller scripts/backend.spec }
 if (-not (Test-Path 'build/backend/library-backend.exe')) { throw 'Bundled Python executable is missing.' }
 Checked { & $Python scripts/smoke-bundle.py build/backend/library-backend.exe }
-Checked { & $Python scripts/verify-originals.py }
 Checked { npm run package:windows }
 Write-Host 'Installer generated under dist/windows. Run the clean Windows validation checklist before distribution.'
