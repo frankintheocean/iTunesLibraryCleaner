@@ -106,6 +106,38 @@ def write_tracks(app_factory, changes, store, job):
     return results
 
 
+def scan_library(app):
+    """Read tracks and playlists through the documented IITPlaylist.Source member."""
+    result = {'tracks': {}, 'playlists': []}
+    tracks = app.LibraryPlaylist.Tracks
+    for i in range(1, tracks.Count + 1):
+        track = tracks.Item(i)
+        raw = {'Track ID': i, 'Persistent ID': pid_for(app, track)}
+        for _, (attr, xml) in FIELDS.items():
+            try:
+                raw[xml] = getattr(track, attr)
+            except Exception:
+                pass
+        for attr, xml in [('Location', 'Location'), ('Duration', 'Total Time'), ('BitRate', 'Bit Rate'), ('PlayedCount', 'Play Count'), ('Size', 'Size')]:
+            try:
+                value = getattr(track, attr)
+                if attr == 'Location' and value:
+                    value = Path(value).as_uri()
+                if attr == 'Duration': value *= 1000
+                raw[xml] = value
+            except Exception:
+                pass
+        result['tracks'][str(i)] = raw
+    pid_map = {v['Persistent ID']: v['Track ID'] for v in result['tracks'].values()}
+    for playlist in app.LibraryPlaylist.Source.Playlists:
+        items = []
+        for track in playlist.Tracks:
+            identity = pid_map.get(pid_for(app, track))
+            if identity is not None: items.append({'Track ID': identity})
+        result['playlists'].append({'Name': playlist.Name, 'Playlist Items': items})
+    return result
+
+
 def _perform(payload, database, job, pipe):
     try:
         import pythoncom
@@ -118,33 +150,7 @@ def _perform(payload, database, job, pipe):
             if operation == 'status':
                 result = {'available': True, 'version': app.Version, 'tracks': app.LibraryPlaylist.Tracks.Count}
             elif operation == 'scan':
-                result = {'tracks': {}, 'playlists': []}
-                tracks = app.LibraryPlaylist.Tracks
-                for i in range(1, tracks.Count + 1):
-                    track = tracks.Item(i)
-                    raw = {'Track ID': i, 'Persistent ID': pid_for(app, track)}
-                    for _, (attr, xml) in FIELDS.items():
-                        try:
-                            raw[xml] = getattr(track, attr)
-                        except Exception:
-                            pass
-                    for attr, xml in [('Location', 'Location'), ('Duration', 'Total Time'), ('BitRate', 'Bit Rate'), ('PlayedCount', 'Play Count'), ('Size', 'Size')]:
-                        try:
-                            value = getattr(track, attr)
-                            if attr == 'Location' and value:
-                                value = Path(value).as_uri()
-                            if attr == 'Duration': value *= 1000
-                            raw[xml] = value
-                        except Exception:
-                            pass
-                    result['tracks'][str(i)] = raw
-                pid_map = {v['Persistent ID']: v['Track ID'] for v in result['tracks'].values()}
-                for playlist in app.LibraryPlaylist.Parent.Playlists:
-                    items = []
-                    for track in playlist.Tracks:
-                        identity = pid_map.get(pid_for(app, track))
-                        if identity is not None: items.append({'Track ID': identity})
-                    result['playlists'].append({'Name': playlist.Name, 'Playlist Items': items})
+                result = scan_library(app)
             elif operation == 'edit':
                 # Store initializer must not reset running jobs in the isolated worker.
                 store = Store.__new__(Store)

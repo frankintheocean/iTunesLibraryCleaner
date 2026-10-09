@@ -33,3 +33,5 @@ The installer test installs into a new temporary directory and intentionally lea
 5. Share `report.json` and any error output here. The report contains only generated fixture identities/paths, the iTunes version and test outcomes. Close iTunes and reopen your normal library with Shift after testing.
 
 Live passing does not establish modal/restart recovery, locked/missing/protected media, high-bit IDs unless actually observed, album-grouping behavior, or the remaining Windows acceptance checklist in TESTING.md. These require separate controlled tests. Never run acceptance against your personal collection.
+
+The unified live scanner uses the documented `IITPlaylist.Source.Playlists` member. The supplied legacy modules retain their original implementation. API reference: [iTunes SDK playlist interface mirror](https://github.com/joshkunz/iTunesControl/blob/22016cb72084c24101d684ef7894a52c78ccb6a9/iTunesCOM/interfaceIITPlaylist.html).

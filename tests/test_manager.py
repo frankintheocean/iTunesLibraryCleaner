@@ -286,3 +286,20 @@ def test_optional_com_properties_do_not_block_supported_tag_writes(store):
  track=Track()
  result=write_tracks(lambda:fake_app(track),[{'pid':'FFFFFFFF80000001','fields':{'genre':'Pop'}}],store,'job')[0]
  assert not result['errors'] and track.Genre=='Pop'
+
+
+def test_live_scan_uses_documented_playlist_source_and_persistent_ids():
+ from backend.com_service import scan_library
+ first=SimpleNamespace(Name='One',Genre='Indie',Location='',Duration=1)
+ second=SimpleNamespace(Name='Two',Genre='Jazz',Location='',Duration=2)
+ class Tracks:
+  Count=2
+  def Item(self,index):return [first,second][index-1]
+ playlist=SimpleNamespace(Name='Synthetic playlist',Tracks=[second,first])
+ app=SimpleNamespace(LibraryPlaylist=SimpleNamespace(Tracks=Tracks(),Source=SimpleNamespace(Playlists=[playlist])),
+  ITObjectPersistentIDHigh=lambda track:-1,
+  ITObjectPersistentIDLow=lambda track:-2147483648 if track is first else 2)
+ result=scan_library(app)
+ assert result['tracks']['1']['Persistent ID']=='FFFFFFFF80000000'
+ assert result['tracks']['1']['Total Time']==1000
+ assert result['playlists']==[{'Name':'Synthetic playlist','Playlist Items':[{'Track ID':2},{'Track ID':1}]}]

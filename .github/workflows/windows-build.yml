@@ -37,10 +37,31 @@ jobs:
           cache: npm
       - name: Build and test Windows bundle
         shell: pwsh
-        run: ./scripts/build-windows.ps1
+        run: |
+          New-Item -ItemType Directory -Force build/validation | Out-Null
+          try {
+            & ./scripts/build-windows.ps1 *>&1 | Tee-Object build/validation/windows-build.log
+          } catch {
+            "## Windows build failure" | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            '```text' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            Get-Content build/validation/windows-build.log -Tail 120 | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            $_ | Out-String | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            '```' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            throw
+          }
       - name: Validate install, packaged app, repair and uninstall
         shell: pwsh
-        run: ./scripts/test-windows-installer.ps1
+        run: |
+          try {
+            & ./scripts/test-windows-installer.ps1 *>&1 | Tee-Object build/validation/windows-installer.log
+          } catch {
+            "## Installer validation failure" | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            '```text' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            Get-Content build/validation/windows-installer.log -Tail 120 | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            $_ | Out-String | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            '```' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            throw
+          }
       - name: Hash installer
         shell: pwsh
         run: |
