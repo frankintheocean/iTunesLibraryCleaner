@@ -30,3 +30,9 @@ Use a disposable classic iTunes library with generated media. Never use your per
 - Test overlapping folders, low disk space, locked files, Unicode and long paths, case collisions, network shares, disconnected drives and filesystems without hard links.
 
 [Windows procedures](docs/WINDOWS_VALIDATION.md) explain the installer and live COM scripts. Hosted builds do not run classic iTunes. See [actual results](docs/VALIDATION.md); this list is not a record of passed tests.
+
+## ⚡ Large-library check
+
+Run `.venv/bin/python scripts/benchmark-library.py --report build/validation/library-speed.json` (use `.venv\Scripts\python` on Windows). This loads a real generated 40,000-song XML, searches it and edits one temporary file title. `--compare-v2` also times the v2 tag when that tag is available locally. These are fixture results, not live iTunes measurements.
+
+Version 3 regression checks include locked old snapshots, failed saves, saved-library reuse, full completion, countdown deadlines, exact-ID fallback, wrong-library refusal, small metadata updates, removal, history, default paths and playlist pictures. The desktop test adds switching libraries during background refreshes and removing a profile while retaining the active collection.
