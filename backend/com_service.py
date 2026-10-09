@@ -106,6 +106,26 @@ def write_tracks(app_factory, changes, store, job):
     return results
 
 
+
+def connect_itunes(client=None):
+    """Attach through the ROT; use classic COM activation when it is not registered there.
+
+    Apple's desktop installer can expose iTunes.Application through Dispatch while
+    GetActiveObject returns MK_E_UNAVAILABLE. Activation may open classic iTunes.
+    Other COM failures remain explicit instead of silently changing connection paths.
+    Call only inside the caller's initialized COM apartment.
+    """
+    if client is None:
+        import win32com.client
+        client = win32com.client
+    try:
+        return client.GetActiveObject('iTunes.Application')
+    except Exception as exc:
+        if getattr(exc, 'hresult', None) != -2147221021:
+            raise
+        return client.Dispatch('iTunes.Application')
+
+
 def scan_library(app):
     """Read tracks and playlists through the documented IITPlaylist.Source member."""
     result = {'tracks': {}, 'playlists': []}
@@ -144,7 +164,7 @@ def _perform(payload, database, job, pipe):
         import win32com.client
         pythoncom.CoInitialize()
         try:
-            factory = lambda: win32com.client.GetActiveObject('iTunes.Application')
+            factory = lambda: connect_itunes(win32com.client)
             app = factory()
             operation = payload['operation']
             if operation == 'status':
