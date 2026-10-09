@@ -175,3 +175,22 @@ def test_com_error_is_json(tmp_path,monkeypatch):
         monkeypatch.setattr(app.state.service,'metadata_preview',unavailable)
         response=client.post('/preview/metadata',json={'profile':'fixture','ids':[1],'fields':{'genre':'Pop'}})
         assert response.status_code==503 and response.json()['detail']=='iTunes is busy. Try again.'
+
+
+def test_database_handles_close_and_failed_transactions_roll_back(tmp_path):
+    import sqlite3
+    store=Store(tmp_path/'manager.sqlite')
+    with store.connect() as db:
+        db.execute("INSERT INTO settings VALUES('keep','1')")
+    assert store.setting('keep')==1
+    with pytest.raises(sqlite3.ProgrammingError,match='closed database'):
+        db.execute('SELECT 1')
+    with pytest.raises(RuntimeError,match='Abort'):
+        with store.connect() as failed:
+            failed.execute("INSERT INTO settings VALUES('discard','2')")
+            raise RuntimeError('Abort')
+    assert store.setting('discard') is None and store.setting('keep')==1
+    with pytest.raises(sqlite3.ProgrammingError,match='closed database'):
+        failed.execute('SELECT 1')
+    # Removing a closed database must also work on Windows, not only on Unix.
+    store.path.unlink()
