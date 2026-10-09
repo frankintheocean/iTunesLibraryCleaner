@@ -46,3 +46,5 @@ python3 scripts/package-source.py
 ```
 
 See [ARCHITECTURE.md](ARCHITECTURE.md), [MIGRATION.md](MIGRATION.md), [TESTING.md](TESTING.md), [INSTALL.md](INSTALL.md) and [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+
+Windows preview installer: [download the executable](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/download/v4.0.0-windows-preview/Unified-iTunes-Library-Manager-4.0.0-win-x64.exe). See the [release notes and checksum](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0-windows-preview). Real iTunes COM acceptance remains pending.
