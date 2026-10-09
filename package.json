@@ -1,0 +1,86 @@
+{
+  "name": "unified-itunes-library-manager",
+  "version": "4.0.0",
+  "description": "A unified, safe music library workspace with live iTunes editing",
+  "author": "Unified iTunes Library Manager contributors",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "dev": "vite --config frontend/vite.config.mts",
+    "build": "tsc -p frontend/tsconfig.json && vite build --config frontend/vite.config.mts",
+    "desktop": "electron .",
+    "test": "node --test tests/desktop.test.cjs",
+    "package:windows": "npm run build && electron-builder --win nsis --x64",
+    "test:desktop": "node tests/desktop-integration.cjs"
+  },
+  "dependencies": {
+    "@tanstack/react-virtual": "3.13.12",
+    "lucide-react": "0.468.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "zustand": "5.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.21",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.5",
+    "@vitejs/plugin-react": "6.1.2",
+    "autoprefixer": "10.4.21",
+    "electron": "44.7.0",
+    "electron-builder": "26.15.3",
+    "postcss": "8.5.29",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.8.3",
+    "vite": "8.3.4",
+    "@tailwindcss/postcss": "4.3.3",
+    "playwright-core": "1.58.2"
+  },
+  "build": {
+    "appId": "org.unifieditunes.librarymanager",
+    "productName": "Unified iTunes Library Manager",
+    "directories": {
+      "output": "dist/windows"
+    },
+    "files": [
+      "frontend/dist/**/*",
+      "desktop/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/backend",
+        "to": "backend"
+      },
+      {
+        "from": "resources",
+        "to": "resources"
+      }
+    ],
+    "win": {
+      "icon": "resources/app.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "resources/app.ico",
+      "uninstallerIcon": "resources/app.ico",
+      "include": "scripts/installer.nsh"
+    },
+    "npmRebuild": false
+  },
+  "overrides": {
+    "sprintf-js": "1.1.4"
+  }
+}
