@@ -1,5 +1,20 @@
 # 🗓️ iTunes Manager release history
 
+## 🎵 3.1.1 — Pictures and scan timing
+
+### 🐛 Fixes
+
+- Fetch Last.fm pictures through safe CDN redirects, and read valid images even when the server labels them as binary files.
+- Recover missing profile pictures and covers. Read artist photos from Last.fm’s public page when its API returns a placeholder.
+- Retry missing pictures when you refresh. Use sharper profile thumbnails.
+- Measure scan speed before estimating time left. Do not cap a large scan at the short default or borrow a tiny scan’s timing.
+- Keep the saving phase clear until the library is ready.
+
+### 🧭 Navigation
+
+- Choose a library only in Overview. That selection stays active in every library tool.
+- Keep library removal available in Libraries.
+
 ## 🎵 3.1.0 — Last.fm and large live scans
 
 ### 🐛 Fixes
