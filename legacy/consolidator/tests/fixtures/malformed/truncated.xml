@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Minor Version</key><integer>1</integer>
+	<key>Application Version</key><string>12.13.6.3</string>
+	<key>Tracks</key>
+	<dict>
+		<key>1</key>
+		<dict>
+			<key>Track ID</key><integer>1</integer>
+			<key>Name</key><string>Midnight City</string>
+			<key>Artist</key><string>M83</string>
+			<key>Album</key><string>Hurry Up, We're Dreaming</string>
+			<key>Total Time</key><integer>243000</integer>
+			<key>Location</key><string>file://localhost/Users/test/Music/M83/Midnight
