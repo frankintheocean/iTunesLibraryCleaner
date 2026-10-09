@@ -4,7 +4,7 @@ This is an implemented source integration, not a certified production Windows re
 
 ## Platform validation outstanding
 
-Real iTunes COM, Windows modal-dialog behavior, Windows locks/long paths/UNC/disconnected storage, multi-monitor/high-DPI behavior, Windows 10/11 clean-machine acceptance, code signing and manual Windows taskbar integration remain outstanding. The Windows Server 2022 hosted runner passed the frozen backend, NSIS install, packaged Electron workflow, repair and uninstall/reinstall checks. Linux cannot build a Windows Python bundle through PyInstaller. An unsigned Windows preview installer is published separately from the source ZIP. Repair is reinstall-based tooling; a dedicated installed Repair UI and optional settings purge are not implemented.
+The real source COM acceptance script passed on Apple-distributed iTunes 12.13.11.1. Packaged live COM, Windows modal-dialog behavior, Windows locks/long paths/UNC/disconnected storage, multi-monitor/high-DPI behavior, Windows 10/11 clean-machine acceptance, code signing and manual Windows taskbar integration remain outstanding. The Windows Server 2022 hosted runner passed the frozen backend, NSIS install, packaged Electron workflow, repair and uninstall/reinstall checks. Linux cannot build a Windows Python bundle through PyInstaller. An unsigned Windows preview installer is published separately from the source ZIP. Repair is reinstall-based tooling; a dedicated installed Repair UI and optional settings purge are not implemented.
 
 ## Preserved through original interfaces
 
