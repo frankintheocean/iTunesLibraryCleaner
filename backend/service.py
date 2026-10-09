@@ -21,12 +21,14 @@ from .com_service import FIELDS, run_com, validate_fields, split_pid
 from .filesystem import AUDIO, checked_path, signature, digest, organized_path, verified_transfer, safe_component
 from .store import Store, encode
 from .jobs import Jobs
+from .lastfm import LastFM
 
 
 class Service:
     def __init__(self, data_dir):
         self.data_dir = Path(data_dir)
         self.store = Store(self.data_dir / 'manager.sqlite')
+        self.lastfm = LastFM(self.store)
         self._library_lock = threading.RLock()
         self._libraries = {}
         self._overviews = {}
