@@ -1,0 +1,2 @@
+# Preserve supplied source bytes and their inventory checksums on Windows checkouts.
+legacy/** -text
