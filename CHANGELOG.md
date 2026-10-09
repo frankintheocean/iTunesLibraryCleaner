@@ -1,3 +1,13 @@
+# Changelog
+
+## 4.0.0
+
+- Added a Current Library workspace with sortable columns, artwork, Shift-range / select-all selection, copy/paste duplicate actions, and confirmed live delete/duplicate workflows.
+- Added Overview library stats and the View Library shortcut; album counts now use unique album titles per album artist.
+- Added playlist cover live-application attempts and configurable track-reorder controls; unsafe COM fallbacks that would alter the library are refused.
+- Moved Libraries and History pages under Settings; clearing history now clears Field journal rows too.
+- Retained the current Last.fm picture fallback fixes.
+
 # 🗓️ iTunes Manager release history
 
 ## 🎵 3.1.1 — Pictures and scan timing

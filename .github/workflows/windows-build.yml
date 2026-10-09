@@ -16,7 +16,7 @@ on:
       - 'requirements*.txt'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: windows-build-${{ github.ref }}
   cancel-in-progress: true
@@ -95,6 +95,36 @@ jobs:
             $hash = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
             "$hash  $($_.Name)" | Set-Content -Encoding utf8 "$($_.FullName).sha256"
           }
+      - name: Publish 4.0.0 GitHub release assets
+        if: github.ref == 'refs/heads/main'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($version -ne '4.0.0') {
+            Write-Host "Release publishing is limited to version 4.0.0; package version is $version."
+            exit 0
+          }
+          $tag = "v$version"
+          gh release view $tag --json tagName *> $null
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Release $tag already exists; existing release assets are left untouched."
+            exit 0
+          }
+          $assets = @(
+            "dist/windows/iTunes-Manager-$version-win-x64.exe",
+            "dist/windows/iTunes-Manager-$version-win-x64.exe.sha256",
+            "dist/windows/iTunes-Manager-$version-package-win-x64.zip",
+            "dist/windows/iTunes-Manager-$version-package-win-x64.zip.sha256",
+            "dist/windows/iTunes-Manager-$version-source.zip",
+            "dist/windows/iTunes-Manager-$version-source.zip.sha256"
+          )
+          foreach ($asset in $assets) {
+            if (-not (Test-Path $asset -PathType Leaf)) { throw "Required release asset is missing: $asset" }
+          }
+          gh release create $tag $assets --title "🎵 iTunes Manager $version" --notes-file docs/RELEASE_4_0_0.md --target $env:GITHUB_SHA
+          if ($LASTEXITCODE -ne 0) { throw "GitHub release creation failed for $tag" }
       - name: Upload Windows installer and checksums
         uses: actions/upload-artifact@v4
         with:

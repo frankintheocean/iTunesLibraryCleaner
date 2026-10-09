@@ -132,6 +132,15 @@ class PlaylistCover(Model):
     image: str = ''
 
 
+class PlaylistOrder(Model):
+    index: int = Field(ge=0)
+    ids: list[int] = Field(min_length=1, max_length=100000)
+
+
+class LibraryAction(Selection):
+    action: Literal['delete', 'duplicate']
+
+
 class Relink(Model):
     profile: str
     root: str
@@ -190,7 +199,7 @@ def create_app(data_dir, token, ready=None):
     def auth(authorization: str = Header(default='')):
         if not hmac.compare_digest(authorization, 'Bearer ' + token): raise HTTPException(401, 'Unauthorized')
 
-    app = FastAPI(title='iTunes Manager', version='3.1.1', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title='iTunes Manager', version='4.0.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.service = service
 
     @app.exception_handler(RequestValidationError)
@@ -213,7 +222,7 @@ def create_app(data_dir, token, ready=None):
         return Response(json.dumps({'detail': str(exc)}), status_code=503, media_type='application/json')
 
     @app.get('/health')
-    def health(): return {'ready': True, 'version': '3.1.1'}
+    def health(): return {'ready': True, 'version': '4.0.0'}
 
     @app.get('/discovery')
     def discover():
@@ -296,8 +305,12 @@ def create_app(data_dir, token, ready=None):
         return service.profile(identity)
 
     @app.get('/profiles/{identity}/tracks')
-    def tracks(identity: str, q: str = '', offset: int = Query(0, ge=0), limit: int = Query(100, ge=1, le=1000), missing: bool = False):
-        return service.tracks(identity, q, offset, limit, missing)
+    def tracks(identity: str, q: str = '', offset: int = Query(0, ge=0), limit: int = Query(100, ge=1, le=1000), missing: bool = False, sort: Literal['name','artist','album','genre','duration','path','id'] | None = None, direction: Literal['asc','desc'] = 'asc'):
+        return service.tracks(identity, q, offset, limit, missing, sort, direction)
+
+    @app.get('/profiles/{identity}/track-ids')
+    def track_ids(identity: str, q: str = '', missing: bool = False, sort: Literal['name','artist','album','genre','duration','path','id'] = 'artist', direction: Literal['asc','desc'] = 'asc'):
+        return {'ids': service.track_ids(identity, q, missing, sort, direction)}
 
     @app.get('/profiles/{identity}/artwork/{track}')
     def track_artwork(identity: str, track: int):
@@ -324,7 +337,15 @@ def create_app(data_dir, token, ready=None):
 
     @app.post('/profiles/{identity}/playlist-cover')
     def playlist_cover(identity: str, body: PlaylistCover):
-        return service.playlist_cover(identity, body.index, body.image)
+        return service.playlist_cover_job(identity, body.index, body.image)
+
+    @app.post('/profiles/{identity}/playlist-order')
+    def playlist_order(identity: str, body: PlaylistOrder):
+        return service.playlist_order_preview(identity, body.index, body.ids)
+
+    @app.post('/preview/library-action')
+    def library_action(body: LibraryAction):
+        return service.library_action_preview(body.profile, body.ids, body.action)
 
     @app.post('/preview/metadata')
     def edit(body: Edit): return service.metadata_preview(body.profile, body.ids, body.fields, body.target)
@@ -423,8 +444,13 @@ def create_app(data_dir, token, ready=None):
 
     @app.post('/history/clear')
     def clear_history(body: ConfirmRemoval):
-        service.store.set_setting('history_hidden_before', time.time())
-        return {'cleared': True, 'note': 'The visible list is clear. Undo records, file restores and the audit log are kept.'}
+        # Clearing the visible history also clears the field journal that supplies undo previews.
+        with service.store.connect() as db:
+            hidden_before = time.time()
+            db.execute('DELETE FROM edits')
+            db.execute('DELETE FROM history')
+        service.store.set_setting('history_hidden_before', hidden_before)
+        return {'cleared': True, 'field_entries_cleared': True, 'note': 'History and field-journal entries were cleared. Previous metadata edits can no longer be undone from this app.'}
 
     @app.get('/edits')
     def edits(): return service.store.rows('SELECT * FROM edits ORDER BY created DESC LIMIT 1000')
@@ -497,7 +523,7 @@ def create_app(data_dir, token, ready=None):
     def report(body: PathRequest):
         output = checked_path(body.path)
         with open(output, 'x', encoding='utf-8') as f:
-            json.dump({'version': '3.1.1', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
+            json.dump({'version': '4.0.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
         return {'output': str(output)}
 
     @app.get('/changelog')

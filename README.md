@@ -1,4 +1,4 @@
-# 🎵 iTunes Manager 3.1.1
+# 🎵 iTunes Manager 4.0.0
 
 A Windows music-library workspace combining LibraryCleaner and iTunes Library Consolidator with an Apple-inspired interface.
 
@@ -18,7 +18,7 @@ A Windows music-library workspace combining LibraryCleaner and iTunes Library Co
 
 ## 🚀 Quick start
 
-Get v3.1.1 from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v3.1.1): **installer**, **Windows app ZIP** or **source ZIP**. Extract the whole app ZIP before opening `iTunes Manager.exe`; its settings still use AppData. Requires Windows 10/11 x64; live editing requires **classic iTunes**, not Apple Music for Windows.
+Get v4.0.0 from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0): **installer**, **Windows app ZIP** or **source ZIP**. Extract the whole app ZIP before opening `iTunes Manager.exe`; its settings still use AppData. Requires Windows 10/11 x64; live editing requires **classic iTunes**, not Apple Music for Windows.
 
 To run from source, install Python 3.12+ and Node 22.12+, then run in the repository folder:
 
@@ -41,3 +41,8 @@ The installer is unsigned. Source-level live COM editing and undo that keeps lat
 ## 📚 Guides
 
 [Install](INSTALL.md) · [Build](BUILD.md) · [Tests](TESTING.md) · [Workspace](docs/WORKSPACE_GUIDE.md) · [Last.fm](docs/LASTFM.md) · [Feature coverage](docs/FEATURE_PARITY.md) · [Architecture](ARCHITECTURE.md) · [Migration](MIGRATION.md) · [Licenses](THIRD_PARTY_LICENSES.md) · [File and folder labels](docs/REPOSITORY_LABELS.md)
+
+
+## Version 4.0.0
+
+Version 4.0.0 adds Current Library browsing and selection, sortable track columns, library statistics, a complete history and Field journal clear operation, playlist cover application attempts, and configurable playlist reordering controls. See docs/RELEASE_4_0_0.md for the live iTunes COM limitations and full asset list.
