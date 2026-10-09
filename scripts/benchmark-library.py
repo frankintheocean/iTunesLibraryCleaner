@@ -1,5 +1,6 @@
 """Time real parsing, indexing, searches and a file edit on generated data."""
 import argparse
+import gc
 import json
 import plistlib
 import subprocess
@@ -43,7 +44,8 @@ def run(service_class, folder, count):
         assert metadata.inspect(media)['tags']['name']==['After']
         assert service.tracks(identity,'After')['total']==1
         return {'tracks':count,'xml_bytes':source.stat().st_size,'scan_seconds':scan,'overview_seconds':overview,'cached_overview_seconds':warm_overview,'searches':searches,'preview_seconds':preview_time,'one_file_title_edit_seconds':edit}
-    finally:service.jobs.close()
+    finally:
+        service.jobs.close();service.scheduler.join(5)
 
 
 if __name__=='__main__':
@@ -55,7 +57,12 @@ if __name__=='__main__':
         if args.compare_v2:
             code=subprocess.check_output(['git','show','v2.0.0:backend/service.py'],cwd=root,text=True)
             namespace={'__name__':'backend.benchmark_baseline','__package__':'backend'};exec(compile(code,'v2-service.py','exec'),namespace)
+            store_code=subprocess.check_output(['git','show','v2.0.0:backend/store.py'],cwd=root,text=True)
+            store_namespace={'__name__':'backend.benchmark_store','__package__':'backend'};exec(compile(store_code,'v2-store.py','exec'),store_namespace)
+            namespace['Store']=store_namespace['Store']
             report['v2']=run(namespace['Service'],Path(temp)/'v2',args.tracks)
+            # Release the old version's cyclic connection objects after timing its work.
+            gc.collect()
     if args.report:
         args.report.parent.mkdir(parents=True,exist_ok=True);args.report.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))
