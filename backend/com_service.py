@@ -158,6 +158,19 @@ def scan_library(app):
     return result
 
 
+def read_live_artwork(app, pid):
+    """Read a cover in the owning COM apartment without editing its track."""
+    import tempfile
+    from .artwork import encode_thumbnail
+    high, low = split_pid(pid)
+    track = app.LibraryPlaylist.Tracks.ItemByPersistentID(high, low)
+    if not track.Artwork.Count: return None
+    with tempfile.TemporaryDirectory() as folder:
+        target = Path(folder) / 'cover.png'
+        track.Artwork.Item(1).SaveArtworkToFile(str(target))
+        return encode_thumbnail(target.read_bytes())
+
+
 def _perform(payload, database, job, pipe):
     try:
         import pythoncom
@@ -168,7 +181,9 @@ def _perform(payload, database, job, pipe):
             app = factory()
             operation = payload['operation']
             if operation == 'status':
-                result = {'available': True, 'version': app.Version, 'tracks': app.LibraryPlaylist.Tracks.Count}
+                result = {'available': True, 'version': app.Version, 'tracks': app.LibraryPlaylist.Tracks.Count, 'library_name': app.LibraryPlaylist.Name}
+            elif operation == 'artwork':
+                result = {'image': read_live_artwork(app, payload['pid'])}
             elif operation == 'scan':
                 result = scan_library(app)
             elif operation == 'edit':
