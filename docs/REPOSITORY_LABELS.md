@@ -952,3 +952,22 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | --- | --- |
 | `tests/test_scan_eta.py` | ⏲️ Scan estimate checks |
 | `docs/RELEASE_3_1_1.md` | 🛠️ Version 3.1.1 guide |
+
+
+## 🎵 Version 4.0.0 labels
+
+| Path | Short label |
+| --- | --- |
+| `docs/CURRENT_LIBRARY.md` | 🎼 Current Library guide |
+| `docs/RELEASE_4_0_0.md` | 🚀 Version 4.0.0 release notes |
+| `frontend/src/main.tsx` | 🎛️ Overview, Current Library and Settings screens |
+| `frontend/src/widgets.tsx` | 🧰 Shared artwork and playlist controls |
+| `frontend/src/style.css` | 🎨 Workspace layouts and table styling |
+| `backend/service.py` | ⚙️ Library stats, sorting and safe job workflows |
+| `backend/com_service.py` | 🎵 Guarded live iTunes playlist actions |
+| `backend/api.py` | 🔌 Authenticated library and history endpoints |
+| `tests/test_v3.py` | 🧪 Statistics, sorting, history and COM regressions |
+| `tests/desktop.test.cjs` | 🖥️ Approved desktop API routes |
+| `scripts/package-source.py` | 🗜️ Verified versioned source ZIP |
+| `package.json` | 📦 Version and desktop build settings |
+| `package-lock.json` | 🔒 Exact JavaScript dependencies |

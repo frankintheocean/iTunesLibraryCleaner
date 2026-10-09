@@ -59,15 +59,15 @@ The desktop check passed all 12 navigation sections, Settings-only GitHub access
 
 A separate generated 48,000-song XML check passed: loading took 1.54 seconds, indexed searches took 20–39 ms, and a real one-file title edit took 2.39 seconds on this Linux machine. These fixture results do not measure live COM or promise timings on other hardware.
 
+## 🎵 Version 3.1.1 checks (historical)
+
+Linux checks at that release passed 278 Python tests, 5 IPC tests, the production build and the real desktop library scan/edit workflow. These historical results do not validate the v4.0.0 changes. Last.fm pictures in the desktop tests were fixtures; live COM testing remains separate.
+
 ## 🎵 Version 4.0.0 checks
 
-Linux checks passed 278 Python tests, 5 IPC tests, the production build and the real desktop library scan/edit workflow. New cases cover HTTPS upgrades for old image links, approved CDN redirects, blocked redirects to other hosts, valid binary image responses, public artist-page pictures, recovery of missing profile images, 256-pixel profile thumbnails, track/album lookups, failed-image retries, scan warm-up and uncapped large-scan estimates.
+- The uploaded 3.1.1 source baseline with v4.0.0 changes passed **291 Python tests** on this machine, including history/Field journal clearing, distinct album counts and stats, ascending/descending sorting, playlist-order verification, and a failed-add rollback case.
+- `node --test tests/desktop.test.cjs` passed **5 IPC tests**.
+- Python syntax checks passed for `backend/service.py`, `backend/com_service.py`, `backend/api.py`, and the updated tests.
+- The frontend production build could not be verified locally: `npm ci` did not complete in this environment, and TypeScript reported the missing `vite/client` dependency. The Windows build workflow must pass npm install, frontend build, Python tests, installer validation, portable-package validation and archive checks before v4.0.0 assets count as published.
+- This environment cannot test real classic iTunes COM operations. The COM playlist-order tests use fakes; real playlist reorder/delete/duplicate still need end-to-end Windows testing.
 
-Desktop checks confirm that only Overview has the library picker, and the same loaded library remains usable in File Organizer and Metadata. Last.fm pictures in this desktop test are fixtures; public-page and CDN behaviours are tested through provider-shaped HTTP responses. A fresh real-account image check is blocked by this cloud’s Last.fm network restrictions. The required domains were saved to an environment draft; that draft has not been applied or published.
-
-Windows release downloads require a successful installer, repair, uninstall and archive check for their source commit. Real classic iTunes testing remains separate.
-
-
-## 4.0.0 validation focus
-
-Check history clearing removes both history and edit-journal rows; overview album counts deduplicate named albums by album artist; Current Library selection supports Shift ranges and Ctrl+A; destructive operations require confirmation and verified safety copies; playlist COM limitations must refuse unsafe fallbacks without modifying tracks.

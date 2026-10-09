@@ -15,7 +15,7 @@ exclude={'.git','.venv','node_modules','__pycache__','.pytest_cache','.runtime',
 with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as archive:
  for path in sorted(root.rglob('*')):
   relative=path.relative_to(root)
-  if not path.is_file() or any(part in exclude for part in relative.parts) or path.suffix=='.pyc':continue
+  if not path.is_file() or any(part in exclude for part in relative.parts) or path.suffix=='.pyc' or relative.as_posix()=='RELEASE-INFO.json':continue
   # Keep the built frontend; exclude other build outputs unless an actual validated installer exists.
   if relative.parts[0] in ('dist', 'build'):continue
   archive.write(path,Path('iTunes-Manager')/relative)

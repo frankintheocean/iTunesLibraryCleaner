@@ -8,7 +8,7 @@ import pytest
 from PIL import Image
 from fastapi.testclient import TestClient
 from backend.api import create_app
-from backend.com_service import find_track, scan_library, write_tracks
+from backend.com_service import find_track, reorder_playlist, scan_library, write_tracks
 from backend.jobs import Jobs
 from backend.store import Store
 from test_manager import TOKEN, scanned, wait, service
@@ -136,6 +136,74 @@ def test_xml_size_uses_files_when_export_omits_sizes(service,tmp_path):
     overview=service.overview(identity)
     assert overview['size']==media.stat().st_size*2 and overview['unknown_sizes']==0
 
+
+def test_playlist_reorder_adds_verified_order_before_removing_old_entries():
+    class Entry:
+        def __init__(self, owner, pid): self.owner, self.pid = owner, pid
+        def Delete(self): self.owner.entries.remove(self)
+    class Collection:
+        def __init__(self, owner): self.owner=owner
+        @property
+        def Count(self): return len(self.owner.entries)
+        def ItemByPlayOrder(self, index): return self.owner.entries[index-1]
+        def Item(self, index): return self.ItemByPlayOrder(index)
+    class Playlist:
+        def __init__(self,pid,entries=None):
+            self.pid=pid;self.entries=[Entry(self,entry.pid) for entry in (entries or [])]
+            self.Tracks=Collection(self);self.Smart=False;self.SpecialKind=0;self.add_calls=0
+        def AddTrack(self, track):
+            self.add_calls+=1;entry=Entry(self,track.pid);self.entries.append(entry);return entry
+    class MasterTracks:
+        def __init__(self,tracks):self.tracks=tracks
+        def ItemByPersistentID(self,high,low):
+            pid=f'{high & 0xffffffff:08X}{low & 0xffffffff:08X}'
+            return next((track for track in self.tracks if track.pid==pid),None)
+    class App:
+        def __init__(self,playlist,tracks):
+            self.LibraryPlaylist=SimpleNamespace(pid='FFFFFFFF80000001',Tracks=MasterTracks(tracks),Source=SimpleNamespace(Playlists=[playlist]))
+        def ITObjectPersistentIDHigh(self,obj):return int(obj.pid[:8],16)
+        def ITObjectPersistentIDLow(self,obj):return int(obj.pid[8:],16)
+    pids=['0000000000000001','0000000000000002','0000000000000003']
+    tracks=[SimpleNamespace(pid=pid) for pid in pids]
+    playlist=Playlist('1111111111111111',tracks);app=App(playlist,tracks)
+    result=reorder_playlist(app,{'playlist_pid':playlist.pid,'original_ids':pids,'ordered_ids':[pids[2],pids[0],pids[1]]})
+    assert result=={'reordered':3,'verified':True}
+    assert [entry.pid for entry in playlist.entries]==[pids[2],pids[0],pids[1]]
+
+
+def test_playlist_reorder_failed_add_does_not_remove_original_entries():
+    class Entry:
+        def __init__(self, owner, pid): self.owner, self.pid = owner, pid
+        def Delete(self): self.owner.entries.remove(self)
+    class Collection:
+        def __init__(self, owner): self.owner=owner
+        @property
+        def Count(self): return len(self.owner.entries)
+        def ItemByPlayOrder(self, index): return self.owner.entries[index-1]
+        def Item(self, index): return self.ItemByPlayOrder(index)
+    class Playlist:
+        def __init__(self,pid,entries):
+            self.pid=pid;self.entries=[Entry(self,x.pid) for x in entries];self.Tracks=Collection(self)
+            self.Smart=False;self.SpecialKind=0;self.add_calls=0
+        def AddTrack(self,track):
+            self.add_calls+=1
+            if self.add_calls==2: raise RuntimeError('test add failure')
+            entry=Entry(self,track.pid);self.entries.append(entry);return entry
+    class MasterTracks:
+        def __init__(self,tracks):self.tracks=tracks
+        def ItemByPersistentID(self,high,low):
+            pid=f'{high & 0xffffffff:08X}{low & 0xffffffff:08X}'
+            return next((track for track in self.tracks if track.pid==pid),None)
+    class App:
+        def __init__(self,playlist,tracks):self.LibraryPlaylist=SimpleNamespace(pid='FFFFFFFF80000001',Tracks=MasterTracks(tracks),Source=SimpleNamespace(Playlists=[playlist]))
+        def ITObjectPersistentIDHigh(self,obj):return int(obj.pid[:8],16)
+        def ITObjectPersistentIDLow(self,obj):return int(obj.pid[8:],16)
+    pids=['0000000000000001','0000000000000002','0000000000000003']
+    tracks=[SimpleNamespace(pid=pid) for pid in pids]
+    playlist=Playlist('1111111111111111',tracks);app=App(playlist,tracks)
+    with pytest.raises(RuntimeError,match='test add failure'):
+        reorder_playlist(app,{'playlist_pid':playlist.pid,'original_ids':pids,'ordered_ids':[pids[2],pids[0],pids[1]]})
+    assert [entry.pid for entry in playlist.entries]==pids
 
 def test_remove_history_default_path_and_playlist_picture(tmp_path):
     from test_manager import flac,xml
