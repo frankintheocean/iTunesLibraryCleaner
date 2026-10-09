@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from backend.com_service import FIELDS, pid_for, run_com, split_pid
 from backend.service import Service
+from backend.filesystem import digest
 
 
 def wait_job(service, identity, timeout=330):
@@ -56,7 +57,8 @@ def main():
     workspace.mkdir()
     report = {'result': 'failed', 'checks': [], 'workspace': str(workspace),
               'not_tested': ['modal dialogs', 'iTunes restart/reconnect', 'locked/read-only media',
-                             'missing tracks', 'DRM', 'high-DPI/multi-monitor', 'Windows 10/11 matrix']}
+                             'missing tracks', 'DRM', 'high-DPI/multi-monitor', 'Windows 10/11 matrix',
+                             'album grouping/merge', 'genre-rule normalization', 'packaged COM worker']}
     service = None
     pythoncom.CoInitialize()
     try:
@@ -79,7 +81,10 @@ def main():
             if operation.Tracks.Count != 1:
                 raise AssertionError('iTunes did not import exactly one synthetic track.')
             track = operation.Tracks.Item(1)
-            fixtures.append({'pid': pid_for(app, track), 'path': str(media.resolve())})
+            imported = Path(track.Location).resolve()
+            if digest(imported) != digest(media):
+                raise AssertionError('Imported media differs from the generated WAV; refusing to edit.')
+            fixtures.append({'pid': pid_for(app, track), 'path': str(imported), 'source': str(media.resolve())})
         service = Service(workspace / 'state')
         status = run_com({'operation': 'status'}, service.store.path)
         if not status['available'] or status['tracks'] != 2:
