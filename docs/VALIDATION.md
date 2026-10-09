@@ -58,3 +58,11 @@ The published [3.1.0 downloads](https://github.com/frankintheocean/iTunesLibrary
 The desktop check passed all 12 navigation sections, Settings-only GitHub access, hidden/restored suggestions, Last.fm connection errors, profile picture size, charts, paging and disconnect. Its Last.fm responses are demo fixtures; library scan/edit requests use the actual service.
 
 A separate generated 48,000-song XML check passed: loading took 1.54 seconds, indexed searches took 20–39 ms, and a real one-file title edit took 2.39 seconds on this Linux machine. These fixture results do not measure live COM or promise timings on other hardware.
+
+## 🎵 Version 3.1.1 checks
+
+Linux checks passed 276 Python tests, 5 IPC tests, the production build and the real desktop library scan/edit workflow. New cases cover HTTPS upgrades for old image links, approved CDN redirects, blocked redirects to other hosts, valid binary image responses, public artist-page pictures, recovery of missing profile images, 256-pixel profile thumbnails, track/album lookups, failed-image retries, scan warm-up and uncapped large-scan estimates.
+
+Desktop checks confirm that only Overview has the library picker, and the same loaded library remains usable in File Organizer and Metadata. Last.fm pictures in this desktop test are fixtures; public-page and CDN behaviours are tested through provider-shaped HTTP responses. A fresh real-account image check is blocked by this cloud’s Last.fm network restrictions. The required domains were saved to an environment draft; that draft has not been applied or published.
+
+Windows release downloads require a successful installer, repair, uninstall and archive check for their source commit. Real classic iTunes testing remains separate.
