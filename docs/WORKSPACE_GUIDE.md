@@ -49,3 +49,15 @@ Pictures supplied in supported imported data appear across from the playlist nam
 ## 📍 Default XML
 
 In Settings, choose or enter **Default XML path**, then save it. That location appears first under **Discovered locations**, including when it is on another drive. A missing drive is reported as not found; it does not replace a loaded library.
+
+## 🎧 Last.fm
+
+Connect an API key and username to browse recent plays and top songs, artists and albums. Pick a time period and refresh when needed. The profile picture appears when Last.fm provides it. See the [Last.fm guide](LASTFM.md).
+
+## 📍 Discovered locations
+
+In Libraries, **Remove** hides a discovered suggestion. It does not delete its file or remove a loaded library. **Restore suggestions** shows hidden paths again. To remove a loaded library, use its separate Remove button.
+
+## ⏳ Large live scans
+
+A live iTunes scan can continue beyond 15 minutes while songs or playlist links are being read. If no forward progress arrives for 15 minutes, or the scan reaches six hours, it stops and keeps the previous saved copy. Check iTunes for an open dialog before retrying. Reading does not change live metadata. Queue’s cancel control stops a slow read without publishing an incomplete scan.
