@@ -573,7 +573,7 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 | `legacy/consolidator/src/ui/settings_dialog.py` | ⚙️ User settings dialog |
 | `legacy/consolidator/src/ui/theme.py` | 🌗 Interface theme handling |
 | `legacy/consolidator/src/ui/widgets.py` | 🧩 Reusable controls for the legacy interface |
-| `legacy/consolidator/tests/__init__.py` | 🟤 Preserved legacy   Init   source or resource — for legacy/consolidator/tests/__init__.py |
+| `legacy/consolidator/tests/__init__.py` | 🧪 Marks the legacy automated test package |
 | `legacy/consolidator/tests/fixtures/Library_unicode_folders.xml` | 🌍 Test library with Unicode folder names |
 | `legacy/consolidator/tests/fixtures/Library.xml` | 🧪 Sample iTunes library for tests |
 | `legacy/consolidator/tests/fixtures/malformed/empty.xml` | 🕳️ Empty XML file for parser error tests |
@@ -592,15 +592,15 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 | `legacy/consolidator/tests/test_rebuild_script.py` | 🛠️ Tests the library rebuild script |
 | `legacy/consolidator/tests/test_theme_tokens.py` | 🎨 Tests interface design tokens |
 | `legacy/README.md` | 🏛️ Explains which older tools are preserved |
-| `LICENSE` | 🔹 Project file for LICENSE |
+| `LICENSE` | ⚖️ Main project license and usage terms |
 | `MIGRATION.md` | 🔺 Move from the older Cleaner and Consolidator tools |
 | `package-lock.json` | 🔻 App scripts, version, and pinned JavaScript dependencies |
 | `package.json` | 💠 App scripts, version, and pinned JavaScript dependencies — for package.json |
 | `README.md` | 🔘 What the app does and how to get started |
-| `requirements-dev.txt` | 🔳 Project file for Requirements Dev |
-| `requirements-lock-linux.txt` | 🔲 Project file for Requirements Lock Linux |
-| `requirements-lock-windows.txt` | ➰ Project file for Requirements Lock Windows |
-| `requirements.txt` | ➿ Project file for Requirements |
+| `requirements-dev.txt` | 🧑‍🔬 Extra Python packages for development and tests |
+| `requirements-lock-linux.txt` | 🐧 Pinned Python packages for Linux builds |
+| `requirements-lock-windows.txt` | 🪟 Pinned Python packages for Windows builds |
+| `requirements.txt` | 🐍 Python packages needed to run the backend |
 | `resources/app-128.png` | 〽️ Application or interface artwork: App 128 |
 | `resources/app-256.png` | ✳️ Application or interface artwork: App 256 |
 | `resources/app-32.png` | ✴️ Application or interface artwork: App 32 |
@@ -923,7 +923,7 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 | `resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/licenses/LICENSE` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/typing-inspection/typing_inspection-0.4.4.dist-info/licenses/LICENSE |
 | `resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/licenses/LICENSE.txt` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/urllib3/urllib3-2.8.0.dist-info/licenses/LICENSE.txt |
 | `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses/LICENSE.md` | ⚖️ Third-party license notice for LICENSE — for resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses/LICENSE.md |
-| `resources/README.md` | 📘 Project documentation: README — for resources/README.md |
+| `resources/README.md` | 🖼️ Guide to app icons and bundled license files |
 | `scripts/backend_entry.py` | 🐍 Build or maintenance utility: Backend Entry |
 | `scripts/backend.spec` | 📄 Build or maintenance utility: Backend.Spec |
 | `scripts/benchmark-library.py` | ⚡ Large-library speed checks |
@@ -952,7 +952,7 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 | `tests/test_scan_eta.py` | ⏲️ Scan estimate checks |
 | `tests/test_v2.py` | 🧪 Regression checks for Test V2 |
 | `tests/test_v3.py` | 🐞 Library and queue fixes |
-| `THIRD_PARTY_LICENSES.md` | 📘 Project documentation: THIRD PARTY LICENSES |
+| `THIRD_PARTY_LICENSES.md` | 📜 License notices for bundled third-party software |
 
 ## 🏷️ Label rules
 
