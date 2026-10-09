@@ -6,33 +6,33 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 
 | Path | Description |
 | --- | --- |
-| `.github/` | 🚦 GitHub automation |
-| `.github/workflows/` | 🔌 Automated tests, Windows builds, and release publishing |
-| `backend/` | 🖥️ Local API, library scanning, file edits, and iTunes connection |
-| `desktop/` | 📚 Windows desktop window and secure app bridge |
-| `docs/` | 🎛️ User guides, release notes, limits, and test evidence |
-| `frontend/` | 🏛️ Screens, controls, artwork, and styling |
-| `frontend/public/` | 🎨 public |
-| `frontend/public/resources/` | 🖼️ resources |
-| `frontend/src/` | 🧩 Workspace pages, shared widgets, and styles |
-| `frontend/src/resources/` | 🛠️ Resources folder for frontend/src |
-| `legacy/` | 🧪 Original Cleaner and Consolidator tools, preserved for reference |
-| `legacy/cleaner/` | 🎵 cleaner |
-| `legacy/cleaner/build/` | 🗓️ build |
-| `legacy/consolidator/` | 🧭 consolidator |
-| `legacy/consolidator/assets/` | 📦 assets |
-| `legacy/consolidator/dist_config/` | ⚖️ dist config |
-| `legacy/consolidator/src/` | 🩺 src |
-| `legacy/consolidator/src/core/` | 🔗 core |
-| `legacy/consolidator/src/core/providers/` | 📻 providers |
-| `legacy/consolidator/src/data/` | ⚙️ data |
-| `legacy/consolidator/src/ui/` | 🔎 ui |
-| `legacy/consolidator/tests/` | 📖 tests |
-| `legacy/consolidator/tests/fixtures/` | 🗂️ fixtures |
-| `legacy/consolidator/tests/fixtures/malformed/` | 📁 malformed |
-| `resources/` | 📄 App icons and generated third-party license texts |
+| `.github/` | 🚦 GitHub project settings and guidance |
+| `.github/workflows/` | 🔄 Automated build and release jobs |
+| `backend/` | 🖥️ Local library API and processing |
+| `desktop/` | 🪟 Electron desktop shell and secure bridge |
+| `docs/` | 📚 User guides, release notes, and validation records |
+| `frontend/` | 🎛️ Web interface source and assets |
+| `frontend/public/` | 🎨 Public app files and static assets |
+| `frontend/public/resources/` | 🖼️ Images and files shipped with the interface |
+| `frontend/src/` | 🧩 Interface pages, shared controls, and styles |
+| `frontend/src/resources/` | 🧰 Shared interface resources |
+| `legacy/` | 🏛️ Older Cleaner and Consolidator tools |
+| `legacy/cleaner/` | 🎵 Original genre-cleanup tool |
+| `legacy/cleaner/build/` | 🏗️ Build scripts for the original Cleaner |
+| `legacy/consolidator/` | 🧭 Original library Consolidator tool |
+| `legacy/consolidator/assets/` | 🖌️ Consolidator icons and images |
+| `legacy/consolidator/dist_config/` | 📦 Packaging and installer settings |
+| `legacy/consolidator/src/` | 🧱 Consolidator application source |
+| `legacy/consolidator/src/core/` | ⚙️ Core library-processing logic |
+| `legacy/consolidator/src/core/providers/` | 🔗 External music-library data providers |
+| `legacy/consolidator/src/data/` | 💾 Consolidator data storage code |
+| `legacy/consolidator/src/ui/` | 🪟 Consolidator screens and controls |
+| `legacy/consolidator/tests/` | 🧪 Consolidator automated tests |
+| `legacy/consolidator/tests/fixtures/` | 🧫 Sample libraries used by tests |
+| `legacy/consolidator/tests/fixtures/malformed/` | 🚧 Broken XML samples for error tests |
+| `resources/` | 🎨 App icons and third-party license files |
 | `resources/licenses/` | 🧰 Third-party license notices generated for bundled dependencies |
-| `resources/licenses/npm/` | 🎧 npm |
+| `resources/licenses/npm/` | 📜 JavaScript package license records |
 | `resources/licenses/npm/@alloc/` | 🧹 @alloc |
 | `resources/licenses/npm/@alloc/quick-lru/` | ✍️ quick lru |
 | `resources/licenses/npm/@electron/` | 🛡️ @electron |
@@ -429,8 +429,8 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 | `resources/licenses/python/uvicorn/` | 🏦 uvicorn |
 | `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/` | 🏨 uvicorn 0.34.2.dist info |
 | `resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses/` | 🏩 licenses — for resources/licenses/python/uvicorn/uvicorn-0.34.2.dist-info/licenses |
-| `scripts/` | 🏪 Build, package, verify, and maintain the app |
-| `tests/` | 🏫 Backend, IPC, and real desktop test harnesses |
+| `scripts/` | 🛠️ Build, packaging, and validation tools |
+| `tests/` | 🧪 Automated checks for app behavior |
 
 ## 📄 All tracked files (517)
 
