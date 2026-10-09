@@ -68,6 +68,6 @@ Desktop checks confirm that only Overview has the library picker, and the same l
 Windows release downloads require a successful installer, repair, uninstall and archive check for their source commit. Real classic iTunes testing remains separate.
 
 
-## Version 4.0.0 validation
+## 🎵 Version 1.0.0 validation
 
 This release adds API and user-interface regression tests for distinct album counting, Library Stats, sorting and selection, history/Field journal clearing, and guarded playlist operations. Playlist cover application inside classic iTunes is conditional on an artwork setter being exposed by the installed COM object; unsupported builds retain the manager-side image and report that limitation. Final Windows build and installer/repair checks are performed by GitHub Actions.
