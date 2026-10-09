@@ -21,3 +21,17 @@ Settings can open the original Cleaner and Consolidator for advanced workflows, 
 ## 🎨 Appearance
 
 The app uses installed SF Pro fonts when available, with system fonts as a fallback. Apple fonts are not included. The flat record-and-note icon follows the supplied ScoutTool style while using a distinct design.
+
+## 🎵 Album covers and the current library
+
+Song lists, duplicate groups and playlist details show album art when available. Covers come from local media or the live iTunes artwork collection. Missing or unreadable art uses a music icon. Artwork loading does not change songs.
+
+When connected, choose **Current iTunes library** in the top-right library menu. The app scans the library that classic iTunes currently has open. Confirm live edits only after reviewing their previews. Refresh the connection if you opened iTunes after the app.
+
+## ⏱️ Queue
+
+Tasks show elapsed time and an estimated time left. Estimates appear after progress starts and may change with the work. Pausing freezes active elapsed time. **Clear queue** cancels waiting tasks and hides finished tasks; running or paused work, saved history and undo records stay.
+
+## ♿ Appearance and accessibility
+
+Choose an OLED theme for a true-black page background with matching colors. Pick a font, adjust text from 25% to 400%, reduce motion, strengthen keyboard focus, enlarge controls or underline links. Text settings persist across restarts. Missing fonts use a system fallback. The GitHub button beside the library menu opens the project in your browser.
