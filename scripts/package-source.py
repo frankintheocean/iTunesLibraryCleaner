@@ -3,7 +3,8 @@ import hashlib
 import json
 import zipfile
 root = Path(__file__).resolve().parents[1]
-out = root.parent / 'deliverables' / 'Unified-iTunes-Library-Manager-4.0.0.zip'
+version = json.loads((root / 'package.json').read_text())['version']
+out = root.parent / 'deliverables' / f'Unified-iTunes-Library-Manager-{version}.zip'
 out.parent.mkdir(parents=True, exist_ok=True)
 exclude={'.git','.venv','node_modules','__pycache__','.pytest_cache','.runtime','.codex','.agents'}
 with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as archive:
