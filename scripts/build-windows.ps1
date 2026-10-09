@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 Set-Location (Split-Path $PSScriptRoot -Parent)
 if (-not $IsWindows -and $env:OS -ne 'Windows_NT') { throw 'Build the installer on Windows 10/11 x64.' }
-function Checked { param([scriptblock]$Command); & $Command; if ($LASTEXITCODE -ne 0) { throw "Command failed with exit code $LASTEXITCODE" } }
+function Checked { param([scriptblock]$Command); & $Command; if ($LASTEXITCODE -ne 0) { throw "Command failed ($Command) with exit code $LASTEXITCODE" } }
 Checked { py -3.12 -m venv .venv }
 $Python = Join-Path $PWD '.venv\Scripts\python.exe'
 Checked { & $Python -m pip install -r requirements-lock-windows.txt }
