@@ -122,7 +122,7 @@ jobs:
           $view = gh release view $tag --json tagName,isDraft,assets 2>$null
           $viewStatus = $LASTEXITCODE
           if ($viewStatus -eq 0) {
-            $release = $view | ConvertFrom-Json
+            $release = ($view -join [Environment]::NewLine) | ConvertFrom-Json
             $existingNames = @($release.assets | ForEach-Object { $_.name })
             $missingNames = @($expectedNames | Where-Object { $_ -notin $existingNames })
             if (-not $release.isDraft) {
