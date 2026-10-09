@@ -1,6 +1,6 @@
 # 🗂️ Repository file and folder guide
 
-This index describes the tracked paths in the current repository tree. Each listed path has a short, emoji-led description based on its role. Third-party license entries name the dependency when it can be identified from the path; generated inventories and build outputs should be refreshed from their source rather than edited by hand.
+This index describes the tracked paths in the current repository tree. Each path has a short emoji label. Third-party license entries name the dependency when it can be identified from the path; generated inventories and build outputs should be refreshed from their source rather than edited by hand.
 
 ## 📁 All tracked folders (425)
 
