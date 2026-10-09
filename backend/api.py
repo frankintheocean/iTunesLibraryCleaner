@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Literal
 from fastapi import FastAPI, Depends, Header, HTTPException, Query
 from fastapi.responses import Response
+from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field, ConfigDict
 from .service import Service
 from . import legacy, metadata
@@ -18,6 +19,24 @@ from .filesystem import AUDIO, checked_path, signature
 
 class Model(BaseModel):
     model_config = ConfigDict(extra='forbid')
+
+
+class LastFMConnect(Model):
+    api_key: str = Field(min_length=32, max_length=32)
+    username: str = Field(min_length=1, max_length=128)
+
+
+class LastFMImage(Model):
+    url: str = Field(max_length=2048)
+
+
+class LastFMTrackImage(Model):
+    name: str = Field(min_length=1, max_length=512)
+    artist: str = Field(min_length=1, max_length=512)
+
+
+class DiscoveryLocation(Model):
+    path: str = Field(min_length=1, max_length=4096)
 
 
 class Profile(Model):
@@ -163,8 +182,15 @@ def create_app(data_dir, token, ready=None):
     def auth(authorization: str = Header(default='')):
         if not hmac.compare_digest(authorization, 'Bearer ' + token): raise HTTPException(401, 'Unauthorized')
 
-    app = FastAPI(title='iTunes Manager', version='3.0.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title='iTunes Manager', version='3.1.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.service = service
+
+    @app.exception_handler(RequestValidationError)
+    async def validation_error(request, exc):
+        if request.url.path == '/lastfm/connect':
+            return Response(json.dumps({'detail': 'Enter a valid Last.fm API key and username.'}), status_code=422, media_type='application/json')
+        from fastapi.exception_handlers import request_validation_exception_handler
+        return await request_validation_exception_handler(request, exc)
 
     @app.exception_handler(ValueError)
     async def value_error(request, exc):
@@ -179,7 +205,7 @@ def create_app(data_dir, token, ready=None):
         return Response(json.dumps({'detail': str(exc)}), status_code=503, media_type='application/json')
 
     @app.get('/health')
-    def health(): return {'ready': True, 'version': '3.0.0'}
+    def health(): return {'ready': True, 'version': '3.1.0'}
 
     @app.get('/discovery')
     def discover():
@@ -187,8 +213,43 @@ def create_app(data_dir, token, ready=None):
         default = service.store.setting('preferences', {}).get('default_xml_path', '').strip()
         if default:
             paths = [Path(default)] + [p for p in paths if str(p) != default]
+        hidden = service.store.setting('discovery_hidden', [])
+        paths = [p for p in paths if str(p) not in hidden]
         music = Path.home() / 'Music'
         return {'xml': [{'path': str(p), 'exists': p.exists()} for p in paths], 'databases': [{'path': str(music / 'iTunes' / 'iTunes Library.itl'), 'editable': False}], 'live_note': 'Classic iTunes on Windows only. Apple Music proprietary databases are read-only/unsupported; export XML or scan media.'}
+
+    @app.post('/discovery/remove')
+    def remove_discovery(body: DiscoveryLocation):
+        hidden = service.store.setting('discovery_hidden', [])
+        if body.path not in hidden: hidden.append(body.path)
+        service.store.set_setting('discovery_hidden', hidden)
+        return {'removed': True, 'note': 'Only this suggestion was hidden. Files and loaded libraries are unchanged.'}
+
+    @app.post('/discovery/restore')
+    def restore_discovery():
+        service.store.set_setting('discovery_hidden', [])
+        return {'restored': True}
+
+    @app.get('/lastfm/status')
+    def lastfm_status(): return service.lastfm.status()
+
+    @app.post('/lastfm/connect')
+    def lastfm_connect(body: LastFMConnect): return service.lastfm.connect(body.api_key, body.username)
+
+    @app.post('/lastfm/disconnect')
+    def lastfm_disconnect(): return service.lastfm.disconnect()
+
+    @app.get('/lastfm/charts')
+    def lastfm_charts(view: Literal['recent', 'tracks', 'artists', 'albums'] = 'recent',
+                      period: Literal['overall', '7day', '1month', '3month', '6month', '12month'] = 'overall',
+                      page: int = Query(1, ge=1, le=10000), refresh: bool = False):
+        return service.lastfm.charts(view, period, page, refresh)
+
+    @app.post('/lastfm/image')
+    def lastfm_image(body: LastFMImage): return service.lastfm.image(body.url)
+
+    @app.post('/lastfm/track-image')
+    def lastfm_track_image(body: LastFMTrackImage): return service.lastfm.track_image(body.name, body.artist)
 
     @app.get('/com/status')
     def com_status():
@@ -425,7 +486,7 @@ def create_app(data_dir, token, ready=None):
     def report(body: PathRequest):
         output = checked_path(body.path)
         with open(output, 'x', encoding='utf-8') as f:
-            json.dump({'version': '3.0.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
+            json.dump({'version': '3.1.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
         return {'output': str(output)}
 
     @app.get('/changelog')
