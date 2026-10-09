@@ -62,3 +62,5 @@ These are maintenance fixes to the existing 1.0.0 release; the version number in
 - 🧩 Add a Missing Tracks workspace that groups indexed albums and highlights missing track numbers when track-count metadata is present.
 
 **Notes:** Missing Tracks relies on track-number and track-count metadata from the loaded library; it cannot infer tracks absent from the source metadata. Playlist-image synchronization, customizable tab ordering/visibility, artist-photo sourcing, and the refreshed Apple-style application icon still require additional implementation and validation before they can be claimed as delivered.
+
+- 🧭 Add Settings controls to hide/show and reorder workspace tabs; the selected navigation preferences are saved with app settings.
