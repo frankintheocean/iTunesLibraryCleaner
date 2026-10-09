@@ -11,3 +11,5 @@ test('Last.fm and discovery controls stay on approved local routes',()=>{
  assert.throws(()=>validateRequest('/lastfm/proxy','GET'));
  assert.throws(()=>validateRequest('https://ws.audioscrobbler.com/2.0/','GET'));
 });
+
+test('current library routes are approved local endpoints',()=>{const id='c'.repeat(32);for(const [path,method] of [[`/profiles/${id}/track-ids?sort=name&direction=desc`,'GET'],[`/profiles/${id}/playlist-order`,'POST'],['/preview/library-action','POST']])assert.equal(validateRequest(path,method),path);});

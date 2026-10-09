@@ -1,5 +1,31 @@
 # 🗓️ iTunes Manager release history
 
+## 🎵 4.0.0 — Current Library and playlist controls
+
+### 🐛 Fixes
+- **Clear history clears Field journal entries too**, including metadata edits. Clearing the journal also removes those app-side undo references.
+- Count distinct named albums by album artist and album title rather than counting each song as a separate album. Empty, unknown and untitled placeholders are excluded.
+
+### 📚 Current Library
+- Browse every indexed song with album artwork, song name, artist, album, genre and track length.
+- Sort every column ascending or descending, search, select individual rows, Shift-click ranges and select all matches with Ctrl+A / ⌘A.
+- Copy the selected song IDs inside the app, duplicate songs, paste a copied selection as new local media files, or delete songs from the live iTunes library and disk. Destructive actions require a confirmation and reviewed preview; deletion makes verified safety copies first. Write actions require live classic iTunes.
+
+### 📊 Overview and playlists
+- Add **Library Stats** between Genre Mix and Library Health: top 10 artists by distinct available albums, oldest/newest top-five songs and albums by release year, and longest/shortest top-five songs and albums with readable durations.
+- Add **View library** beside **Find duplicates**.
+- Move Libraries and History out of the main tab strip and into Settings' Library shortcuts.
+- Reorder regular playlists using up/down buttons or drag and drop, selected in Settings. The queued live-iTunes action uses a playlist-only move method only if the installed COM object exposes one, verifies the resulting order, and refuses unsupported interfaces without deleting any track. Smart, system/special, and repeated-entry playlists are refused for safety.
+- Uploaded playlist covers appear in the manager immediately. The app tries the live iTunes write when the installed COM object exposes an artwork setter; classic iTunes COM does not document playlist artwork writing, so unsupported versions keep the picture app-side and report the limitation. Song artwork is never changed as a workaround.
+
+### ♻️ Carried forward
+Existing library scanning, cleanup, consolidation, duplicate review, metadata editing, file organization, task queue, backups and undo checks, accessibility themes, and Last.fm charts/image fallbacks remain included. Existing per-user data is preserved across upgrades.
+
+### 📥 Downloads
+The Windows release includes an installer, portable Windows ZIP and source ZIP, each with a SHA-256 checksum. The installer is unsigned. Live edits require Windows and classic iTunes; Apple Music for Windows is not supported through iTunes COM.
+
+---
+
 ## 🎵 3.1.1 — Pictures and scan timing
 
 ### 🐛 Fixes

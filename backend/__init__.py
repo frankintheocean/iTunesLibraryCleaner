@@ -1,1 +1,1 @@
-"""iTunes Manager 3.1.1."""
+"""iTunes Manager 4.0.0."""

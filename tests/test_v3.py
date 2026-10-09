@@ -145,9 +145,10 @@ def test_remove_history_default_path_and_playlist_picture(tmp_path):
         service=app.state.service;identity=service.add_profile('Saved',str(source),'xml');service.scan(identity,'fixture',lambda *args:None)
         journal=service.store.journal('fixture','pid','live','name','Before','After')
         service.store.audit('fixture',{'job':'fixture'})
+        assert client.get('/health').json()['version']=='4.0.0'
         assert client.post('/history/clear',json={'confirmed':True}).status_code==200
         assert client.get('/history').json()==[]
-        assert service.store.rows('SELECT id FROM history') and service.store.rows('SELECT id FROM edits WHERE id=?',(journal,))
+        assert not service.store.rows('SELECT id FROM history') and not service.store.rows('SELECT id FROM edits WHERE id=?',(journal,))
         assert client.post('/settings',json={'default_xml_path':str(source)}).status_code==200
         assert client.get('/discovery').json()['xml'][0]=={'path':str(source),'exists':True}
         image=tmp_path/'playlist.png';Image.new('RGB',(100,100),'blue').save(image)
@@ -157,7 +158,7 @@ def test_remove_history_default_path_and_playlist_picture(tmp_path):
         assert client.post(f'/profiles/{identity}/remove',json={'confirmed':True}).status_code==200
         assert client.get('/profiles').json()==[]
         assert source.exists() and service.snapshot_path(identity).exists()
-        assert service.store.rows('SELECT id FROM edits WHERE id=?',(journal,))
+        assert not service.store.rows('SELECT id FROM edits WHERE id=?',(journal,))
 
 
 def test_cannot_remove_a_library_with_active_work(service,tmp_path):
@@ -194,3 +195,43 @@ def test_database_handles_close_and_failed_transactions_roll_back(tmp_path):
         failed.execute('SELECT 1')
     # Removing a closed database must also work on Windows, not only on Unix.
     store.path.unlink()
+
+
+def test_overview_counts_real_albums_and_provides_library_stats(service,tmp_path):
+    identity,_,_=scanned(service,tmp_path)
+    library=service.library(identity)
+    library.tracks[1].raw['Year']='1998';library.tracks[1].raw['Total Time']=60000
+    library.tracks[2].raw['Year']='2024';library.tracks[2].raw['Total Time']=180000
+    for track in library.tracks.values():track.raw['Album Artist']='Album Artist'
+    service.save_snapshot(identity,library);service.index(identity,library)
+    overview=service.overview(identity)
+    assert overview['tracks']==2 and overview['albums']==1
+    stats=overview['library_stats']
+    assert stats['top_artists'][0]['artist']=='Album Artist'
+    assert stats['top_artists'][0]['albums']==1 and stats['top_artists'][0]['tracks']==2
+    assert stats['oldest_songs'][0]['year']==1998
+    assert stats['newest_songs'][0]['year']==2024
+    assert stats['longest_songs'][0]['duration']=='3 minutes'
+    assert stats['longest_albums'][0]['duration']=='4 minutes'
+
+
+def test_track_and_bulk_id_queries_sort_in_both_directions(service,tmp_path):
+    identity,_,_=scanned(service,tmp_path)
+    library=service.library(identity);library.tracks[1].raw['Name']='Zulu';library.tracks[2].raw['Name']='Alpha'
+    service.save_snapshot(identity,library);service.index(identity,library)
+    ascending=service.tracks(identity,sort='name',direction='asc')
+    descending=service.tracks(identity,sort='name',direction='desc')
+    assert [row['name'] for row in ascending['items']]==['Alpha','Zulu']
+    assert [row['name'] for row in descending['items']]==['Zulu','Alpha']
+    assert service.track_ids(identity,sort='name',direction='asc')==[2,1]
+    assert service.track_ids(identity,sort='name',direction='desc')==[1,2]
+
+
+def test_main_library_playlist_cannot_be_reordered(service,tmp_path):
+    identity,_,_=scanned(service,tmp_path)
+    profile=service.profile(identity);profile['config']['kind']='live';profile['config']['library_pid']='FFFFFFFF80000001'
+    service.store.execute('UPDATE profiles SET config=? WHERE id=?',(json.dumps(profile['config']),identity))
+    library=service.library(identity);library.playlists[0].raw['Master']=True
+    service.save_snapshot(identity,library);service.index(identity,library)
+    with pytest.raises(ValueError,match='main library and special iTunes playlists'):
+        service.playlist_order_preview(identity,0,library.playlists[0].track_ids())
