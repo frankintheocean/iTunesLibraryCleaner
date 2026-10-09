@@ -18,7 +18,9 @@ function App(){
  const {section,profile,theme,setSection,setProfile,setTheme}=useWorkspace();
  const [profiles,setProfiles]=useState<any[]>([]),[jobs,setJobs]=useState<any[]>([]),[com,setCom]=useState<any>({available:false,reason:'Checking classic iTunes…'});
  const [error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false),[preview,setPreview]=useState<any>(null),[inspect,setInspect]=useState<any>(null),[revision,setRevision]=useState(0);
- const [trackData,setTrackData]=useState<any>({items:[],total:0}),[selected,setSelected]=useState<Set<number>>(new Set()),[search,setSearch]=useState(''),[debounced,setDebounced]=useState(''),[page,setPage]=useState(0),[missing,setMissing]=useState(false);
+ const [trackData,setTrackData]=useState<any>({items:[],total:0}),[selected,setSelected]=useState<Set<number>>(new Set()),[searchBySection,setSearchBySection]=useState<Record<string,string>>({}),[debounced,setDebounced]=useState(''),[page,setPage]=useState(0),[missing,setMissing]=useState(false);
+ const search=searchBySection[section]||'';
+ const setSearch=(value:string)=>setSearchBySection(previous=>({...previous,[section]:value}));
  const [librarySort,setLibrarySort]=useState<'name'|'artist'|'album'|'genre'|'duration'>('name'),[libraryDirection,setLibraryDirection]=useState<'asc'|'desc'>('asc'),[libraryIds,setLibraryIds]=useState<number[]>([]),[copyBuffer,setCopyBuffer]=useState<number[]>([]);const lastLibrarySelected=useRef<number|null>(null);
  const [overview,setOverview]=useState<any>(null),[duplicateGroups,setDuplicateGroups]=useState<any[]>([]),[groupSelection,setGroupSelection]=useState<Set<number>>(new Set()),[dupMode,setDupMode]=useState('metadata');
  const [playlistData,setPlaylistData]=useState<any[]>([]),[history,setHistory]=useState<any[]>([]),[transfers,setTransfers]=useState<any[]>([]),[edits,setEdits]=useState<any[]>([]);
