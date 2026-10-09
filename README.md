@@ -33,10 +33,19 @@ npm run desktop
 
 For the Windows installer and full validation, use `scripts/build-windows.ps1` on Windows. See [build notes](BUILD.md), [test guide](TESTING.md), and [validation evidence](docs/VALIDATION.md).
 
+## ⚠️ Important limits
+
+- 🪟 The published Windows installer is unsigned. Test first with a disposable library and verified backups.
+- 🎵 Live library edits require classic iTunes on Windows; Apple Music for Windows does not provide the required COM interface.
+- 🧩 Missing Tracks can infer gaps only when track numbers and track-count metadata are available. It cannot prove a track is missing when source metadata is incomplete.
+- 🎨 Playlist pictures are saved in iTunes Manager. Writing them into live iTunes depends on an artwork setter that the installed COM interface may not expose.
+- 🎧 Last.fm is optional and read-only. It needs your API key, username, and internet access; some pictures may be unavailable.
+- 🧪 Automated build checks do not replace manual tests with the target Windows and classic iTunes versions. See [known limits](docs/LIMITATIONS.md) and [validation evidence](docs/VALIDATION.md).
+
 ## 🛡️ Safety notes
 
 Review every preview before confirming. Delete and duplicate actions in Current Library require confirmation; delete makes and verifies a safety copy before removing the original file. Clearing the Field journal removes app-side undo references. Playlist operations refuse unsafe COM workarounds. Backups and transfer manifests are stored separately.
 
 ## 🗂️ Project map
 
-See the [file and folder guide](docs/REPOSITORY_LABELS.md), [workspace guide](docs/WORKSPACE_GUIDE.md), [known limits](docs/LIMITATIONS.md), [Last.fm guide](docs/LASTFM.md), and [release notes](docs/RELEASE_1_0_0.md). Third-party license notices remain in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+See the [file and folder guide](docs/REPOSITORY_LABELS.md), [workspace guide](docs/WORKSPACE_GUIDE.md), [known limits](docs/LIMITATIONS.md), [feature coverage](docs/FEATURE_PARITY.md), [Last.fm guide](docs/LASTFM.md), and [complete v1.0.0 release notes](docs/RELEASE_1_0_0.md). The release notes combine current fixes with improvements carried forward from pre-release 1.0, 2.0, 3.0, 3.1.0, and 3.1.1. Third-party license notices remain in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
