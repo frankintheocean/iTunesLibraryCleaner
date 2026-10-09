@@ -975,21 +975,19 @@
 | `docs/RELEASE_3_1_1.md` | 🛠️ Historical v3.1.1 release guide |
 
 
-## 🆕 Version 4.0.0 files and guides
+## 🩹 Version 1.0.0 hotfix files and guides
 
 | Path | Purpose |
 | --- | --- |
-| `.github/README.md` | 🐙 GitHub automation overview |
-| `.github/workflows/README.md` | 🚦 Workflow guide |
-| `backend/README.md` | 🔌 Backend module map |
-| `desktop/README.md` | 🖥️ Desktop-shell map |
-| `docs/README.md` | 📚 Documentation index |
-| `docs/CURRENT_LIBRARY.md` | 📚 Sort, select, copy, duplicate, and delete songs |
-| `docs/RELEASE_4_0_0.md` | 📦 v4.0.0 release notes and download names |
-| `frontend/README.md` | 🎛️ Interface folder guide |
-| `frontend/src/README.md` | 🧩 Component/source guide |
-| `legacy/README.md` | 🏛️ Preserved original-tool guide |
-| `resources/README.md` | 🖼️ Asset and licence guide |
-| `scripts/README.md` | 🧰 Build and maintenance-script guide |
-| `tests/README.md` | 🧪 Test suite guide |
-| `docs/WORKSPACE_GUIDE.md` | 🧭 Everyday app workflow guide |
+| `docs/README.md` | 📚 Find the right user or developer guide |
+| `docs/CURRENT_LIBRARY.md` | 🔎 Browse, sort, select, copy, duplicate, and delete songs |
+| `docs/RELEASE_1_0_0.md` | 📦 Stable 1.0.0 release notes and download names |
+| `docs/WORKSPACE_GUIDE.md` | 🧭 Learn everyday workspace tasks |
+| `frontend/src/resources/app-icon.svg` | 🎨 Scalable music-library icon artwork |
+| `frontend/src/widgets.tsx` | 🧰 Shared artwork and playlist display helpers |
+| `backend/artwork.py` | 🖼️ Safe image thumbnails and artwork caching |
+| `backend/lastfm.py` | 🎤 Last.fm charts and artist-picture lookup |
+| `backend/com_service.py` | 🔗 Read live iTunes tracks, playlists, and artwork |
+| `backend/service.py` | ⚙️ Library indexing, statistics, and playlist services |
+
+**Label style:** use a plain-language purpose, one leading emoji that is not reused nearby, and a short sentence fragment. Keep labels factual: if a feature depends on iTunes COM or a configured Last.fm connection, say so rather than promising it always works.
