@@ -468,7 +468,7 @@ class Service:
 
     def playlists(self, identity):
         library = self.library(identity)
-        return [{'index': i, 'name': p.name, 'ids': p.track_ids(), 'broken': [tid for tid in p.track_ids() if tid not in library.tracks], 'duplicates': len(p.track_ids()) - len(set(p.track_ids())), 'smart': p.is_smart} for i, p in enumerate(library.playlists)]
+        return [{'index': i, 'name': p.name, 'ids': p.track_ids(), 'broken': [tid for tid in p.track_ids() if tid not in library.tracks], 'duplicates': len(p.track_ids()) - len(set(p.track_ids())), 'smart': p.is_smart, 'tracks': [{'id': tid, 'name': library.tracks[tid].name, 'artist': library.tracks[tid].artist} for tid in p.track_ids() if tid in library.tracks]} for i, p in enumerate(library.playlists)]
 
     def playlist_export(self, identity, index, output):
         library = self.library(identity); playlist = library.playlists[index]
