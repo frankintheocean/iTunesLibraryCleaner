@@ -1,4 +1,4 @@
-# 🎵 iTunes Manager 4.0.0
+# 🎵 iTunes Manager
 
 A local Windows desktop app for browsing, cleaning, and editing music libraries. Your library stays on your device.
 
