@@ -129,6 +129,7 @@ class PlaylistImport(Model):
 
 class PlaylistCover(Model):
     index: int = Field(ge=0)
+    image: str = ''
 
 
 class PlaylistOrder(Model):
