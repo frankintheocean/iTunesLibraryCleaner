@@ -20,6 +20,10 @@ To remove settings or caches afterward, review the user-data folder first. It ma
 
 ## 💾 Data locations
 
-By default, app data is in Electron's per-user `Unified iTunes Library Manager` folder under Windows AppData. Set `LIBRARY_MANAGER_DATA_DIR` only when you need a separate development or test folder. Music stays in the folders you choose.
+By default, app data is in the existing per-user `Unified iTunes Library Manager` folder under Windows AppData. Set `LIBRARY_MANAGER_DATA_DIR` only when you need a separate development or test folder. Music stays in the folders you choose.
 
 The original tools run from writable `legacy/cleaner` and `legacy/consolidator` folders under app data, with their own interfaces and state.
+
+## 🔄 Upgrade to 2.0.0
+
+The app is now called **iTunes Manager**. Its application ID and data folder stay the same, so your libraries, settings, history and backups remain available. Close the old app before installing the new version.
