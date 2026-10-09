@@ -1,8 +1,8 @@
 {
-  "name": "unified-itunes-library-manager",
-  "version": "1.0.0",
-  "description": "A unified, safe music library workspace with live iTunes editing",
-  "author": "Unified iTunes Library Manager contributors",
+  "name": "itunes-manager",
+  "version": "2.0.0",
+  "description": "Manage music libraries and edit live iTunes",
+  "author": "iTunes Manager contributors",
   "license": "GPL-3.0-only",
   "private": true,
   "main": "desktop/main.cjs",
@@ -38,7 +38,7 @@
   },
   "build": {
     "appId": "org.unifieditunes.librarymanager",
-    "productName": "Unified iTunes Library Manager",
+    "productName": "iTunes Manager",
     "directories": {
       "output": "dist/windows"
     },
@@ -79,7 +79,7 @@
       "include": "scripts/installer.nsh"
     },
     "npmRebuild": false,
-    "artifactName": "Unified-iTunes-Library-Manager-1.0-win-${arch}.${ext}"
+    "artifactName": "iTunes-Manager-2.0.0-win-${arch}.${ext}"
   },
   "overrides": {
     "sprintf-js": "1.1.4"
