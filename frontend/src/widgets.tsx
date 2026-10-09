@@ -24,7 +24,7 @@ export function TaskTime({job}:{job:any}){
  const [now,setNow]=useState(Date.now()/1000);
  useEffect(()=>{setNow(Date.now()/1000);if(job.status!=='running')return;const timer=setInterval(()=>setNow(Date.now()/1000),1000);return()=>clearInterval(timer);},[job.status,job.sampled_at]);
  const elapsed=(job.elapsed_seconds||0)+(job.status==='running'?Math.max(0,now-(job.sampled_at||now)):0);
- const remaining=job.progress>0&&job.progress<100?elapsed*(100-job.progress)/job.progress:null;
- const eta=job.status==='queued'?'Waiting':job.status==='paused'?'Paused':job.status==='running'?(remaining===null?'Estimating…':'~'+formatTime(remaining)):job.status==='complete'?'Done':'Stopped';
+ const remaining=job.eta_end==null?null:Math.max(0,job.eta_end-elapsed);
+ const eta=job.status==='queued'?'Waiting':job.status==='paused'?'Paused':job.status==='running'?(remaining===null?'Starting…':remaining<=0?'Taking longer than estimated…':'~'+formatTime(remaining)):job.status==='complete'?'Done':'Stopped';
  return <small className="task-time">⏱️ Elapsed {formatTime(elapsed)}<br/>🏁 ETA {eta}</small>;
 }
