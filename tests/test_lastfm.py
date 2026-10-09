@@ -243,3 +243,61 @@ def test_other_old_cdn_link_forms_are_normalized_without_unsafe_ports(source):
  assert image_url(source)=='https://lastfm.freetls.fastly.net/i/u/photo.png'
  assert image_url('//127.0.0.1/private')==''
  assert image_url('http://lastfm.freetls.fastly.net:8080/private')==''
+
+
+@pytest.mark.parametrize('period', ['overall', '7day', '1month', '3month', '6month', '12month'])
+def test_dashboard_fix_backfills_top_songs_missing_art_for_all_periods(client, monkeypatch, period):
+ c,s=client;connect_fixture(monkeypatch);c.post('/lastfm/connect',json={'api_key':KEY,'username':'Listener'})
+ def request(url,**kw):
+  p=kw['params']
+  if p['method']=='user.getTopTracks':
+   assert p['period']==period
+   return response({'toptracks':{'track':[{'name':'Coffee','artist':{'name':'beabadoobee'},'image':[],'playcount':'12'}],'@attr':{'totalPages':'1'}}})
+  if p['method']=='track.getInfo':
+   return response({'track':{'album':{'title':'Live in LA','image':[{'#text':IMAGE}]}}})
+  raise AssertionError(p['method'])
+ monkeypatch.setattr('backend.lastfm.requests.get',request)
+ result=c.get('/lastfm/charts?view=tracks&period='+period+'&refresh=true')
+ assert result.status_code==200 and result.json()['items'][0]['image']==IMAGE
+
+
+def test_dashboard_fix_recent_track_uses_album_name_to_recover_art(client,monkeypatch):
+ c,s=client;connect_fixture(monkeypatch);c.post('/lastfm/connect',json={'api_key':KEY,'username':'Listener'})
+ calls=[]
+ def request(url,**kw):
+  p=kw['params'];calls.append(p['method'])
+  if p['method']=='user.getRecentTracks':
+   return response({'recenttracks':{'track':[{'name':'Coffee','artist':{'name':'beabadoobee'},'album':{'#text':'Live in LA'},'image':[]}] ,'@attr':{'totalPages':'1'}}})
+  if p['method']=='track.getInfo':
+   return response({'track':{'album':{}}})
+  if p['method']=='album.getInfo':
+   assert p['album']=='Live in LA'
+   return response({'album':{'image':[{'#text':IMAGE}]}})
+  raise AssertionError(p['method'])
+ monkeypatch.setattr('backend.lastfm.requests.get',request)
+ result=c.get('/lastfm/charts?view=recent&refresh=true')
+ assert result.status_code==200 and result.json()['items'][0]['image']==IMAGE
+ assert calls==['user.getRecentTracks','track.getInfo','album.getInfo']
+
+
+def test_dashboard_fix_artist_and_album_info_recover_missing_art(client,monkeypatch):
+ c,s=client;connect_fixture(monkeypatch);c.post('/lastfm/connect',json={'api_key':KEY,'username':'Listener'})
+ def request(url,**kw):
+  p=kw['params']
+  if p['method']=='user.getTopArtists':
+   return response({'topartists':{'artist':[{'name':'beabadoobee','image':[]}] ,'@attr':{'totalPages':'1'}}})
+  if p['method']=='artist.getInfo':
+   return response({'artist':{'image':[{'#text':IMAGE}]}})
+  raise AssertionError(p['method'])
+ monkeypatch.setattr('backend.lastfm.requests.get',request)
+ result=c.get('/lastfm/charts?view=artists&period=overall&refresh=true')
+ assert result.status_code==200 and result.json()['items'][0]['image']==IMAGE
+
+
+def test_dashboard_fix_picture_endpoint_preserves_remote_url_when_local_fetch_fails(client,monkeypatch):
+ c,s=client;connect_fixture(monkeypatch);c.post('/lastfm/connect',json={'api_key':KEY,'username':'Listener'})
+ monkeypatch.setattr(s.lastfm,'image',lambda *a,**k:{'image':None})
+ monkeypatch.setattr(s.lastfm,'_request',lambda *a,**k:(_ for _ in ()).throw(RuntimeError('offline')))
+ monkeypatch.setattr(s.lastfm,'_page_picture',lambda path:'')
+ result=c.post('/lastfm/picture',json={'kind':'track','name':'Coffee','artist':'beabadoobee','url':IMAGE})
+ assert result.status_code==200 and result.json()=={'image':None,'url':IMAGE}

@@ -34,6 +34,7 @@ class LastFMPicture(Model):
     kind: Literal['profile', 'track', 'album', 'artist']
     name: str = Field(min_length=1, max_length=512)
     artist: str = Field(default='', max_length=512)
+    album: str = Field(default='', max_length=512)
     url: str = Field(default='', max_length=2048)
 
 
@@ -256,7 +257,7 @@ def create_app(data_dir, token, ready=None):
     def lastfm_image(body: LastFMImage): return service.lastfm.image(body.url)
 
     @app.post('/lastfm/picture')
-    def lastfm_picture(body: LastFMPicture): return service.lastfm.resolve_picture(body.kind, body.name, body.artist, body.url)
+    def lastfm_picture(body: LastFMPicture): return service.lastfm.resolve_picture(body.kind, body.name, body.artist, body.url, body.album)
 
     @app.post('/lastfm/track-image')
     def lastfm_track_image(body: LastFMTrackImage): return service.lastfm.track_image(body.name, body.artist)
