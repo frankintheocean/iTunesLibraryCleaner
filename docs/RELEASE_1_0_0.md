@@ -13,7 +13,7 @@ A major update focused on browsing the full library, richer collection statistic
 - Copy a selection within the app, duplicate tracks, paste a copied selection as new local media files, or delete songs from live iTunes and disk. Deletions use confirmation, review, signature checks and verified safety copies. Library write actions require live classic iTunes.
 
 ## 📊 Overview and playlists
-- Add Library Stats between Genre Mix and Library Health with top 10 artists by distinct available albums, oldest/newest top-five song and album release dates, and longest/shortest top-five songs and albums with readable durations.
+- Add Library Stats between Genre Mix and Library Health, with a statistic selector, Top 5 / 10 / 25 / 50 / 100 result limits, pagination, available song/album artwork, and Last.fm artist portraits where configured.
 - Add the **View library** shortcut beside **Find duplicates**.
 - Move the Libraries and History screens into Settings' Library shortcuts.
 - Choose up/down controls or drag-and-drop to reorder entries in regular playlists. The queued operation attempts a playlist-only move method when the installed COM interface exposes one, then verifies read-back. If no safe method is exposed, it refuses the reorder without deleting tracks or changing other playlists. Smart playlists, special/system playlists, and repeated entries are blocked for safety.
