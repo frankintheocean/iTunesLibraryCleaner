@@ -5,8 +5,8 @@ Validated on Linux with Python 3.12.14 and Node 24.19.0. Source tests and Window
 | Check | Actual result |
 | --- | --- |
 | Original source preservation | All 86 supplied project files verified; the documented Last.fm credential removal and guide wording changes are documented (`scripts/verify-originals.py`) |
-| Python suites | 190 passed: 141 original Consolidator tests plus 49 unified domain/API/filesystem/COM-contract cases |
-| IPC contracts | 2 Node tests passed: endpoint/method restrictions and payload limits |
+| Python suites | 196 passed: 141 original Consolidator tests plus 55 unified domain/API/filesystem/COM-contract cases |
+| IPC contracts | 3 Node tests passed: endpoint/method restrictions and payload limits |
 | Frontend | TypeScript check and Vite 8.3.4 production build passed |
 | Desktop integration | Passed: actual Electron + backend startup, synthetic 120-track scan, virtualized table, preview/commit of a real file-tag update, persisted dark theme, all 11 navigation sections, maximize/restore and 820×620 layout |
 | Linux PyInstaller bundle | Built and exercised: startup with authentication, real XML scan, SQLite index, playlist and bundled changelog |
@@ -15,7 +15,7 @@ Validated on Linux with Python 3.12.14 and Node 24.19.0. Source tests and Window
 | Windows Python dependencies | Every pinned CPython 3.12 win_amd64 wheel downloaded successfully, including pywin32/Qt/PyInstaller. Not a Windows execution test |
 | Dependency advisories | npm audit and pip-audit of the full Linux Python lock reported zero known advisories after pinned updates |
 | Icon | Original generated source plus PNG sizes; ICO includes 16, 24, 32, 48, 64, 128 and 256 px |
-| Source ZIP | `scripts/package-source.py` verifies archive integrity and exactly one `Unified-iTunes-Library-Manager/` root; SHA-256 supplied beside ZIP |
+| Source ZIP | `scripts/package-source.py` verifies archive integrity and exactly one `iTunes-Manager/` root; SHA-256 supplied beside ZIP |
 | Real iTunes COM | User-run source script reported PASS on Apple-distributed iTunes 12.13.11.1 after the Dispatch fallback fix: all 14 live metadata fields, independent readback and undo that keeps later changes. Detailed JSON/high-bit PID coverage not supplied; live editing through the installed app and dialog/restart checks remain. Contract tests cover signed persistent IDs, live multi-field edits, readback, busy reconnect, concurrent changes, partial outcomes, DRM rejection and optional members |
 | Windows installer/repair/uninstall | Passed on Windows Server 2022 x64: actual NSIS install, packaged Electron workflow, repair of a deleted backend, uninstall/reinstall and unchanged saved app data. Run [37873855493](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37873855493); Windows 10/11 manual checks remain |
 
@@ -32,3 +32,7 @@ Earlier failures were fixed: an archive had the wrong extension, Electron needed
 See [known limits](LIMITATIONS.md) for incomplete requested features. Advanced original workflows remain available in the original tools. This is a testing preview, not a claim that every requested feature or Windows production check is complete. See [required checks](../TESTING.md).
 
 Reusable install and startup instructions were saved to the cloud environment draft. Saving that draft did not publish the environment. To keep it, review and save the draft in environment settings, then publish it there.
+
+## 🎵 Version 2.0.0 checks
+
+Six new Python tests cover safe queue clearing, elapsed-time pausing, old-database upgrades, bounded artwork, preferences and signed-ID live-artwork access. The desktop test checks whole-page heading scroll, centered title text, embedded covers, genre percentages, queue clearing, OLED black backgrounds, font selection and enlarged text, plus the existing scan/edit workflow. Windows 2.0.0 installer evidence is added after its build passes. Real installed-app live iTunes and live artwork remain pending.
