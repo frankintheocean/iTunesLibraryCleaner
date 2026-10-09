@@ -34,6 +34,6 @@ Live scans read the actual iTunes COM collection and verify the library ID and t
 
 ## 🎧 Listening data
 
-`backend/lastfm.py` reads profile and chart data over HTTPS. Its API key is kept outside general preferences, never returned to the renderer, and removed on disconnect. Only approved Last.fm image hosts can be fetched; redirects are disabled and downloads are bounded. The renderer receives small data-URL pictures, so the existing content policy stays unchanged. Last.fm has no account-write or scrobbling methods.
+`backend/lastfm.py` reads profile and chart data over HTTPS. Its API key is kept outside general preferences, never returned to the renderer, and removed on disconnect. Only approved Last.fm image hosts can be fetched; each CDN redirect is checked and downloads are bounded. Missing pictures can be resolved through Last.fm metadata or public page image tags, without running page scripts. The renderer receives small data-URL pictures, so the existing content policy stays unchanged. Last.fm has no account-write or scrobbling methods.
 
 Live COM scans use a progress-aware stall deadline and a six-hour hard limit. Metadata writes retain a fixed deadline and field records. Slow scans check cancellation while waiting, including before the first progress message.
