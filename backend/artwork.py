@@ -7,11 +7,11 @@ from PIL import Image, UnidentifiedImageError
 from . import legacy
 
 
-def encode_thumbnail(data):
+def encode_thumbnail(data, size=96):
     if not data or len(data) > 20 * 1024 * 1024: return None
     try:
         with Image.open(BytesIO(data)) as image:
-            image.thumbnail((96, 96))
+            image.thumbnail((size, size))
             output = BytesIO()
             image.convert('RGB').save(output, format='JPEG', quality=80)
             return 'data:image/jpeg;base64,' + base64.b64encode(output.getvalue()).decode()
