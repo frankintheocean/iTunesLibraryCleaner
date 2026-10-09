@@ -5,6 +5,7 @@ import {LayoutDashboard,Library,Brush,FolderInput,Copy,Tags,ListMusic,FolderTree
 import {api,choose} from './api';
 import {useWorkspace} from './state';
 import './style.css';
+import './resources/app-icon.svg';
 import {AlbumArt, PlaylistSongs, TaskTime} from './widgets';
 import {LastFM} from './LastFM';
 const sections=[['Overview',LayoutDashboard],['Current Library',Library],['Missing Tracks',Library],['Library Cleaner',Brush],['Consolidation',FolderInput],['Duplicates',Copy],['Metadata',Tags],['Playlists',ListMusic],['File Organizer',FolderTree],['Queue',ListTodo],['Last.fm',Music2],['Settings',Settings]] as const;
