@@ -26,7 +26,7 @@ The Windows release includes an installer, portable Windows ZIP and source ZIP, 
 
 ---
 
-## 🎵 3.1.1 — Pictures and scan timing
+### 🎧 Carried forward from 3.1.1 — Pictures and scan timing
 
 ### 🐛 Fixes
 
@@ -41,7 +41,7 @@ The Windows release includes an installer, portable Windows ZIP and source ZIP, 
 - Choose a library only in Overview. That selection stays active in every library tool.
 - Keep library removal available in Libraries.
 
-## 🎵 3.1.0 — Last.fm and large live scans
+### 🎧 Carried forward from 3.1.0 — Last.fm and large live scans
 
 ### 🐛 Fixes
 
