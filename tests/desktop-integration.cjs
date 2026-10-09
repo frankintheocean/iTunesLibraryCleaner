@@ -56,7 +56,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  await page.waitForSelector('.preview-data');
  assert.ok((await page.locator('.preview-data').innerText()).includes('Indie'));
  await page.getByRole('button',{name:'Confirm & queue operation'}).click();
- await page.waitForFunction(()=>document.querySelector('.job .pill')?.textContent==='complete',{timeout:15000});
+ await page.waitForFunction(()=>Array.from(document.querySelectorAll('.job')).some(job=>job.querySelector('h3')?.textContent==='Metadata'&&job.querySelector('.pill')?.textContent==='complete'),null,{timeout:30000});
  assert.ok((await page.locator('.task-time').first().innerText()).includes('Elapsed'));
  page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Clear queue',exact:true}).click();
  await page.waitForFunction(()=>!document.querySelector('.job'));
