@@ -5,7 +5,7 @@ Validated on Linux with Python 3.12.14 and Node 24.19.0. This report distinguish
 | Check | Actual result |
 | --- | --- |
 | Original source preservation | All 86 supplied project files verified; the documented Last.fm credential removal is the sole publication change (`scripts/verify-originals.py`) |
-| Python suites | 187 passed: 141 original Consolidator tests plus 46 unified domain/API/filesystem/COM-contract cases |
+| Python suites | 190 passed: 141 original Consolidator tests plus 49 unified domain/API/filesystem/COM-contract cases |
 | IPC contracts | 2 Node tests passed: endpoint/method restrictions and payload limits |
 | Frontend | TypeScript check and Vite 8.3.4 production build passed |
 | Desktop integration | Passed: actual Electron + backend startup, synthetic 120-track scan, virtualized table, preview/commit of a real file-tag update, persisted dark theme, all 11 navigation sections, maximize/restore and 820×620 layout |
@@ -16,7 +16,7 @@ Validated on Linux with Python 3.12.14 and Node 24.19.0. This report distinguish
 | Dependency advisories | npm audit and pip-audit of the full Linux Python lock reported zero known advisories after pinned updates |
 | Icon | Original generated source plus PNG sizes; ICO includes 16, 24, 32, 48, 64, 128 and 256 px |
 | Source ZIP | `scripts/package-source.py` verifies archive integrity and exactly one `Unified-iTunes-Library-Manager/` root; SHA-256 supplied beside ZIP |
-| Real iTunes COM | Not yet executed against classic iTunes. Windows contract tests passed; a real empty-library validation script is provided. Contract tests cover signed persistent IDs, live multi-field edits, readback, busy reconnect, concurrent changes, partial outcomes, DRM rejection and optional members |
+| Real iTunes COM | User-run source script reported PASS on Apple-distributed iTunes 12.13.11.1 after the Dispatch fallback fix: all 14 live metadata fields, independent readback and conditional undo. Detailed JSON/high-bit PID coverage not supplied; packaged live COM and modal/restart acceptance remain outstanding. Contract tests cover signed persistent IDs, live multi-field edits, readback, busy reconnect, concurrent changes, partial outcomes, DRM rejection and optional members |
 | Windows installer/repair/uninstall | Passed on Windows Server 2022 x64: actual NSIS install, packaged Electron workflow, repair of a deleted backend, uninstall/reinstall and byte-identical generated SQLite state preservation. Run [37870955008](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37870955008); Windows 10/11 manual acceptance remains outstanding |
 
 ## Important test limits
