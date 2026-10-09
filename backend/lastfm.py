@@ -20,10 +20,11 @@ PLACEHOLDERS = ('2a96cbd8b46e442fc41c2b86b821562f', 'c6f59c1e5e7240a4c0d427abd71
 def image_url(value):
     if not isinstance(value, str) or len(value) > 2048: return ''
     try:
+        if value.startswith('//'): value = 'https:' + value
         url = urlsplit(value)
-        if url.scheme not in ('http', 'https') or url.hostname not in IMAGE_HOSTS or url.port not in (None, 443) or url.username or url.password: return ''
+        if url.scheme not in ('http', 'https') or url.hostname not in IMAGE_HOSTS or (url.port not in (None, 443) and not (url.scheme == 'http' and url.port == 80)) or url.username or url.password: return ''
         if any(p in value for p in PLACEHOLDERS): return ''
-        return urlunsplit(('https', url.netloc, url.path, url.query, ''))
+        return urlunsplit(('https', url.hostname, url.path, url.query, ''))
     except ValueError: return ''
 
 
