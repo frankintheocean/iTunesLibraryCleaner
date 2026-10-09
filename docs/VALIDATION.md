@@ -39,8 +39,10 @@ Six new Python tests cover safe queue clearing, elapsed-time pausing, old-databa
 
 ## 🎵 Version 3.0.0 checks
 
-Linux source checks passed 209 Python tests, 4 IPC checks and the desktop scan/edit workflow. New cases cover snapshot publication while the old file is open, failed-save recovery, cached-library isolation, partial indexing, exact live-ID fallback, wrong-library refusal, queue timing, library removal, history clearing, default paths and playlist pictures. The desktop test also switches between a blank and loaded library during background refreshes. These tests use generated data.
+Linux source checks passed 210 Python tests, 4 IPC checks and the desktop scan/edit workflow. New cases cover snapshot publication while the old file is open, failed-save recovery, cached-library isolation, partial indexing, exact live-ID fallback, wrong-library refusal, queue timing, library removal, history clearing, default paths and playlist pictures. The desktop test also switches between a blank and loaded library during background refreshes. These tests use generated data.
 
-On the generated 40,000-song XML, v3 loading took 1.95 seconds versus 3.47 for v2. Searches took 16–33 ms. Cached overview lookup took 0.38 ms; a one-file title edit took 2.46 seconds versus 3.41. Run `scripts/benchmark-library.py --compare-v2` to repeat the comparison. These Linux fixture timings do not measure live COM or promise the same speed on other machines.
+On the generated 40,000-song XML, v3 loading took 2.17 seconds versus 3.21 for the v2 library and database code. Searches took 17–25 ms. Cached overview lookup took 0.74 ms; a one-file title edit took 2.52 seconds versus 3.32. Run `scripts/benchmark-library.py --compare-v2` to repeat the comparison. These Linux fixture timings do not measure live COM or promise the same speed on other machines.
 
 Windows release artifacts include a report tied to their exact source commit. Publication checks require that run to pass; this does not replace manual Windows 10/11 and real iTunes checks.
+
+The Windows archive check exposed database connections left open after transactions. The service now closes them explicitly, including failed transactions. A new test checks rollback, closed handles and removal of a closed database on Windows.
