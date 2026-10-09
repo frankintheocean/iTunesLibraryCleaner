@@ -332,7 +332,7 @@ class Service:
         la=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(-x['duration_seconds'],x['title'].casefold()))
         sa=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(x['duration_seconds'],x['title'].casefold()))
         for item in [*ls,*ss,*la,*sa]:item['duration']=self._duration_label(item['duration_seconds'])
-        stats={'top_artists':top[:100],'oldest_songs':sorted(ds,key=lambda x:(x['year'],x['name'].casefold()))[:100],'newest_songs':sorted(ds,key=lambda x:(-x['year'],x['name'].casefold()))[:100],'oldest_albums':sorted(old,key=lambda x:(x['year'],x['title'].casefold()))[:100],'newest_albums':sorted(new,key=lambda x:(-x['year'],x['title'].casefold()))[:100],'longest_songs':ls,'shortest_songs':ss,'longest_albums':la,'shortest_albums':sa}
+        stats={'top_artists':top[:100],'oldest_songs':sorted(ds,key=lambda x:(x['year'],x['name'].casefold()))[:100],'newest_songs':sorted(ds,key=lambda x:(-x['year'],x['name'].casefold()))[:100],'oldest_albums':sorted(old,key=lambda x:(x['year'],x['title'].casefold()))[:100],'newest_albums':sorted(new,key=lambda x:(-x['year'],x['title'].casefold()))[:100],'longest_songs':ls[:100],'shortest_songs':ss[:100],'longest_albums':la[:100],'shortest_albums':sa[:100]}
         from .artwork import thumbnail
         for stat_name in ('oldest_songs','newest_songs','longest_songs','shortest_songs'):
             for item in stats[stat_name]: item['image']=thumbnail(item.get('_path'))
