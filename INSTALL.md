@@ -1,6 +1,6 @@
 # Install, repair and uninstall
 
-A Windows installer is not included in this source release. Build it on Windows using BUILD.md and validate it using TESTING.md.
+Download the current Windows installer from the GitHub Releases link in README.md. Source ZIPs contain build tooling rather than installer binaries. Build instructions are in BUILD.md and acceptance coverage is recorded in docs/VALIDATION.md.
 
 The configured assisted NSIS installer supports choosing the installation directory, Start Menu and Desktop shortcuts and a Windows Apps & Features uninstall entry. Icons are assigned to Electron, installer, uninstaller and shortcuts.
 
