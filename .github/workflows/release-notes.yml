@@ -8,6 +8,7 @@ on:
       - 'docs/EARLIER_PREVIEW_RELEASE.md'
       - 'docs/RELEASE_2_0_0.md'
       - 'docs/RELEASE_3_0_0.md'
+      - 'docs/RELEASE_3_1_0.md'
   workflow_dispatch:
 permissions:
   contents: write
@@ -20,16 +21,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -euo pipefail
-          if gh release view v3.0.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            gh release edit v3.0.0 --repo "$GITHUB_REPOSITORY" --title '🎵 iTunes Manager 3.0.0' --notes-file docs/RELEASE_3_0_0.md
-            gh release edit v2.0.0 --repo "$GITHUB_REPOSITORY" --title '🕰️ Version 2.0.0 — replaced by 3.0.0' --notes-file docs/RELEASE_2_0_0.md
-            gh release edit v1.0 --repo "$GITHUB_REPOSITORY" --title '🕰️ Version 1.0 — replaced by 3.0.0' --notes-file docs/WINDOWS_PREVIEW_RELEASE.md
-            gh release edit v4.0.0-windows-preview --repo "$GITHUB_REPOSITORY" --title '🕰️ Earlier preview — replaced by 3.0.0' --notes-file docs/EARLIER_PREVIEW_RELEASE.md
-          else
-            gh release edit v1.0 --repo "$GITHUB_REPOSITORY" --title '🎵 1.0 Windows preview' --notes-file docs/WINDOWS_PREVIEW_RELEASE.md
-            gh release edit v4.0.0-windows-preview --repo "$GITHUB_REPOSITORY" --title '🕰️ Earlier preview — replaced by 1.0' --notes-file docs/EARLIER_PREVIEW_RELEASE.md
-            if gh release view v2.0.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-              gh release edit v2.0.0 --repo "$GITHUB_REPOSITORY" --title '🎵 iTunes Manager 2.0.0' --notes-file docs/RELEASE_2_0_0.md
-            fi
-          fi
+          python - <<'PY'
+          import json, os, subprocess
+          repo = os.environ['GITHUB_REPOSITORY']
+          pages = json.loads(subprocess.check_output(['gh', 'api', f'repos/{repo}/releases', '--paginate', '--slurp'], text=True))
+          tags = {item['tag_name'] for page in pages for item in page}
+          known = [('v3.1.0', '3.1.0', 'docs/RELEASE_3_1_0.md'), ('v3.0.0', '3.0.0', 'docs/RELEASE_3_0_0.md'), ('v2.0.0', '2.0.0', 'docs/RELEASE_2_0_0.md'), ('v1.0', '1.0', 'docs/WINDOWS_PREVIEW_RELEASE.md'), ('v4.0.0-windows-preview', 'Earlier preview', 'docs/EARLIER_PREVIEW_RELEASE.md')]
+          latest = next((version for tag, version, _ in known if tag in tags), None)
+          for tag, version, guide in known:
+              if tag not in tags:
+                  print(f'{tag}: no published release to update')
+                  continue
+              title = f'🎵 iTunes Manager {version}' if version == latest else f'🕰️ {version} — replaced by {latest}'
+              subprocess.run(['gh', 'release', 'edit', tag, '--repo', repo, '--title', title, '--notes-file', guide], check=True)
+          PY
