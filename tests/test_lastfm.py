@@ -236,3 +236,10 @@ def test_failed_picture_is_retried_on_refresh_not_cached_permanently(client,monk
  assert s.lastfm.image(IMAGE)['image'] is None
  monkeypatch.setattr('backend.lastfm.requests.get',lambda *a,**k:image_response(png()))
  assert s.lastfm.image(IMAGE)['image'].startswith('data:')
+
+
+@pytest.mark.parametrize('source',['//lastfm.freetls.fastly.net/i/u/photo.png','http://lastfm.freetls.fastly.net:80/i/u/photo.png'])
+def test_other_old_cdn_link_forms_are_normalized_without_unsafe_ports(source):
+ assert image_url(source)=='https://lastfm.freetls.fastly.net/i/u/photo.png'
+ assert image_url('//127.0.0.1/private')==''
+ assert image_url('http://lastfm.freetls.fastly.net:8080/private')==''
