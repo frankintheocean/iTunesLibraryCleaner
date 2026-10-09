@@ -302,7 +302,7 @@ def test_live_scan_uses_documented_playlist_source_and_persistent_ids():
  result=scan_library(app)
  assert result['tracks']['1']['Persistent ID']=='FFFFFFFF80000000'
  assert result['tracks']['1']['Total Time']==1000
- assert result['playlists']==[{'Name':'Synthetic playlist','Playlist Persistent ID':'FFFFFFFF00000002','Playlist Items':[{'Track ID':2},{'Track ID':1}]}]
+ assert result['playlists']==[{'Name':'Synthetic playlist','Playlist Persistent ID':'FFFFFFFF00000002','Playlist Items':[{'Track ID':2},{'Track ID':1}],'Playlist Artwork Data':None}]
 
 
 def test_com_connection_activates_when_running_object_is_unavailable():
