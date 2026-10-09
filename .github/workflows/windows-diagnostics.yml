@@ -1,4 +1,4 @@
-name: Windows build diagnostics
+name: Build and release diagnostics
 on:
   push:
     branches: [main]
@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       run_id:
-        description: 'Windows run to inspect'
+        description: 'Workflow run to inspect'
         required: true
-        default: '37895127252'
+        default: '37902844832'
 permissions:
   contents: read
   actions: read
@@ -16,10 +16,10 @@ jobs:
   logs:
     runs-on: ubuntu-latest
     steps:
-      - name: Read failed Windows steps
+      - name: Read failed workflow steps
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RUN_ID: ${{ inputs.run_id || '37895127252' }}
+          RUN_ID: ${{ inputs.run_id || '37902844832' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -29,5 +29,5 @@ jobs:
           from pathlib import Path
           text = '\n'.join(Path('failed.log').read_text().splitlines()[-45:])[-7000:]
           text = text.replace('%','%25').replace('\r','%0D').replace('\n','%0A')
-          print('::warning title=Windows failure details::'+text)
+          print('::warning title=Workflow failure details::'+text)
           PY
