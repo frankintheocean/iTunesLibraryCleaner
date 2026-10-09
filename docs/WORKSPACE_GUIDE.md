@@ -61,3 +61,11 @@ In Libraries, **Remove** hides a discovered suggestion. It does not delete its f
 ## ⏳ Large live scans
 
 A live iTunes scan can continue beyond 15 minutes while songs or playlist links are being read. If no forward progress arrives for 15 minutes, or the scan reaches six hours, it stops and keeps the previous saved copy. Check iTunes for an open dialog before retrying. Reading does not change live metadata. Queue’s cancel control stops a slow read without publishing an incomplete scan.
+
+## 🧭 Choose once
+
+Choose the active library in **Overview**. The other library tools use that selection, so their headers do not repeat the picker. Adding or opening a library in Libraries still sets the active collection. Remove loaded libraries from their cards in Libraries.
+
+## ⏱️ Scan time left
+
+A scan first measures its actual speed. It then shows a countdown based on songs or playlist links read. It does not use a short default or the time from an unrelated small scan. During final saving, Queue shows **Saving library…** until work completes. Timings still depend on iTunes, the drive and the work.
