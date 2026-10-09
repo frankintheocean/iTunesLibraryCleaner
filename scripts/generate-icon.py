@@ -30,7 +30,16 @@ draw.ellipse((292, 333, 342, 383), fill="#F3F5F7")
 draw.ellipse((346, 309, 396, 359), fill="#F3F5F7")
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 image.save(OUTPUT, format="ICO", sizes=[(256,256),(128,128),(64,64),(48,48),(32,32),(16,16)])
+expected_sizes = {(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)}
 with Image.open(OUTPUT) as check:
-    if check.format != "ICO" or check.size != (256, 256):
-        raise SystemExit("Generated app icon failed validation.")
-print(f"Generated and validated {OUTPUT} ({OUTPUT.stat().st_size} bytes)")
+    available_sizes = set(check.ico.sizes()) if check.format == "ICO" else set()
+    if check.format != "ICO" or not expected_sizes.issubset(available_sizes):
+        raise SystemExit(f"Generated app icon failed size validation: {sorted(available_sizes)}")
+    for dimensions in expected_sizes:
+        variant = check.ico.getimage(dimensions)
+        variant.load()
+        if variant.size != dimensions or variant.mode not in {"RGBA", "RGB"}:
+            raise SystemExit(f"Generated app icon variant failed validation: {dimensions}")
+if OUTPUT.stat().st_size < 1024:
+    raise SystemExit("Generated app icon is unexpectedly small.")
+print(f"Generated and validated {OUTPUT} with sizes {sorted(expected_sizes)} ({OUTPUT.stat().st_size} bytes)")
