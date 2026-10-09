@@ -19,6 +19,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  await page.waitForFunction(()=>document.querySelector('header select')?.value?.length===32);
  await page.getByRole('button',{name:'Overview',exact:true}).click();
  await page.waitForSelector('.hero',{timeout:15000});
+ assert.equal(await page.getByLabel('Open GitHub repository').count(),0);
  await page.waitForFunction(()=>document.querySelector('.stat strong')?.textContent==='120');
  assert.ok((await page.locator('.stat').first().innerText()).includes('120'));
  assert.match(await page.locator('.genre-chart small').first().innerText(),/17% \(20\)/);
@@ -62,6 +63,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Clear queue',exact:true}).click();
  await page.waitForFunction(()=>!document.querySelector('.job'));
  await page.getByRole('button',{name:'Settings',exact:true}).click();
+ assert.equal(await page.getByLabel('Open GitHub repository').count(),1);
  await page.getByRole('button',{name:'Apple Dark',exact:true}).click();
  await page.waitForFunction(()=>document.documentElement.dataset.theme==='Apple Dark');
  await page.getByRole('button',{name:'OLED Ocean',exact:true}).click();
@@ -82,14 +84,57 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Clear history',exact:true}).click();
  await page.waitForFunction(()=>!document.querySelector('.history-item'));
  assert.ok((await page.evaluate(()=>window.libraryManager.request('/edits','GET'))).length>0);
+ await page.getByRole('button',{name:'Settings',exact:true}).click();
+ await page.getByLabel('Default library XML path').fill(fixturePath);
+ await page.getByRole('button',{name:'Save default path',exact:true}).click();
+ await page.getByText('Default library path saved.',{exact:true}).waitFor();
  await page.getByRole('button',{name:'Libraries',exact:true}).click();
  const blankCard=page.locator('.profile-card').filter({has:page.getByRole('heading',{name:'A blank library',exact:true})});
  page.once('dialog',dialog=>dialog.accept());await blankCard.getByRole('button',{name:'Remove',exact:true}).click();
  await page.waitForFunction(()=>!Array.from(document.querySelector('header select').options).some(option=>option.text==='A blank library'));
  assert.equal(await page.getByLabel('Active library').inputValue(),loadedProfile);
+ // Hide and restore discovered paths without changing the selected library.
+ const found=page.locator('.health-row').filter({has:page.getByRole('button',{name:/Remove discovered location/})});
+ const suggestions=await found.count();assert.ok(suggestions>0);
+ const hiddenPath=await found.first().locator('.path').innerText();
+ await found.first().getByRole('button',{name:/Remove discovered location/}).click();
+ await page.waitForFunction(path=>!Array.from(document.querySelectorAll('.health-row .path')).some(node=>node.textContent===path),hiddenPath);
+ assert.equal(await page.getByLabel('Active library').inputValue(),loadedProfile);
+ await page.getByRole('button',{name:'Restore suggestions',exact:true}).click();
+ await page.waitForFunction(path=>Array.from(document.querySelectorAll('.health-row .path')).some(node=>node.textContent===path),hiddenPath);
+ // Provider data is simulated here; backend/provider contracts run in Python.
+ // Existing library requests keep their real local service handler.
+ const cover=await page.evaluate(path=>window.libraryManager.request('/artwork/read','POST',{path}),path.join(data,'song.flac'));assert.ok(cover.image);
+ await app.evaluate(({ipcMain},image)=>{
+  const original=ipcMain._invokeHandlers.get('library:request');let connected=false;
+  const user={name:'TestListener',display_name:'Test Listener',image:'https://lastfm.freetls.fastly.net/i/u/profile.png',play_count:48000,country:'Test'};
+  ipcMain.removeHandler('library:request');
+  ipcMain.handle('library:request',async(event,request)=>{
+   if(!request.path.startsWith('/lastfm/'))return original(event,request);
+   if(request.path==='/lastfm/status')return {connected,user:connected?user:null};
+   if(request.path==='/lastfm/connect'){if(request.body.username==='Unknown')throw new Error('Last.fm could not find that username.');connected=true;return {connected,user};}
+   if(request.path==='/lastfm/disconnect'){connected=false;return {connected,user:null};}
+   if(request.path==='/lastfm/image'||request.path==='/lastfm/track-image')return {image};
+   if(request.path.startsWith('/lastfm/charts')){const q=new URL(request.path,'http://localhost').searchParams;return {items:[{name:'Demo '+q.get('view')+' '+q.get('period'),artist:'Demo artist',album:'Demo album',image:user.image,plays:123,now_playing:true,timestamp:1700000000}],page:Number(q.get('page')),pages:2};}
+   throw new Error('Unexpected Last.fm fixture request');
+  });
+ },'data:image/png;base64,'+cover.image);
+ await page.getByRole('button',{name:'Last.fm',exact:true}).click();
+ assert.equal(await page.getByLabel('Open GitHub repository').count(),0);
+ await page.getByLabel('Last.fm username').fill('Unknown');await page.getByLabel('Last.fm API key').fill('a'.repeat(32));
+ await page.getByRole('button',{name:'Connect Last.fm',exact:true}).click();await page.getByRole('alert').filter({hasText:'could not find'}).waitFor();
+ await page.getByLabel('Last.fm username').fill('TestListener');await page.getByRole('button',{name:'Connect Last.fm',exact:true}).click();
+ await page.getByRole('heading',{name:'Test Listener',exact:true}).waitFor();await page.waitForFunction(()=>document.querySelector('.lastfm-avatar img')?.naturalWidth>0);
+ assert.equal(await page.getByLabel('Last.fm API key').count(),0);
+ assert.ok((await page.locator('.lastfm-avatar').boundingBox()).width>=96);
+ for(const view of ['tracks','artists','albums']){await page.getByLabel('Last.fm listening view').selectOption(view);await page.getByLabel('Last.fm time period').selectOption('7day');await page.getByText('Demo '+view+' 7day',{exact:true}).waitFor();}
+ await page.getByRole('button',{name:'Next',exact:true}).click();await page.getByText('Page 2 of 2',{exact:true}).waitFor();
+ await page.waitForFunction(()=>document.querySelector('.lastfm-cover img')?.naturalWidth>0);
+ await page.screenshot({path:path.join(screenshots,'ui-lastfm-demo.png')});
+ await page.getByRole('button',{name:'Disconnect',exact:true}).click();await page.getByRole('heading',{name:'🎧 Connect Last.fm',exact:true}).waitFor();
  await page.getByRole('button',{name:'Metadata',exact:true}).click();
  await page.screenshot({path:path.join(screenshots,'ui-metadata-dark.png')});
- for(const section of ['Libraries','Library Cleaner','Consolidation','Duplicates','Playlists','File Organizer','Queue','History','Settings']){
+ for(const section of ['Libraries','Library Cleaner','Consolidation','Duplicates','Playlists','File Organizer','Queue','History','Last.fm','Settings']){
   await page.getByRole('button',{name:section,exact:true}).click();
   await page.waitForTimeout(150);
   const heading=await page.locator('h1').innerText();assert.equal(heading,section);
@@ -105,6 +150,6 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  const bounds=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));assert.ok(bounds.scroll<=bounds.width);
  assert.deepEqual(errors,[]);
  if(process.env.LIBRARY_MANAGER_DESKTOP_REPORT)fs.writeFileSync(process.env.LIBRARY_MANAGER_DESKTOP_REPORT,JSON.stringify({state:path.join(data,'state'),packaged:!!installed,result:'passed'},null,2));
- console.log('PASS: native desktop startup, real API library scan, 120-row virtualized table, file metadata preview/commit, dark theme persistence, 11-screen navigation, maximize/restore and narrow-window layout.');
+ console.log('PASS: native desktop startup, real API library scan, 120-row virtualized table, file metadata preview/commit, dark theme persistence, 12-screen navigation, maximize/restore and narrow-window layout.');
  }finally{await app.close();}
 })().catch(e=>{console.error(e);process.exit(1)});
