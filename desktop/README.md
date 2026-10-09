@@ -1,9 +1,9 @@
-# 🖥️ Desktop shell
+# 🖥️ Electron desktop shell
 
-Electron opens the app window, starts the Python service, manages local dialogs, and exposes a small preload bridge.
+The desktop process opens the app window, starts the local Python service, handles operating-system dialogs, and exposes a narrow preload bridge to the React interface.
 
-- 🚪 `main.cjs` owns startup, window settings, and allowed IPC calls.
-- 🔐 `preload.cjs` exposes approved renderer actions.
-- ✅ `contracts.cjs` restricts renderer requests to a known set of local API paths.
+- 🚪 `main.cjs` owns startup, window settings, and approved IPC handlers.
+- 🔐 `preload.cjs` exposes only the renderer actions needed by the interface.
+- ✅ `contracts.cjs` limits requests to known local API paths.
 
-Do not expose Node.js or unrestricted network access to the renderer.
+Keep the renderer isolated: do not enable unrestricted Node.js access, add broad IPC passthroughs, or give the renderer an unrestricted network client. Changes to the bridge should be covered by the desktop tests.
