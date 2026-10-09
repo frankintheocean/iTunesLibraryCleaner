@@ -337,7 +337,7 @@ def create_app(data_dir, token, ready=None):
 
     @app.post('/profiles/{identity}/playlist-cover')
     def playlist_cover(identity: str, body: PlaylistCover):
-        return service.playlist_cover_job(identity, body.index, body.image)
+        return service.playlist_cover(identity, body.index, body.image)
 
     @app.post('/profiles/{identity}/playlist-order')
     def playlist_order(identity: str, body: PlaylistOrder):

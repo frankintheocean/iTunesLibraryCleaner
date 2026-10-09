@@ -689,42 +689,75 @@ class Service:
                     if value: naming[(field, value.casefold())].add(value)
             return {'profile': identity, 'root': str(root), 'scanned_files': count, 'orphaned': orphaned, 'empty_folders': empty, 'invalid_names': invalid, 'inconsistent_names': [{'field': key[0], 'values': sorted(values)} for key, values in naming.items() if len(values) > 1], 'errors': errors, 'note': 'Orphans are candidates, not proof that files are unwanted. Empty directories and invalid names are reported only.'}
         if kind == 'playlist_order':
-            result = run_com({'operation':'playlist_order','playlist_pid':payload.get('playlist_pid'),'ids':payload['ids'],'library_pid':payload.get('library_pid')}, self.store.path, job, timeout=180)
-            return {'playlist':payload.get('name'),'reordered':len(payload['ids']),'result':result}
-        if kind == 'playlist_cover':
-            result = run_com({'operation':'playlist_cover','playlist_pid':payload.get('playlist_pid'),'image':payload.get('image'),'library_pid':payload.get('library_pid')}, self.store.path, job, timeout=120)
-            return {'playlist':payload.get('name'),'image_saved':True,'result':result}
+            result = run_com({
+                'operation': 'playlist_order',
+                'playlist_pid': payload['playlist_pid'],
+                'original_ids': payload['original_pids'],
+                'ordered_ids': payload['ordered_pids'],
+                'library_pid': payload.get('library_pid'),
+            }, self.store.path, job, timeout=180)
+            scanned = self.scan(identity, job, progress)
+            self.store.audit('playlist_reordered', {'job': job, 'playlist': payload['name'], 'tracks': len(payload['ordered_pids'])})
+            return {'playlist': payload['name'], 'reordered_tracks': len(payload['ordered_pids']), 'live_result': result, 'scan': scanned}
         if kind == 'library_action':
-            action=payload['action']; results=[]; items=payload['items']
+            action = payload['action']
+            items = payload['items']
+            results = []
             if action == 'delete':
-                for i,item in enumerate(items):
-                    progress(job,i,len(items),f"Preparing {item['name']}")
-                    path=checked_path(item['path'],True)
-                    if signature(path) != item['signature']: raise ValueError(f"{item['name']} changed since review; no deletion was attempted for it.")
-                    backup=self.data_dir/'deleted-songs'/job/str(item['id'])/path.name
-                    backup.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(path,backup)
-                    if signature(backup)!=item['signature']: raise ValueError('Safety-copy verification failed; the original was not deleted.')
-                    run_com({'operation':'delete_tracks','tracks':[{'pid':item['pid'],'name':item['name']}],'library_pid':payload.get('library_pid')}, self.store.path, job, timeout=120)
-                    if path.exists():
-                        if signature(path)!=item['signature']: raise ValueError(f"{item['name']} changed during delete; its safety copy is retained.")
-                        path.unlink()
-                    results.append({'id':item['id'],'name':item['name'],'backup':str(backup),'deleted':True})
-                    progress(job,i+1,len(items),f"Removed {item['name']}")
+                for i, item in enumerate(items):
+                    progress(job, i, len(items), f"Backing up {item['name']}")
+                    path = checked_path(item['path'], True)
+                    if signature(path) != item['signature']:
+                        raise ValueError(f"{item['name']} changed since review; nothing was deleted.")
+                    backup = self.data_dir / 'deleted-songs' / job / str(item['id']) / path.name
+                    backup.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(path, backup)
+                    backup_signature = signature(backup)
+                    if backup_signature['size'] != item['signature']['size'] or backup_signature['sha256'] != item['signature']['sha256']:
+                        raise ValueError('A recovery copy failed verification. No iTunes entries were deleted.')
+                    results.append({'id': item['id'], 'name': item['name'], 'path': str(path), 'backup': str(backup), 'signature': item['signature']})
+                run_com({
+                    'operation': 'delete_tracks',
+                    'tracks': [{'pid': item['pid'], 'name': item['name']} for item in items],
+                    'library_pid': payload.get('library_pid'),
+                }, self.store.path, job, timeout=180)
+                for item in results:
+                    path = checked_path(item['path'], True)
+                    if signature(path) != item['signature']:
+                        raise ValueError(f"{item['name']} changed while iTunes was being updated. Recovery copies are retained; inspect the library.")
+                for i, item in enumerate(results):
+                    path = checked_path(item['path'], True)
+                    if signature(path) != item['signature']:
+                        raise ValueError(f"{item['name']} changed before disk deletion. Its recovery copy is retained.")
+                    path.unlink()
+                    item['deleted_from_disk'] = True
+                    progress(job, i + 1, len(results), f"Removed {item['name']}")
+            elif action == 'duplicate':
+                for i, item in enumerate(items):
+                    progress(job, i, len(items), f"Copying {item['name']}")
+                    source = checked_path(item['path'], True)
+                    if signature(source) != item['signature']:
+                        raise ValueError(f"{item['name']} changed since review.")
+                    candidate = source.with_name(f"{source.stem} (copy){source.suffix}")
+                    number = 2
+                    while candidate.exists():
+                        candidate = source.with_name(f"{source.stem} (copy {number}){source.suffix}")
+                        number += 1
+                    shutil.copy2(source, candidate)
+                    if digest(candidate) != item['signature']['sha256']:
+                        candidate.unlink(missing_ok=True)
+                        raise ValueError('The copied song did not pass SHA-256 verification.')
+                    try:
+                        run_com({'operation': 'add_file', 'path': str(candidate), 'library_pid': payload.get('library_pid')}, self.store.path, job, timeout=180)
+                    except Exception as exc:
+                        raise RuntimeError(f"iTunes could not confirm the import of {item['name']}. The verified copy was retained at {candidate}; check iTunes before retrying.") from exc
+                    results.append({'id': item['id'], 'name': item['name'], 'copy': str(candidate)})
+                    progress(job, i + 1, len(items), f"Added copy of {item['name']}")
             else:
-                for i,item in enumerate(items):
-                    progress(job,i,len(items),f"Copying {item['name']}")
-                    path=checked_path(item['path'],True)
-                    if signature(path)!=item['signature']: raise ValueError(f"{item['name']} changed since review.")
-                    stem,suffix=path.stem,path.suffix; candidate=path.with_name(f'{stem} (copy){suffix}'); number=2
-                    while candidate.exists(): candidate=path.with_name(f'{stem} (copy {number}){suffix}');number+=1
-                    shutil.copy2(path,candidate)
-                    if digest(candidate)!=item['signature']['sha256']:
-                        candidate.unlink(missing_ok=True); raise ValueError('Copied song did not pass SHA-256 verification.')
-                    run_com({'operation':'add_file','path':str(candidate),'library_pid':payload.get('library_pid')}, self.store.path, job, timeout=180)
-                    results.append({'id':item['id'],'name':item['name'],'copy':str(candidate)})
-                    progress(job,i+1,len(items),f"Added copy of {item['name']}")
-            scanned = self.scan(identity,job,progress)
-            return {'action':action,'items':results,'scan':scanned}
+                raise ValueError('Unsupported library action.')
+            scanned = self.scan(identity, job, progress)
+            self.store.audit('library_' + action, {'job': job, 'items': results})
+            return {'action': action, 'items': results, 'scan': scanned}
         raise ValueError('Unsupported job operation.')
 
     def export_xml(self, library, output):
@@ -769,57 +802,87 @@ class Service:
         self.store.execute('UPDATE profiles SET config=? WHERE id=?',(encode(profile['config']),identity))
         return {'saved':True}
 
-    def playlist_order_preview(self, identity, index, ids):
+    def playlist_order_preview(self, identity, index, ordered_track_ids):
         profile = self.profile(identity)
         if profile['config'].get('kind') != 'live':
-            raise ValueError('Live playlist reordering requires the Current iTunes library profile.')
-        playlist_rows = self.playlists(identity)
-        if not 0 <= index < len(playlist_rows): raise ValueError('Playlist not found.')
-        playlist = playlist_rows[index]
-        if playlist.get('smart'): raise ValueError('Smart playlists are managed by their rules and cannot be manually reordered.')
+            raise ValueError('Playlist reordering requires the selected live iTunes library.')
         library = self.library(identity, mutable=False)
-        if index >= len(library.playlists) or bool(getattr(library.playlists[index], 'is_special', False)):
-            raise ValueError('The main library and special iTunes playlists cannot be manually reordered. Choose a regular playlist instead.')
-        if len(ids) != len(playlist['ids']) or Counter(ids) != Counter(playlist['ids']):
-            raise ValueError('Reordered tracks must contain every current playlist entry exactly once.')
-        if len(set(ids)) != len(ids):
-            raise ValueError('This playlist contains repeated entries. iTunes COM cannot distinguish repeated copies of the same track safely for a reorder.')
-        ordered_pids = []
-        for track_id in ids:
+        if not 0 <= index < len(library.playlists):
+            raise ValueError('Playlist not found.')
+        playlist = library.playlists[index]
+        if playlist.is_smart or playlist.is_special:
+            raise ValueError('Smart and built-in playlists cannot be manually reordered.')
+        original_track_ids = playlist.track_ids()
+        if len(ordered_track_ids) != len(original_track_ids) or Counter(ordered_track_ids) != Counter(original_track_ids):
+            raise ValueError('The new order must contain every current playlist entry exactly once. Refresh and retry.')
+        if len(set(original_track_ids)) != len(original_track_ids):
+            raise ValueError('This playlist has repeated entries. Manual reordering is refused because iTunes COM cannot distinguish those entries safely.')
+        import re
+        playlist_pid = str(playlist.raw.get('Playlist Persistent ID') or '').upper()
+        if not re.fullmatch(r'[0-9A-F]{16}', playlist_pid):
+            raise ValueError('This playlist has no valid iTunes persistent ID. Rescan the live library and retry.')
+        original_pids, ordered_pids = [], []
+        for track_id in original_track_ids:
             track = library.tracks.get(track_id)
-            pid = str(track.raw.get('Persistent ID', '') if track else '')
-            if not track or not pid:
-                raise ValueError('A playlist track no longer has a valid persistent iTunes ID. Rescan the live library and retry.')
+            pid = str(track.raw.get('Persistent ID', '') if track else '').upper()
+            if not pid:
+                raise ValueError('A playlist entry no longer maps to a library track. Rescan and retry.')
+            split_pid(pid)
+            original_pids.append(pid)
+        for track_id in ordered_track_ids:
+            track = library.tracks.get(track_id)
+            pid = str(track.raw.get('Persistent ID', '') if track else '').upper()
+            if not pid:
+                raise ValueError('A playlist entry no longer maps to a library track. Rescan and retry.')
             split_pid(pid)
             ordered_pids.append(pid)
-        return self.save_preview('playlist_order', identity, {'index':index,'playlist_pid':playlist.get('pid'),'name':playlist['name'],'ids':ordered_pids,'track_ids':ids,'library_pid':profile['config'].get('library_pid'),'warning':'Requested ordering will be queued for live iTunes. This app will not delete and re-add tracks as a workaround; if the COM interface cannot safely move playlist items, the task will report that no tracks were changed.'})
+        return self.save_preview('playlist_order', identity, {
+            'index': index, 'playlist_pid': playlist_pid, 'name': playlist.name,
+            'original_pids': original_pids, 'ordered_pids': ordered_pids,
+            'library_pid': profile['config'].get('library_pid'),
+            'warning': 'The app adds the requested order first and verifies it, then removes only the previous entries from this regular playlist. It never deletes main-library tracks or media files to reorder a playlist. If iTunes refuses the request, the task reports the problem and attempts to restore the original order.',
+        })
 
     def library_action_preview(self, identity, ids, action):
-        if action not in ('delete','duplicate'): raise ValueError('Choose delete or duplicate.')
+        if action not in ('delete', 'duplicate'):
+            raise ValueError('Choose Delete or Duplicate.')
         profile = self.profile(identity)
-        if profile['config'].get('kind') != 'live': raise ValueError('Delete and duplicate actions require the Current iTunes library profile.')
-        library = self.library(identity); items=[]
-        for tid in dict.fromkeys(ids):
-            track=library.tracks.get(tid)
-            if not track: raise ValueError(f'Track {tid} is no longer in this library. Rescan and retry.')
-            path=legacy.file_uri_to_path(track.location or '')
-            if not path or not path.is_file(): raise ValueError(f'{track.name} has no available local media file.')
-            items.append({'id':tid,'pid':track.raw.get('Persistent ID',''),'name':track.name,'artist':track.artist,'path':str(path),'signature':signature(path)})
-        if not items: raise ValueError('Select at least one song.')
-        warning = ('Selected songs will be removed from iTunes and their original files deleted after a verified safety copy is made.' if action=='delete' else 'A separate copy of each selected audio file will be created and added to the live iTunes library.')
-        return self.save_preview('library_action',identity,{'action':action,'items':items,'library_pid':profile['config'].get('library_pid'),'warning':warning})
-
-    def playlist_cover_job(self, identity, index, image):
-        from .artwork import image_file
-        profile = self.profile(identity)
+        if profile['config'].get('kind') != 'live':
+            raise ValueError('Delete and duplicate actions require a live iTunes library profile.')
         library = self.library(identity, mutable=False)
-        if not 0 <= index < len(library.playlists): raise ValueError('Playlist not found.')
-        if image and not image_file(checked_path(image, True)): raise ValueError('Choose a readable image smaller than 20 MB.')
-        local = self.playlist_cover(identity,index,image)
-        if profile['config'].get('kind') != 'live': return local
-        playlist = self.playlists(identity)[index]
-        job = self.jobs.enqueue('playlist_cover', {'profile':identity,'index':index,'playlist_pid':playlist.get('pid'),'name':playlist['name'],'image':image,'library_pid':profile['config'].get('library_pid')})
-        return {'saved':True,'job':job,'image_pending':True}
+        selected = list(dict.fromkeys(ids))
+        if not selected:
+            raise ValueError('Select at least one song.')
+        by_path = defaultdict(list)
+        for track_id, track in library.tracks.items():
+            path = legacy.file_uri_to_path(track.location or '')
+            if path:
+                by_path[str(path.resolve()).casefold()].append(track_id)
+        items, selected_paths = [], set()
+        for track_id in selected:
+            track = library.tracks.get(track_id)
+            if track is None:
+                raise ValueError(f'Track {track_id} is no longer in the library. Refresh and retry.')
+            if track.raw.get('Protected') or 'protected' in str(track.raw.get('Kind', '')).lower():
+                raise ValueError(f'{track.name} is protected media and cannot be changed here.')
+            pid = str(track.raw.get('Persistent ID', '')).upper()
+            split_pid(pid)
+            source = legacy.file_uri_to_path(track.location or '')
+            if not source:
+                raise ValueError(f'{track.name} has no local media file.')
+            source = checked_path(source, True)
+            key = str(source.resolve()).casefold()
+            if key in selected_paths:
+                raise ValueError('Two selected entries point to the same media file. Select one at a time.')
+            if action == 'delete' and len(by_path.get(key, [])) > 1:
+                raise ValueError(f'{track.name} shares a media file with another library entry. Automatic disk deletion is refused.')
+            selected_paths.add(key)
+            items.append({'id': track_id, 'pid': pid, 'name': track.name, 'artist': track.artist, 'path': str(source), 'signature': signature(source)})
+        warning = ('⚠️ Selected songs will be removed from live iTunes and their original files deleted after verified recovery copies are made. The disk deletion is permanent unless you restore the saved copies manually.'
+                   if action == 'delete' else '⚠️ Separate verified copies of the selected songs will be created and imported into live iTunes. Existing files will not be overwritten.')
+        return self.save_preview('library_action', identity, {
+            'action': action, 'items': items, 'library_pid': profile['config'].get('library_pid'), 'warning': warning,
+        })
 
     def playlist_export(self, identity, index, output):
         library = self.library(identity); playlist = library.playlists[index]

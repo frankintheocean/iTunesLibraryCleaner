@@ -256,44 +256,108 @@ def _wait_add(status, deadline_seconds=180):
     return True
 
 
-def perform_library_operation(app, payload):
-    """Run a guarded live-library action in the COM-owning process."""
-    operation = payload['operation']
-    _require_library(app, payload.get('library_pid'))
-    if operation == 'delete_tracks':
-        results = []
-        cache = {}
-        for item in payload.get('tracks', []):
-            track = find_track(app, item['pid'], cache, item.get('name'))
-            track.Delete()
-            results.append({'pid':item['pid'],'deleted_from_itunes':True})
-        return results
-    if operation == 'add_file':
-        status = app.LibraryPlaylist.AddFile(payload['path'])
-        _wait_add(status)
-        return {'added':payload['path']}
-    if operation == 'playlist_cover':
-        playlist = find_playlist(app, payload['playlist_pid'])
-        setter = getattr(playlist, 'AddArtworkFromFile', None)
-        if callable(setter):
-            setter(payload['image'])
-            return {'applied':True}
+
+def _playlist_tracks_in_order(app, playlist):
+    collection = playlist.Tracks
+    result = []
+    for index in range(1, int(collection.Count) + 1):
         try:
-            playlist.Artwork.AddArtworkFromFile(payload['image'])
-            return {'applied':True}
-        except Exception as exc:
-            raise RuntimeError('This iTunes COM interface does not expose playlist-artwork editing. The picture is saved in iTunes Manager; no song artwork was changed.') from exc
-    if operation == 'playlist_order':
-        playlist = find_playlist(app, payload['playlist_pid'])
-        if bool(getattr(playlist, 'Smart', False)):
-            raise ValueError('Smart playlists are managed by their rules and cannot be manually reordered.')
-        # IITTrack.Delete deletes a library track; it is not a playlist-entry removal.
-        # The documented classic iTunes COM interface lacks a safe MoveTrack/RemoveTrack
-        # operation, so no destructive delete/re-add fallback is used.
-        raise RuntimeError('Classic iTunes COM does not expose a documented safe playlist-order operation. No tracks were changed. Reorder the playlist in iTunes itself for now.')
-    raise ValueError('Unsupported live-library operation.')
+            result.append(collection.ItemByPlayOrder(index))
+        except Exception:
+            result.append(collection.Item(index))
+    return result
 
 
+def _restore_playlist_order(app, playlist, original_pids):
+    """Restore playlist entries only; never call Delete on library-playlist tracks."""
+    while int(playlist.Tracks.Count):
+        playlist.Tracks.ItemByPlayOrder(1).Delete()
+    for pid in original_pids:
+        high, low = split_pid(pid)
+        source_track = app.LibraryPlaylist.Tracks.ItemByPersistentID(high, low)
+        if source_track is None:
+            raise RuntimeError("Playlist rollback could not find an original library track.")
+        playlist.AddTrack(source_track)
+    actual = [pid_for(app, track).upper() for track in _playlist_tracks_in_order(app, playlist)]
+    if actual != [pid.upper() for pid in original_pids]:
+        raise RuntimeError("Playlist rollback did not restore the original order.")
+
+
+def reorder_playlist(app, payload):
+    """Reorder playlist entries with a verified replacement, not library-track deletion."""
+    playlist = find_playlist(app, payload["playlist_pid"])
+    if bool(getattr(playlist, "Smart", False)):
+        raise ValueError("Smart playlists are managed by their rules and cannot be manually reordered.")
+    try:
+        special_kind = int(getattr(playlist, "SpecialKind", 0) or 0)
+    except (TypeError, ValueError):
+        special_kind = 0
+    if special_kind != 0:
+        raise ValueError("Built-in or special playlists cannot be reordered.")
+    original_pids = [pid.upper() for pid in payload["original_ids"]]
+    ordered_pids = [pid.upper() for pid in payload["ordered_ids"]]
+    if not original_pids or len(original_pids) != len(ordered_pids) or sorted(original_pids) != sorted(ordered_pids):
+        raise ValueError("The proposed order does not match the current playlist entries.")
+    original_entries = _playlist_tracks_in_order(app, playlist)
+    actual = [pid_for(app, item).upper() for item in original_entries]
+    if actual != original_pids:
+        raise ValueError("The playlist changed or is sorted differently in iTunes. Choose Playlist Order, rescan, and retry.")
+    master_tracks = app.LibraryPlaylist.Tracks
+    added_entries = []
+    try:
+        for pid in ordered_pids:
+            high, low = split_pid(pid)
+            track = master_tracks.ItemByPersistentID(high, low)
+            if track is None:
+                raise ValueError("A selected song no longer exists in the open iTunes library.")
+            entry = playlist.AddTrack(track)
+            if entry is None:
+                raise RuntimeError("iTunes did not return a new playlist entry; original entries are untouched.")
+            added_entries.append(entry)
+        appended = _playlist_tracks_in_order(app, playlist)[len(original_entries):]
+        if [pid_for(app, item).upper() for item in appended] != ordered_pids:
+            raise RuntimeError("iTunes did not accept the requested order; original entries are untouched.")
+    except Exception:
+        try:
+            for entry in reversed(added_entries):
+                entry.Delete()
+        except Exception as rollback_error:
+            raise RuntimeError("Temporary playlist entries could not be removed. Check this playlist in iTunes before retrying.") from rollback_error
+        raise
+    try:
+        # These COM objects were read from the user playlist, not the master library.
+        for entry in original_entries:
+            entry.Delete()
+        final = [pid_for(app, item).upper() for item in _playlist_tracks_in_order(app, playlist)]
+        if final != ordered_pids:
+            raise RuntimeError("The final playlist order did not match the requested order.")
+    except Exception as exc:
+        try:
+            _restore_playlist_order(app, playlist, original_pids)
+        except Exception as rollback_error:
+            raise RuntimeError("Playlist reorder failed and rollback could not be verified. Library tracks and files were not deleted; inspect the playlist before retrying.") from rollback_error
+        raise RuntimeError("iTunes refused playlist reordering. The original order was restored.") from exc
+    return {"reordered": len(ordered_pids), "verified": True}
+
+
+def perform_library_operation(app, payload):
+    """Run guarded live-library actions inside the COM-owning process."""
+    operation = payload["operation"]
+    _require_library(app, payload.get("library_pid"))
+    if operation == "delete_tracks":
+        results, cache = [], {}
+        for item in payload.get("tracks", []):
+            track = find_track(app, item["pid"], cache, item.get("name"))
+            track.Delete()
+            results.append({"pid": item["pid"], "deleted_from_itunes": True})
+        return results
+    if operation == "add_file":
+        status = app.LibraryPlaylist.AddFile(payload["path"])
+        _wait_add(status)
+        return {"added": payload["path"]}
+    if operation == "playlist_order":
+        return reorder_playlist(app, payload)
+    raise ValueError("Unsupported live-library operation.")
 
 def _perform(payload, database, job, pipe):
     try:
