@@ -1,6 +1,6 @@
 # 🖥️ Electron desktop shell
 
-The desktop process opens the app window, starts the local Python service, handles operating-system dialogs, and exposes a narrow preload bridge to the React interface.
+Electron opens the app window, starts the local Python service, handles operating-system dialogs, and exposes a narrow preload bridge to the React interface.
 
 - 🚪 `main.cjs` owns startup, window settings, and approved IPC handlers.
 - 🔐 `preload.cjs` exposes only the renderer actions needed by the interface.
