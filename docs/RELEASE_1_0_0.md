@@ -68,3 +68,8 @@ These are maintenance fixes to the existing 1.0.0 release; the version number in
 - 🖼️ Display the picture saved on a live iTunes playlist when the active iTunes COM interface exposes it; app-saved playlist covers remain a fallback.
 - 🎨 Add album/song artwork thumbnails to Library Stats and artist portraits from Last.fm when a Last.fm connection is configured.
 - 🎵 Add a new scalable vector app-icon source and use it in the workspace branding. The packaged Windows `.ico` asset still needs to be regenerated from the design before the native installer icon can be considered replaced.
+
+
+## 🏷️ File and folder description style
+
+Use a leading emoji and concise, everyday wording for each tracked path. Prefer a distinct emoji per path and avoid repeating descriptions. Keep labels factual, including Windows/iTunes COM or Last.fm setup requirements where those affect availability. Update the path index when paths are added, renamed, or removed.

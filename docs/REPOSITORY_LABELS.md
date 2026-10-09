@@ -991,3 +991,14 @@
 | `backend/service.py` | ⚙️ Library indexing, statistics, and playlist services |
 
 **Label style:** use a plain-language purpose, one leading emoji that is not reused nearby, and a short sentence fragment. Keep labels factual: if a feature depends on iTunes COM or a configured Last.fm connection, say so rather than promising it always works.
+
+
+## 🏷️ File and folder label rules
+
+- Start every tracked-path description with one emoji, then a short, plain-language description.
+- Make each description specific to the path's actual job; avoid repeated generic phrases.
+- Prefer a different emoji for each path. Reuse one only when no sensible distinct symbol fits.
+- Use short sentence fragments that are easy to scan.
+- Keep labels factual and mention Windows/iTunes COM or configured Last.fm requirements when relevant.
+- Add new paths and remove deleted paths from the index whenever code changes.
+- Check the file or folder before describing it; do not guess from its name alone.
