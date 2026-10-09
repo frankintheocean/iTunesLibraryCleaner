@@ -16,8 +16,8 @@ Validated on Linux with Python 3.12.14 and Node 24.19.0. This report distinguish
 | Dependency advisories | npm audit and pip-audit of the full Linux Python lock reported zero known advisories after pinned updates |
 | Icon | Original generated source plus PNG sizes; ICO includes 16, 24, 32, 48, 64, 128 and 256 px |
 | Source ZIP | `scripts/package-source.py` verifies archive integrity and exactly one `Unified-iTunes-Library-Manager/` root; SHA-256 supplied beside ZIP |
-| Real iTunes COM | Not executed on Linux. Contract tests cover signed persistent IDs, live multi-field edits, readback, busy reconnect, concurrent changes, partial outcomes, DRM rejection and optional members |
-| Windows installer/repair/uninstall | Not built or validated. Windows build/NSIS configuration and reinstall-based repair launcher included; no installer executable claimed |
+| Real iTunes COM | Not yet executed against classic iTunes. Windows contract tests passed; a real empty-library validation script is provided. Contract tests cover signed persistent IDs, live multi-field edits, readback, busy reconnect, concurrent changes, partial outcomes, DRM rejection and optional members |
+| Windows installer/repair/uninstall | Passed on Windows Server 2022 x64: actual NSIS install, packaged Electron workflow, repair of a deleted backend, uninstall/reinstall and byte-identical generated SQLite state preservation. Run [37870955008](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37870955008); Windows 10/11 manual acceptance remains outstanding |
 
 ## Important test limits
 
