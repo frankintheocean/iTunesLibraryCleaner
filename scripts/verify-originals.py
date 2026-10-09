@@ -8,4 +8,4 @@ for record in records:
  target=root/'legacy'/('cleaner' if parts[0]=='LibraryCleaner' else 'consolidator')/Path(*parts[2:])
  assert target.is_file(),str(target)
  assert hashlib.sha256(target.read_bytes()).hexdigest()==record.get('published_sha256', record['sha256']),str(target)
-print(f'PASS: all {len(records)} supplied project files verified, including documented credential removal.')
+print(f'PASS: all {len(records)} supplied project files verified, including documented key removal and guide edits.')
