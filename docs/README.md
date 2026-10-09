@@ -10,6 +10,6 @@ Start with these guides:
 - 🚧 `LIMITATIONS.md` — known iTunes/COM limits.
 - ✅ `VALIDATION.md` — test evidence and remaining checks.
 - 🗂️ `REPOSITORY_LABELS.md` — short emoji labels for folders and files.
-- 📦 `RELEASE_4_0_0.md` — v4 release notes and asset names.
+- 📦 `RELEASE_1_0_0.md` — v1 release notes and asset names.
 
 Generated license inventories and original-tool source records are supporting files; do not edit generated hashes by hand.
