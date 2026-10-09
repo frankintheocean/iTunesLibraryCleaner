@@ -2,7 +2,7 @@
 
 ## 🚀 Install
 
-Download the Windows installer from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases). Source ZIPs do not contain an installer. See [build steps](BUILD.md) and [test results](docs/VALIDATION.md).
+Download the Windows installer from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases). The **Windows app ZIP** runs without installation: extract every file together, then open `iTunes Manager.exe`. Python and Node are not needed. Settings and backups still use AppData, so this is not a self-contained data folder. The **source ZIP** is for building and does not contain an installer. See [build steps](BUILD.md) and [test results](docs/VALIDATION.md).
 
 The installer lets you choose a folder and create Start Menu and Desktop shortcuts. It adds an uninstall entry to Windows Apps & Features. The app, installer, uninstaller and shortcuts use the app icon.
 
@@ -24,6 +24,10 @@ By default, app data is in the existing per-user `Unified iTunes Library Manager
 
 The original tools run from writable `legacy/cleaner` and `legacy/consolidator` folders under app data, with their own interfaces and state.
 
-## 🔄 Upgrade to 2.0.0
+## 🔄 Upgrade to 3.0.0
 
 The app is now called **iTunes Manager**. Its application ID and data folder stay the same, so your libraries, settings, history and backups remain available. Close the old app before installing the new version.
+
+## 🗂️ Saved libraries
+
+Version 3 writes a new checked snapshot before changing its saved reference. This avoids replacing an XML file Windows has open. One previous snapshot is kept for recovery; locked older copies are left alone. If the app folder itself is not writable, saving still fails with a clear error. Do not delete saved copies or change permissions blindly.
