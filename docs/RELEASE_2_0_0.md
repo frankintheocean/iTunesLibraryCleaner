@@ -29,6 +29,8 @@ Requires Windows 10/11 x64. Live editing needs classic iTunes; Apple Music for W
 
 ## ✅ Validation
 
-See the installer acceptance report and linked build run attached to this release. Local checks cover original and unified Python tests, IPC limits, interface compilation and real Electron tests using generated media with embedded artwork. Windows installer results are published only after that build passes.
+Local checks passed: 196 Python tests, 3 IPC tests, the interface build and real Electron tests using generated media with embedded artwork. Windows Server 2022 passed 195 Python tests (one Linux-only test skipped), the build, installed-app workflow, repair and uninstall/reinstall with saved app data unchanged.
+
+[Windows build and test run](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37878468914). Built from `e588f819c51ac01e932ffe0cfe6da8730f89b638`. The `.sha256` download checks the installer, and `installer-validation.json` records its acceptance results.
 
 [Install](https://github.com/frankintheocean/iTunesLibraryCleaner/blob/main/INSTALL.md) · [Known limits](https://github.com/frankintheocean/iTunesLibraryCleaner/blob/main/docs/LIMITATIONS.md)
