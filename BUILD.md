@@ -40,4 +40,10 @@ If the cloud package manager needs its supplied HTTPS proxy, set `ELECTRON_GET_U
 
 Run `python3 scripts/package-source.py`. It creates a ZIP and SHA-256 file in the sibling `deliverables/` folder. It checks the archive, its single root folder and the original-file checksums.
 
-The ZIP includes source, original tools, tests, locked dependencies, guides, icons and built interface files. It excludes credentials, user data, installed dependencies and build caches. Windows installers are separate downloads.
+The ZIP includes source, original tools, tests, locked dependencies, guides, icons and built interface files. It excludes credentials, user data, installed dependencies and build caches. The Windows app ZIP and installer are separate downloads.
+
+## 🎁 Windows app ZIP
+
+After building on Windows, run `.venv\Scripts\python scripts/package-windows.py`. It checks the complete app, adds a short start guide and writes the ZIP with a checksum in `dist/windows/`.
+
+Run `.venv\Scripts\python scripts/package-source.py --output-dir dist/windows` for the source ZIP. Both archives record the source commit. The release workflow checks these records and checksums against the successful installer test run before publishing.
