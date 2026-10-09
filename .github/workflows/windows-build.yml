@@ -126,10 +126,20 @@ jobs:
             $existingNames = @($release.assets | ForEach-Object { $_.name })
             $missingNames = @($expectedNames | Where-Object { $_ -notin $existingNames })
             if (-not $release.isDraft) {
-              if ($missingNames.Count -gt 0) {
-                throw "Published release $tag is missing expected assets ($($missingNames -join ', ')); refusing to change a published release automatically."
+              # This workflow is the verified release path: replace the existing public binaries and checksums.
+              foreach ($name in $existingNames) {
+                if ($name -notin $expectedNames) {
+                  gh release delete-asset $tag $name --yes
+                  if ($LASTEXITCODE -ne 0) { throw "Could not remove stale release asset $name from published release $tag" }
+                }
               }
-              Write-Host "Release $tag is already published with all six expected assets; leaving it unchanged."
+              gh release upload $tag $assets --clobber
+              if ($LASTEXITCODE -ne 0) { throw "Uploading the six refreshed release assets failed for published release $tag" }
+              gh api --method PATCH "repos/$env:GITHUB_REPOSITORY/git/refs/tags/$tag" -f sha="$env:GITHUB_SHA" -F force=true
+              if ($LASTEXITCODE -ne 0) { throw "Could not move release tag $tag to the verified build commit." }
+              gh release edit $tag --tag $tag --title "🎵 iTunes Manager $version" --notes-file docs/RELEASE_1_0_0.md --draft=false --prerelease=false
+              if ($LASTEXITCODE -ne 0) { throw "Could not update published release metadata for $tag" }
+              Write-Host "Replaced the published $tag installer, portable/source ZIPs, SHA-256 files, release notes, and tag target."
               exit 0
             }
             foreach ($name in $existingNames) {
