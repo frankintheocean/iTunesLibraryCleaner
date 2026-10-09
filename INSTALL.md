@@ -26,7 +26,7 @@ Review the app-data folder before deleting it manually—it may contain media sa
 
 By default, app data lives in the per-user **Unified iTunes Library Manager** folder under Windows AppData. The installer uses the same application ID and data location, so upgrading from v3.1.1 keeps saved libraries, settings, and backups. Close the old app before upgrading.
 
-The portable ZIP also stores settings and backups in Windows AppData; it is portable as an application package, not as a self-contained user-data folder. Copying the ZIP alone does not move profiles or backups. Set `LIBRARY_MANAGER_DATA_DIR` only when you need a separate development or test location.
+The portable ZIP stores settings and backups in Windows AppData; it does not carry user data with it. Copying the ZIP alone does not move profiles or backups. Set `LIBRARY_MANAGER_DATA_DIR` only when you need a separate development or test location.
 
 ## ⚙️ Version 1.0.0 changes
 
