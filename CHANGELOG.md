@@ -7,6 +7,7 @@
 - Keep your selected library when background tasks finish, tabs change or another library opens.
 - Count down the estimated time left. Show 100% only after all work and saving finish.
 - Save new library copies without replacing XML files that Windows may have locked.
+- Close database handles after each transaction to avoid lingering Windows locks.
 - Find live songs by their exact iTunes ID when the direct lookup misses them. Name hints never replace the ID check.
 - Retry temporary connection failures and refresh the iTunes connection while the app is open.
 - Show a clear error when the service cannot return JSON.
