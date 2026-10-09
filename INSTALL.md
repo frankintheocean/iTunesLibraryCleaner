@@ -1,11 +1,25 @@
-# Install, repair and uninstall
+# 📥 Install, repair and remove
 
-Download the current Windows installer from the GitHub Releases link in README.md. Source ZIPs contain build tooling rather than installer binaries. Build instructions are in BUILD.md and acceptance coverage is recorded in docs/VALIDATION.md.
+## 🚀 Install
 
-The configured assisted NSIS installer supports choosing the installation directory, Start Menu and Desktop shortcuts and a Windows Apps & Features uninstall entry. Icons are assigned to Electron, installer, uninstaller and shortcuts.
+Download the Windows installer from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases). Source ZIPs do not contain an installer. See [build steps](BUILD.md) and [test results](docs/VALIDATION.md).
 
-For repair, close the app and both legacy tools, then run the same full installer for the installed version. This reinstallation restores packaged files and shortcuts while keeping user data. `scripts/repair-windows.ps1 -InstallerPath <path>` is a maintenance launcher for that installer. This is reinstall-based repair, not an independently validated MSI repair feature or a dedicated Apps & Features Repair entry.
+The installer lets you choose a folder and create Start Menu and Desktop shortcuts. It adds an uninstall entry to Windows Apps & Features. The app, installer, uninstaller and shortcuts use the app icon.
 
-Uninstall removes packaged application files/registration/shortcuts and preserves user data. The installer does not delete music, exports, backups or quarantine. To remove application preferences/cache afterward, explicitly review the user-data directory first: it can also contain important metadata backups and quarantine manifests. No bulk delete option is provided without such review.
+## 🔧 Repair
 
-App data defaults to Electron's per-user `Unified iTunes Library Manager` directory below Windows AppData. `LIBRARY_MANAGER_DATA_DIR` can select a separate directory for development/testing. Music remains at user-selected paths. Original tools run in `legacy/cleaner` and `legacy/consolidator` under user data, with their own exact UI and state.
+Close the app and both original tools. Run the full installer for the same version again. This restores app files and shortcuts while keeping user data.
+
+You can also run `scripts/repair-windows.ps1 -InstallerPath <path>`. This launches the installer; there is no separate Repair button or MSI repair feature.
+
+## 🗑️ Uninstall
+
+Uninstall removes app files, shortcuts and its Windows registration. It keeps user data, music, exports, backups and quarantined files.
+
+To remove settings or caches afterward, review the user-data folder first. It may also hold backups and records needed to restore files. There is no bulk-delete option.
+
+## 💾 Data locations
+
+By default, app data is in Electron's per-user `Unified iTunes Library Manager` folder under Windows AppData. Set `LIBRARY_MANAGER_DATA_DIR` only when you need a separate development or test folder. Music stays in the folders you choose.
+
+The original tools run from writable `legacy/cleaner` and `legacy/consolidator` folders under app data, with their own interfaces and state.
