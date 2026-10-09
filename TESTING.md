@@ -15,3 +15,5 @@ Build and install on clean Windows 10 and 11 x64 without Python/Node. Verify bac
 Remove a packaged file and shortcut, rerun the installer/maintenance launcher and verify repair. Uninstall/reinstall and verify settings, backups, exports and music remain. Test child-process shutdown with running/interrupted operations. Check source/destination overlap, insufficient disk space, locked/Unicode/long paths, case collisions, network shares/disconnected disks and filesystems without hard links. Such paths are not claimed validated on Linux.
 
 See docs/VALIDATION.md for actual outcomes, not an implied checklist pass.
+
+Executable acceptance entry points are documented in [Windows validation](docs/WINDOWS_VALIDATION.md): `scripts/test-windows-installer.ps1` and `scripts/validate-live-com.ps1`. Hosted builds do not run classic iTunes.
