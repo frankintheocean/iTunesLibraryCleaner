@@ -15,9 +15,9 @@ jobs:
       actions: read
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      VALIDATED_RUN_ID: '37896971968'
-      VALIDATED_COMMIT: 'fa70d0e2a9f19babdb22d922826b739731c58103'
-      RELEASE_TAG: v3.0.0
+      VALIDATED_RUN_ID: '37902074381'
+      VALIDATED_COMMIT: '40afc9d0f6d603398d8fee86975ba81ff2ce9f56'
+      RELEASE_TAG: v3.1.0
     steps:
       - uses: actions/checkout@v4
       - name: Retrieve artifacts from the successful validation run
@@ -47,7 +47,7 @@ jobs:
           assert len(reports) == 1, 'Acceptance evidence missing'
           report = json.loads(reports[0].read_text(encoding='utf-8-sig'))
           assert report['result'] == 'passed' and report['commit'] == os.environ['VALIDATED_COMMIT']
-          target = original.with_name('iTunes-Manager-3.0.0-win-x64.exe')
+          target = original.with_name('iTunes-Manager-3.1.0-win-x64.exe')
           original.rename(target)
           target.with_suffix('.exe.sha256').write_text(f'{actual}  {target.name}\n', encoding='utf-8')
           logs = list(Path('validation-evidence').rglob('windows-build.log'))
@@ -58,7 +58,7 @@ jobs:
           report['python_tests'] = {'passed':int(counts[1]), 'skipped':int(counts[2] or 0)}
           Path('artifact/installer-validation.json').write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8')
           sums = [f'{actual}  {target.name}']
-          for name in ('iTunes-Manager-3.0.0-package-win-x64.zip', 'iTunes-Manager-3.0.0-source.zip'):
+          for name in ('iTunes-Manager-3.1.0-package-win-x64.zip', 'iTunes-Manager-3.1.0-source.zip'):
               archive_path = Path('artifact') / name
               checksum = archive_path.with_suffix('.zip.sha256').read_text(encoding='utf-8-sig').strip()
               expected, separator, filename = checksum.partition('  ')
@@ -69,10 +69,10 @@ jobs:
               with zipfile.ZipFile(archive_path) as archive:
                   assert archive.testzip() is None, 'Archive corruption'
                   info = json.loads(archive.read('iTunes-Manager/RELEASE-INFO.json'))
-                  assert info['source_commit'] == os.environ['VALIDATED_COMMIT'] and info['version'] == '3.0.0'
+                  assert info['source_commit'] == os.environ['VALIDATED_COMMIT'] and info['version'] == '3.1.0'
                   if '-source.zip' in name:
                       package = json.loads(archive.read('iTunes-Manager/package.json'))
-                      assert package['version'] == '3.0.0'
+                      assert package['version'] == '3.1.0'
                   else:
                       for file in ('iTunes Manager.exe','resources/app.asar','resources/backend/library-backend.exe'):
                           assert 'iTunes-Manager/' + file in archive.namelist()
@@ -88,22 +88,24 @@ jobs:
           tag_commit=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$RELEASE_TAG" --jq '.object.sha')
           [[ "$tag_commit" == "$VALIDATED_COMMIT" ]] || { echo 'Release tag does not match the validated build'; exit 1; }
           gh release create "$RELEASE_TAG" \
-            artifact/iTunes-Manager-3.0.0-win-x64.exe \
-            artifact/iTunes-Manager-3.0.0-win-x64.exe.sha256 \
+            artifact/iTunes-Manager-3.1.0-win-x64.exe \
+            artifact/iTunes-Manager-3.1.0-win-x64.exe.sha256 \
             artifact/installer-validation.json \
-            artifact/iTunes-Manager-3.0.0-package-win-x64.zip \
-            artifact/iTunes-Manager-3.0.0-package-win-x64.zip.sha256 \
-            artifact/iTunes-Manager-3.0.0-source.zip \
-            artifact/iTunes-Manager-3.0.0-source.zip.sha256 \
+            artifact/iTunes-Manager-3.1.0-package-win-x64.zip \
+            artifact/iTunes-Manager-3.1.0-package-win-x64.zip.sha256 \
+            artifact/iTunes-Manager-3.1.0-source.zip \
+            artifact/iTunes-Manager-3.1.0-source.zip.sha256 \
             artifact/SHA256SUMS.txt \
             --repo "$GITHUB_REPOSITORY" --verify-tag --prerelease \
-            --title '🎵 iTunes Manager 3.0.0' --notes-file docs/RELEASE_3_0_0.md
+            --title '🎵 iTunes Manager 3.1.0' --notes-file docs/RELEASE_3_1_0.md
       - name: Label the earlier preview as superseded
         shell: bash
         run: |
           gh release edit v4.0.0-windows-preview --repo "$GITHUB_REPOSITORY" \
-            --title '🕰️ Earlier preview — replaced by 3.0.0'
+            --title '🕰️ Earlier preview — replaced by 3.1.0'
           gh release edit v1.0 --repo "$GITHUB_REPOSITORY" \
-            --title '🕰️ Version 1.0 — replaced by 3.0.0'
+            --title '🕰️ Version 1.0 — replaced by 3.1.0'
           gh release edit v2.0.0 --repo "$GITHUB_REPOSITORY" \
-            --title '🕰️ Version 2.0.0 — replaced by 3.0.0'
+            --title '🕰️ Version 2.0.0 — replaced by 3.1.0'
+          gh release edit v3.0.0 --repo "$GITHUB_REPOSITORY" \
+            --title '🕰️ Version 3.0.0 — replaced by 3.1.0'
