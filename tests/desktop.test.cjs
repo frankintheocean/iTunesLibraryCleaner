@@ -1,0 +1,3 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const {validateRequest}=require('../desktop/contracts.cjs');
+test('renderer IPC allows only local known endpoints',()=>{assert.equal(validateRequest('/profiles','GET'),'/profiles');assert.equal(validateRequest('/history?q=hello','GET'),'/history?q=hello');for(const p of ['https://evil.test/health','//evil.test/health','/admin','/profiles/../../../etc/passwd','/health#secret','/health\\bad'])assert.throws(()=>validateRequest(p,'GET'));});
+test('IPC rejects methods and oversized payloads',()=>{assert.throws(()=>validateRequest('/health','DELETE'));assert.throws(()=>validateRequest('/settings','POST',{huge:'x'.repeat(9*1024*1024)}));});
