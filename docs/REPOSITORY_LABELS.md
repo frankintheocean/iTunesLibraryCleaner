@@ -923,3 +923,12 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | [frontend/src/widgets.tsx](../frontend/src/widgets.tsx) | 🧰 Workspace display helpers |
 | [tests/test_v2.py](../tests/test_v2.py) | 🔍 Version 2 behavior checks |
 | [docs/RELEASE_2_0_0.md](../docs/RELEASE_2_0_0.md) | 🎵 Version 2 release guide |
+
+## 🚀 Version 3 labels
+
+| Path | Short label |
+| --- | --- |
+| `scripts/package-windows.py` | 🎁 Windows app archive |
+| `scripts/benchmark-library.py` | ⚡ Large-library speed checks |
+| `tests/test_v3.py` | 🐞 Library and queue fixes |
+| `docs/RELEASE_3_0_0.md` | 🚀 Version 3 download guide |
