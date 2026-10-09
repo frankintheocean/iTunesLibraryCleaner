@@ -4,7 +4,7 @@ A Windows music-library workspace combining LibraryCleaner and iTunes Library Co
 
 ## ✨ Key features
 
-- Edit live iTunes genres, titles, artists, albums and other metadata through classic iTunes COM.
+- Edit live iTunes genres, titles, artists, albums and other metadata through classic iTunes’ Windows connection (COM).
 - Clean genres, merge split albums, find duplicates and organize media.
 - Preview changes, retain backups and review queued jobs and undo history.
 - Launch preserved original tools for advanced workflows.
@@ -27,10 +27,10 @@ Open classic iTunes before connecting. Linux development uses `requirements-lock
 
 ## 🛡️ Before editing
 
-Every unified mutation requires a preview and explicit confirmation. COM has no multi-field transaction; partial results are journaled, and undo applies only when values still match the previous write. Backups are retained. Moving files can break live references. Original tools retain their own potentially irreversible deletion and rebuild operations: use their confirmations and backups.
+Review a preview and confirm before the new app changes anything. An iTunes edit can partly succeed; the app records each result. Undo changes a field only if it still matches the app’s last write. Backups are retained. Moving files can break live references. Original tools retain their own deletion and rebuilding actions that may be irreversible: use their confirmations and backups.
 
-The installer is unsigned. Source-level live COM editing and conditional undo passed on iTunes 12.13.11.1; packaged live COM and additional Windows 10/11 manual acceptance remain outstanding. Read [known limitations](docs/LIMITATIONS.md) and [validation evidence](docs/VALIDATION.md). DRM and proprietary Apple databases are not modified. The application does not upload libraries or publish to GitHub.
+The installer is unsigned. Source-level live COM editing and undo that keeps later changes passed on iTunes 12.13.11.1; live editing through the installed app and further Windows 10/11 checks still need testing. Read [known limitations](docs/LIMITATIONS.md) and [validation evidence](docs/VALIDATION.md). Copy-protected media (DRM) and Apple’s private database formats are not changed. The application does not upload libraries or publish to GitHub.
 
 ## 📚 Guides
 
-[Install](INSTALL.md) · [Build](BUILD.md) · [Tests](TESTING.md) · [Workspace](docs/WORKSPACE_GUIDE.md) · [Feature parity](docs/FEATURE_PARITY.md) · [Architecture](ARCHITECTURE.md) · [Migration](MIGRATION.md) · [Licenses](THIRD_PARTY_LICENSES.md) · [File and folder labels](docs/REPOSITORY_LABELS.md)
+[Install](INSTALL.md) · [Build](BUILD.md) · [Tests](TESTING.md) · [Workspace](docs/WORKSPACE_GUIDE.md) · [Feature coverage](docs/FEATURE_PARITY.md) · [Architecture](ARCHITECTURE.md) · [Migration](MIGRATION.md) · [Licenses](THIRD_PARTY_LICENSES.md) · [File and folder labels](docs/REPOSITORY_LABELS.md)
