@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from backend.com_service import FIELDS, pid_for, run_com, split_pid
+from backend.com_service import FIELDS, pid_for, run_com, split_pid, connect_itunes
 from backend.service import Service
 from backend.filesystem import digest
 
@@ -62,7 +62,7 @@ def main():
     service = None
     pythoncom.CoInitialize()
     try:
-        app = win32com.client.GetActiveObject('iTunes.Application')
+        app = connect_itunes(win32com.client)
         report['itunes_version'] = app.Version
         if app.LibraryPlaylist.Tracks.Count != 0:
             raise RuntimeError('Refusing validation: iTunes library must be empty. Create a disposable library first.')
