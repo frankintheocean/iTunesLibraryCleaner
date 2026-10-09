@@ -1,4 +1,4 @@
-# 🎵 Unified iTunes Library Manager 1.0
+# 🎵 iTunes Manager 2.0.0
 
 A Windows music-library workspace combining LibraryCleaner and iTunes Library Consolidator with an Apple-inspired interface.
 
@@ -8,6 +8,8 @@ A Windows music-library workspace combining LibraryCleaner and iTunes Library Co
 - Clean genres, merge split albums, find duplicates and organize media.
 - Preview changes, retain backups and review queued jobs and undo history.
 - Launch preserved original tools for advanced workflows.
+- Browse album covers, choose OLED themes and fonts, and adjust text size.
+- Clear waiting queue tasks and see elapsed time and estimated time left.
 
 ## 🚀 Quick start
 
