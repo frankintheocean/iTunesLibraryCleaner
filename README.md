@@ -4,13 +4,14 @@ A local Windows desktop app for browsing, cleaning, and editing music libraries.
 
 ## ✨ What you can do
 
-- 📚 **Current Library:** browse every indexed song with artwork, sort by name, artist, album, genre, or length, and select rows individually, by Shift-click range, or with Ctrl+A / ⌘A.
-- 📊 **Overview:** see distinct album counts, Genre Mix, Library Stats, and Library Health.
+- 📚 **Current Library:** browse every indexed song with artwork, sort by name, artist, album, genre, or length, and select rows individually, by Shift-click range, or with Ctrl+A / ⌘A. Search stays focused while typing and each tab keeps its own query.
+- 🧩 **Missing Tracks:** check all indexed tracks—not only the visible page—and inspect album art, present tracks, and gaps inferred from track-number/count metadata.
+- 📊 **Overview:** see distinct album counts, Genre Mix, Library Stats, and Library Health. Select a statistic, display Top 5 / 10 / 25 / 50 / 100 results, page through the results, and view available artwork.
 - 🎧 **Playlists:** choose up/down buttons or drag-and-drop for reorder controls. A live reorder is applied only if the running classic iTunes COM interface exposes a safe move method. Unsupported versions refuse the change without deleting tracks.
 - ✍️ **Metadata:** preview and confirm live iTunes edits or backed-up file-tag edits.
 - 🧹 **Cleanup:** inspect genres, split albums, duplicates, and file organization.
 - 🧰 **Queue & history:** watch jobs and review outcomes. Clear history also removes Field journal entries, so cleared metadata edits can no longer be undone in the app.
-- ⚙️ **Settings:** manage library profiles, history, accessibility, themes, genre rules, and playlist reorder controls.
+- ⚙️ **Settings:** manage library profiles, history, accessibility, themes, genre rules, playlist reorder controls, and workspace-tab visibility/order.
 - 🎨 **Playlist pictures:** save artwork in iTunes Manager and attempt to apply it to live iTunes where the COM interface permits. Song artwork is never used as a playlist-art fallback.
 - 🎧 **Last.fm:** browse listening charts and available profile, artist, album, and track pictures.
 
