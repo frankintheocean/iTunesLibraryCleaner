@@ -1,8 +1,18 @@
-# 🧪 Automated tests
+# 🧪 Automated test guide
 
-- 🐍 Python tests cover API requests, scans, metadata changes, filesystem safety, history, playlists, and job handling.
-- 🖥️ `desktop.test.cjs` tests the renderer IPC allowlist.
-- 🪟 `desktop-integration.cjs` launches Electron and checks real local-library UI flows with generated test data.
-- 🌱 `make_fixture.py` creates synthetic libraries; tests should not use a personal music collection.
+Use synthetic fixtures for routine tests. Never point destructive test flows at a personal music library.
 
-Run `.venv/bin/python -m pytest tests legacy/consolidator/tests -q`, `npm test`, and `npm run build`. Windows COM behavior must be tested separately with classic iTunes.
+- 🐍 Python tests cover API requests, scans, metadata edits, filesystem safety, history, playlists, and job handling.
+- 🖥️ `desktop.test.cjs` checks the renderer IPC allowlist.
+- 🪟 `desktop-integration.cjs` launches Electron and exercises local-library UI flows with generated test data.
+- 🌱 `make_fixture.py` creates synthetic library fixtures for repeatable tests.
+
+From the repository root, run:
+
+```sh
+.venv/bin/python -m pytest tests legacy/consolidator/tests -q
+npm test
+npm run build
+```
+
+On Windows, use `.venv\\Scripts\\python.exe` in place of `.venv/bin/python`. Classic-iTunes COM behavior still needs separate validation on Windows with a disposable library.
