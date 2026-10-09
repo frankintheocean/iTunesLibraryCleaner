@@ -13,7 +13,7 @@ A major update focused on browsing the full library, richer collection statistic
 - Copy a selection within the app, duplicate tracks, paste a copied selection as new local media files, or delete songs from live iTunes and disk. Deletions use confirmation, review, signature checks and verified safety copies. Library write actions require live classic iTunes.
 
 ## 📊 Overview and playlists
-- Add Library Stats between Genre Mix and Library Health with top 10 artists by distinct available albums, oldest/newest top-five song and album release dates, and longest/shortest top-five songs and albums with readable durations.
+- Add Library Stats between Genre Mix and Library Health, with a statistic selector, Top 5 / 10 / 25 / 50 / 100 result limits, pagination, available song/album artwork, and Last.fm artist portraits where configured.
 - Add the **View library** shortcut beside **Find duplicates**.
 - Move the Libraries and History screens into Settings' Library shortcuts.
 - Choose up/down controls or drag-and-drop to reorder entries in regular playlists. The queued operation attempts a playlist-only move method when the installed COM interface exposes one, then verifies read-back. If no safe method is exposed, it refuses the reorder without deleting tracks or changing other playlists. Smart playlists, special/system playlists, and repeated entries are blocked for safety.
@@ -51,24 +51,19 @@ Requires Windows 10/11 x64 for the installer. Live iTunes editing requires class
 - Keep the GitHub link in Settings.
 
 
-## 🩹 1.0.0 hotfixes (same version)
+## 🩹 1.0.0 maintenance and feature polish
 
-These are maintenance fixes to the existing 1.0.0 release; the version number intentionally remains **1.0.0**.
+These changes keep the published product version at **1.0.0**.
 
-- 🧭 Stabilize Current Library layout measurement to reduce recurring flicker.
-- 🔎 Move Current Library search below the row-action buttons and above the column headings, keep song artwork and song text left-aligned, and clear search state when switching tabs so separate screens do not inherit another tab's query.
-- ⌨️ Debounce search input slightly to avoid excessive rapid refreshes while typing.
-- 📊 Replace the all-at-once Library Stats wall with a stat selector, configurable Top 5 / 10 / 25 / 50 / 100 display, and pagination.
-- 🧩 Add a Missing Tracks workspace that groups indexed albums and highlights missing track numbers when track-count metadata is present.
-
-**Notes:** Missing Tracks relies on track-number and track-count metadata from the loaded library; it cannot infer tracks absent from the source metadata. Playlist-image synchronization, customizable tab ordering/visibility, artist-photo sourcing, and the refreshed Apple-style application icon still require additional implementation and validation before they can be claimed as delivered.
-
-- 🧭 Add Settings controls to hide/show and reorder workspace tabs; the selected navigation preferences are saved with app settings.
-
-- 🖼️ Display the picture saved on a live iTunes playlist when the active iTunes COM interface exposes it; app-saved playlist covers remain a fallback.
-- 🎨 Add album/song artwork thumbnails to Library Stats and artist portraits from Last.fm when a Last.fm connection is configured.
-- 🎵 Add a new scalable vector app-icon source and use it in the workspace branding. The packaged Windows `.ico` asset still needs to be regenerated from the design before the native installer icon can be considered replaced.
-
+- 🧭 Keep Current Library layout stable across background polling so the table does not repeatedly unmount.
+- 🔎 Keep search text independent for each workspace tab, preserve keyboard focus while typing, and place Current Library search beneath the action controls and above the column headings.
+- 🎵 Keep song artwork and song text left-aligned in Current Library; use lazy artwork loading for large libraries.
+- 📊 Add Library Stats selection, Top 5 / 10 / 25 / 50 / 100 limits, pagination, cover thumbnails, and Last.fm artist portraits where available.
+- 🧩 Add Missing Tracks, loading the entire indexed library in pages rather than treating the current visible page as the full collection. Album track gaps are inferred from track-number and track-count metadata when that metadata exists; tracks absent from both the index and its metadata cannot be inferred reliably.
+- 🖼️ Allow a user-selected picture for each playlist. The app saves and displays that picture; live iTunes synchronization is attempted only when the installed COM interface supports it.
+- 🧭 Let users hide/show and reorder workspace tabs in Settings, with those preferences saved.
+- 🎨 Use a flat, matte OLED-black app mark and regenerate/validate the native Windows icon from the icon source during Windows packaging.
+- 🗂️ Keep the repository path guide emoji-led, concise, and specific to each tracked path.
 
 ## 🏷️ File and folder description style
 

@@ -327,12 +327,12 @@ class Service:
                     if credited:artist_albums[credited.casefold()].add(key);artist_tracks[credited.casefold()]+=1
         av=list(albums.values());top=[{'artist':artist_names.get(k,k),'albums':len(v),'tracks':artist_tracks[k]} for k,v in artist_albums.items() if v];top.sort(key=lambda x:(-x['albums'],-x['tracks'],x['artist'].casefold()))
         ds=[x for x in songs if x['year']];old=[dict(a,year=min(a['years']) if a['years'] else a['year']) for a in av if a['years'] or a['year']];new=[dict(a,year=max(a['years']) if a['years'] else a['year']) for a in av if a['years'] or a['year']]
-        ls=sorted((x for x in songs if x['duration_seconds']>0),key=lambda x:(-x['duration_seconds'],x['name'].casefold()))[:5]
-        ss=sorted((x for x in songs if x['duration_seconds']>0),key=lambda x:(x['duration_seconds'],x['name'].casefold()))[:5]
-        la=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(-x['duration_seconds'],x['title'].casefold()))[:5]
-        sa=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(x['duration_seconds'],x['title'].casefold()))[:5]
+        ls=sorted((x for x in songs if x['duration_seconds']>0),key=lambda x:(-x['duration_seconds'],x['name'].casefold()))
+        ss=sorted((x for x in songs if x['duration_seconds']>0),key=lambda x:(x['duration_seconds'],x['name'].casefold()))
+        la=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(-x['duration_seconds'],x['title'].casefold()))
+        sa=sorted((x for x in av if x['duration_seconds']>0),key=lambda x:(x['duration_seconds'],x['title'].casefold()))
         for item in [*ls,*ss,*la,*sa]:item['duration']=self._duration_label(item['duration_seconds'])
-        stats={'top_artists':top[:10],'oldest_songs':sorted(ds,key=lambda x:(x['year'],x['name'].casefold()))[:5],'newest_songs':sorted(ds,key=lambda x:(-x['year'],x['name'].casefold()))[:5],'oldest_albums':sorted(old,key=lambda x:(x['year'],x['title'].casefold()))[:5],'newest_albums':sorted(new,key=lambda x:(-x['year'],x['title'].casefold()))[:5],'longest_songs':ls,'shortest_songs':ss,'longest_albums':la,'shortest_albums':sa}
+        stats={'top_artists':top[:100],'oldest_songs':sorted(ds,key=lambda x:(x['year'],x['name'].casefold()))[:100],'newest_songs':sorted(ds,key=lambda x:(-x['year'],x['name'].casefold()))[:100],'oldest_albums':sorted(old,key=lambda x:(x['year'],x['title'].casefold()))[:100],'newest_albums':sorted(new,key=lambda x:(-x['year'],x['title'].casefold()))[:100],'longest_songs':ls,'shortest_songs':ss,'longest_albums':la,'shortest_albums':sa}
         from .artwork import thumbnail
         for stat_name in ('oldest_songs','newest_songs','longest_songs','shortest_songs'):
             for item in stats[stat_name]: item['image']=thumbnail(item.get('_path'))

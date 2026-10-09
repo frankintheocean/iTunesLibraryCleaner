@@ -215,6 +215,34 @@ def test_overview_counts_real_albums_and_provides_library_stats(service,tmp_path
     assert stats['longest_albums'][0]['duration']=='4 minutes'
 
 
+def test_overview_stats_supply_one_hundred_results_for_pagination(service,tmp_path):
+    identity,media,_=scanned(service,tmp_path)
+    for n in range(105):
+        raw={
+            'Track ID':1000+n,'Persistent ID':f'FAKE{n:012d}',
+            'Name':f'Song {n:03d}','Artist':f'Artist {n:03d}',
+            'Album Artist':f'Artist {n:03d}','Album':f'Album {n:03d}',
+            'Genre':'Test','Year':1900+n,'Total Time':60000+n,
+            'Track Number':1,'Track Count':1,'Size':media.stat().st_size,
+        }
+        service.store.execute(
+            'INSERT INTO tracks VALUES(?,?,?,?,?,?,?,?,?,?)',
+            (identity,1000+n,raw['Persistent ID'],raw['Name'],raw['Artist'],
+             raw['Album'],'Test',str(media),0,json.dumps(raw)),
+        )
+    service._overviews.pop(identity,None)
+    stats=service.overview(identity)['library_stats']
+    assert len(stats['top_artists'])==100
+    assert len(stats['oldest_songs'])==100
+    assert len(stats['newest_songs'])==100
+    assert len(stats['oldest_albums'])==100
+    assert len(stats['newest_albums'])==100
+    assert len(stats['longest_songs'])==100
+    assert len(stats['shortest_songs'])==100
+    assert len(stats['longest_albums'])==100
+    assert len(stats['shortest_albums'])==100
+
+
 def test_track_and_bulk_id_queries_sort_in_both_directions(service,tmp_path):
     identity,_,_=scanned(service,tmp_path)
     library=service.library(identity);library.tracks[1].raw['Name']='Zulu';library.tracks[2].raw['Name']='Alpha'

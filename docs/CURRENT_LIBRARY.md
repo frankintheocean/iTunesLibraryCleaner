@@ -2,9 +2,9 @@
 
 ## 🔎 Browse
 
-Open **Current Library** in the sidebar to list every song in the selected, scanned library. The table shows artwork, Song Name, Artist Name, Album Title, Genre, and Track Length. Use the column headings to sort ascending or descending, or search by song, artist, album, or genre.
+Open **Current Library** in the sidebar to list every song in the selected, scanned library. The table shows artwork, Song Name, Artist Name, Album Title, Genre, and Track Length. Use the column headings to sort ascending or descending, or search by song, artist, album, or genre. The search field sits below the row actions and above the headings. It retains focus while typing, and each workspace tab keeps its own search text when you switch away and back.
 
-Artwork uses the same lazy track-art loader as other song lists. A missing cover displays the music icon; browsing never edits artwork.
+Artwork uses the same lazy track-art loader as other song lists. A missing cover displays the music icon; browsing never edits artwork. The table remains mounted while background job status refreshes, preventing routine polling from resetting the search field or flashing the rows.
 
 ## ✅ Select songs
 
