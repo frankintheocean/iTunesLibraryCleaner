@@ -11,7 +11,7 @@
     "build": "tsc -p frontend/tsconfig.json && vite build --config frontend/vite.config.mts",
     "desktop": "electron .",
     "test": "node --test tests/desktop.test.cjs",
-    "package:windows": "npm run build && electron-builder --win nsis --x64",
+    "package:windows": "npm run build && electron-builder --win nsis --x64 --publish never",
     "test:desktop": "node tests/desktop-integration.cjs"
   },
   "dependencies": {
