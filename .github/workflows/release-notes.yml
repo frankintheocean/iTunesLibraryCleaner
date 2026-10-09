@@ -9,6 +9,8 @@ on:
       - 'docs/RELEASE_2_0_0.md'
       - 'docs/RELEASE_3_0_0.md'
       - 'docs/RELEASE_3_1_0.md'
+      - 'docs/RELEASE_3_1_1.md'
+      - 'docs/RELEASE_1_0_0.md'
   workflow_dispatch:
 permissions:
   contents: write
@@ -26,12 +28,10 @@ jobs:
           repo = os.environ['GITHUB_REPOSITORY']
           pages = json.loads(subprocess.check_output(['gh', 'api', f'repos/{repo}/releases', '--paginate', '--slurp'], text=True))
           tags = {item['tag_name'] for page in pages for item in page}
-          known = [('v3.1.0', '3.1.0', 'docs/RELEASE_3_1_0.md'), ('v3.0.0', '3.0.0', 'docs/RELEASE_3_0_0.md'), ('v2.0.0', '2.0.0', 'docs/RELEASE_2_0_0.md'), ('v1.0', '1.0', 'docs/WINDOWS_PREVIEW_RELEASE.md'), ('v4.0.0-windows-preview', 'Earlier preview', 'docs/EARLIER_PREVIEW_RELEASE.md')]
-          latest = next((version for tag, version, _ in known if tag in tags), None)
+          known = [('v3.1.1', '3.1.1', 'docs/RELEASE_3_1_1.md'), ('v3.1.0', '3.1.0', 'docs/RELEASE_3_1_0.md'), ('v3.0.0', '3.0.0', 'docs/RELEASE_3_0_0.md'), ('v2.0.0', '2.0.0', 'docs/RELEASE_2_0_0.md'), ('v1.0', '1.0', 'docs/WINDOWS_PREVIEW_RELEASE.md'), ('v4.0.0-windows-preview', 'Earlier preview', 'docs/EARLIER_PREVIEW_RELEASE.md')]
           for tag, version, guide in known:
               if tag not in tags:
                   print(f'{tag}: no published release to update')
                   continue
-              title = f'🎵 iTunes Manager {version}' if version == latest else f'🕰️ {version} — replaced by {latest}'
-              subprocess.run(['gh', 'release', 'edit', tag, '--repo', repo, '--title', title, '--notes-file', guide], check=True)
-          PY
+              subprocess.run(['gh', 'release', 'edit', tag, '--repo', repo, '--title', f'Pre-release {version}', '--notes-file', guide, '--prerelease'], check=True)
+                    PY
