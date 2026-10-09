@@ -36,3 +36,9 @@ Use a disposable classic iTunes library with generated media. Never use your per
 Run `.venv/bin/python scripts/benchmark-library.py --report build/validation/library-speed.json` (use `.venv\Scripts\python` on Windows). This loads a real generated 40,000-song XML, searches it and edits one temporary file title. `--compare-v2` also times the v2 tag when that tag is available locally. These are fixture results, not live iTunes measurements.
 
 Version 3 regression checks include locked old snapshots, failed saves, saved-library reuse, full completion, countdown deadlines, exact-ID fallback, wrong-library refusal, small metadata updates, removal, history, default paths and playlist pictures. The desktop test adds switching libraries during background refreshes and removing a profile while retaining the active collection.
+
+## 🎧 Last.fm and slow scans
+
+`tests/test_lastfm.py` uses provider-shaped fixtures for profile checks, all charts and periods, failed connections, private data and bounded pictures. No real account or API key is used. The desktop test keeps real library requests and replaces only Last.fm responses with clearly marked demo data; it checks the profile picture, charts, paging and disconnect.
+
+`tests/test_com_timeout.py` simulates slow and stalled workers, cancellation and unchanged write deadlines. A separate reader case covers all 48,000 generated track IDs. These checks do not replace a real classic iTunes scan. On Windows, use a disposable test library and confirm that a scan still moves forward past 15 minutes; cancel and retry before testing a personal library.
