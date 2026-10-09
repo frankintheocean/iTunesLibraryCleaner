@@ -23,3 +23,11 @@ Before changing each field, the app saves a pending record. It then reads the va
 Copies are staged in the destination folder and checked with SHA-256. A hard link publishes the verified copy without replacing an existing file. Unsupported filesystems fail safely. Sources are removed only after a verified copy. Interrupted transfers with an existing destination need review. Tag edits keep unrelated tags and save a verified full-file backup.
 
 Live iTunes edits and file-tag edits are separate choices. XML merging and relinking create a new export; they do not edit ITL databases or automatically update live iTunes. Advanced original tools remain available in Settings. Online lookups are optional. No telemetry or public network server is configured.
+
+## ⚡ Saved libraries and search
+
+The service keeps up to eight parsed libraries ready in memory. Code that changes a library receives a separate copy, so previews cannot change the saved data. Searches use SQLite’s text index. Overview results are cached until an index changes; typing does not reload overview or playlist data. Metadata writes update only affected search rows.
+
+Each save writes and checks a fresh snapshot, then changes its SQLite reference. It does not replace a snapshot a Windows reader may still have open. XML scans copy the source to a private staging file and parse that exact copy once. The source must remain unchanged during copying. One previous snapshot is kept.
+
+Live scans read the actual iTunes COM collection and verify the library ID and track count. Runtime database IDs speed up playlist links. Live writes still require the exact persistent ID and matching preview values, with a durable field record and readback. Name and runtime-ID hints only help find a candidate; its persistent ID must match.
