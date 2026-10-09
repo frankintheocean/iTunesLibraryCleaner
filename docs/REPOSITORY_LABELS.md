@@ -505,93 +505,93 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 | `frontend/tsconfig.json` | 🧾 TypeScript compiler settings for the frontend |
 | `frontend/vite.config.mts` | ⚡ Vite development server and build settings |
 | `INSTALL.md` | 📥 Install, repair, upgrade, and uninstall the app |
-| `legacy/cleaner/album_merge.py` | 🚨 Preserved legacy Album Merge source or resource |
-| `legacy/cleaner/build/build_menu.py` | 🚥 Preserved legacy Build Menu source or resource |
-| `legacy/cleaner/build/build_progress.py` | 🛑 Preserved legacy Build Progress source or resource |
-| `legacy/cleaner/build/build.bat` | 🚧 Preserved legacy Build source or resource |
-| `legacy/cleaner/build/genrecleanup.spec` | ⚓ Preserved legacy Genrecleanup.Spec source or resource |
-| `legacy/cleaner/build/installer.iss` | 🛟 Preserved legacy Installer.Iss source or resource |
-| `legacy/cleaner/build/unblock.bat` | ⛵ Preserved legacy Unblock source or resource |
-| `legacy/cleaner/CHANGELOG.md` | 🚤 Preserved legacy CHANGELOG source or resource |
-| `legacy/cleaner/cleanup_engine.py` | 🛳️ Preserved legacy Cleanup Engine source or resource |
-| `legacy/cleaner/genre_rules.py` | ⛴️ Preserved legacy Genre Rules source or resource |
-| `legacy/cleaner/GenreCleanup.ico` | 🛥️ Preserved legacy GenreCleanup source or resource |
-| `legacy/cleaner/gui.py` | 🚢 Preserved legacy Gui source or resource |
-| `legacy/cleaner/icons.py` | ✈️ Preserved legacy Icons source or resource |
-| `legacy/cleaner/itunes_com.py` | 🛩️ Preserved legacy Itunes Com source or resource |
-| `legacy/cleaner/main.py` | 🛫 Preserved legacy Main source or resource |
-| `legacy/cleaner/online_lookup.py` | 🛬 Preserved legacy Online Lookup source or resource |
-| `legacy/cleaner/README.md` | 💺 Preserved legacy README source or resource |
-| `legacy/cleaner/requirements.txt` | 🚁 Preserved legacy Requirements source or resource |
-| `legacy/cleaner/style.py` | 🚟 Preserved legacy Style source or resource |
-| `legacy/consolidator/assets/app_icon.ico` | 🚠 Preserved legacy App Icon source or resource |
-| `legacy/consolidator/dist_config/build_menu.py` | 🚡 Preserved legacy Build Menu source or resource — for legacy/consolidator/dist_config/build_menu.py |
-| `legacy/consolidator/dist_config/build_progress.py` | 🛰️ Preserved legacy Build Progress source or resource — for legacy/consolidator/dist_config/build_progress.py |
-| `legacy/consolidator/dist_config/build_windows.bat` | 🛸 Preserved legacy Build Windows source or resource |
-| `legacy/consolidator/dist_config/build.bat` | 🧑‍🚀 Preserved legacy Build source or resource — for legacy/consolidator/dist_config/build.bat |
-| `legacy/consolidator/dist_config/build.spec` | 🌌 Preserved legacy Build.Spec source or resource |
-| `legacy/consolidator/dist_config/install.bat` | 💱 Preserved legacy Install source or resource |
-| `legacy/consolidator/dist_config/installer_README.md` | 💲 Preserved legacy Installer README source or resource |
-| `legacy/consolidator/dist_config/run_app.py` | 🔣 Preserved legacy Run App source or resource |
-| `legacy/consolidator/dist_config/setup.iss` | 🔤 Preserved legacy Setup.Iss source or resource |
-| `legacy/consolidator/dist_config/unblock.bat` | 🔡 Preserved legacy Unblock source or resource — for legacy/consolidator/dist_config/unblock.bat |
-| `legacy/consolidator/dist_config/uninstall.bat` | 🔠 Preserved legacy Uninstall source or resource |
-| `legacy/consolidator/README.md` | 🅰️ Preserved legacy README source or resource — for legacy/consolidator/README.md |
-| `legacy/consolidator/requirements.txt` | 🆎 Preserved legacy Requirements source or resource — for legacy/consolidator/requirements.txt |
-| `legacy/consolidator/src/__init__.py` | 🅱️ Preserved legacy   Init   source or resource |
-| `legacy/consolidator/src/changelog.py` | 🆑 Preserved legacy Changelog source or resource |
-| `legacy/consolidator/src/core/__init__.py` | 🆒 Preserved legacy   Init   source or resource — for legacy/consolidator/src/core/__init__.py |
-| `legacy/consolidator/src/core/artwork.py` | 🆓 Preserved legacy Artwork source or resource |
-| `legacy/consolidator/src/core/audit.py` | ℹ️ Preserved legacy Audit source or resource |
-| `legacy/consolidator/src/core/consolidator.py` | 🆔 Preserved legacy Consolidator source or resource |
-| `legacy/consolidator/src/core/duplicate_detector.py` | 🆕 Preserved legacy Duplicate Detector source or resource |
-| `legacy/consolidator/src/core/duplicate_strategies.py` | 🆖 Preserved legacy Duplicate Strategies source or resource |
-| `legacy/consolidator/src/core/health_actions.py` | 🆗 Preserved legacy Health Actions source or resource |
-| `legacy/consolidator/src/core/itunes_com_sync.py` | 🆘 Preserved legacy Itunes Com Sync source or resource |
-| `legacy/consolidator/src/core/itunes_xml.py` | 🆙 Preserved legacy Itunes Xml source or resource |
-| `legacy/consolidator/src/core/library_diff.py` | 🆚 Preserved legacy Library Diff source or resource |
-| `legacy/consolidator/src/core/library_health.py` | 🈁 Preserved legacy Library Health source or resource |
-| `legacy/consolidator/src/core/library_lock.py` | 🈂️ Preserved legacy Library Lock source or resource |
-| `legacy/consolidator/src/core/plist_stream.py` | 🈷️ Preserved legacy Plist Stream source or resource |
-| `legacy/consolidator/src/core/providers/__init__.py` | 🈶 Preserved legacy   Init   source or resource — for legacy/consolidator/src/core/providers/__init__.py |
-| `legacy/consolidator/src/core/providers/apple_music_api.py` | 🈯 Preserved legacy Apple Music Api source or resource |
-| `legacy/consolidator/src/core/providers/base.py` | 🉐 Preserved legacy Base source or resource |
-| `legacy/consolidator/src/core/providers/spotify_export.py` | 🈹 Preserved legacy Spotify Export source or resource |
-| `legacy/consolidator/src/core/rebuild_script.py` | 🈚 Preserved legacy Rebuild Script source or resource |
-| `legacy/consolidator/src/core/workers.py` | 🈲 Preserved legacy Workers source or resource |
-| `legacy/consolidator/src/crash_reporter.py` | 🉑 Preserved legacy Crash Reporter source or resource |
-| `legacy/consolidator/src/data/__init__.py` | ㊗️ Preserved legacy   Init   source or resource — for legacy/consolidator/src/data/__init__.py |
-| `legacy/consolidator/src/data/cache_db.py` | ㊙️ Preserved legacy Cache Db source or resource |
-| `legacy/consolidator/src/error_log.py` | 🈸 Preserved legacy Error Log source or resource |
-| `legacy/consolidator/src/errors.py` | 🈴 Preserved legacy Errors source or resource |
-| `legacy/consolidator/src/main.py` | 🈳 Preserved legacy Main source or resource — for legacy/consolidator/src/main.py |
-| `legacy/consolidator/src/resources.py` | 🈺 Preserved legacy Resources source or resource |
-| `legacy/consolidator/src/ui/__init__.py` | 🈵 Preserved legacy   Init   source or resource — for legacy/consolidator/src/ui/__init__.py |
-| `legacy/consolidator/src/ui/design_tokens.py` | 🔴 Preserved legacy Design Tokens source or resource |
-| `legacy/consolidator/src/ui/health_panel.py` | 🟠 Preserved legacy Health Panel source or resource |
-| `legacy/consolidator/src/ui/main_window.py` | 🟡 Preserved legacy Main Window source or resource |
-| `legacy/consolidator/src/ui/settings_dialog.py` | 🟢 Preserved legacy Settings Dialog source or resource |
-| `legacy/consolidator/src/ui/theme.py` | 🔵 Preserved legacy Theme source or resource |
-| `legacy/consolidator/src/ui/widgets.py` | 🟣 Preserved legacy Widgets source or resource |
+| `legacy/cleaner/album_merge.py` | 💿 Merges album records in the original Cleaner |
+| `legacy/cleaner/build/build_menu.py` | 📋 Builds the original Cleaner's menu |
+| `legacy/cleaner/build/build_progress.py` | 📊 Shows build progress for the original Cleaner |
+| `legacy/cleaner/build/build.bat` | 🏗️ Builds the original Cleaner for Windows |
+| `legacy/cleaner/build/genrecleanup.spec` | 📦 PyInstaller recipe for the original Cleaner |
+| `legacy/cleaner/build/installer.iss` | 🧰 Inno Setup recipe for the original Cleaner installer |
+| `legacy/cleaner/build/unblock.bat` | 🔓 Removes Windows download blocking from legacy files |
+| `legacy/cleaner/CHANGELOG.md` | 🗓️ Change history for the original Cleaner |
+| `legacy/cleaner/cleanup_engine.py` | 🧹 Core genre-cleanup rules and processing |
+| `legacy/cleaner/genre_rules.py` | 🏷️ Genre names and matching rules |
+| `legacy/cleaner/GenreCleanup.ico` | 🎵 Original Cleaner app icon |
+| `legacy/cleaner/gui.py` | 🪟 Main window for the original Cleaner |
+| `legacy/cleaner/icons.py` | 🖼️ Icon loading for the original Cleaner |
+| `legacy/cleaner/itunes_com.py` | 🔌 Original Cleaner connection to iTunes |
+| `legacy/cleaner/main.py` | ▶️ Starts the original Cleaner |
+| `legacy/cleaner/online_lookup.py` | 🌐 Online lookups used by the original Cleaner |
+| `legacy/cleaner/README.md` | 📘 Setup and usage notes for the original Cleaner |
+| `legacy/cleaner/requirements.txt` | 📌 Python packages needed by the original Cleaner |
+| `legacy/cleaner/style.py` | 🎨 Visual styling for the original Cleaner |
+| `legacy/consolidator/assets/app_icon.ico` | 🎼 Original Consolidator app icon |
+| `legacy/consolidator/dist_config/build_menu.py` | 📋 Installer build menu for the legacy Consolidator |
+| `legacy/consolidator/dist_config/build_progress.py` | 📊 Installer build progress for the legacy Consolidator |
+| `legacy/consolidator/dist_config/build_windows.bat` | 🪟 Windows build command for the legacy Consolidator |
+| `legacy/consolidator/dist_config/build.bat` | 🏗️ Build command for the legacy Consolidator |
+| `legacy/consolidator/dist_config/build.spec` | 📦 PyInstaller recipe for the legacy Consolidator |
+| `legacy/consolidator/dist_config/install.bat` | 📥 Installs the legacy Consolidator |
+| `legacy/consolidator/dist_config/installer_README.md` | 📗 Instructions for the legacy Consolidator installer |
+| `legacy/consolidator/dist_config/run_app.py` | ▶️ Starts the packaged legacy Consolidator |
+| `legacy/consolidator/dist_config/setup.iss` | 🧰 Inno Setup recipe for the legacy Consolidator |
+| `legacy/consolidator/dist_config/unblock.bat` | 🔓 Unblocks downloaded legacy Consolidator files |
+| `legacy/consolidator/dist_config/uninstall.bat` | 🗑️ Removes the legacy Consolidator |
+| `legacy/consolidator/README.md` | 📙 Setup and usage notes for the legacy Consolidator |
+| `legacy/consolidator/requirements.txt` | 📌 Python packages needed by the legacy Consolidator |
+| `legacy/consolidator/src/__init__.py` | 📦 Marks the legacy Consolidator source package |
+| `legacy/consolidator/src/changelog.py` | 🗓️ Legacy Consolidator change history |
+| `legacy/consolidator/src/core/__init__.py` | ⚙️ Marks the legacy core logic package |
+| `legacy/consolidator/src/core/artwork.py` | 🖼️ Artwork lookup and image handling |
+| `legacy/consolidator/src/core/audit.py` | 🔎 Library checks and audit reports |
+| `legacy/consolidator/src/core/consolidator.py` | 🧭 Main library consolidation logic |
+| `legacy/consolidator/src/core/duplicate_detector.py` | 🔍 Finds duplicate tracks and albums |
+| `legacy/consolidator/src/core/duplicate_strategies.py` | 🧠 Rules for choosing duplicate records |
+| `legacy/consolidator/src/core/health_actions.py` | 🩺 Actions that repair library health issues |
+| `legacy/consolidator/src/core/itunes_com_sync.py` | 🔄 Syncs library data with iTunes on Windows |
+| `legacy/consolidator/src/core/itunes_xml.py` | 📄 Reads and writes iTunes XML libraries |
+| `legacy/consolidator/src/core/library_diff.py` | ↔️ Compares two library snapshots |
+| `legacy/consolidator/src/core/library_health.py` | ❤️ Checks the library for common problems |
+| `legacy/consolidator/src/core/library_lock.py` | 🔒 Prevents overlapping library changes |
+| `legacy/consolidator/src/core/plist_stream.py` | 🌊 Reads large property-list files in chunks |
+| `legacy/consolidator/src/core/providers/__init__.py` | 🔗 Marks the provider integrations package |
+| `legacy/consolidator/src/core/providers/apple_music_api.py` | 🍎 Fetches music details from Apple's API |
+| `legacy/consolidator/src/core/providers/base.py` | 🧱 Shared interface for music data providers |
+| `legacy/consolidator/src/core/providers/spotify_export.py` | 🟢 Reads exported Spotify music data |
+| `legacy/consolidator/src/core/rebuild_script.py` | 🛠️ Rebuilds the legacy library script |
+| `legacy/consolidator/src/core/workers.py` | ⏱️ Background workers for library tasks |
+| `legacy/consolidator/src/crash_reporter.py` | 🚨 Collects details about app crashes |
+| `legacy/consolidator/src/data/__init__.py` | 💾 Marks the legacy data package |
+| `legacy/consolidator/src/data/cache_db.py` | 🗃️ Local database for cached library data |
+| `legacy/consolidator/src/error_log.py` | 🧾 Writes application error logs |
+| `legacy/consolidator/src/errors.py` | ⚠️ Shared error types for the legacy app |
+| `legacy/consolidator/src/main.py` | 🚀 Starts the legacy Consolidator app |
+| `legacy/consolidator/src/resources.py` | 🧰 Loads bundled legacy app resources |
+| `legacy/consolidator/src/ui/__init__.py` | 🪟 Marks the legacy interface package |
+| `legacy/consolidator/src/ui/design_tokens.py` | 🎨 Shared colors, spacing, and type styles |
+| `legacy/consolidator/src/ui/health_panel.py` | 🩺 Library health screen and repair actions |
+| `legacy/consolidator/src/ui/main_window.py` | 🖥️ Main window for the legacy Consolidator |
+| `legacy/consolidator/src/ui/settings_dialog.py` | ⚙️ User settings dialog |
+| `legacy/consolidator/src/ui/theme.py` | 🌗 Interface theme handling |
+| `legacy/consolidator/src/ui/widgets.py` | 🧩 Reusable controls for the legacy interface |
 | `legacy/consolidator/tests/__init__.py` | 🟤 Preserved legacy   Init   source or resource — for legacy/consolidator/tests/__init__.py |
-| `legacy/consolidator/tests/fixtures/Library_unicode_folders.xml` | ⚫ Preserved legacy Library Unicode Folders.Xml source or resource |
-| `legacy/consolidator/tests/fixtures/Library.xml` | ⚪ Preserved legacy Library.Xml source or resource |
-| `legacy/consolidator/tests/fixtures/malformed/empty.xml` | 🟥 Preserved legacy Empty.Xml source or resource |
-| `legacy/consolidator/tests/fixtures/malformed/entity_declaration.xml` | 🟧 Preserved legacy Entity Declaration.Xml source or resource |
-| `legacy/consolidator/tests/fixtures/malformed/mismatched_tags.xml` | 🟨 Preserved legacy Mismatched Tags.Xml source or resource |
-| `legacy/consolidator/tests/fixtures/malformed/missing_tracks_key.xml` | 🟩 Preserved legacy Missing Tracks Key.Xml source or resource |
-| `legacy/consolidator/tests/fixtures/malformed/truncated.xml` | 🟦 Preserved legacy Truncated.Xml source or resource |
-| `legacy/consolidator/tests/generate_fixture.py` | 🟪 Preserved legacy Generate Fixture source or resource |
-| `legacy/consolidator/tests/test_album_completeness.py` | 🟫 Preserved legacy Test Album Completeness source or resource |
-| `legacy/consolidator/tests/test_cache_db.py` | ⬛ Preserved legacy Test Cache Db source or resource |
-| `legacy/consolidator/tests/test_consolidation.py` | ⬜ Preserved legacy Test Consolidation source or resource |
-| `legacy/consolidator/tests/test_duplicate_strategies.py` | ◼️ Preserved legacy Test Duplicate Strategies source or resource |
-| `legacy/consolidator/tests/test_itunes_com_sync.py` | ◻️ Preserved legacy Test Itunes Com Sync source or resource |
-| `legacy/consolidator/tests/test_large_library_and_select_all.py` | ▪️ Preserved legacy Test Large Library And Select All source or resource |
-| `legacy/consolidator/tests/test_library_xml_edge_cases.py` | ▫️ Preserved legacy Test Library Xml Edge Cases source or resource |
-| `legacy/consolidator/tests/test_rebuild_script.py` | 🔶 Preserved legacy Test Rebuild Script source or resource |
-| `legacy/consolidator/tests/test_theme_tokens.py` | 🔷 Preserved legacy Test Theme Tokens source or resource |
-| `legacy/README.md` | 🔸 Preserved legacy README source or resource — for legacy/README.md |
+| `legacy/consolidator/tests/fixtures/Library_unicode_folders.xml` | 🌍 Test library with Unicode folder names |
+| `legacy/consolidator/tests/fixtures/Library.xml` | 🧪 Sample iTunes library for tests |
+| `legacy/consolidator/tests/fixtures/malformed/empty.xml` | 🕳️ Empty XML file for parser error tests |
+| `legacy/consolidator/tests/fixtures/malformed/entity_declaration.xml` | 🚫 XML with a prohibited entity declaration |
+| `legacy/consolidator/tests/fixtures/malformed/mismatched_tags.xml` | 🧷 XML with mismatched tags |
+| `legacy/consolidator/tests/fixtures/malformed/missing_tracks_key.xml` | 🧩 XML missing its Tracks section |
+| `legacy/consolidator/tests/fixtures/malformed/truncated.xml` | ✂️ Cut-off XML for parser error tests |
+| `legacy/consolidator/tests/generate_fixture.py` | 🧪 Creates sample library files for tests |
+| `legacy/consolidator/tests/test_album_completeness.py` | 💿 Tests album completeness checks |
+| `legacy/consolidator/tests/test_cache_db.py` | 🗃️ Tests the local cache database |
+| `legacy/consolidator/tests/test_consolidation.py` | 🧭 Tests library consolidation behavior |
+| `legacy/consolidator/tests/test_duplicate_strategies.py` | 🔍 Tests duplicate selection rules |
+| `legacy/consolidator/tests/test_itunes_com_sync.py` | 🔄 Tests iTunes library syncing |
+| `legacy/consolidator/tests/test_large_library_and_select_all.py` | 📚 Tests large libraries and select-all behavior |
+| `legacy/consolidator/tests/test_library_xml_edge_cases.py` | 📄 Tests unusual and invalid library XML |
+| `legacy/consolidator/tests/test_rebuild_script.py` | 🛠️ Tests the library rebuild script |
+| `legacy/consolidator/tests/test_theme_tokens.py` | 🎨 Tests interface design tokens |
+| `legacy/README.md` | 🏛️ Explains which older tools are preserved |
 | `LICENSE` | 🔹 Project file for LICENSE |
 | `MIGRATION.md` | 🔺 Move from the older Cleaner and Consolidator tools |
 | `package-lock.json` | 🔻 App scripts, version, and pinned JavaScript dependencies |
