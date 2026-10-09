@@ -35,3 +35,7 @@ The installer test installs into a new temporary directory and intentionally lea
 Live passing does not establish modal/restart recovery, locked/missing/protected media, high-bit IDs unless actually observed, album-grouping behavior, or the remaining Windows acceptance checklist in TESTING.md. These require separate controlled tests. Never run acceptance against your personal collection.
 
 The unified live scanner uses the documented `IITPlaylist.Source.Playlists` member. The supplied legacy modules retain their original implementation. API reference: [iTunes SDK playlist interface mirror](https://github.com/joshkunz/iTunesControl/blob/22016cb72084c24101d684ef7894a52c78ccb6a9/iTunesCOM/interfaceIITPlaylist.html).
+
+## Desktop iTunes connection compatibility
+
+On Apple-distributed iTunes 12.13.11.1, a real Windows diagnostic confirmed `Dispatch('iTunes.Application')` succeeds with an empty library while `GetActiveObject` returns `MK_E_UNAVAILABLE` (-2147221021). The shared connector now uses Dispatch for that specific failure. This can open classic iTunes during a connection check; other errors propagate unchanged. The validation script still checks that the active library is empty before importing or editing any synthetic tracks. Full live metadata acceptance remains pending.
