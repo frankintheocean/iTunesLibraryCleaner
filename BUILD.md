@@ -25,3 +25,5 @@ When the package manager must use the cloud HTTPS proxy, configure `ELECTRON_GET
 ## Source deliverable
 
 Run `python3 scripts/package-source.py`. It creates a ZIP under the sibling `deliverables/` directory, verifies ZIP integrity and exactly one root folder, and writes SHA-256. The ZIP contains source, originals, tests, lockfiles, docs, icons and built frontend assets. It excludes credentials, runtime state, node_modules, Python environments and build caches. No Windows executable is included unless separately built and validated.
+
+Automated Windows builds and installer acceptance are configured in `.github/workflows/windows-build.yml`. See [Windows validation](docs/WINDOWS_VALIDATION.md) for artifact retrieval and the live iTunes script.
