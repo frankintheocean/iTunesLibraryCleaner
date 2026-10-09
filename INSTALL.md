@@ -2,7 +2,7 @@
 
 ## 🚀 Install on Windows
 
-Download the installer or portable app ZIP from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0).
+Download the installer or portable app ZIP from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v1.0.0).
 
 - **Installer:** choose a folder and create Start Menu/Desktop shortcuts.
 - **Portable ZIP:** extract every file into one writable folder, then open `iTunes Manager.exe`. Keep its folders together.
@@ -28,7 +28,7 @@ By default, app data lives in the per-user **Unified iTunes Library Manager** fo
 
 The portable ZIP also uses AppData for settings and backups; it is not a self-contained data directory. Set `LIBRARY_MANAGER_DATA_DIR` only when you need a separate development or test location.
 
-## ⚙️ Version 4.0.0 changes
+## ⚙️ Version 1.0.0 changes
 
 - **Libraries** and **History** now open from **Settings**.
 - **Current Library** lists all indexed songs. Destructive delete/duplicate actions show a warning and review step; delete verifies a safety copy before removing a local original.
