@@ -87,6 +87,12 @@ jobs:
           exec 2> >(tee publish-error.log >&2)
           tag_commit=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$RELEASE_TAG" --jq '.object.sha')
           [[ "$tag_commit" == "$VALIDATED_COMMIT" ]] || { echo 'Release tag does not match the validated build'; exit 1; }
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --pattern SHA256SUMS.txt --pattern installer-validation.json --dir published-evidence
+            cmp artifact/SHA256SUMS.txt published-evidence/SHA256SUMS.txt
+            python -c 'import json,os; r=json.load(open("published-evidence/installer-validation.json")); assert r["result"]=="passed" and r["commit"]==os.environ["VALIDATED_COMMIT"]'
+            echo 'Verified existing release; downloads are unchanged.'
+          else
           gh release create "$RELEASE_TAG" \
             artifact/iTunes-Manager-3.1.0-win-x64.exe \
             artifact/iTunes-Manager-3.1.0-win-x64.exe.sha256 \
@@ -98,14 +104,18 @@ jobs:
             artifact/SHA256SUMS.txt \
             --repo "$GITHUB_REPOSITORY" --verify-tag --prerelease \
             --title '🎵 iTunes Manager 3.1.0' --notes-file docs/RELEASE_3_1_0.md
-      - name: Label the earlier preview as superseded
+          fi
+      - name: Label earlier releases
         shell: bash
         run: |
-          gh release edit v4.0.0-windows-preview --repo "$GITHUB_REPOSITORY" \
-            --title '🕰️ Earlier preview — replaced by 3.1.0'
-          gh release edit v1.0 --repo "$GITHUB_REPOSITORY" \
-            --title '🕰️ Version 1.0 — replaced by 3.1.0'
-          gh release edit v2.0.0 --repo "$GITHUB_REPOSITORY" \
-            --title '🕰️ Version 2.0.0 — replaced by 3.1.0'
-          gh release edit v3.0.0 --repo "$GITHUB_REPOSITORY" \
-            --title '🕰️ Version 3.0.0 — replaced by 3.1.0'
+          python - <<'PY'
+          import json, os, subprocess
+          repo = os.environ['GITHUB_REPOSITORY']
+          pages = json.loads(subprocess.check_output(['gh', 'api', f'repos/{repo}/releases', '--paginate', '--slurp'], text=True))
+          tags = {item['tag_name'] for page in pages for item in page}
+          for tag, label in [('v4.0.0-windows-preview', 'Earlier preview'), ('v1.0', 'Version 1.0'), ('v2.0.0', 'Version 2.0.0'), ('v3.0.0', 'Version 3.0.0')]:
+              if tag not in tags:
+                  print(f'{tag}: no published release to relabel')
+                  continue
+              subprocess.run(['gh', 'release', 'edit', tag, '--repo', repo, '--title', f'🕰️ {label} — replaced by 3.1.0'], check=True)
+          PY
