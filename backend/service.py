@@ -6,6 +6,7 @@ import os
 import plistlib
 import shutil
 import sqlite3
+import stat as file_stat
 import tempfile
 import time
 import uuid
@@ -25,6 +26,10 @@ class Service:
     def __init__(self, data_dir):
         self.data_dir = Path(data_dir)
         self.store = Store(self.data_dir / 'manager.sqlite')
+        self._library_lock = threading.RLock()
+        self._libraries = {}
+        self._overviews = {}
+        self._index_versions = defaultdict(int)
         legacy.configure_rules(self.data_dir)
         self.jobs = Jobs(self.store, self.run_job)
         self.scheduler = threading.Thread(target=self.schedule, daemon=True, name='scan-scheduler')
@@ -34,6 +39,7 @@ class Service:
         while not self.jobs.stop.wait(20):
             for row in self.store.rows('SELECT * FROM profiles'):
                 config = json.loads(row['config']); minutes = config.get('scan_interval_minutes', 0)
+                if config.get('removed'): continue
                 if minutes and row['scanned'] and time.time() - row['scanned'] >= minutes * 60:
                     pending = self.store.rows("SELECT payload FROM jobs WHERE kind='scan' AND status IN ('queued','running','paused')")
                     if not any(json.loads(j['payload']).get('profile') == row['id'] for j in pending):
@@ -47,24 +53,67 @@ class Service:
         result = rows[0]; result['config'] = json.loads(result['config']); return result
 
     def snapshot_path(self, identity):
-        self.profile(identity)
-        return self.data_dir / 'libraries' / identity / 'snapshot.xml'
+        config = self.profile(identity)['config']
+        name = config.get('_snapshot', 'snapshot.xml')
+        if Path(name).name != name: raise ValueError('Invalid saved library path.')
+        return self.data_dir / 'libraries' / identity / name
 
-    def library(self, identity):
-        p = self.snapshot_path(identity)
-        if not p.exists(): raise ValueError('Scan this library first.')
-        return legacy.Library.load(p)
+    def library(self, identity, mutable=True):
+        with self._library_lock:
+            p = self.snapshot_path(identity)
+            if not p.exists(): raise ValueError('Scan this library first.')
+            stat = p.stat(); key = (str(p), stat.st_mtime_ns, stat.st_size)
+            cached = self._libraries.get(identity)
+            if not cached or cached[0] != key:
+                cached = (key, legacy.Library.load(p))
+                self._libraries[identity] = cached
+                if len(self._libraries) > 8:
+                    self._libraries.pop(next(iter(self._libraries)))
+            return copy.deepcopy(cached[1]) if mutable else cached[1]
 
-    def save_snapshot(self, identity, library):
+    def save_snapshot(self, identity, library, prepared_path=None):
         path = self.snapshot_path(identity)
         path.parent.mkdir(parents=True, exist_ok=True)
-        fd, temp = tempfile.mkstemp(dir=path.parent, suffix='.xml')
-        os.close(fd)
+        if prepared_path:
+            temp = str(prepared_path)
+        else:
+            fd, temp = tempfile.mkstemp(dir=path.parent, suffix='.xml')
+            os.close(fd)
         try:
-            library.save(Path(temp))
-            legacy.Library.load(Path(temp))
-            os.replace(temp, path)
-        finally: Path(temp).unlink(missing_ok=True)
+            if prepared_path:
+                # XML scans already parsed this exact private staging file.
+                verified = library
+            else:
+                library.save(Path(temp))
+                verified = legacy.Library.load(Path(temp))
+                with open(temp, 'rb+') as saved: os.fsync(saved.fileno())
+            # Readers, iTunes and Windows scanners can hold an old XML open.
+            # Publish a new file, then switch the SQLite pointer; never overwrite it.
+            target = path.parent / ('snapshot-' + uuid.uuid4().hex + '.xml')
+            for attempt in range(5):
+                try:
+                    os.replace(temp, target)
+                    break
+                except PermissionError:
+                    if attempt == 4: raise
+                    time.sleep(.05 * 2**attempt)
+            verified.source_path = target
+            with self._library_lock:
+                profile = self.profile(identity)
+                profile['config']['_snapshot'] = target.name
+                self.store.execute('UPDATE profiles SET config=? WHERE id=?', (encode(profile['config']), identity))
+                stat = target.stat()
+                self._libraries[identity] = ((str(target), stat.st_mtime_ns, stat.st_size), verified)
+                if len(self._libraries) > 8: self._libraries.pop(next(iter(self._libraries)))
+                self._overviews.pop(identity, None)
+            # Keep one previous snapshot for recovery. Locked old files can wait.
+            for old in path.parent.glob('snapshot*.xml'):
+                if old not in (path, target):
+                    try: old.unlink()
+                    except OSError: pass
+        finally:
+            try: Path(temp).unlink(missing_ok=True)
+            except OSError: pass
 
     def add_profile(self, name, source, kind, roots=None):
         if kind not in ('xml', 'folder', 'live'): raise ValueError('Choose XML, media folder, or live iTunes.')
@@ -74,24 +123,87 @@ class Service:
         self.store.execute('INSERT INTO profiles VALUES(?,?,?,NULL)', (identity, name, encode(config)))
         return identity
 
-    def index(self, identity, library):
-        rows = []
+    def index_rows(self, identity, library):
+        rows = []; paths = {}
         for tid, track in library.tracks.items():
             path = legacy.file_uri_to_path(track.location or '')
-            missing = int(bool(path) and not path.is_file())
+            key = str(path or '')
+            if key not in paths:
+                try:
+                    candidate = path.stat() if path else None
+                    paths[key] = candidate if candidate and file_stat.S_ISREG(candidate.st_mode) else None
+                except OSError: paths[key] = None
+            stat = paths[key]
+            missing = int(bool(path) and stat is None)
+            if not track.raw.get('Size') and stat is not None:
+                track.raw['Size'] = stat.st_size
             rows.append((identity, tid, track.raw.get('Persistent ID', ''), track.name, track.artist, track.album, track.raw.get('Genre', ''), str(path or ''), missing, encode(track.raw)))
+        return rows
+
+    def index(self, identity, library, rows=None):
+        rows = self.index_rows(identity, library) if rows is None else rows
         with self.store.connect() as db:
             db.execute('DELETE FROM tracks WHERE profile=?', (identity,))
             db.executemany('INSERT INTO tracks VALUES(?,?,?,?,?,?,?,?,?,?)', rows)
+            db.execute('DELETE FROM track_text WHERE profile=?', (identity,))
+            db.execute('INSERT INTO track_text(rowid,profile,id,name,artist,album,genre) SELECT rowid,profile,id,name,artist,album,genre FROM tracks WHERE profile=?', (identity,))
             db.execute('UPDATE profiles SET scanned=? WHERE id=?', (time.time(), identity))
+        self._overviews.pop(identity, None)
+        self._index_versions[identity] += 1
+
+    def index_changes(self, identity, tracks):
+        """Refresh only edited rows. A one-song edit must not stat every media file."""
+        with self.store.connect() as db:
+            for track in tracks:
+                raw = track.raw; tid = track.track_id
+                previous = db.execute('SELECT rowid,raw FROM tracks WHERE profile=? AND id=?',(identity,tid)).fetchone()
+                if not previous: raise ValueError('Edited track is no longer in the saved index.')
+                if not raw.get('Size'): raw['Size'] = json.loads(previous['raw']).get('Size', 0)
+                db.execute('UPDATE tracks SET name=?,artist=?,album=?,genre=?,raw=? WHERE profile=? AND id=?', (track.name,track.artist,track.album,raw.get('Genre',''),encode(raw),identity,tid))
+                db.execute('DELETE FROM track_text WHERE rowid=?', (previous['rowid'],))
+                db.execute('INSERT INTO track_text(rowid,profile,id,name,artist,album,genre) VALUES(?,?,?,?,?,?,?)', (previous['rowid'],identity,tid,track.name,track.artist,track.album,raw.get('Genre','')))
+        self._overviews.pop(identity, None)
+        self._index_versions[identity] += 1
+
+    def remove_profile(self, identity):
+        profile = self.profile(identity)
+        pending = self.store.rows("SELECT payload FROM jobs WHERE status IN ('queued','running','paused')")
+        if any(json.loads(row['payload']).get('profile') == identity for row in pending):
+            raise ValueError('Wait for this library’s tasks to finish, or cancel them first.')
+        profile['config']['removed'] = True
+        self.store.execute('UPDATE profiles SET config=? WHERE id=?', (encode(profile['config']),identity))
+        self._libraries.pop(identity, None); self._overviews.pop(identity, None)
+        self.store.audit('library_removed', {'profile':identity,'name':profile['name']})
+        return {'removed': True}
 
     def scan(self, identity, job, progress):
         profile = self.profile(identity); config = profile['config']; kind = config['kind']
+        if config.get('removed'): raise ValueError('This library was removed from the app. Add it again to scan it.')
+        prepared = None
         if kind == 'xml':
-            library = legacy.Library.load(checked_path(config['source'], True))
+            source = checked_path(config['source'], True)
+            folder = self.snapshot_path(identity).parent; folder.mkdir(parents=True, exist_ok=True)
+            fd, name = tempfile.mkstemp(dir=folder, suffix='.xml'); os.close(fd)
+            prepared = Path(name)
+            try:
+                before = source.stat()
+                with source.open('rb') as reader, prepared.open('wb') as writer:
+                    shutil.copyfileobj(reader, writer); writer.flush(); os.fsync(writer.fileno())
+                after = source.stat()
+                if (before.st_size,before.st_mtime_ns) != (after.st_size,after.st_mtime_ns):
+                    raise ValueError('The source XML changed while loading. The previous library is safe; try scanning again.')
+                library = legacy.Library.load(prepared, on_progress=lambda count,total: progress(job,count,count+5000,f'Read {count:,} songs from XML'))
+            except Exception:
+                prepared.unlink(missing_ok=True)
+                raise
             progress(job, 1, 2, 'Indexing XML export')
         elif kind == 'live':
-            result = run_com({'operation': 'scan'}, self.store.path, job, timeout=300)
+            result = run_com({'operation': 'scan'}, self.store.path, job, timeout=900, progress=lambda done,total,current: progress(job,done,total,current))
+            expected = config.get('library_pid')
+            if expected and result.get('library_pid') != expected:
+                raise ValueError('iTunes is using a different library. Choose Current iTunes library to add it separately.')
+            latest = self.profile(identity)['config']; latest['library_pid'] = result.get('library_pid', '')
+            self.store.execute('UPDATE profiles SET config=? WHERE id=?', (encode(latest), identity))
             raw = {'Tracks': result['tracks'], 'Playlists': result['playlists']}
             library = legacy.Library(raw, legacy.Library.tracks_from_raw(raw['Tracks']), [legacy.Playlist(p) for p in raw['Playlists']])
         else:
@@ -127,16 +239,27 @@ class Service:
             library = legacy.Library(raw, legacy.Library.tracks_from_raw(raw['Tracks']), [])
         previous = None
         snapshot = self.snapshot_path(identity)
-        if snapshot.exists(): previous = legacy.Library.load(snapshot)
-        self.save_snapshot(identity, library); self.index(identity, library)
+        if snapshot.exists(): previous = self.library(identity, mutable=False)
+        progress(job, 98, 100, 'Saving and indexing the library')
+        try:
+            rows = self.index_rows(identity, library)
+            self.save_snapshot(identity, library, prepared_path=prepared); self.index(identity, library, rows)
+        finally:
+            if prepared: prepared.unlink(missing_ok=True)
         before = {t.raw.get('Persistent ID', str(i)): t.raw for i, t in (previous.tracks.items() if previous else [])}
         after = {t.raw.get('Persistent ID', str(i)): t.raw for i, t in library.tracks.items()}
         return {'tracks': len(after), 'added': len(after.keys() - before.keys()), 'removed': len(before.keys() - after.keys()), 'modified': sum(before[k] != after[k] for k in before.keys() & after.keys())}
 
     def tracks(self, identity, query='', offset=0, limit=100, missing=False):
         self.profile(identity)
-        where = 'profile=? AND (name LIKE ? OR artist LIKE ? OR album LIKE ? OR genre LIKE ?)'
-        args = [identity] + [f'%{query}%'] * 4
+        where = 'profile=?'
+        args = [identity]
+        if len(query) >= 3:
+            where += ' AND id IN (SELECT id FROM track_text WHERE track_text MATCH ? AND profile=?)'
+            args += ['"' + query.replace('"','""') + '"', identity]
+        elif query:
+            where += ' AND (name LIKE ? OR artist LIKE ? OR album LIKE ? OR genre LIKE ?)'
+            args += [f'%{query}%'] * 4
         if missing: where += ' AND missing=1'
         count = self.store.rows(f'SELECT count(*) AS n FROM tracks WHERE {where}', args)[0]['n']
         rows = self.store.rows(f'SELECT * FROM tracks WHERE {where} ORDER BY artist,album,name LIMIT ? OFFSET ?', (*args, limit, offset))
@@ -144,11 +267,16 @@ class Service:
         return {'total': count, 'items': rows}
 
     def overview(self, identity):
+        scanned = self.profile(identity)['scanned']; version = self._index_versions[identity]
+        cached = self._overviews.get(identity)
+        if cached and cached[0] == (scanned,version): return cached[1]
         rows = self.store.rows('SELECT raw,path,missing FROM tracks WHERE profile=?', (identity,))
         raw = [json.loads(r['raw']) for r in rows]
         by_genre = Counter(t.get('Genre', 'Unspecified') or 'Unspecified' for t in raw)
         formats = Counter(Path(r['path']).suffix.lower() or 'Cloud / other' for r in rows)
-        return {'tracks': len(raw), 'artists': len({t.get('Artist') for t in raw if t.get('Artist')}), 'albums': len({(t.get('Artist'), t.get('Album')) for t in raw if t.get('Album')}), 'size': sum(int(t.get('Size', 0)) for t in raw), 'missing': sum(r['missing'] for r in rows), 'metadata_issues': sum(not t.get('Artist') or not t.get('Genre') or bool(t.get('_error')) for t in raw), 'genres': dict(by_genre.most_common(12)), 'formats': dict(formats), 'playlists': len(self.library(identity).playlists), 'last_scan': self.profile(identity)['scanned']}
+        result = {'tracks': len(raw), 'artists': len({t.get('Artist') for t in raw if t.get('Artist')}), 'albums': len({(t.get('Artist'), t.get('Album')) for t in raw if t.get('Album')}), 'size': sum(int(t.get('Size', 0) or 0) for t in raw), 'unknown_sizes': sum(not t.get('Size') for t in raw), 'missing': sum(r['missing'] for r in rows), 'metadata_issues': sum(not t.get('Artist') or not t.get('Genre') or bool(t.get('_error')) for t in raw), 'genres': dict(by_genre.most_common(12)), 'formats': dict(formats), 'playlists': len(self.library(identity, mutable=False).playlists), 'last_scan': scanned}
+        if version == self._index_versions[identity]: self._overviews[identity] = ((scanned,version), result)
+        return result
 
     def save_preview(self, kind, identity, payload):
         preview = uuid.uuid4().hex
@@ -171,6 +299,7 @@ class Service:
                     raise ValueError('Use a live iTunes scan or XML export with genuine persistent IDs for COM edits.')
                 split_pid(pid)
             change = {'id': tid, 'pid': pid, 'name': track.name, 'fields': fields, 'expected': {k: track.raw.get(FIELDS[k][1], 0 if isinstance(v, int) else False if isinstance(v, bool) else '') for k, v in fields.items()}}
+            if track.raw.get('_com_object_ids'): change['object_ids'] = track.raw['_com_object_ids']
             if target == 'file':
                 path = legacy.file_uri_to_path(track.location or '')
                 if not path: raise ValueError('Track has no editable local file.')
@@ -354,7 +483,7 @@ class Service:
         identity = payload.get('profile')
         if kind == 'scan': return self.scan(identity, job, progress)
         if kind == 'metadata':
-            library = self.library(identity); changes = payload['changes']; results = []
+            library = self.library(identity); changes = payload['changes']; results = []; edited = {}
             by_pid = defaultdict(list); by_path = defaultdict(list)
             for track in library.tracks.values():
                 by_pid[track.raw.get('Persistent ID', '')].append(track)
@@ -363,9 +492,9 @@ class Service:
             try:
                 for start in range(0, len(changes), batch_size):
                     batch = changes[start:start + batch_size]
-                    progress(job, start, len(changes), batch[0].get('name', batch[0]['pid']))
+                    progress(job, start, len(changes) + 1, batch[0].get('name', batch[0]['pid']))
                     if payload['target'] == 'live':
-                        outcomes = run_com({'operation': 'edit', 'changes': batch}, self.store.path, job, timeout=120)
+                        outcomes = run_com({'operation': 'edit', 'changes': batch, 'library_pid': self.profile(identity)['config'].get('library_pid')}, self.store.path, job, timeout=120)
                     else:
                         change = batch[0]
                         try: outcomes = [metadata.write_file(change, self.store, job, self.data_dir)]
@@ -375,9 +504,12 @@ class Service:
                         targets = by_path[change.get('path', '')] if payload['target'] == 'file' else by_pid[change['pid']]
                         for track in targets:
                             for field, value in result['fields'].items(): track.raw[FIELDS[field][1]] = value
-                    progress(job, start + len(batch), len(changes), batch[-1].get('name', batch[-1]['pid']))
+                            if result['fields']: edited[track.track_id] = track
+                    progress(job, start + len(batch), len(changes) + 1, batch[-1].get('name', batch[-1]['pid']))
             finally:
-                self.save_snapshot(identity, library); self.index(identity, library)
+                if edited:
+                    self.store.execute("UPDATE jobs SET current='Saving verified changes' WHERE id=?", (job,))
+                    self.save_snapshot(identity, library); self.index_changes(identity, edited.values())
             errors = sum(bool(r['errors']) for r in results)
             if errors: self.store.audit('partial_metadata', {'job': job, 'results': results})
             return {'results': results, 'failed_tracks': errors, 'partial': bool(errors)}
@@ -467,8 +599,37 @@ class Service:
         finally: Path(temp).unlink(missing_ok=True)
 
     def playlists(self, identity):
-        library = self.library(identity)
-        return [{'index': i, 'name': p.name, 'ids': p.track_ids(), 'broken': [tid for tid in p.track_ids() if tid not in library.tracks], 'duplicates': len(p.track_ids()) - len(set(p.track_ids())), 'smart': p.is_smart, 'tracks': [{'id': tid, 'name': library.tracks[tid].name, 'artist': library.tracks[tid].artist} for tid in p.track_ids() if tid in library.tracks]} for i, p in enumerate(library.playlists)]
+        library = self.library(identity, mutable=False)
+        from .artwork import encode_thumbnail, image_file
+        covers = self.profile(identity)['config'].get('playlist_covers', {})
+        result = []
+        for i, playlist in enumerate(library.playlists):
+            key = playlist.raw.get('Playlist Persistent ID') or f'{i}:{playlist.name}'
+            image = image_file(covers[key]) if covers.get(key) else None
+            if image is None:
+                for field in ('Playlist Image', 'Artwork', 'Image'):
+                    value = playlist.raw.get(field)
+                    if isinstance(value, bytes): image = encode_thumbnail(value)
+                    elif isinstance(value, str):
+                        path = legacy.file_uri_to_path(value) if value.startswith('file:') else Path(value)
+                        if path: image = image_file(path)
+                    if image: break
+            ids = playlist.track_ids()
+            result.append({'index':i,'name':playlist.name,'image':image,'ids':ids,'broken':[tid for tid in ids if tid not in library.tracks],'duplicates':len(ids)-len(set(ids)),'smart':playlist.is_smart,'tracks':[{'id':tid,'name':library.tracks[tid].name,'artist':library.tracks[tid].artist} for tid in ids if tid in library.tracks]})
+        return result
+
+    def playlist_cover(self, identity, index, image):
+        from .artwork import image_file
+        library = self.library(identity, mutable=False)
+        if not 0 <= index < len(library.playlists): raise ValueError('Playlist not found.')
+        if image and not image_file(checked_path(image, True)): raise ValueError('Choose a readable image smaller than 20 MB.')
+        playlist = library.playlists[index]
+        key = playlist.raw.get('Playlist Persistent ID') or f'{index}:{playlist.name}'
+        profile = self.profile(identity); covers = profile['config'].setdefault('playlist_covers', {})
+        if image: covers[key] = image
+        else: covers.pop(key, None)
+        self.store.execute('UPDATE profiles SET config=? WHERE id=?',(encode(profile['config']),identity))
+        return {'saved':True}
 
     def playlist_export(self, identity, index, output):
         library = self.library(identity); playlist = library.playlists[index]
