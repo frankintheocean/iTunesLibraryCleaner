@@ -34,4 +34,4 @@ jobs:
                   print(f'{tag}: no published release to update')
                   continue
               subprocess.run(['gh', 'release', 'edit', tag, '--repo', repo, '--title', f'Pre-release {version}', '--notes-file', guide, '--prerelease'], check=True)
-                    PY
+          PY
