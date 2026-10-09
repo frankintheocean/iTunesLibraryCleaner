@@ -72,7 +72,8 @@ def verified_transfer(source, destination, expected, mode, store, job):
     os.close(fd)
     try:
         shutil.copy2(source, staging)
-        with open(staging, 'rb') as f: os.fsync(f.fileno())
+        # Windows _commit (os.fsync) requires a writable descriptor.
+        with open(staging, 'r+b') as f: os.fsync(f.fileno())
         if digest(staging) != expected['sha256']: raise ValueError('Copied file hash mismatch.')
         # Staging and destination share a filesystem. Hard-link creation atomically
         # publishes a complete file and fails if a filename was reserved concurrently.
