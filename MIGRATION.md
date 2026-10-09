@@ -1,6 +1,6 @@
 # 🧭 Move from the original tools
 
-The Cleaner and Consolidator remain under `legacy/`. New libraries, settings, and edit records use the current app-data folder. Old installations are not modified automatically.
+The Cleaner and Consolidator remain under `legacy/` for workflows that have not moved to the new interface. The new app keeps its own libraries, settings, and edit records in the current app-data folder; it does not silently convert or overwrite the original tools' data. Back up old settings and history before copying anything.
 
 ## 📥 Import settings
 
