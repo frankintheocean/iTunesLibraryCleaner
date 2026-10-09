@@ -4,7 +4,7 @@ Validated on Linux with Python 3.12.14 and Node 24.19.0. This report distinguish
 
 | Check | Actual result |
 | --- | --- |
-| Original source preservation | All 86 uploaded project files match their supplied SHA-256 checksums (`scripts/verify-originals.py`) |
+| Original source preservation | All 86 supplied project files verified; the documented Last.fm credential removal is the sole publication change (`scripts/verify-originals.py`) |
 | Python suites | 186 passed: 141 original Consolidator tests plus 45 unified domain/API/filesystem/COM-contract cases |
 | IPC contracts | 2 Node tests passed: endpoint/method restrictions and payload limits |
 | Frontend | TypeScript check and Vite 8.3.4 production build passed |
