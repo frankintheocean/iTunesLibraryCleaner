@@ -1,5 +1,40 @@
 # 🗓️ iTunes Manager release history
 
+## 🎵 3.0.0 — Faster libraries, safer live edits
+
+### 🐛 Fixes
+
+- Keep your selected library when background tasks finish, tabs change or another library opens.
+- Count down the estimated time left. Show 100% only after all work and saving finish.
+- Save new library copies without replacing XML files that Windows may have locked.
+- Find live songs by their exact iTunes ID when the direct lookup misses them. Name hints never replace the ID check.
+- Retry temporary connection failures and refresh the iTunes connection while the app is open.
+- Show a clear error when the service cannot return JSON.
+- Use file sizes when an XML export leaves them out. Show “Unknown” for unavailable sizes instead of a misleading zero.
+- Keep overview labels readable in every dark theme.
+
+### ⚡ Faster work
+
+- Parse large XML exports once, keep loaded copies ready and cache overview results.
+- Index searches by text. Typing no longer reloads the overview and all playlists.
+- Update only edited search rows after metadata changes.
+- Read the real open iTunes library and reuse track IDs when reading playlist links. Check its identity before and after scanning.
+
+### ✨ New tools
+
+- Remove a library from its card or the library menu without deleting music or saved records.
+- Clear the visible history while keeping undo and file restore records.
+- Replace lasting success banners with notifications that disappear.
+- Show whole-number genre percentages with song counts in brackets.
+- Show playlist pictures from supported imported data, or choose a picture for the app.
+- Set a default library XML path in Settings, including on another drive.
+
+### 🎨 Appearance and downloads
+
+- Use a new geometric music-library icon in ScoutTool’s mint, charcoal and amber style.
+- Download an installer, a complete Windows app ZIP or a source ZIP, with checksums.
+- Keep guides and release notes short, with helpful emoji groups.
+
 ## 🎵 2.0.0 — iTunes Manager
 
 ### 🐛 Fixes
