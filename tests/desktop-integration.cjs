@@ -16,8 +16,9 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  await page.getByLabel('Library name').fill('Synthetic Studio');
  await page.getByLabel('Path',{exact:true}).fill(fixturePath);
  await page.getByRole('button',{name:'Add & scan'}).click();
- await page.waitForFunction(()=>document.querySelector('header select')?.value?.length===32);
+ await page.waitForFunction(()=>!document.querySelector('.modal'));
  await page.getByRole('button',{name:'Overview',exact:true}).click();
+ await page.waitForFunction(()=>document.querySelector('[aria-label="Active library"]')?.value?.length===32);
  await page.waitForSelector('.hero',{timeout:15000});
  assert.equal(await page.getByLabel('Open GitHub repository').count(),0);
  await page.waitForFunction(()=>document.querySelector('.stat strong')?.textContent==='120');
@@ -29,13 +30,16 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  const loadedProfile=await page.getByLabel('Active library').inputValue();
  fs.writeFileSync(path.join(data,'Empty.xml'),'<?xml version="1.0"?><plist version="1.0"><dict><key>Tracks</key><dict/><key>Playlists</key><array/></dict></plist>');
  const blank=await page.evaluate(source=>window.libraryManager.request('/profiles','POST',{name:'A blank library',kind:'xml',source}),path.join(data,'Empty.xml'));
- await page.waitForFunction(identity=>Array.from(document.querySelector('header select').options).some(option=>option.value===identity),blank.id);
+ await page.waitForFunction(identity=>Array.from(document.querySelector('[aria-label="Active library"]').options).some(option=>option.value===identity),blank.id);
  assert.equal(await page.getByLabel('Active library').inputValue(),loadedProfile);
  await page.getByRole('button',{name:'File Organizer',exact:true}).click();
  await page.waitForSelector('.track-row');
+ assert.equal(await page.getByLabel('Active library').count(),0);
+ await page.getByRole('button',{name:'Overview',exact:true}).click();
  assert.equal(await page.getByLabel('Active library').inputValue(),loadedProfile);
  await page.getByLabel('Active library').selectOption(blank.id);
  await page.getByLabel('Active library').selectOption(loadedProfile);
+ await page.getByRole('button',{name:'File Organizer',exact:true}).click();
  await page.waitForFunction(()=>document.querySelector('.table-footer')?.textContent.includes('120 tracks'));
  assert.equal((await page.evaluate(()=>window.libraryManager.request('/jobs','GET'))).filter(job=>job.kind==='scan').length,2);
  await page.getByRole('button',{name:'Metadata',exact:true}).click();
@@ -91,15 +95,15 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  await page.getByRole('button',{name:'Libraries',exact:true}).click();
  const blankCard=page.locator('.profile-card').filter({has:page.getByRole('heading',{name:'A blank library',exact:true})});
  page.once('dialog',dialog=>dialog.accept());await blankCard.getByRole('button',{name:'Remove',exact:true}).click();
- await page.waitForFunction(()=>!Array.from(document.querySelector('header select').options).some(option=>option.text==='A blank library'));
- assert.equal(await page.getByLabel('Active library').inputValue(),loadedProfile);
+ await page.waitForFunction(async()=>!(await window.libraryManager.request('/profiles','GET')).some(p=>p.name==='A blank library'));
+ assert.equal(await page.getByLabel('Active library').count(),0);
  // Hide and restore discovered paths without changing the selected library.
  const found=page.locator('.health-row').filter({has:page.getByRole('button',{name:/Remove discovered location/})});
  const suggestions=await found.count();assert.ok(suggestions>0);
  const hiddenPath=await found.first().locator('.path').innerText();
  await found.first().getByRole('button',{name:/Remove discovered location/}).click();
  await page.waitForFunction(path=>!Array.from(document.querySelectorAll('.health-row .path')).some(node=>node.textContent===path),hiddenPath);
- assert.equal(await page.getByLabel('Active library').inputValue(),loadedProfile);
+ assert.equal(await page.getByLabel('Active library').count(),0);
  await page.getByRole('button',{name:'Restore suggestions',exact:true}).click();
  await page.waitForFunction(path=>Array.from(document.querySelectorAll('.health-row .path')).some(node=>node.textContent===path),hiddenPath);
  // Provider data is simulated here; backend/provider contracts run in Python.
@@ -114,7 +118,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
    if(request.path==='/lastfm/status')return {connected,user:connected?user:null};
    if(request.path==='/lastfm/connect'){if(request.body.username==='Unknown')throw new Error('Last.fm could not find that username.');connected=true;return {connected,user};}
    if(request.path==='/lastfm/disconnect'){connected=false;return {connected,user:null};}
-   if(request.path==='/lastfm/image'||request.path==='/lastfm/track-image')return {image};
+   if(request.path==='/lastfm/image'||request.path==='/lastfm/track-image'||request.path==='/lastfm/picture')return {image};
    if(request.path.startsWith('/lastfm/charts')){const q=new URL(request.path,'http://localhost').searchParams;return {items:[{name:'Demo '+q.get('view')+' '+q.get('period'),artist:'Demo artist',album:'Demo album',image:user.image,plays:123,now_playing:true,timestamp:1700000000}],page:Number(q.get('page')),pages:2};}
    throw new Error('Unexpected Last.fm fixture request');
   });
@@ -137,7 +141,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  for(const section of ['Libraries','Library Cleaner','Consolidation','Duplicates','Playlists','File Organizer','Queue','History','Last.fm','Settings']){
   await page.getByRole('button',{name:section,exact:true}).click();
   await page.waitForTimeout(150);
-  const heading=await page.locator('h1').innerText();assert.equal(heading,section);
+  const heading=await page.locator('h1').innerText();assert.equal(heading,section);assert.equal(await page.getByLabel('Active library').count(),0);
  }
  await app.evaluate(({BrowserWindow})=>{const win=BrowserWindow.getAllWindows()[0];win.maximize();win.unmaximize();win.setSize(820,620);});
  await page.getByRole('button',{name:'Metadata',exact:true}).click();
