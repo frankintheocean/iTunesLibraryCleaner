@@ -24,7 +24,7 @@ This is a read-only connection. It does not scrobble, change your Last.fm accoun
 
 The API key is stored in the local app database, separate from general preferences. It is not returned to the interface or included in the app’s exported reports. The local database is not encrypted; protect your Windows account and app-data backups. **Disconnect** removes the saved key and clears the Last.fm caches without changing the account’s history.
 
-Internet access to `ws.audioscrobbler.com` and Last.fm image hosts is required. Invalid keys, missing users, private data, rate limits and service outages show a clear error. Some Last.fm APIs return placeholder artist images; those are hidden rather than shown as photos. An API key and username cannot grant access to private account data.
+Internet access to `ws.audioscrobbler.com`, `www.last.fm` and Last.fm image hosts is required. Invalid keys, missing users, private data, rate limits and service outages show a clear error. Some Last.fm APIs return placeholder artist images. The app looks for the artist’s public Last.fm photo instead. It also retries profile and album lookups when chart pictures are missing. Redirects stay within approved Last.fm hosts, and valid binary image responses are decoded. Refresh retries pictures that failed to load. An API key and username cannot grant access to private account data.
 
 ## 🖼️ Layout preview
 
