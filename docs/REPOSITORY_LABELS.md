@@ -932,3 +932,4 @@ Short descriptions explain what each path is for. GitHub rows show commit messag
 | `scripts/benchmark-library.py` | ⚡ Large-library speed checks |
 | `tests/test_v3.py` | 🐞 Library and queue fixes |
 | `docs/RELEASE_3_0_0.md` | 🚀 Version 3 download guide |
+| `.github/workflows/windows-diagnostics.yml` | 🩺 Windows build diagnostics |
