@@ -28,11 +28,11 @@ class Jobs:
         if not rows: raise ValueError('Job not found.')
         job = rows[0]
         if action == 'cancel' and job['status'] in ('queued', 'running', 'paused'):
-            self.store.execute("UPDATE jobs SET status='cancelled' WHERE id=?", (identity,))
+            self.store.execute("UPDATE jobs SET status='cancelled',finished=unixepoch('now'),elapsed=elapsed+CASE WHEN active_since IS NOT NULL THEN MAX(0,unixepoch('now')-active_since) ELSE 0 END,active_since=NULL WHERE id=? AND status IN ('queued','running','paused')", (identity,))
         elif action == 'pause' and job['status'] == 'running':
-            self.store.execute("UPDATE jobs SET status='paused' WHERE id=?", (identity,))
+            self.store.execute("UPDATE jobs SET status='paused',elapsed=elapsed+MAX(0,unixepoch('now')-active_since),active_since=NULL WHERE id=? AND status='running'", (identity,))
         elif action == 'resume' and job['status'] == 'paused':
-            self.store.execute("UPDATE jobs SET status='running' WHERE id=?", (identity,))
+            self.store.execute("UPDATE jobs SET status='running',active_since=unixepoch('now') WHERE id=? AND status='paused'", (identity,))
         elif action == 'retry' and job['status'] in ('failed', 'interrupted', 'cancelled'):
             if job['kind'] not in ('scan', 'transfer', 'verify'):
                 raise ValueError('Obtain a new preview before retrying metadata or XML changes; the previous outcome may be partial.')
@@ -45,6 +45,15 @@ class Jobs:
         self.wake.set()
         return identity
 
+    def clear(self):
+        """Keep audit rows and active work; cancel waiting tasks and hide settled ones."""
+        with self.store.connect() as db:
+            cancelled = db.execute("UPDATE jobs SET status='cancelled',archived=1,finished=? WHERE status='queued'", (time.time(),)).rowcount
+            hidden = db.execute("UPDATE jobs SET archived=1 WHERE archived=0 AND status IN ('complete','failed','cancelled','interrupted')").rowcount
+        self.wake.set()
+        self.store.audit('queue_clear', {'cancelled': cancelled, 'hidden': hidden})
+        return {'cancelled': cancelled, 'hidden': hidden}
+
     def checkpoint(self, job, done, total, current='', result=None):
         while True:
             if self.stop.is_set(): raise Cancelled('Shutdown requested at a safe boundary.')
@@ -56,19 +65,21 @@ class Jobs:
 
     def _run(self):
         while not self.stop.is_set():
-            jobs = self.store.rows("SELECT * FROM jobs WHERE status='queued' ORDER BY priority DESC,created LIMIT 1")
+            jobs = self.store.rows("SELECT * FROM jobs WHERE status='queued' AND archived=0 ORDER BY priority DESC,created LIMIT 1")
             if not jobs:
                 self.wake.wait(.5); self.wake.clear(); continue
             job = jobs[0]; identity = job['id']
-            self.store.execute("UPDATE jobs SET status='running',updated=? WHERE id=?", (time.time(), identity))
+            now = time.time()
+            if not self.store.execute("UPDATE jobs SET status='running',updated=?,started=?,active_since=? WHERE id=? AND status='queued' AND archived=0", (now, now, now, identity)):
+                continue
             try:
                 result = self.handler(job['kind'], json.loads(job['payload']), identity, self.checkpoint)
-                self.store.execute("UPDATE jobs SET status='complete',progress=100,result=?,updated=? WHERE id=? AND status='running'", (encode(result), time.time(), identity))
+                self.store.execute("UPDATE jobs SET status='complete',progress=100,result=?,updated=?,finished=unixepoch('now'),elapsed=elapsed+CASE WHEN active_since IS NOT NULL THEN MAX(0,unixepoch('now')-active_since) ELSE 0 END,active_since=NULL WHERE id=? AND status IN ('running','paused')", (encode(result), time.time(), identity))
                 self.store.audit(job['kind'], {'job': identity, 'result': result})
             except Cancelled as exc:
-                self.store.execute("UPDATE jobs SET status='interrupted',error=?,updated=? WHERE id=? AND status!='cancelled'", (str(exc), time.time(), identity))
+                self.store.execute("UPDATE jobs SET status='interrupted',error=?,updated=?,finished=unixepoch('now'),elapsed=elapsed+CASE WHEN active_since IS NOT NULL THEN MAX(0,unixepoch('now')-active_since) ELSE 0 END,active_since=NULL WHERE id=? AND status!='cancelled'", (str(exc), time.time(), identity))
             except Exception as exc:
-                self.store.execute("UPDATE jobs SET status='failed',error=?,updated=? WHERE id=?", (str(exc), time.time(), identity))
+                self.store.execute("UPDATE jobs SET status='failed',error=?,updated=?,finished=unixepoch('now'),elapsed=elapsed+CASE WHEN active_since IS NOT NULL THEN MAX(0,unixepoch('now')-active_since) ELSE 0 END,active_since=NULL WHERE id=?", (str(exc), time.time(), identity))
                 self.store.audit('failure', {'job': identity, 'error': str(exc)})
 
     def close(self):
