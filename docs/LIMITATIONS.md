@@ -1,19 +1,39 @@
-# Release scope and limitations
+# 🚧 Known limits
 
-This is an implemented source integration, not a certified production Windows release. The entire master prompt is not claimed complete.
+This is a working integration and a Windows testing preview. It does not include every requested feature or claim full production readiness.
 
-## Platform validation outstanding
+## 🪟 Platform checks
 
-The real source COM acceptance script passed on Apple-distributed iTunes 12.13.11.1. Packaged live COM, Windows modal-dialog behavior, Windows locks/long paths/UNC/disconnected storage, multi-monitor/high-DPI behavior, Windows 10/11 clean-machine acceptance, code signing and manual Windows taskbar integration remain outstanding. The Windows Server 2022 hosted runner passed the frozen backend, NSIS install, packaged Electron workflow, repair and uninstall/reinstall checks. Linux cannot build a Windows Python bundle through PyInstaller. An unsigned Windows preview installer is published separately from the source ZIP. Repair is reinstall-based tooling; a dedicated installed Repair UI and optional settings purge are not implemented.
+The real source-level iTunes test passed on version 12.13.11.1. A Windows Server 2022 build passed backend, installer, packaged app, repair and uninstall/reinstall checks.
 
-## Preserved through original interfaces
+Still needed: live editing through the installed app; Windows 10/11 clean-machine tests; open iTunes dialogs and restarts; locked files, long paths, network shares and disconnected drives; multiple monitors and display scaling; manual taskbar and shortcut checks; and code signing.
 
-Full Cleaner options, processed-cache migration/maintenance, original force-rescan/lookup credentials, native notifications, detailed failure retry and original undo logs remain in the retained Cleaner. Consolidator advanced permanent exclusions, restore points, health growth/diffs, audio preview and rebuild/undo/live duplicate removal remain in the retained Consolidator. Their exact original UIs/themes are launchable; not every original dialog is redesigned into React. Original irreversible actions are subject to their original confirmations/backup behavior.
+Linux cannot build the Windows Python bundle with PyInstaller. Source ZIPs and unsigned Windows installers are separate downloads. Repair uses reinstallation; there is no separate Repair screen or optional settings-delete action.
 
-## New master-prompt features not complete
+## 🏛️ Features kept in the original tools
 
-Approximate/offset-tolerant audio fingerprint similarity beyond exact optional Chromaprint fingerprints, audio-quality-aware cross-library reconciliation beyond the original matching and file hashes, duplicate artwork cleanup, empty-folder removal and duplicate-artwork cleanup, automatic disconnected-drive classification, proprietary Apple Music database import, full preservation-style/custom-variable folder templates, playlist comparison and live playlist repair, automatic full historical database conversion, managed backup/restore of unified app state, job dependency graphs, Retry All, mid-file byte/speed/ETA checkpoints, localization, update/notification settings, clipboard-derived actions and drag/drop are not fully implemented in the unified shell. The queue has one fixed mutation worker and item-boundary cancellation; not arbitrary concurrent mutators. Folder scans cache tags using size/mtime and still walk directories. XML/live snapshots are loaded for algorithms; the UI is virtualized/paginated but snapshots are not a disk-only streaming domain model.
+Cleaner retains its detailed cleanup options, cache maintenance, lookup credentials, force-rescan options, notifications, failure retries and old undo logs.
 
-Conditional field-level undo is implemented for live COM and supported file tags; full-file backup paths remain available for manual recovery. Artwork undo currently uses those backups. Artwork replacement supports MP3 with ID3, MP4/M4A and FLAC; other formats may be inspect-only. General easy-tag editing depends on Mutagen's format support; unsupported fields/formats fail explicitly without bypassing verification. Scan metadata validation is not an exhaustive audio decoding integrity check. Offline/missing statuses are snapshots, never instructions for automatic removal.
+Consolidator retains advanced exclusions, restore points, growth and change reports, audio preview, rebuild/undo and live duplicate removal. These original screens remain available in Settings; not all have been rebuilt in the new interface. Their irreversible actions still use their original confirmations and backups.
 
-Moving/quarantining may break iTunes references. The unified service does not silently delete live duplicate entries or force a proprietary-library rebuild. A supported export/import/relink workflow is required; advanced original rebuild/sync remains opt-in in the legacy interface. The exact preservation and new-feature boundaries are documented in FEATURE_PARITY.md.
+## 🧩 Features not complete in the new interface
+
+- Audio matching that tolerates offsets or small differences beyond optional exact Chromaprint matches; quality-based matching across libraries beyond the original rules and file hashes.
+- Duplicate-artwork cleanup, empty-folder removal and automatic detection of disconnected drives.
+- Importing Apple Music’s private database, full custom-variable folder templates, playlist comparison and live playlist repair.
+- Automatic conversion of all old history and caches, managed backup/restore of new app state, dependent jobs and Retry All.
+- Progress saved midway through a file, transfer-speed and time-left estimates, translations, update/notification settings, clipboard actions and drag-and-drop.
+
+One worker applies changes, with cancellation between items. Scans reuse cached tags based on size and modification time but still walk folders. Matching uses library snapshots in memory; paged tables do not mean the whole scan runs from disk alone.
+
+## ✍️ Tags and undo
+
+Undo works for supported live fields and file tags only when their values still match the app’s last write. Full-file backups support manual recovery and artwork undo.
+
+Artwork replacement supports MP3 with ID3, MP4/M4A and FLAC. Other formats may be view-only. Other tag fields depend on Mutagen’s support; unsupported edits fail without bypassing checks. A tag scan is not a full audio-decoding test. Missing/offline statuses are observations, not instructions to delete files.
+
+## 📁 Moving files
+
+Moving or quarantining files may break iTunes references. The new service does not silently delete live duplicates or rebuild Apple’s private databases. Use export/import/relink steps. Advanced original rebuild and sync actions remain choices in the original tools.
+
+See [feature coverage](FEATURE_PARITY.md) for the exact boundaries.
