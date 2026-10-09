@@ -1,0 +1,8 @@
+pywin32>=306
+requests>=2.31
+pyinstaller>=6.0
+
+# Optional: enables a native Windows toast when a run finishes while the
+# window isn't focused. Not required - LibraryCleaner falls back to a
+# taskbar flash + bell if this isn't installed.
+# win10toast>=0.9
