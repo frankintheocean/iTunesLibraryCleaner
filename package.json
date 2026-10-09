@@ -1,6 +1,6 @@
 {
   "name": "unified-itunes-library-manager",
-  "version": "4.0.1",
+  "version": "1.0.0",
   "description": "A unified, safe music library workspace with live iTunes editing",
   "author": "Unified iTunes Library Manager contributors",
   "license": "GPL-3.0-only",
@@ -78,7 +78,8 @@
       "uninstallerIcon": "resources/app.ico",
       "include": "scripts/installer.nsh"
     },
-    "npmRebuild": false
+    "npmRebuild": false,
+    "artifactName": "Unified-iTunes-Library-Manager-1.0-win-${arch}.${ext}"
   },
   "overrides": {
     "sprintf-js": "1.1.4"

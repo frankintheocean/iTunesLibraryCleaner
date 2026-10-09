@@ -153,7 +153,7 @@ def create_app(data_dir, token, ready=None):
     def auth(authorization: str = Header(default='')):
         if not hmac.compare_digest(authorization, 'Bearer ' + token): raise HTTPException(401, 'Unauthorized')
 
-    app = FastAPI(title='Unified iTunes Library Manager', version='4.0.1', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title='Unified iTunes Library Manager', version='1.0.0', dependencies=[Depends(auth)], lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.service = service
 
     @app.exception_handler(ValueError)
@@ -165,7 +165,7 @@ def create_app(data_dir, token, ready=None):
         return Response(json.dumps({'detail': str(exc)}), status_code=400, media_type='application/json')
 
     @app.get('/health')
-    def health(): return {'ready': True, 'version': '4.0.1'}
+    def health(): return {'ready': True, 'version': '1.0.0'}
 
     @app.get('/discovery')
     def discover():
@@ -365,7 +365,7 @@ def create_app(data_dir, token, ready=None):
     def report(body: PathRequest):
         output = checked_path(body.path)
         with open(output, 'x', encoding='utf-8') as f:
-            json.dump({'version': '4.0.1', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
+            json.dump({'version': '1.0.0', 'history': history(), 'edits': edits(), 'transfers': transfers()}, f, indent=2, ensure_ascii=False)
         return {'output': str(output)}
 
     @app.get('/changelog')

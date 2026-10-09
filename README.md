@@ -1,6 +1,6 @@
-# Unified iTunes Library Manager 4.0.0
+# Unified iTunes Library Manager 1.0
 
-A Windows desktop music-library workspace combining LibraryCleaner and iTunes Library Consolidator, with a React interface and Python services. This is a source release with Linux validation; a validated Windows installer is not included.
+A Windows desktop music-library workspace combining LibraryCleaner and iTunes Library Consolidator, with a React interface and Python services. The Windows preview installer has automated Windows acceptance coverage; source-level live COM editing has also passed on classic iTunes 12.13.11.1. See the validation documentation for remaining acceptance limits.
 
 The **live iTunes** target writes directly through classic iTunes' Windows COM API. Genre cleanup, split-album merging and the metadata editor share one writer. Supported live fields: genre, song title, artist, album, album artist, year, track/disc numbers and counts, composer, comments, compilation and rating. COM uses genuine persistent IDs, signed 32-bit halves, an isolated initialized apartment, reconnects on rejected calls, per-field journals and readback. Editing an XML alone is never represented as editing live iTunes.
 
@@ -47,4 +47,4 @@ python3 scripts/package-source.py
 
 See [ARCHITECTURE.md](ARCHITECTURE.md), [MIGRATION.md](MIGRATION.md), [TESTING.md](TESTING.md), [INSTALL.md](INSTALL.md) and [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
 
-Windows preview installer: [download the executable](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/download/v4.0.0-windows-preview/Unified-iTunes-Library-Manager-4.0.0-win-x64.exe). See the [release notes and checksum](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0-windows-preview). Real iTunes COM acceptance remains pending.
+Windows preview installer: [download the executable](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/download/v4.0.0-windows-preview/Unified-iTunes-Library-Manager-4.0.0-win-x64.exe). See the [release notes and checksum](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0-windows-preview). The real source COM test passed; packaged live COM and additional manual acceptance remain outstanding.

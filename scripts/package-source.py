@@ -4,6 +4,7 @@ import json
 import zipfile
 root = Path(__file__).resolve().parents[1]
 version = json.loads((root / 'package.json').read_text())['version']
+if version.endswith('.0'): version = version.rsplit('.', 1)[0]
 out = root.parent / 'deliverables' / f'Unified-iTunes-Library-Manager-{version}.zip'
 out.parent.mkdir(parents=True, exist_ok=True)
 exclude={'.git','.venv','node_modules','__pycache__','.pytest_cache','.runtime','.codex','.agents'}
