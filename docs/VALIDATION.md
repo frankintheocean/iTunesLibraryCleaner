@@ -61,7 +61,7 @@ A separate generated 48,000-song XML check passed: loading took 1.54 seconds, in
 
 ## 🎵 Version 3.1.1 checks
 
-Linux checks passed 276 Python tests, 5 IPC tests, the production build and the real desktop library scan/edit workflow. New cases cover HTTPS upgrades for old image links, approved CDN redirects, blocked redirects to other hosts, valid binary image responses, public artist-page pictures, recovery of missing profile images, 256-pixel profile thumbnails, track/album lookups, failed-image retries, scan warm-up and uncapped large-scan estimates.
+Linux checks passed 278 Python tests, 5 IPC tests, the production build and the real desktop library scan/edit workflow. New cases cover HTTPS upgrades for old image links, approved CDN redirects, blocked redirects to other hosts, valid binary image responses, public artist-page pictures, recovery of missing profile images, 256-pixel profile thumbnails, track/album lookups, failed-image retries, scan warm-up and uncapped large-scan estimates.
 
 Desktop checks confirm that only Overview has the library picker, and the same loaded library remains usable in File Organizer and Metadata. Last.fm pictures in this desktop test are fixtures; public-page and CDN behaviours are tested through provider-shaped HTTP responses. A fresh real-account image check is blocked by this cloud’s Last.fm network restrictions. The required domains were saved to an environment draft; that draft has not been applied or published.
 
