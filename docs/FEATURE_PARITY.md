@@ -38,3 +38,9 @@ Apple’s private ITL/database files are not directly edited. Original rebuildin
 Choose the old settings or custom-rule file to import. Old files are not deleted. Unknown preferences are retained. Old databases, undo logs, presets and backups remain usable in the original tools. Credentials are excluded from exports and diagnostic reports. Full automatic history conversion is not provided.
 
 See [migration](../MIGRATION.md) and [system design](../ARCHITECTURE.md).
+
+## 🎧 Last.fm and discovery
+
+The Last.fm tab reads public recent plays and top songs, artists and albums with your API key and username. It shows available pictures and a large profile image. Six time periods, paging, refresh and disconnect are supported. Private-data login and scrobbling are not supported. See [Last.fm](LASTFM.md).
+
+Discovered library paths can be hidden and restored without deleting files or unloading libraries. Large live scans continue while readings move forward, with a stall deadline and six-hour total limit.
