@@ -15,9 +15,9 @@ jobs:
       actions: read
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      VALIDATED_RUN_ID: '37870955008'
-      VALIDATED_COMMIT: '643c4c33c961a5e850448d77031a981404658606'
-      RELEASE_TAG: v4.0.0-windows-preview
+      VALIDATED_RUN_ID: '37873855493'
+      VALIDATED_COMMIT: 'f33f15a4aefbd9485adb3796dffbfda1e8fb5490'
+      RELEASE_TAG: v1.0
     steps:
       - uses: actions/checkout@v4
       - name: Retrieve artifacts from the successful validation run
@@ -47,7 +47,7 @@ jobs:
           assert len(reports) == 1, 'Acceptance evidence missing'
           report = json.loads(reports[0].read_text(encoding='utf-8-sig'))
           assert report['result'] == 'passed' and report['commit'] == os.environ['VALIDATED_COMMIT']
-          target = original.with_name('Unified-iTunes-Library-Manager-4.0.0-win-x64.exe')
+          target = original.with_name('Unified-iTunes-Library-Manager-1.0-win-x64.exe')
           original.rename(target)
           target.with_suffix('.exe.sha256').write_text(f'{actual}  {target.name}\n', encoding='utf-8')
           shutil.copyfile(reports[0], 'artifact/installer-validation.json')
@@ -57,8 +57,13 @@ jobs:
         shell: bash
         run: |
           gh release create "$RELEASE_TAG" \
-            artifact/Unified-iTunes-Library-Manager-4.0.0-win-x64.exe \
-            artifact/Unified-iTunes-Library-Manager-4.0.0-win-x64.exe.sha256 \
+            artifact/Unified-iTunes-Library-Manager-1.0-win-x64.exe \
+            artifact/Unified-iTunes-Library-Manager-1.0-win-x64.exe.sha256 \
             artifact/installer-validation.json \
             --repo "$GITHUB_REPOSITORY" --target "$VALIDATED_COMMIT" --prerelease \
-            --title '4.0.0 Windows preview' --notes-file docs/WINDOWS_PREVIEW_RELEASE.md
+            --title '1.0 Windows preview' --notes-file docs/WINDOWS_PREVIEW_RELEASE.md
+      - name: Label the earlier preview as superseded
+        shell: bash
+        run: |
+          gh release edit v4.0.0-windows-preview --repo "$GITHUB_REPOSITORY" \
+            --title 'Earlier Windows preview (superseded by 1.0)'
