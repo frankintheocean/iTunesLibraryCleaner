@@ -47,6 +47,9 @@ jobs:
             Get-Content build/validation/windows-build.log -Tail 120 | Out-File $env:GITHUB_STEP_SUMMARY -Append
             $_ | Out-String | Out-File $env:GITHUB_STEP_SUMMARY -Append
             '```' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            $detail = ((Get-Content build/validation/windows-build.log -Tail 45) + ($_ | Out-String)) -join "`n"
+            $detail = $detail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows build diagnostics::$detail"
             throw
           }
       - name: Validate install, packaged app, repair and uninstall
@@ -60,6 +63,9 @@ jobs:
             Get-Content build/validation/windows-installer.log -Tail 120 | Out-File $env:GITHUB_STEP_SUMMARY -Append
             $_ | Out-String | Out-File $env:GITHUB_STEP_SUMMARY -Append
             '```' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            $detail = ((Get-Content build/validation/windows-installer.log -Tail 45) + ($_ | Out-String)) -join "`n"
+            $detail = $detail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Installer validation diagnostics::$detail"
             throw
           }
       - name: Hash installer
