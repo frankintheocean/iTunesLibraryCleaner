@@ -227,6 +227,25 @@ def test_track_and_bulk_id_queries_sort_in_both_directions(service,tmp_path):
     assert service.track_ids(identity,sort='name',direction='desc')==[1,2]
 
 
+def test_playlist_reorder_updates_snapshot_after_live_verification(service,tmp_path,monkeypatch):
+    identity,_,_=scanned(service,tmp_path)
+    profile=service.profile(identity)
+    profile['config']['kind']='live';profile['config']['library_pid']='FFFFFFFF80000001'
+    service.store.execute('UPDATE profiles SET config=? WHERE id=?',(json.dumps(profile['config']),identity))
+    library=service.library(identity)
+    initial=library.playlists[0].track_ids()
+    assert initial==[2,1]
+    ordered=[1,2]
+    pids=[library.tracks[tid].raw['Persistent ID'] for tid in ordered]
+    monkeypatch.setattr('backend.service.run_com',lambda payload,*args,**kwargs:{'reordered':2,'verified':True})
+    result=service.run_job('playlist_order',{'profile':identity,'index':0,'name':'Favorites','playlist_pid':'0000000000000001','ids':pids,'track_ids':ordered,'library_pid':profile['config']['library_pid']},'reorder-test',lambda *args:None)
+    assert result['snapshot_updated'] is True
+    assert service.playlists(identity)[0]['ids']==ordered
+    # Track-specific playlist item fields survive reordering.
+    snap=service.library(identity)
+    assert [item['Track ID'] for item in snap.playlists[0].raw['Playlist Items']]==ordered
+
+
 def test_main_library_playlist_cannot_be_reordered(service,tmp_path):
     identity,_,_=scanned(service,tmp_path)
     profile=service.profile(identity);profile['config']['kind']='live';profile['config']['library_pid']='FFFFFFFF80000001'

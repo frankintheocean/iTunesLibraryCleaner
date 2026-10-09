@@ -604,7 +604,28 @@ class Service:
             return results
         if kind == 'playlist_order':
             result=run_com({'operation':'playlist_order','playlist_pid':payload.get('playlist_pid'),'ids':payload['ids'],'library_pid':payload.get('library_pid')},self.store.path,job,timeout=180)
-            return {'playlist':payload.get('name'),'reordered':len(payload['ids']),'result':result}
+            if not result.get('verified'):
+                raise RuntimeError('iTunes did not verify the requested playlist order; the saved playlist was not changed.')
+            # Keep the app-side XML snapshot in sync after the live COM order is read back.
+            # Reorder whole Playlist Items records so item-specific metadata is preserved.
+            library=self.library(identity)
+            index=int(payload['index'])
+            if not 0<=index<len(library.playlists):raise ValueError('Playlist disappeared from the saved library; rescan before continuing.')
+            playlist=library.playlists[index]
+            requested=list(payload.get('track_ids') or [])
+            existing=playlist.raw.get('Playlist Items',[]) or []
+            by_track={int(item['Track ID']):item for item in existing if isinstance(item,dict) and 'Track ID' in item}
+            current=playlist.track_ids()
+            if not requested:
+                pid_to_id={str(track.raw.get('Persistent ID','')).upper():tid for tid,track in library.tracks.items()}
+                requested=[pid_to_id.get(str(pid).upper()) for pid in payload['ids']]
+            if (len(requested)!=len(current) or any(tid is None for tid in requested)
+                    or len(set(requested))!=len(requested) or set(requested)!=set(current)
+                    or any(tid not in by_track for tid in requested)):
+                raise ValueError('Saved playlist entries changed while iTunes was reordering; the snapshot was not altered. Rescan and retry.')
+            playlist.raw['Playlist Items']=[by_track[tid] for tid in requested]
+            self.save_snapshot(identity,library)
+            return {'playlist':payload.get('name'),'reordered':len(payload['ids']),'snapshot_updated':True,'result':result}
         if kind == 'playlist_cover':
             result=run_com({'operation':'playlist_cover','playlist_pid':payload.get('playlist_pid'),'image':payload.get('image'),'library_pid':payload.get('library_pid')},self.store.path,job,timeout=120)
             return {'playlist':payload.get('name'),'image_saved':True,'live_applied':True,'result':result}
