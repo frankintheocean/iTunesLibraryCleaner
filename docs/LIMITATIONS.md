@@ -38,4 +38,12 @@ Moving or quarantining files may break iTunes references. The new service does n
 
 See [feature coverage](FEATURE_PARITY.md) for the exact boundaries.
 
-⏱️ Queue time estimates now use active elapsed time and progress. They are approximate, and pause when the task pauses. Artwork loading can fall back to an icon for missing or unsupported covers. The new Windows live-artwork path still needs a real iTunes check; Linux tests cover embedded artwork.
+⏱️ Queue estimates count down using previous task times and progress. They pause with the task and say “Taking longer than estimated” if work runs past the estimate. They cannot predict every slow file or iTunes call. Artwork loading can fall back to an icon for missing or unsupported covers. The new Windows live-artwork path still needs a real iTunes check; Linux tests cover embedded artwork.
+
+## 🖼️ Playlist pictures
+
+Classic iTunes COM and standard library XML do not expose user-set playlist pictures. The app displays supported picture data when present and lets you choose a local picture. That choice changes iTunes Manager only. It does not invent a playlist picture from a song cover.
+
+## ⚡ Speed and live identity
+
+Version 3 reduces repeated parsing, search work and playlist ID calls. Real iTunes speed still depends on its library, storage and open dialogs. A live scan reads the actual COM library and checks its identity and track count at both ends; it does not substitute a guessed XML file. A changed library or missing track ID is reported without writing to another song. Full snapshots are still saved after verified metadata changes, so a one-song edit is not always instant.
