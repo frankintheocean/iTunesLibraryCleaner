@@ -410,12 +410,18 @@ class LastFM:
                     candidate = picture(raw)
                     fallback_paths.append('user/' + quote(conf['username'], safe=''))
                 elif kind == 'artist':
-                    try:
-                        raw = self._request('artist.getInfo', conf['api_key'], conf['username'], artist=name).get('artist') or {}
-                        candidate = picture(raw)
-                    except RuntimeError:
-                        pass
-                    fallback_paths.append('music/' + quote(name, safe=''))
+                    # Dashboard's working fallback is the public artist page's
+                    # og:image; try it first when Last.fm returned a placeholder
+                    # or the browser supplied URL could not be downloaded.
+                    artist_path = 'music/' + quote(name, safe='')
+                    fallback_paths.append(artist_path)
+                    candidate = direct_image_url(self._page_picture(artist_path))
+                    if not candidate:
+                        try:
+                            raw = self._request('artist.getInfo', conf['api_key'], conf['username'], artist=name).get('artist') or {}
+                            candidate = picture(raw)
+                        except RuntimeError:
+                            pass
                 elif kind == 'album' and artist:
                     raw = self._request('album.getInfo', conf['api_key'], conf['username'], album=name, artist=artist).get('album') or {}
                     candidate = picture(raw)
