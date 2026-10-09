@@ -17,7 +17,7 @@ Validated on Linux with Python 3.12.14 and Node 24.19.0. This report distinguish
 | Icon | Original generated source plus PNG sizes; ICO includes 16, 24, 32, 48, 64, 128 and 256 px |
 | Source ZIP | `scripts/package-source.py` verifies archive integrity and exactly one `Unified-iTunes-Library-Manager/` root; SHA-256 supplied beside ZIP |
 | Real iTunes COM | User-run source script reported PASS on Apple-distributed iTunes 12.13.11.1 after the Dispatch fallback fix: all 14 live metadata fields, independent readback and conditional undo. Detailed JSON/high-bit PID coverage not supplied; packaged live COM and modal/restart acceptance remain outstanding. Contract tests cover signed persistent IDs, live multi-field edits, readback, busy reconnect, concurrent changes, partial outcomes, DRM rejection and optional members |
-| Windows installer/repair/uninstall | Passed on Windows Server 2022 x64: actual NSIS install, packaged Electron workflow, repair of a deleted backend, uninstall/reinstall and byte-identical generated SQLite state preservation. Run [37870955008](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37870955008); Windows 10/11 manual acceptance remains outstanding |
+| Windows installer/repair/uninstall | Passed on Windows Server 2022 x64: actual NSIS install, packaged Electron workflow, repair of a deleted backend, uninstall/reinstall and byte-identical generated SQLite state preservation. Run [37873855493](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37873855493); Windows 10/11 manual acceptance remains outstanding |
 
 ## Important test limits
 
