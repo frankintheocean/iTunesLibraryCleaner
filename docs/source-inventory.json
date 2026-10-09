@@ -2,7 +2,9 @@
   {
     "path": "LibraryCleaner/LibraryCleaner/CHANGELOG.md",
     "bytes": 37851,
-    "sha256": "5658c20dbfbad12c6572f9a73b415818282f4c78f356da5931c6b7135db9dd19"
+    "sha256": "5658c20dbfbad12c6572f9a73b415818282f4c78f356da5931c6b7135db9dd19",
+    "published_sha256": "7456d7add97076152ffd32664977c7f90d12507489a609212a4fe3a1e5560626",
+    "publication_note": "Guide wording simplified with owner authorization; full original text remains in the v1.0 source tag."
   },
   {
     "path": "LibraryCleaner/LibraryCleaner/GenreCleanup.ico",
@@ -12,7 +14,9 @@
   {
     "path": "LibraryCleaner/LibraryCleaner/README.md",
     "bytes": 19756,
-    "sha256": "fe25e0fbd39af151641515412f90e89103ad12c0b28a78f117c63cc104e473dd"
+    "sha256": "fe25e0fbd39af151641515412f90e89103ad12c0b28a78f117c63cc104e473dd",
+    "published_sha256": "6b6cf6d1eebd4cf0c746f5b820308a2d9e434b6d11137511ec7a8b97f1c39d5f",
+    "publication_note": "Guide wording simplified with owner authorization; full original text remains in the v1.0 source tag."
   },
   {
     "path": "LibraryCleaner/LibraryCleaner/album_merge.py",
@@ -500,7 +504,9 @@
   {
     "path": "iTunesLibraryConsolidator_v2_2/iTunesLibraryConsolidator_v2_2/README.md",
     "bytes": 81963,
-    "sha256": "a982c75a2307fcd7fe4edea4b27b1f2105cd61b86c3ce3021a49f60a5a25db43"
+    "sha256": "a982c75a2307fcd7fe4edea4b27b1f2105cd61b86c3ce3021a49f60a5a25db43",
+    "published_sha256": "8f1bf235b21e35d75c1af1083b6b1119b84bbcb2b43c8096eb7d07e800d02e95",
+    "publication_note": "Guide wording simplified with owner authorization; full original text remains in the v1.0 source tag."
   },
   {
     "path": "iTunesLibraryConsolidator_v2_2/iTunesLibraryConsolidator_v2_2/assets/app_icon.ico",
@@ -571,7 +577,9 @@
   {
     "path": "iTunesLibraryConsolidator_v2_2/iTunesLibraryConsolidator_v2_2/dist_config/installer_README.md",
     "bytes": 3362,
-    "sha256": "b856e5006b098091c6429eb8e1f7c8ef09d971e2a00a4b719125789f5d55a190"
+    "sha256": "b856e5006b098091c6429eb8e1f7c8ef09d971e2a00a4b719125789f5d55a190",
+    "published_sha256": "270d370cebd8d62f33fbe3f8cecc2925801b52b865d2d02a6ef58cfc9854c040",
+    "publication_note": "Guide wording simplified with owner authorization; full original text remains in the v1.0 source tag."
   },
   {
     "path": "iTunesLibraryConsolidator_v2_2/iTunesLibraryConsolidator_v2_2/dist_config/run_app.py",
