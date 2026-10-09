@@ -47,3 +47,9 @@ Classic iTunes COM and standard library XML do not expose user-set playlist pict
 ## ⚡ Speed and live identity
 
 Version 3 reduces repeated parsing, search work and playlist ID calls. Real iTunes speed still depends on its library, storage and open dialogs. A live scan reads the actual COM library and checks its identity and track count at both ends; it does not substitute a guessed XML file. A changed library or missing track ID is reported without writing to another song. Full snapshots are still saved after verified metadata changes, so a one-song edit is not always instant.
+
+## 🎧 Last.fm and large scans
+
+Last.fm is an optional, read-only public-data connection. It needs your API key, username and internet access. Private-data authorization and scrobbling are not supported. Last.fm may not supply artist photos or some covers. The key is stored locally without database encryption; disconnect removes it. See the [Last.fm guide](LASTFM.md).
+
+The extended live-scan deadline is tested with simulated timing and 48,000 generated track IDs. A fresh large-library scan against real classic iTunes still needs Windows user validation. The scan stops after 15 minutes without forward progress or a six-hour total limit. Live metadata write deadlines and field records remain unchanged.
