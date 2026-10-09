@@ -13,6 +13,7 @@ import uuid
 import threading
 import subprocess
 from collections import Counter, defaultdict
+from contextlib import closing
 from pathlib import Path
 import mutagen
 from . import legacy, metadata
@@ -669,7 +670,7 @@ class Service:
             settings = {k: v for k, v in settings.items() if not any(s in k.lower() for s in ('key', 'token', 'password', 'secret'))}
         elif kind == 'consolidator':
             uri = path.as_uri() + '?mode=ro'
-            with sqlite3.connect(uri, uri=True) as db:
+            with closing(sqlite3.connect(uri, uri=True)) as db:
                 tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
                 if 'settings' not in tables: raise ValueError('No legacy settings table.')
                 settings = dict(db.execute('SELECT key,value FROM settings'))
