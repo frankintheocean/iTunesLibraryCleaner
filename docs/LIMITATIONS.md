@@ -22,7 +22,7 @@ Consolidator retains advanced exclusions, restore points, growth and change repo
 - Duplicate-artwork cleanup, empty-folder removal and automatic detection of disconnected drives.
 - Importing Apple Music’s private database, full custom-variable folder templates, playlist comparison and live playlist repair.
 - Automatic conversion of all old history and caches, managed backup/restore of new app state, dependent jobs and Retry All.
-- Progress saved midway through a file, transfer-speed and time-left estimates, translations, update/notification settings, clipboard actions and drag-and-drop.
+- Progress saved midway through a file, transfer-speed measurements, translations, update/notification settings, clipboard actions and drag-and-drop.
 
 One worker applies changes, with cancellation between items. Scans reuse cached tags based on size and modification time but still walk folders. Matching uses library snapshots in memory; paged tables do not mean the whole scan runs from disk alone.
 
@@ -37,3 +37,5 @@ Artwork replacement supports MP3 with ID3, MP4/M4A and FLAC. Other formats may b
 Moving or quarantining files may break iTunes references. The new service does not silently delete live duplicates or rebuild Apple’s private databases. Use export/import/relink steps. Advanced original rebuild and sync actions remain choices in the original tools.
 
 See [feature coverage](FEATURE_PARITY.md) for the exact boundaries.
+
+⏱️ Queue time estimates now use active elapsed time and progress. They are approximate, and pause when the task pauses. Artwork loading can fall back to an icon for missing or unsupported covers. The new Windows live-artwork path still needs a real iTunes check; Linux tests cover embedded artwork.
