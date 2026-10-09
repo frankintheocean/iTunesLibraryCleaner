@@ -1,6 +1,27 @@
 # 🗂️ File and folder guide
 
-🗂️ Use this short emoji map to find the right code, guide, or build script. It labels repository paths only; it does not rename files, alter source, or change licences.
+🧭 Use this guide to find the right part of the project without needing to know the code. The path index below gives every tracked folder and file a short label; emojis show the general purpose, not a technical requirement.
+
+## 🚀 Start here
+
+| File | What it is for |
+| --- | --- |
+| `README.md` | 🎵 What the app does and how to get started |
+| `INSTALL.md` | 📥 Install, repair, upgrade, and uninstall |
+| `BUILD.md` | 🛠️ Build the app from source |
+| `TESTING.md` | 🧪 Run automated checks and manual safety tests |
+| `CHANGELOG.md` | 🗓️ What changed in each release |
+| `MIGRATION.md` | 🧭 Move from the older Cleaner and Consolidator tools |
+| `package.json` / `package-lock.json` | 📦 App version, commands, and pinned JavaScript dependencies |
+| `backend/` | 🔌 Local API, library scanning, file edits, and iTunes connection |
+| `desktop/` | 🖥️ Windows desktop window and secure app bridge |
+| `frontend/` | 🎛️ Screens, controls, artwork, and styling |
+| `docs/` | 📚 User guides, release notes, limits, and test evidence |
+| `legacy/` | 🏛️ Original Cleaner and Consolidator tools, preserved for reference |
+| `.github/workflows/` | 🚦 Automated tests, Windows builds, and release publishing |
+| `resources/licenses/` | ⚖️ Third-party license notices generated for bundled dependencies |
+
+## 🗂️ Full path index
 
 ## Folders
 
