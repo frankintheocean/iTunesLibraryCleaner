@@ -1,4 +1,4 @@
-# 🎵 iTunes Manager 4.0.0
+# 🎵 iTunes Manager 1.0.0
 
 A local Windows desktop app for browsing, cleaning, and editing music libraries. Your library stays on your device.
 
@@ -16,7 +16,7 @@ A local Windows desktop app for browsing, cleaning, and editing music libraries.
 
 ## 📥 Install
 
-Get the **installer**, **portable Windows ZIP**, or **source ZIP** from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v4.0.0). Extract the whole portable ZIP before opening `iTunes Manager.exe`. The installer is unsigned. Live editing requires Windows and **classic iTunes**—Apple Music for Windows does not provide this COM interface.
+Get the **installer**, **portable Windows ZIP**, or **source ZIP** from [GitHub Releases](https://github.com/frankintheocean/iTunesLibraryCleaner/releases/tag/v1.0.0). Extract the whole portable ZIP before opening `iTunes Manager.exe`. The installer is unsigned. Live editing requires Windows and **classic iTunes**—Apple Music for Windows does not provide this COM interface.
 
 ## 🛠️ Run from source
 
@@ -38,4 +38,4 @@ Review every preview before confirming. Delete and duplicate actions in Current 
 
 ## 🗂️ Project map
 
-See the [file and folder guide](docs/REPOSITORY_LABELS.md), [workspace guide](docs/WORKSPACE_GUIDE.md), [known limits](docs/LIMITATIONS.md), [Last.fm guide](docs/LASTFM.md), and [release notes](docs/RELEASE_4_0_0.md). Third-party license notices remain in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+See the [file and folder guide](docs/REPOSITORY_LABELS.md), [workspace guide](docs/WORKSPACE_GUIDE.md), [known limits](docs/LIMITATIONS.md), [Last.fm guide](docs/LASTFM.md), and [release notes](docs/RELEASE_1_0_0.md). Third-party license notices remain in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
