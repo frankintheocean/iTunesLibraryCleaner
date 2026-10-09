@@ -25,6 +25,6 @@ export function TaskTime({job}:{job:any}){
  useEffect(()=>{setNow(Date.now()/1000);if(job.status!=='running')return;const timer=setInterval(()=>setNow(Date.now()/1000),1000);return()=>clearInterval(timer);},[job.status,job.sampled_at]);
  const elapsed=(job.elapsed_seconds||0)+(job.status==='running'?Math.max(0,now-(job.sampled_at||now)):0);
  const remaining=job.eta_end==null?null:Math.max(0,job.eta_end-elapsed);
- const eta=job.status==='queued'?'Waiting':job.status==='paused'?'Paused':job.status==='running'?(remaining===null?'Starting…':remaining<=0?'Taking longer than estimated…':'~'+formatTime(remaining)):job.status==='complete'?'Done':'Stopped';
+ const eta=job.status==='queued'?'Waiting':job.status==='paused'?'Paused':job.status==='running'?(job.kind==='scan'&&job.current==='Saving and indexing the library'?'Saving library…':remaining===null?(job.kind==='scan'?'Measuring scan speed…':'Starting…'):remaining<=0?'Taking longer than estimated…':'~'+formatTime(remaining)):job.status==='complete'?'Done':'Stopped';
  return <small className="task-time">⏱️ Elapsed {formatTime(elapsed)}<br/>🏁 ETA {eta}</small>;
 }
