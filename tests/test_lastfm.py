@@ -73,7 +73,7 @@ def test_bad_login_preserves_valid_connection_and_never_echoes_key(client,monkey
  r=c.get('/lastfm/charts');assert r.status_code==503 and KEY not in r.text
 
 
-@pytest.mark.parametrize('url',['http://lastfm.freetls.fastly.net/a','https://127.0.0.1/a','https://lastfm.freetls.fastly.net.evil/a','https://evil@lastfm.freetls.fastly.net/a','https://lastfm.freetls.fastly.net:444/a','file:///etc/passwd','https://lastfm.freetls.fastly.net/i/u/2a96cbd8b46e442fc41c2b86b821562f.png'])
+@pytest.mark.parametrize('url',['http://127.0.0.1/a','https://127.0.0.1/a','https://lastfm.freetls.fastly.net.evil/a','https://evil@lastfm.freetls.fastly.net/a','https://lastfm.freetls.fastly.net:444/a','file:///etc/passwd','https://lastfm.freetls.fastly.net/i/u/2a96cbd8b46e442fc41c2b86b821562f.png'])
 def test_picture_allowlist_rejects_untrusted_urls(client,monkeypatch,url):
  c,s=client;assert image_url(url)==''
  monkeypatch.setattr('backend.lastfm.requests.get',lambda *a,**k:pytest.fail('Untrusted URL was fetched'))
@@ -150,3 +150,89 @@ def test_bounded_profile_picture_is_a_real_decodable_thumbnail(client,monkeypatc
  monkeypatch.setattr('backend.lastfm.requests.get',lambda *a,**k:ImageResponse())
  result=c.post('/lastfm/image',json={'url':IMAGE}).json()['image'];assert result.startswith('data:image/jpeg;base64,')
  with Image.open(BytesIO(base64.b64decode(result.split(',',1)[1]))) as picture:assert picture.size==(96,96)
+
+
+def image_response(data=b'',status=200,headers=None):
+ class Result:
+  status_code=status
+  def __init__(self):self.headers=headers or {'Content-Type':'application/octet-stream'}
+  def __enter__(self):return self
+  def __exit__(self,*a):pass
+  def iter_content(self,size):yield data
+ return Result()
+
+
+def png():
+ from io import BytesIO
+ from PIL import Image
+ out=BytesIO();Image.new('RGB',(300,300),'green').save(out,format='PNG');return out.getvalue()
+
+
+def test_legacy_http_cdn_is_upgraded_and_safe_redirect_picture_is_decoded(client,monkeypatch):
+ c,s=client;calls=[]
+ redirect='https://lastfm-img2.akamaized.net/i/u/300x300/cover.png'
+ def get(url,**kw):
+  calls.append(url);assert url.startswith('https://') and kw['allow_redirects'] is False
+  if len(calls)==1:return image_response(status=302,headers={'Location':redirect})
+  assert url==redirect;return image_response(png())
+ monkeypatch.setattr('backend.lastfm.requests.get',get)
+ result=c.post('/lastfm/image',json={'url':IMAGE.replace('https:','http:')}).json()
+ assert result['image'].startswith('data:image/jpeg;base64,') and calls==[IMAGE,redirect]
+
+
+@pytest.mark.parametrize('target',['http://127.0.0.1/private','https://evil.test/image','https://lastfm.freetls.fastly.net.evil/pic'])
+def test_redirect_cannot_escape_approved_picture_hosts(client,monkeypatch,target):
+ c,s=client;calls=[]
+ def get(url,**kw):calls.append(url);return image_response(status=302,headers={'Location':target})
+ monkeypatch.setattr('backend.lastfm.requests.get',get)
+ assert c.post('/lastfm/image',json={'url':IMAGE}).json()=={'image':None} and calls==[IMAGE]
+
+
+def test_artist_photo_uses_real_page_metadata_when_api_has_no_photo(client,monkeypatch):
+ c,s=client;connect_fixture(monkeypatch);c.post('/lastfm/connect',json={'api_key':KEY,'username':'Listener'})
+ calls=[]
+ def get(url,**kw):
+  calls.append(url)
+  if url.startswith('https://www.last.fm/music/'):
+   assert url=='https://www.last.fm/music/beabadoobee'
+   return image_response(f'<meta property="og:image" content="{IMAGE}">'.encode(),headers={'Content-Type':'text/html'})
+  assert url==IMAGE;return image_response(png())
+ monkeypatch.setattr('backend.lastfm.requests.get',get)
+ result=c.post('/lastfm/picture',json={'kind':'artist','name':'beabadoobee','url':'https://lastfm.freetls.fastly.net/i/u/2a96cbd8b46e442fc41c2b86b821562f.png'})
+ assert result.status_code==200 and result.json()['image'].startswith('data:')
+ c.post('/lastfm/picture',json={'kind':'artist','name':'beabadoobee','url':'https://lastfm.freetls.fastly.net/i/u/2a96cbd8b46e442fc41c2b86b821562f.png'})
+ assert len(calls)==2
+
+
+def test_saved_profile_missing_picture_is_fetched_again_at_retina_size(client,monkeypatch):
+ from io import BytesIO
+ from PIL import Image
+ import base64
+ c,s=client;connect_fixture(monkeypatch);c.post('/lastfm/connect',json={'api_key':KEY,'username':'Listener'})
+ conf=s.store.setting('lastfm_connection');conf['user']['image']='';s.store.set_setting('lastfm_connection',conf)
+ def get(url,**kw):
+  if 'params' in kw:assert kw['params']['method']=='user.getInfo';return response({'user':{'image':[{'#text':IMAGE}]}})
+  return image_response(png())
+ monkeypatch.setattr('backend.lastfm.requests.get',get)
+ result=c.post('/lastfm/picture',json={'kind':'profile','name':'Listener','url':''}).json()['image']
+ with Image.open(BytesIO(base64.b64decode(result.split(',',1)[1]))) as img:assert img.size==(256,256)
+
+
+@pytest.mark.parametrize('kind,method,root',[('album','album.getInfo','album'),('track','track.getInfo','track')])
+def test_missing_chart_cover_uses_album_or_track_lookup(client,monkeypatch,kind,method,root):
+ c,s=client;connect_fixture(monkeypatch);c.post('/lastfm/connect',json={'api_key':KEY,'username':'Listener'})
+ def get(url,**kw):
+  if 'params' in kw:
+   assert kw['params']['method']==method
+   data={'image':[{'#text':IMAGE}]};return response({root:{'album':data} if kind=='track' else data})
+  return image_response(png())
+ monkeypatch.setattr('backend.lastfm.requests.get',get)
+ assert c.post('/lastfm/picture',json={'kind':kind,'name':'Coffee','artist':'beabadoobee'}).json()['image'].startswith('data:')
+
+
+def test_failed_picture_is_retried_on_refresh_not_cached_permanently(client,monkeypatch):
+ c,s=client;connect_fixture(monkeypatch);c.post('/lastfm/connect',json={'api_key':KEY,'username':'Listener'})
+ monkeypatch.setattr('backend.lastfm.requests.get',lambda *a,**k:image_response(status=503))
+ assert s.lastfm.image(IMAGE)['image'] is None
+ monkeypatch.setattr('backend.lastfm.requests.get',lambda *a,**k:image_response(png()))
+ assert s.lastfm.image(IMAGE)['image'].startswith('data:')
