@@ -43,6 +43,6 @@ Linux source checks passed 210 Python tests, 4 IPC checks and the desktop scan/e
 
 On the generated 40,000-song XML, v3 loading took 2.17 seconds versus 3.21 for the v2 library and database code. Searches took 17–25 ms. Cached overview lookup took 0.74 ms; a one-file title edit took 2.52 seconds versus 3.32. Run `scripts/benchmark-library.py --compare-v2` to repeat the comparison. These Linux fixture timings do not measure live COM or promise the same speed on other machines.
 
-Windows release artifacts include a report tied to their exact source commit. Publication checks require that run to pass; this does not replace manual Windows 10/11 and real iTunes checks.
+Windows 3.0.0 passed installer, packaged-app, repair and uninstall/reinstall checks with saved data preserved. Both release ZIPs and the 40,000-song loading/edit check passed. [Windows build evidence](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37896971968). Release artifacts include a report tied to source commit `fa70d0e2a9f19babdb22d922826b739731c58103`; this does not replace manual Windows 10/11 and real iTunes checks.
 
 The Windows archive check exposed database connections left open after transactions. The service now closes them explicitly, including failed transactions. A new test checks rollback, closed handles and removal of a closed database on Windows.
