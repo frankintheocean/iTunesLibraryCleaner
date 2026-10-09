@@ -1,4 +1,4 @@
-const {app,BrowserWindow,ipcMain,dialog}=require('electron');
+const {app,BrowserWindow,ipcMain,dialog,shell}=require('electron');
 const {spawn}=require('node:child_process');
 const {randomBytes}=require('node:crypto');
 const path=require('node:path');
@@ -10,6 +10,7 @@ const root=path.resolve(__dirname,'..');
 // app.asar is a virtual archive; child processes need a real working directory.
 const backendCwd=app.isPackaged?process.resourcesPath:root;
 const dev=!!process.env.LIBRARY_MANAGER_DEV;
+if(!process.env.LIBRARY_MANAGER_DATA_DIR)app.setPath('userData',path.join(app.getPath('appData'),'Unified iTunes Library Manager'));
 if(process.env.LIBRARY_MANAGER_DATA_DIR)app.setPath('userData',path.resolve(process.env.LIBRARY_MANAGER_DATA_DIR));
 function backendCommand(extra=[]){
  const dataDir=app.getPath('userData');
@@ -36,13 +37,14 @@ ipcMain.handle('library:request',async(event,{path:route,method,body})=>{
 });
 ipcMain.handle('library:choose',async(event,kind)=>{assertSender(event);if(kind==='folder'){const r=await dialog.showOpenDialog(win,{properties:['openDirectory','dontAddToRecent']});return r.canceled?null:r.filePaths[0];}if(!filters[kind])throw new Error('Unsupported dialog');if(kind.startsWith('save-')){const r=await dialog.showSaveDialog(win,{filters:filters[kind],properties:['showOverwriteConfirmation','dontAddToRecent']});return r.canceled?null:r.filePath;}const r=await dialog.showOpenDialog(win,{filters:filters[kind],properties:['openFile','dontAddToRecent']});return r.canceled?null:r.filePaths[0];});
 ipcMain.handle('library:legacy',async(event,name)=>{assertSender(event);if(!['cleaner','consolidator'].includes(name))throw new Error('Unknown legacy tool');const c=backendCommand(['--legacy',name]);const child=spawn(c.exe,c.args,{cwd:backendCwd,windowsHide:true,stdio:['ignore','ignore','pipe'],env:{...process.env,LIBRARY_MANAGER_TOKEN:''}});children.add(child);let errors='';child.stderr.on('data',b=>errors=(errors+b).slice(-4000));child.on('exit',code=>{children.delete(child);if(code&&!closing)dialog.showErrorBox('Legacy tool could not start',errors||`Exit code ${code}`);});await new Promise((resolve,reject)=>{child.once('spawn',resolve);child.once('error',reject);});});
+ipcMain.handle('library:repository',async event=>{assertSender(event);await shell.openExternal('https://github.com/frankintheocean/iTunesLibraryCleaner');});
 ipcMain.handle('library:window',(event,action)=>{assertSender(event);if(action==='minimize')win.minimize();else if(action==='maximize')win.isMaximized()?win.unmaximize():win.maximize();else if(action==='close')win.close();else throw new Error('Unknown window action');});
 app.on('web-contents-created',(_,contents)=>{contents.setWindowOpenHandler(()=>({action:'deny'}));contents.on('will-attach-webview',e=>e.preventDefault());contents.session.setPermissionRequestHandler((_,__,callback)=>callback(false));});
 app.whenReady().then(async()=>{
  try{await startBackend();win=new BrowserWindow({width:1360,height:920,minWidth:800,minHeight:600,frame:false,backgroundColor:'#f5f6fa',icon:path.join(app.isPackaged?process.resourcesPath:root,'resources','app.ico'),webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true,webSecurity:true,devTools:!app.isPackaged}});
  win.webContents.on('will-navigate',(e,url)=>{if(!dev||new URL(url).origin!=='http://127.0.0.1:5173')e.preventDefault();});
  if(dev)await win.loadURL('http://127.0.0.1:5173');else await win.loadFile(path.join(root,'frontend','dist','index.html'));
- }catch(e){dialog.showErrorBox('Unable to start Library Manager',String(e));app.quit();}
+ }catch(e){dialog.showErrorBox('Unable to start iTunes Manager',String(e));app.quit();}
 });
 app.on('window-all-closed',()=>app.quit());
 app.on('before-quit',event=>{
