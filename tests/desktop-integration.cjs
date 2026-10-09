@@ -7,7 +7,9 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  const fixture=require('node:child_process').spawnSync(python,[path.join(__dirname,'make_fixture.py'),data],{encoding:'utf8'});
  if(fixture.status!==0)throw new Error(fixture.stderr);
  const fixturePath=path.join(data,'Library.xml');
- const app=await electron.launch({executablePath:require('electron'),args:[root,...(process.env.LIBRARY_MANAGER_TEST_NO_SANDBOX==='1'?['--no-sandbox']:[])],cwd:root,env:{...process.env,XDG_CONFIG_HOME:data+'/config',XDG_CACHE_HOME:data+'/cache',LIBRARY_MANAGER_DATA_DIR:data+'/state'},timeout:30000});
+ const installed=process.env.LIBRARY_MANAGER_ELECTRON_EXECUTABLE;
+ const screenshots=process.env.LIBRARY_MANAGER_SCREENSHOT_DIR||path.join(root,'docs');fs.mkdirSync(screenshots,{recursive:true});
+ const app=await electron.launch({executablePath:installed||require('electron'),args:[...(installed?[]:[root]),...(process.env.LIBRARY_MANAGER_TEST_NO_SANDBOX==='1'?['--no-sandbox']:[])],cwd:root,env:{...process.env,XDG_CONFIG_HOME:data+'/config',XDG_CACHE_HOME:data+'/cache',LIBRARY_MANAGER_DATA_DIR:data+'/state'},timeout:30000});
  const errors=[];const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));
  try{
  await page.getByRole('button',{name:'Add your first library'}).click();
@@ -18,7 +20,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  await page.getByRole('button',{name:'Overview',exact:true}).click();
  await page.waitForSelector('.hero',{timeout:15000});
  assert.ok((await page.locator('.stat').first().innerText()).includes('120'));
- await page.screenshot({path:root+'/docs/ui-overview.png'});
+ await page.screenshot({path:path.join(screenshots,'ui-overview.png')});
  await page.getByRole('button',{name:'Metadata',exact:true}).click();
  await page.waitForSelector('.track-row');
  await page.getByLabel('Write target').selectOption('file');
@@ -33,7 +35,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  await page.getByRole('button',{name:'Apple Dark',exact:true}).click();
  await page.waitForFunction(()=>document.documentElement.dataset.theme==='Apple Dark');
  await page.getByRole('button',{name:'Metadata',exact:true}).click();
- await page.screenshot({path:root+'/docs/ui-metadata-dark.png'});
+ await page.screenshot({path:path.join(screenshots,'ui-metadata-dark.png')});
  for(const section of ['Libraries','Library Cleaner','Consolidation','Duplicates','Playlists','File Organizer','Queue','History','Settings']){
   await page.getByRole('button',{name:section,exact:true}).click();
   await page.waitForTimeout(150);
@@ -43,6 +45,7 @@ const fs=require('node:fs');const assert=require('node:assert/strict');
  await page.getByRole('button',{name:'Metadata',exact:true}).click();
  const bounds=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));assert.ok(bounds.scroll<=bounds.width);
  assert.deepEqual(errors,[]);
+ if(process.env.LIBRARY_MANAGER_DESKTOP_REPORT)fs.writeFileSync(process.env.LIBRARY_MANAGER_DESKTOP_REPORT,JSON.stringify({state:path.join(data,'state'),packaged:!!installed,result:'passed'},null,2));
  console.log('PASS: native desktop startup, real API library scan, 120-row virtualized table, file metadata preview/commit, dark theme persistence, 11-screen navigation, maximize/restore and narrow-window layout.');
  }finally{await app.close();}
 })().catch(e=>{console.error(e);process.exit(1)});
