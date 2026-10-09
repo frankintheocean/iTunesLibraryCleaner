@@ -18,6 +18,6 @@ Run `npm run test:desktop` to launch Electron and exercise the real local API. I
 
 ## 🪟 Before a public release
 
-GitHub Actions builds the Windows installer, checks the bundled backend and generated library, runs desktop integration, and verifies install/repair/uninstall. Portable/source ZIPs and checksums are produced only after those checks succeed. Confirm the workflow result and published assets separately; a successful local test run does not prove that a release upload completed.
+GitHub Actions builds the Windows installer, checks the bundled backend and generated library, runs desktop integration, and verifies install/repair/uninstall. Portable/source ZIPs and checksums are produced only after those checks succeed. Check workflow results and release assets separately; local tests do not prove a release upload succeeded.
 
 Use a disposable classic iTunes library on Windows for real-COM validation. Never test delete or reorder actions against a personal library. Check live scans, metadata writes, undo, playlist reorder success/failure, and playlist-picture behavior. If COM exposes no safe playlist move or art setter, the app should report the limitation and leave tracks unchanged.
