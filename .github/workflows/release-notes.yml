@@ -6,6 +6,7 @@ on:
       - '.github/workflows/release-notes.yml'
       - 'docs/WINDOWS_PREVIEW_RELEASE.md'
       - 'docs/EARLIER_PREVIEW_RELEASE.md'
+      - 'docs/RELEASE_2_0_0.md'
   workflow_dispatch:
 permissions:
   contents: write
@@ -21,3 +22,6 @@ jobs:
           set -euo pipefail
           gh release edit v1.0 --repo "$GITHUB_REPOSITORY" --title '🎵 1.0 Windows preview' --notes-file docs/WINDOWS_PREVIEW_RELEASE.md
           gh release edit v4.0.0-windows-preview --repo "$GITHUB_REPOSITORY" --title '🕰️ Earlier preview — replaced by 1.0' --notes-file docs/EARLIER_PREVIEW_RELEASE.md
+          if gh release view v2.0.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release edit v2.0.0 --repo "$GITHUB_REPOSITORY" --title '🎵 iTunes Manager 2.0.0' --notes-file docs/RELEASE_2_0_0.md
+          fi
