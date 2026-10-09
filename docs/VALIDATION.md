@@ -36,3 +36,11 @@ Reusable install and startup instructions were saved to the cloud environment dr
 ## 🎵 Version 2.0.0 checks
 
 Six new Python tests cover safe queue clearing, elapsed-time pausing, old-database upgrades, bounded artwork, preferences and signed-ID live-artwork access. The desktop test checks whole-page heading scroll, centered title text, embedded covers, genre percentages, queue clearing, OLED black backgrounds, font selection and enlarged text, plus the existing scan/edit workflow. Windows 2.0.0 passed on Server 2022: 195 Python tests plus one Linux-only skip, 3 IPC tests, bundle startup, installed-app workflow, repair and uninstall/reinstall with unchanged saved data. [Build evidence](https://github.com/frankintheocean/iTunesLibraryCleaner/actions/runs/37878468914). Real installed-app live iTunes and live artwork remain pending.
+
+## 🎵 Version 3.0.0 checks
+
+Linux source checks passed 209 Python tests, 4 IPC checks and the desktop scan/edit workflow. New cases cover snapshot publication while the old file is open, failed-save recovery, cached-library isolation, partial indexing, exact live-ID fallback, wrong-library refusal, queue timing, library removal, history clearing, default paths and playlist pictures. The desktop test also switches between a blank and loaded library during background refreshes. These tests use generated data.
+
+On the generated 40,000-song XML, v3 loading took 1.95 seconds versus 3.47 for v2. Searches took 16–33 ms. Cached overview lookup took 0.38 ms; a one-file title edit took 2.46 seconds versus 3.41. Run `scripts/benchmark-library.py --compare-v2` to repeat the comparison. These Linux fixture timings do not measure live COM or promise the same speed on other machines.
+
+Windows release artifacts include a report tied to their exact source commit. Publication checks require that run to pass; this does not replace manual Windows 10/11 and real iTunes checks.
