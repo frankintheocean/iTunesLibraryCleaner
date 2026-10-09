@@ -1,0 +1,71 @@
+name: Windows installer
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/windows-build.yml'
+      - 'backend/**'
+      - 'desktop/**'
+      - 'frontend/**'
+      - 'legacy/**'
+      - 'resources/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'package*.json'
+      - 'requirements*.txt'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: windows-build-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  installer:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Build and test Windows bundle
+        shell: pwsh
+        run: ./scripts/build-windows.ps1
+      - name: Validate install, packaged app, repair and uninstall
+        shell: pwsh
+        run: ./scripts/test-windows-installer.ps1
+      - name: Hash installer
+        shell: pwsh
+        run: |
+          Get-ChildItem dist/windows -Filter '*.exe' | ForEach-Object {
+            $hash = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $($_.Name)" | Set-Content -Encoding utf8 "$($_.FullName).sha256"
+          }
+      - name: Upload Windows installer and checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64-installer-${{ github.sha }}
+          path: |
+            dist/windows/*.exe
+            dist/windows/*.exe.sha256
+            dist/windows/*.blockmap
+            dist/windows/latest.yml
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-validation-${{ github.sha }}
+          path: |
+            build/validation/**
+            build/pyinstaller/**/warn-*.txt
+          if-no-files-found: ignore
+          retention-days: 30
