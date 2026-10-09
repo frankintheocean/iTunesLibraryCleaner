@@ -436,75 +436,75 @@ This index covers the tracked paths in the v1.0.0 repository. The documentation-
 
 | Path | Description |
 | --- | --- |
-| `.gitattributes` | 🏬 Project file for Gitattributes |
-| `.github/copilot-instructions.md` | 🏭 Project documentation: Copilot Instructions |
-| `.github/README.md` | 🏯 Project documentation: README |
-| `.github/RELEASE_TEMPLATE.md` | 🏰 Project documentation: RELEASE TEMPLATE |
+| `.gitattributes` | 🧾 Git settings for line endings and file handling |
+| `.github/copilot-instructions.md` | 🤖 Rules for AI coding assistants working in this repository |
+| `.github/README.md` | 🧭 Notes about this repository's GitHub setup |
+| `.github/RELEASE_TEMPLATE.md` | 📝 Template for preparing a GitHub release |
 | `.github/workflows/publish-windows-preview.yml` | 💒 Automated Publish Windows Preview workflow |
-| `.github/workflows/README.md` | 🗼 Automated README workflow |
+| `.github/workflows/README.md` | 🧰 Guide to the automated GitHub workflows |
 | `.github/workflows/release-notes.yml` | 🗽 Automated Release Notes workflow |
 | `.github/workflows/windows-build.yml` | ⛪ Automated Windows Build workflow |
 | `.github/workflows/windows-diagnostics.yml` | 🕌 Build and release diagnostics |
-| `.gitignore` | 🛕 Project file for Gitignore |
-| `AGENTS.md` | 🕍 Project documentation: AGENTS |
-| `ARCHITECTURE.md` | ⛩️ Project documentation: ARCHITECTURE |
-| `backend/__init__.py` | 🕋 Backend module for   Init |
-| `backend/__main__.py` | ⛲ Backend module for   Main |
-| `backend/api.py` | ⛺ Backend module for Api |
-| `backend/artwork.py` | 🌁 Safe image thumbnails and artwork caching |
-| `backend/com_service.py` | 🌃 Read live iTunes tracks, playlists, and artwork |
-| `backend/filesystem.py` | 🌆 Backend module for Filesystem |
-| `backend/jobs.py` | 🌇 Backend module for Jobs |
-| `backend/lastfm.py` | 🌉 Last.fm listening connection |
-| `backend/legacy.py` | 🎠 Backend module for Legacy |
-| `backend/metadata.py` | 🎡 Backend module for Metadata |
-| `backend/README.md` | 🎢 Backend module for README |
-| `backend/service.py` | 💈 Library indexing, statistics, and playlist services |
-| `backend/store.py` | 🎪 Backend module for Store |
-| `BUILD.md` | 🚂 Build the app from source |
-| `CHANGELOG.md` | 🚃 What changed in each release |
-| `desktop/contracts.cjs` | 🚄 Desktop bridge or window logic: Contracts |
-| `desktop/main.cjs` | 🚅 Desktop bridge or window logic: Main |
-| `desktop/preload.cjs` | 🚆 Desktop bridge or window logic: Preload |
-| `desktop/README.md` | 🚇 Desktop bridge or window logic: README |
-| `docs/CURRENT_LIBRARY.md` | 🚈 Browse, sort, select, copy, duplicate, and delete songs |
-| `docs/EARLIER_PREVIEW_RELEASE.md` | 🚉 EARLIER PREVIEW RELEASE guide, release note, or validation record |
-| `docs/FEATURE_PARITY.md` | 🚊 FEATURE PARITY guide, release note, or validation record |
-| `docs/LASTFM.md` | 🚝 Last.fm quick guide |
-| `docs/LIMITATIONS.md` | 🚞 LIMITATIONS guide, release note, or validation record |
-| `docs/npm-audit.json` | 🚋 Npm Audit guide, release note, or validation record |
-| `docs/python-lock-audit.json` | 🚌 Python Lock Audit guide, release note, or validation record |
-| `docs/README.md` | 🚍 Find the right user or developer guide |
-| `docs/RELEASE_1_0_0.md` | 🚎 Stable 1.0.0 release notes and download names |
-| `docs/RELEASE_2_0_0.md` | 🚐 RELEASE 2 0 0 guide, release note, or validation record |
-| `docs/RELEASE_3_0_0.md` | 🚀 Version 3 download guide |
-| `docs/RELEASE_3_1_0.md` | 🚑 Version 3.1 downloads |
-| `docs/RELEASE_3_1_1.md` | 🚒 Historical v3.1.1 release guide |
-| `docs/REPOSITORY_LABELS.md` | 🚓 REPOSITORY LABELS guide, release note, or validation record |
-| `docs/source-inventory.json` | 🚔 Source Inventory guide, release note, or validation record |
-| `docs/ui-lastfm-demo.png` | 🚕 Listening layout demo |
-| `docs/ui-metadata-dark.png` | 🚖 Ui Metadata Dark guide, release note, or validation record |
-| `docs/ui-overview.png` | 🚗 Ui Overview guide, release note, or validation record |
-| `docs/VALIDATION.md` | 🚘 VALIDATION guide, release note, or validation record |
-| `docs/WINDOWS_PREVIEW_RELEASE.md` | 🚙 WINDOWS PREVIEW RELEASE guide, release note, or validation record |
-| `docs/WINDOWS_VALIDATION.md` | 🛻 WINDOWS VALIDATION guide, release note, or validation record |
-| `docs/WORKSPACE_GUIDE.md` | 🚚 Learn everyday workspace tasks |
-| `frontend/index.html` | 🚛 Project file for Index |
-| `frontend/postcss.config.cjs` | 🚜 Project file for Postcss.Config |
-| `frontend/public/resources/app.png` | 🏎️ Application or interface artwork: App |
-| `frontend/README.md` | 🏍️ Project documentation: README — for frontend/README.md |
-| `frontend/src/api.ts` | 🛵 Frontend component or styling for Api |
-| `frontend/src/LastFM.tsx` | 🛺 Listening charts |
-| `frontend/src/main.tsx` | 🚲 Frontend component or styling for Main |
-| `frontend/src/README.md` | 🛴 Frontend component or styling for README |
-| `frontend/src/resources/app-icon.svg` | 🛹 Scalable music-library icon artwork |
-| `frontend/src/state.ts` | 🛼 Frontend component or styling for State |
-| `frontend/src/style.css` | 🚏 Frontend component or styling for Style |
-| `frontend/src/widgets.tsx` | 🛣️ Shared artwork and playlist display helpers |
-| `frontend/tailwind.config.cjs` | 🛤️ Project file for Tailwind.Config |
-| `frontend/tsconfig.json` | 🛢️ Structured configuration or data: Tsconfig |
-| `frontend/vite.config.mts` | ⛽ Project file for Vite.Config.Mts |
-| `INSTALL.md` | 🛞 Install, repair, upgrade, and uninstall |
+| `.gitignore` | 🚫 Files Git should leave untracked |
+| `AGENTS.md` | 🧑‍💻 Project-wide instructions for coding agents |
+| `ARCHITECTURE.md` | 🏛️ How the app's parts fit together |
+| `backend/__init__.py` | 📦 Marks the backend Python package |
+| `backend/__main__.py` | ▶️ Starts the backend when run as a module |
+| `backend/api.py` | 🔌 Local API routes for the desktop interface |
+| `backend/artwork.py` | 🖼️ Safe image thumbnails and artwork caching |
+| `backend/com_service.py` | 🎵 Reads live iTunes tracks, playlists, and artwork |
+| `backend/filesystem.py` | 📁 Safe local file and folder operations |
+| `backend/jobs.py` | ⏳ Background work and job status tracking |
+| `backend/lastfm.py` | 🎧 Last.fm listening data connection |
+| `backend/legacy.py` | 🧱 Compatibility helpers for older library data |
+| `backend/metadata.py` | 🏷️ Reads and updates music track metadata |
+| `backend/README.md` | 📘 Backend setup and service notes |
+| `backend/service.py` | 📚 Library indexing, statistics, and playlist services |
+| `backend/store.py` | 💾 Shared backend state and cached library data |
+| `BUILD.md` | 🏗️ Build the app from source |
+| `CHANGELOG.md` | 🗓️ Changes across project versions |
+| `desktop/contracts.cjs` | 🛡️ Shared rules for the desktop-to-app bridge |
+| `desktop/main.cjs` | 🪟 Starts and configures the Electron desktop window |
+| `desktop/preload.cjs` | 🔐 Safely exposes desktop features to the interface |
+| `desktop/README.md` | 📗 Desktop shell and security notes |
+| `docs/CURRENT_LIBRARY.md` | 🎼 Browse, sort, select, copy, duplicate, and delete songs |
+| `docs/EARLIER_PREVIEW_RELEASE.md` | 🕰️ Notes for the earlier preview release |
+| `docs/FEATURE_PARITY.md` | ⚖️ Feature comparison and compatibility checklist |
+| `docs/LASTFM.md` | 🎶 Set up and use Last.fm features |
+| `docs/LIMITATIONS.md` | 🚧 Known limits and unsupported cases |
+| `docs/npm-audit.json` | 🧪 Recorded npm dependency audit results |
+| `docs/python-lock-audit.json` | 🐍 Recorded Python dependency lock audit results |
+| `docs/README.md` | 🗂️ Find the right user or developer guide |
+| `docs/RELEASE_1_0_0.md` | 🚀 Stable 1.0.0 release notes and download names |
+| `docs/RELEASE_2_0_0.md` | 📦 Release notes and downloads for version 2.0.0 |
+| `docs/RELEASE_3_0_0.md` | 🧾 Release notes and downloads for version 3.0.0 |
+| `docs/RELEASE_3_1_0.md` | 📥 Release notes and downloads for version 3.1.0 |
+| `docs/RELEASE_3_1_1.md` | 📚 Historical release notes for version 3.1.1 |
+| `docs/REPOSITORY_LABELS.md` | 🧷 Emoji-led descriptions for every tracked repository path |
+| `docs/source-inventory.json` | 🧭 Machine-readable inventory of source files |
+| `docs/ui-lastfm-demo.png` | 🎨 Preview of the Last.fm listening layout |
+| `docs/ui-metadata-dark.png` | 🌑 Screenshot of the dark metadata view |
+| `docs/ui-overview.png` | 🖥️ Screenshot of the main app interface |
+| `docs/VALIDATION.md` | ✅ Build and feature validation checklist |
+| `docs/WINDOWS_PREVIEW_RELEASE.md` | 🪟 Notes for the Windows preview release |
+| `docs/WINDOWS_VALIDATION.md` | 🔍 Windows build and installer test results |
+| `docs/WORKSPACE_GUIDE.md` | 🧑‍🏫 Everyday tasks in the app workspace |
+| `frontend/index.html` | 🌐 HTML entry point for the web interface |
+| `frontend/postcss.config.cjs` | 🎨 PostCSS setup for interface styles |
+| `frontend/public/resources/app.png` | 🖼️ Application artwork used by the interface |
+| `frontend/README.md` | 📙 Frontend setup and development notes |
+| `frontend/src/api.ts` | 🔗 Typed calls from the interface to the local API |
+| `frontend/src/LastFM.tsx` | 📈 Last.fm listening charts and summaries |
+| `frontend/src/main.tsx` | 🚪 Frontend startup and root rendering |
+| `frontend/src/README.md` | 📕 Notes for the frontend source folder |
+| `frontend/src/resources/app-icon.svg` | 🎵 Scalable app icon artwork |
+| `frontend/src/state.ts` | 🧠 Shared interface state and data |
+| `frontend/src/style.css` | 🖌️ Global interface styles |
+| `frontend/src/widgets.tsx` | 🧩 Shared artwork and playlist display helpers |
+| `frontend/tailwind.config.cjs` | 🌈 Tailwind utility-style configuration |
+| `frontend/tsconfig.json` | 🧾 TypeScript compiler settings for the frontend |
+| `frontend/vite.config.mts` | ⚡ Vite development server and build settings |
+| `INSTALL.md` | 📥 Install, repair, upgrade, and uninstall the app |
 | `legacy/cleaner/album_merge.py` | 🚨 Preserved legacy Album Merge source or resource |
 | `legacy/cleaner/build/build_menu.py` | 🚥 Preserved legacy Build Menu source or resource |
 | `legacy/cleaner/build/build_progress.py` | 🛑 Preserved legacy Build Progress source or resource |
