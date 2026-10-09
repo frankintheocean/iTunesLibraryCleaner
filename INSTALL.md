@@ -24,10 +24,14 @@ By default, app data is in the existing per-user `Unified iTunes Library Manager
 
 The original tools run from writable `legacy/cleaner` and `legacy/consolidator` folders under app data, with their own interfaces and state.
 
-## 🔄 Upgrade to 3.0.0
+## 🔄 Upgrade to 3.1.0
 
 The app is now called **iTunes Manager**. Its application ID and data folder stay the same, so your libraries, settings, history and backups remain available. Close the old app before installing the new version.
 
 ## 🗂️ Saved libraries
 
 Version 3 writes a new checked snapshot before changing its saved reference. This avoids replacing an XML file Windows has open. One previous snapshot is kept for recovery; locked older copies are left alone. If the app folder itself is not writable, saving still fails with a clear error. Do not delete saved copies or change permissions blindly.
+
+## 🎧 Optional Last.fm
+
+Connect your own API key and username in the Last.fm tab. Internet access is needed. No shared secret is required. See the [connection guide](docs/LASTFM.md).
