@@ -7,6 +7,7 @@ $Python = Join-Path $PWD '.venv\Scripts\python.exe'
 Checked { & $Python -m pip install -r requirements-lock-windows.txt }
 Checked { npm ci }
 Checked { & $Python scripts/verify-originals.py }
+Checked { & $Python scripts/generate-icon.py }
 Checked { & $Python -m pytest tests legacy/consolidator/tests -q }
 Checked { npm test }
 Checked { npm run build }
